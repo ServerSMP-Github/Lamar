@@ -1,0 +1,42 @@
+const { MessageEmbed, Message, Client } = require('discord.js');
+const backup = require("discord-backup");
+
+module.exports = {
+    name: 'backupinfos',
+    usage: '[backupID]',
+    aliases : ['bi', '0110001001100001011000110110101101110101011100000110100101101110011001100110111101110011'],
+    description : "Get info on the backup.",
+    /**
+     * @param {Client} client
+     * @param {Message} message
+     * @param {String[]} args
+     */
+    run: async(client, message, args) => {
+        let backupID = args[0];
+        if(!backupID){
+            return message.channel.send(":x: | You must specify a valid backup ID!");
+        }
+        // Fetch the backup
+        backup.fetch(backupID).then((backupInfos) => {
+            const date = new Date(backupInfos.data.createdTimestamp);
+            const yyyy = date.getFullYear().toString(), mm = (date.getMonth()+1).toString(), dd = date.getDate().toString();
+            const formatedDate = `${yyyy}/${(mm[1]?mm:"0"+mm[0])}/${(dd[1]?dd:"0"+dd[0])}`;
+            let embed = new Discord.MessageEmbed()
+                .setAuthor({ name: "Backup Informations" })
+                // Display the backup ID
+                .addField("Backup ID", backupInfos.id, false)
+                // Displays the server from which this backup comes
+                .addField("Server ID", backupInfos.data.guildID, false)
+                // Display the size (in mb) of the backup
+                .addField("Size", `${backupInfos.size} kb`, false)
+                // Display when the backup was created
+                .addField("Created at", formatedDate, false)
+                .setColor("#FF0000");
+            message.channel.send(embed);
+        }).catch((err) => {
+            console.error(err);
+            // if the backup wasn't found
+            return message.channel.send(":x: | No backup found for `"+backupID+"`!");
+        });
+    }
+}
