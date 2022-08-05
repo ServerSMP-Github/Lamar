@@ -1,6 +1,6 @@
 const {
   MessageAttachment,
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client
 } = require('discord.js');
@@ -23,14 +23,14 @@ module.exports = {
     const file = new MessageAttachment(`./assets/api/axolotl/${api.images[randomNumberImage]}`, 'image.jpg');
     message.channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle("Axolotl")
         .setDescription(`${randomFact.description} - ${randomFact.author}`)
         .setImage("attachment://image.jpg")
         .setFooter({
           text: "Github: https://github.com/AxolotlAPI"
         })
-        .setColor("RANDOM")
+        .setColor("Random")
       ],
       files: [file]
     })

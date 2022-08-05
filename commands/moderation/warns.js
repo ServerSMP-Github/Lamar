@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
 const Schema = require('../../models/moderator/warn');
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
             if(data) {
                 const help = data.content.map((w, i) => `\`${i + 1}\` | Moderator : ${message.guild.members.cache.get(w.moderator).user.tag}\nReason : ${w.reason}`)
                 message.channel.send({ embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                         .setTitle(`${user.user.tag}'s warns`)
                         .setDescription(String(help))
                         .setColor("BLUE")

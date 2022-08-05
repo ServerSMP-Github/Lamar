@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client } = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const schema = require('../../models/server/cc');
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
         const data  = await schema.find({ Guild: message.guild.id }).exec();
         if(!!data === false) return message.channel.send('There is no custom commands!');
         message.channel.send({ embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
                 .setColor('BLUE')
                 .setDescription(
                     data.map((cmd, i) =>

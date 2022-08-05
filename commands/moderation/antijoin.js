@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client, Collection } = require('discord.js');
+const { EmbedBuilder, Message, Client, Collection } = require('discord.js');
 const { antijoin } = require('../../client/collection');
 
 module.exports = {

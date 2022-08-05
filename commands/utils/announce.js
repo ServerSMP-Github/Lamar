@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client } = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'announce',
@@ -32,7 +32,7 @@ module.exports = {
         if(mention === true) channel.send('@everyone');
 
         channel.send({ embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
                 .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setDescription(args.slice(1).join(" "))
                 .setTimestamp()

@@ -3,7 +3,7 @@ const {
   Client,
   MessageActionRow,
   MessageButton,
-  MessageEmbed,
+  EmbedBuilder,
   MessageAttachment
 } = require("discord.js");
 const fetch = require('axios');
@@ -20,10 +20,10 @@ module.exports = {
   run: async (client, message, args) => {
     const channel = message.member.voice.channel
     if (channel) {
-      const activitys = new MessageEmbed()
+      const activitys = new EmbedBuilder()
         .setTitle("Activity")
         .setDescription("Here is a list of options!\n```\nyoutube\nchess\nchess-dev\nbetrayal\nfishing\npoker\nscrabble\ncrossword\ndrawing\nawkword\nspellcast\ncheckers\nscribble```")
-        .setColor("RANDOM")
+        .setColor("Random")
       if (!args[0]) return message.reply({
         embeds: [activitys]
       });
@@ -58,7 +58,7 @@ module.exports = {
     } else {
       return message.channel.send({
         embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
           .setTitle("You must be connected to a voice channel to use this command!")
           .setColor("#202225")
         ]
@@ -86,14 +86,14 @@ async function ActiviteFetch(code, channel, emoji, name, color, description, cli
   }).then(invite => {
     if (!invite.data.code) return message.channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle("I was unable to start the activite session!")
         .setColor(color)
       ]
     });
 
     message.channel.send({
-      embeds: [new MessageEmbed()
+      embeds: [new EmbedBuilder()
         .setTitle(name)
         .setDescription(description)
         .setColor(color)

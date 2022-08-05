@@ -1,7 +1,7 @@
 const {
     Client,
     CommandInteraction,
-    MessageEmbed,
+    EmbedBuilder,
     MessageActionRow,
     MessageButton,
     MessageAttachment
@@ -41,14 +41,14 @@ module.exports = {
                     var total = Levels.xpFor(user.level + 1);
                     var current = user.xp;
                     let bar = progressbar.filledBar(total, current, 40, "□", "■")[0];
-                    const embed = new MessageEmbed()
+                    const embed = new EmbedBuilder()
                         .setTitle(`${interaction.member.user.username}'s Rank`)
                         .setDescription(`**Rank**: \`${user.position}\`\n**Level**: \`${user.level}\`\n**XP**: \`${bar} ${current}/${total}\``)
                         .setThumbnail(interaction.member.user.displayAvatarURL({
                             format: 'png',
                             size: 512
                         }))
-                        .setColor("RANDOM")
+                        .setColor("Random")
                     interaction.followUp({
                         embeds: [embed]
                     })

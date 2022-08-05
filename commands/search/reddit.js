@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
 const fetch = require("axios");
 
 module.exports = {
@@ -25,7 +25,7 @@ module.exports = {
 
         message.channel.send({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setTitle("Subreddit Info")
                 .setThumbnail(response.icon.split("?")[0])
                 .setColor("FF5700")

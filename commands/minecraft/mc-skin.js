@@ -3,7 +3,7 @@ const {
    Client,
    MessageActionRow,
    MessageButton,
-   MessageEmbed,
+   EmbedBuilder,
    MessageAttachment
 } = require("discord.js");
 const axios = require('axios');
@@ -45,7 +45,7 @@ module.exports = {
 
          if (!uuid) return message.reply('Error! This username does not exist.');
 
-         const embed = new MessageEmbed()
+         const embed = new EmbedBuilder()
             .setTitle(`${nickname}'s Skin`)
             .addField(`${nickname}'s UUID`, uuid)
             .setImage(`https://www.mc-heads.net/body/${uuid.toString()}/right`)

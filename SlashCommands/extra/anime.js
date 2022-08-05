@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
@@ -146,9 +146,9 @@ module.exports = {
             const image = (await axios.get(url)).data.url;
             interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                         .setTitle(`Here's a ${category} GIF`)
-                        .setColor("RANDOM")
+                        .setColor("Random")
                         .setImage(image)
                 ]
             });

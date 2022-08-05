@@ -1,6 +1,6 @@
 const Client = require('../index');
 const schema = require('../models/moderator/captcha');
-const { MessageEmbed, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, MessageAttachment } = require('discord.js');
 const { CaptchaGenerator } = require('captcha-canvas');
 
 Client.on('guildMemberAdd', async (member) => {
@@ -18,10 +18,10 @@ Client.on('guildMemberAdd', async (member) => {
                 const attachment = new MessageAttachment(buffer, "captcha.png");
                 const msg = await member.send({
                     embeds: [
-                        new MessageEmbed()
+                        new EmbedBuilder()
                         .setTitle('Please enter the captcha')
                         .setImage('attachment://captcha.png')
-                        .setColor("RANDOM")
+                        .setColor("Random")
                     ],
                     files: [attachment]
                 })

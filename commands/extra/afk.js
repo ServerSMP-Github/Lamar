@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client } = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const { afk } = require('../../client/collection');
 
 module.exports = {

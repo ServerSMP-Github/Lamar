@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder } = require("discord.js");
 const env = {
     permissions: ["KICK_MEMBERS", "BAN_MEMBERS", "READ_MESSAGE_HISTORY", "SEND_MESSAGES", "MANAGE_CHANNELS", "EMBED_LINKS", "ATTACH_FILES", "READ_MESSAGE_HISTORY", "MENTION_EVERYONE", "ADD_REACTIONS", "MANAGE_GUILD", "USE_EXTERNAL_EMOJIS", "MANAGE_WEBHOOKS", "MANAGE_ROLES", "MANAGE_NICKNAMES", "CHANGE_NICKNAME", "MOVE_MEMBERS", "DEAFEN_MEMBERS", "MUTE_MEMBERS", "SPEAK", "CONNECT", "PRIORITY_SPEAKER", "USE_VAD"],
     scopes: ["applications.commands", "bot"]
@@ -14,8 +14,8 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const embed = new MessageEmbed()
-            .setColor("RANDOM")
+        const embed = new EmbedBuilder()
+            .setColor("Random")
             .setTitle("Info")
             .setThumbnail("https://github.com/Prince527GitHub/ServerSMP/blob/ServerSMP-Web/assets/image/banner/banner-bot.png?raw=true")
             .addField("Ping:", `\`${client.ws.ping}ms\``)

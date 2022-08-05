@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+const { Client, Message, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "echo",
@@ -15,11 +15,11 @@ module.exports = {
         const description = args.join(" ");
         if (!args.length) return message.reply("Please specify some text to echo!");
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle("Echo!")
             .setDescription(description)
             .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-            .setColor("RANDOM")
+            .setColor("Random")
         message.reply({ embeds: [embed] });
     },
 };

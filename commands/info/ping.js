@@ -1,4 +1,4 @@
-const { Message, Client, MessageEmbed } = require("discord.js");
+const { Message, Client, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "ping",
@@ -23,8 +23,8 @@ module.exports = {
         let botLatency = new Date() - message.createdAt
         let apiLatency = client.ws.ping;
 
-        const pingEmbed = new MessageEmbed()
-            .setColor("RANDOM")
+        const pingEmbed = new EmbedBuilder()
+            .setColor("Random")
             .addField("Bot Latency",
                 `${botLatency <= 200 ? circles.green : botLatency <= 400 ? circles.yellow : circles.red} ${botLatency}ms`
                 , true

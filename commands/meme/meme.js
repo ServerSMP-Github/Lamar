@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require("discord.js");
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require("discord.js");
 const axios = require('axios');
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
         let memeDownvotes = content[0].data.children[0].data.downs;
         let memeNumComments = content[0].data.children[0].data.num_comments;
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
         embed.setTitle(`${memeTitle}`)
         embed.setURL(`${memeUrl}`)
         embed.setImage(memeImage)

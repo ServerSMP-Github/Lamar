@@ -3,7 +3,7 @@ const {
     Client,
     MessageActionRow,
     MessageButton,
-    MessageEmbed,
+    EmbedBuilder,
     MessageAttachment
 } = require("discord.js");
 const Canvas = require("canvas");
@@ -97,8 +97,8 @@ module.exports = {
 
             message.reply({
                 embeds: [
-                    new MessageEmbed()
-                    .setColor("RANDOM")
+                    new EmbedBuilder()
+                    .setColor("Random")
                     .setTitle("SimpLevel")
                     .setDescription(text)
                 ]

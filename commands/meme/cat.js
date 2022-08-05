@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+const { Client, Message, EmbedBuilder } = require("discord.js");
 const fetch = require("axios");
 
 module.exports = {
@@ -15,8 +15,8 @@ module.exports = {
         const cat = await fetch("https://aws.random.cat/meow");
         message.channel.send({
             embeds: [
-                new MessageEmbed()
-                    .setColor("RANDOM")
+                new EmbedBuilder()
+                    .setColor("Random")
                     .setTitle("Cat")
                     .setImage(cat.data.file)
             ]

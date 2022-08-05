@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client } = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const SchemaNSFW = require('../../models/server/nsfw');
 const axios = require('axios');
 
@@ -33,7 +33,7 @@ module.exports = {
             let memeDownvotes = content[0].data.children[0].data.downs;
             let memeNumComments = content[0].data.children[0].data.num_comments;
     
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             embed.setTitle(`${memeTitle}`)
             embed.setURL(`${memeUrl}`)
             embed.setImage(memeImage)

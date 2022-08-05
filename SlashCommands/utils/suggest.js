@@ -1,7 +1,7 @@
 const {
     Client,
     CommandInteraction,
-    MessageEmbed,
+    EmbedBuilder,
     WebhookClient
 } = require("discord.js");
 
@@ -36,7 +36,7 @@ module.exports = {
             url: client.config.channel.webhooks.suggest
         }).send({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setAuthor({
                     name: interaction.member.user.username,
                     iconURL: interaction.member.user.displayAvatarURL()

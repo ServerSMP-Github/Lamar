@@ -1,5 +1,5 @@
 const client = require("../index");
-const { MessageEmbed, WebhookClient } = require("discord.js");
+const { EmbedBuilder, WebhookClient } = require("discord.js");
 const Userstats = require("../models/user/user-stats");
 const customCommandModel = require("../models/server/cc-slash");
 const profileSchema = require("../models/user/profile");
@@ -80,7 +80,7 @@ client.on("interactionCreate", async (interaction) => {
 
       new WebhookClient({ url: client.config.channel.webhooks.cmdlog }).send({
         embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
           .setAuthor({
             name: interaction.member.user.username,
             iconURL: interaction.member.user.displayAvatarURL()
@@ -115,7 +115,7 @@ client.on("interactionCreate", async (interaction) => {
 
       if (cmd.owner && !client.config.bot.owner.includes(interaction.member.user.id)) return message.channel.send({
         embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
             .setColor("RED")
             .setDescription("This command can only be used by the owners!")
         ]
@@ -157,7 +157,7 @@ client.on("interactionCreate", async (interaction) => {
 
       new WebhookClient({ url: client.config.channel.webhooks.cmdlog }).send({
         embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
           .setAuthor({
             name: interaction.member.user.username,
             iconURL: interaction.member.user.displayAvatarURL()

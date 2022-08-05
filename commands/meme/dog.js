@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+const { Client, Message, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
@@ -19,8 +19,8 @@ module.exports = {
 
         message.channel.send({
             embeds: [
-                new MessageEmbed()
-                    .setColor("RANDOM")
+                new EmbedBuilder()
+                    .setColor("Random")
                     .setTitle("Dog :dog:")
                     .setFooter({ text: "A random dog from `https://random.dog/`" })
                     .setImage(String(dog.url))

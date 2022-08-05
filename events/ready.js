@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require("discord.js");
+const { EmbedBuilder, WebhookClient } = require("discord.js");
 const { blacklistedwords } = require('../client/collection');
 const Schema = require('../models/moderator/blackwords');
 const verFile = require('../version.json');
@@ -23,10 +23,10 @@ client.on("ready", async() => {
 
   if (client.config.channel.webhooks.status) new WebhookClient({ url: client.config.channel.webhooks.status }).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
         .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() })
         .setDescription(`:green_circle: Success!\n:robot: Connected To **${client.user.tag}**\n:eyes: Watching \`${client.users.cache.size}\` Users, \`${client.guilds.cache.size}\` Servers.\n:information_source: Prefix: \`${client.config.bot.info.prefix}\` || \`${cmdCount}\` Commands`)
-        .setColor("RANDOM")
+        .setColor("Random")
         .setTimestamp()
     ]
   });

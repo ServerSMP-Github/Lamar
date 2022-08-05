@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageSelectMenu, MessageEmbed, Interaction } = require("discord.js");
+const { Message, Client, MessageActionRow, MessageButton, MessageSelectMenu, EmbedBuilder, Interaction } = require("discord.js");
 const SchemaNSFW = require("../../models/server/nsfw");
 const { readdirSync } = require("fs");
 
@@ -43,7 +43,7 @@ module.exports = {
               //cots.push(dir.toLowerCase());
             });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
               .setTitle("📬 Need help?")
               .setDescription(
                 `\`\`\`js\nPrefix: ${prefix}\nExtra information: If you seen error or bugs please use ${prefix}report to report it! 'If commands dont not work the bot may need more perms!'\`\`\`\n> To check out a category, use command \`${prefix}help [category-name]\``
@@ -112,7 +112,7 @@ module.exports = {
               );
 
             if (cots.includes(args[0].toLowerCase())) {
-              const combed = new MessageEmbed()
+              const combed = new EmbedBuilder()
                 .setTitle(
                   `__${
                     args[0].charAt(0).toUpperCase() + args[0].slice(1)
@@ -128,7 +128,7 @@ module.exports = {
             }
 
             if (!command) {
-              const embed = new MessageEmbed()
+              const embed = new EmbedBuilder()
                 .setTitle(
                   `Invalid command! Use \`${prefix}help\` for all of my commands!`
                 )
@@ -136,7 +136,7 @@ module.exports = {
               return message.channel.send({ embeds: [embed] });
             }
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
               .setTitle("Command Details:")
               .addField(
                 "Command:",

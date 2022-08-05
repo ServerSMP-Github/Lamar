@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client, version } = require('discord.js');
+const { EmbedBuilder, Message, Client, version } = require('discord.js');
 const ytdl = require('ytdl-core');
 const os = require('os');
 const ms = require('ms');
@@ -29,7 +29,7 @@ module.exports = {
                         const RAM_used_by_bot = process.memoryUsage().heapUsed / 1024 / 1024;
 
 
-                      const embed = new MessageEmbed()
+                      const embed = new EmbedBuilder()
                           .setAuthor({ name: `${client.user.username}` })
                           .setColor("#5400FF")
                           .setDescription(`

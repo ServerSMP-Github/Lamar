@@ -1,4 +1,4 @@
-const { ContextMenuInteraction, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require("discord.js");
+const { ContextMenuInteraction, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require("discord.js");
 
 module.exports = {
     name: 'wordle',
@@ -20,7 +20,7 @@ module.exports = {
             `⬛⬛⬛⬛⬛ - Empty`
         ]
 
-        let game = new MessageEmbed()
+        let game = new EmbedBuilder()
             .setTitle(`😮 | Wordle`)
             .setDescription(gamedesc.join('\n'))
             .setFooter({

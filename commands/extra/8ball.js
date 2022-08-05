@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+const { Client, Message, EmbedBuilder } = require("discord.js");
 const _8ball = require("../../assets/api/serversmp-api/8ball.json");
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
       const randomNumber = Math.floor(Math.random() * _8ball.length);
       const responseText = _8ball[randomNumber];
       message.reply({ embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
           .setDescription(`**Question:** *${text}*\n**Answer:** ${responseText.emoji} *${responseText.text}*`)
           .setColor(`${responseText.color}`)
       ]})

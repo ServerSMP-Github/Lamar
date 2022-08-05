@@ -1,5 +1,5 @@
 const {
-    MessageEmbed
+    EmbedBuilder
 } = require("discord.js");
 const progressbar = require('string-progressbar');
 
@@ -16,7 +16,7 @@ module.exports = {
 
         if (client.music === false) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setAuthor({
                     name: `${client.user.username} will not be doing music anymore, please \`youtube\``
                 })
@@ -27,7 +27,7 @@ module.exports = {
         const player = client.music.get(interaction.guild.id);
         if (!player) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("There is nothing playing")
                 .setColor("YELLOW")
             ]
@@ -37,7 +37,7 @@ module.exports = {
 
         if (!channel) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("Sorry, but you need to be in a voice channel to do that")
                 .setColor("YELLOW")
             ]
@@ -45,7 +45,7 @@ module.exports = {
 
         if (player.voiceChannel !== channel.id) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("You are not in my voice channel")
                 .setColor("YELLOW")
             ]
@@ -53,7 +53,7 @@ module.exports = {
 
         if (!player.playing) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("There is nothing playing")
                 .setColor("YELLOW")
             ]
@@ -67,7 +67,7 @@ module.exports = {
             bar = progressbar.filledBar(100, Number(queue.volume), 40, "□", "■")[0];
             return interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription(`🔊 **|** The current volume is **\`${queue.volume}\`**%`)
                     .setFooter({
                         text: String(bar)
@@ -86,7 +86,7 @@ module.exports = {
         bar = progressbar.filledBar(100, Number(volumePercentage), 40, "□", "■")[0];
         return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription(`🔊 **|** Volume set to **\`${volumePercentage}\`**%`)
                 .setFooter({
                     text: String(bar)

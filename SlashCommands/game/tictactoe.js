@@ -1,4 +1,4 @@
-const { Client, ContextMenuInteraction, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Client, ContextMenuInteraction, EmbedBuilder, MessageActionRow, MessageButton } = require('discord.js');
 const { TicTacToe } = require('discord-gamecord');
 
 module.exports = {

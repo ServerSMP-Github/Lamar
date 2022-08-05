@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
 const Schema = require('../../models/management/blacklist');
 
 module.exports = {

@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "biden-tweet",
@@ -14,7 +14,7 @@ module.exports = {
     run: async (client, message, args) => {
         const sentence = args.join(" ")
         if (!sentence) return message.channel.send('Please specify a query.')
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
           .setTitle('Joe Biden')
           .setImage(`https://api.popcat.xyz/biden?text=${encodeURIComponent(sentence)}`)
           .setColor('ORANGE')

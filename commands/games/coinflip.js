@@ -1,5 +1,5 @@
 const {
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client,
   MessageAttachment
@@ -26,7 +26,7 @@ module.exports = {
     const user = message.author;
     message.channel.send({
         embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
             .setTitle("Coin Flip")
             .setDescription(`The coin landed on ${response}!`)
             .setFooter({ text: `Request by ${user.username}` })

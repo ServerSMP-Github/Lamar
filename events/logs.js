@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const Schema = require('../models/logs/modlogs');
 const client = require("../index");
 
@@ -10,7 +10,7 @@ client.on("channelCreate", async (channel) => {
   if (data.chc === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(":white_circle: Channel Created :white_circle: ")
       .setColor("YELLOW")
       .setDescription(`**Channel Name:** \`${channel.name}\`\n**Channel ID:** \`${channel.id}\`\n**Channel Type:** \`${channel.type}\``)
@@ -27,7 +27,7 @@ client.on("channelDelete", async (channel) => {
   if (data.chd === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(":x: Channel Deleted :x:")
       .setColor("RED")
       .setDescription(`**Channel Name:** \`${channel.name}\`\n**Channel ID:** \`${channel.id}\`\n**Channel Type:** \`${channel.type}\``)
@@ -45,7 +45,7 @@ client.on("channelPinsUpdate", async (channel, time) => {
   if (data.chpu === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(":safety_pin: Channel Pin Updated :safety_pin:")
       .setColor("YELLOW")
       .setDescription(`**Channel Name:** \`${channel.name}\`\n**Channel ID:** \`${channel.id}\`\n**Pinned at** \`${time}\``)
@@ -77,7 +77,7 @@ client.on("channelUpdate", async (oldChannel, newChannel) => {
   if (oldChannel.name != newChannel.name) {
     channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle(":white_circle: Channel Updated - Name :white_circle:")
         .setColor("YELLOW")
         .setDescription(`**Channel Name:** \`${oldChannel.name}\`\nChannel ID: \`${oldChannel.id}\`\n\n` + `**Channel Name:** \`${newChannel.name}\`\nChannel ID: \`${newChannel.id}\``)
@@ -88,7 +88,7 @@ client.on("channelUpdate", async (oldChannel, newChannel) => {
   } else if (oldChannel.type != newChannel.type) {
     channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle(":white_circle: Channel Updated - Type :white_circle:")
         .setColor("YELLOW")
         .setDescription(`**Channel Name:** \`${oldChannel.name}\`\nChannel ID: \`${oldChannel.id}\`\n**Channel Type:** \`${types[oldChannel.type]}\`\n\n` + `**ChannelNAME:** \`${newChannel.name}\`\nChannel ID: \`${newChannel.id}\`\n**Channel Type:** \`${types[newChannel.type]}\``)
@@ -99,7 +99,7 @@ client.on("channelUpdate", async (oldChannel, newChannel) => {
   } else if (oldChannel.topic != newChannel.topic) {
     channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle(":white_circle: Channel Updated - Topic :white_circle:")
         .setColor("YELLOW")
         .setDescription(`**Channel Name:** \`${oldChannel.name}\`\n**Channel ID:** \`${oldChannel.id}\`\n**Channel Topic:** \`${oldChannel.topic}\`\n\n` + `**Channel Name:** \`${newChannel.name}\`\n**Channel ID:** \`${newChannel.id}\`\n**Channel Topic:** \`${newChannel.topic}\``)
@@ -110,7 +110,7 @@ client.on("channelUpdate", async (oldChannel, newChannel) => {
   } else if (oldChannel.parent !== newChannel.parent) {
     channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle(`:white_circle: Channel Category Updated :white_circle:`)
         .addField(`Channel`, `${oldChannel}`)
         .addField(`Old Category`, `${oldChannel.parent}`)
@@ -123,7 +123,7 @@ client.on("channelUpdate", async (oldChannel, newChannel) => {
   } else if (oldChannel.rateLimitPerUser !== newChannel.rateLimitPerUser) {
     channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle(`:white_circle: Channel Slowmode Updated :white_circle:`)
         .addField(`Channel`, `${oldChannel}`)
         .addField(`Old Slowmode`, `${oldChannel.rateLimitPerUser} seconds`)
@@ -144,7 +144,7 @@ client.on("emojiDelete", async (emoji) => {
   if (data.ed === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle("❌ Emoji Deleted ❌")
       .setColor("RED")
       .setDescription(`**Emoji:** ${emoji}\n**Emoji Name:** ${emoji.name}\n**Emoji ID:** ${emoji.id}\n**Emoji URL:** ${emoji.url}`)
@@ -162,7 +162,7 @@ client.on("emojiCreate", async (emoji) => {
   if (data.ec === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(":white_circle: Emoji Created :white_circle:")
       .setColor("GREEN")
       .setDescription(`**Emoji:** ${emoji}\n**Emoji Name:** ${emoji.name}\n**Emoji ID:** ${emoji.id}\n**Emoji URL:** ${emoji.url}`)
@@ -179,7 +179,7 @@ client.on("emojiUpdate", async (olEemoji, newEmoji) => {
   if (data.eu === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(":new: Emoji Name Changed :new:")
       .setColor("ORANGE")
       .setDescription(`**Emoji: ${newEmoji}** \n\n**Before:** \`${oldEmoji.name}\`\n**After:** \`${newEmoji.name}\`\n**Emoji ID:** \`${newEmoji.id}\``)
@@ -197,7 +197,7 @@ client.on("emojiUpdate", async (olEemoji, newEmoji) => {
 //   if (data.gu === true) return;
 //   client.channels.cache.get(data.Channel).send({
 //     embeds: [
-//       new MessageEmbed()
+//       new EmbedBuilder()
 //       .setTitle(":white_circle: Guild Updated :white_circle:")
 //       .setColor("YELLOW")
 //       .setDescription(`**Before:** \`${oldGuild.name}\`\n**After:** \`${newGuild.name}\`\n**Before:** \`${oldGuild.region}\`\n**After:** \`${newGuild.region}\``)
@@ -215,7 +215,7 @@ client.on("emojiUpdate", async (olEemoji, newEmoji) => {
 //   if (data.gmk === true) return;
 //   client.channels.cache.get(data.Channel).send({
 //     embeds: [
-//       new MessageEmbed()
+//       new EmbedBuilder()
 //       .setTitle(":white_circle: Member Kicked :white_circle:")
 //       .setColor("RED")
 //       .setDescription(`**Member:** ${member}\n**Member ID:** ${member.id}`)
@@ -233,7 +233,7 @@ client.on("guildBanAdd", async (ban) => {
   if (data.gba === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle("🔨User Banned🔨")
       .setColor("RED")
       .setDescription(`**User:** ${ban.user.username} (\`${ban.user.id}\`)\n**Is Bot: **${ban.user.bot}`)
@@ -254,7 +254,7 @@ client.on("guildBanRemove", async (ban) => {
   if (data.gbr === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle("🔨User Unbanned🔨")
       .setColor("YELLOW")
       .setDescription(`**User:** ${ban.user.username} (\`${ban.user.id}\`)\n**Is Bot: ** ${ban.user.bot}`)
@@ -275,7 +275,7 @@ client.on("guildMemberAdd", async (member) => {
   if (data.gma === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(":new: Member Joined :new: ")
       .setColor("GREEN")
       .setDescription(`**Member:** ${member.user} (\`${member.user.id}\`)\n\`${member.user.tag}\``)
@@ -296,7 +296,7 @@ client.on("guildMemberRemove", async (member) => {
   if (data.gmr === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(":cry: Member Left :cry: ")
       .setColor("RED")
       .setDescription(`**Member:** ${member.user} (\`${member.user.id}\`)\n\`${member.user.tag}\``)
@@ -317,7 +317,7 @@ client.on("guildMemberChunk", async (members, guild) => {
   if (data.gmc === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(" :new: Member Chunk / Raid - " + members.length + "Members :new: ")
       .setColor("RED")
       .setDescription(members.map((user, index) => `${index}) - ${user} - ${user.tag} - \`${user.id}\``))
@@ -335,7 +335,7 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
   if (data.gmu === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(`:new: Member Role Changed :new: `)
       .addField(`**Member**`, `${oldMember}`)
       .addField(`**Before**`, `${oldMember.roles.cache.map((role) => role.toString()).join(" , ")}`)
@@ -355,7 +355,7 @@ client.on("roleCreate", async (role) => {
   if (data.rc === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(`✔ Role Created ✔`)
       .setColor("GREEN")
       .addField(`Role`, `${role}`)
@@ -374,7 +374,7 @@ client.on("roleDelete", async (role) => {
   if (data.rd === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(`🗑️ Role Deleted 🗑️`)
       .setColor("GREEN")
       .addField(`Role`, `${role.name}`)
@@ -393,7 +393,7 @@ client.on("roleUpdate", async (oldRole, newRole) => {
   if (data.ru === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(`:new: Role Name Updated :new:`)
       .addField(`Role`, `${oldRole}`)
       .addField(`Old Name`, `${oldRole.name}`)
@@ -412,7 +412,7 @@ client.on("inviteCreate", async (invite) => {
   if (data.ic === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(`✔ Invite Created ✔`)
       .setColor("GREEN")
       .addField(`Invite`, `${invite}`)
@@ -429,7 +429,7 @@ client.on("inviteDelete", async (invite) => {
   if (data.id === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(`🗑️ Invite Deleted 🗑️`)
       .setColor("RED")
       .addField(`Invite`, `${invite}`)
@@ -446,7 +446,7 @@ client.on("messageDelete", async (message) => {
   if (data.md === true) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle("🗑️ Message Deleted 🗑️")
       .setDescription(`Message Just got deleted in <#${message.channel.id}> | Message by **${message.author.tag}**\nAuthor ID: \`${message.author.id}\` | Message ID: \`${message.id}\` \n\n__Message__: *${message.content || "*Sorry, We cant fetch that message !*"}*`)
       .setColor("RED")
@@ -465,7 +465,7 @@ client.on("messageDelete", async (message) => {
 //   if (data.mdb === true) return;
 //   client.channels.cache.get(data.Channel).send({
 //     embeds: [
-//       new MessageEmbed()
+//       new EmbedBuilder()
 //       .setTitle("🗑️ Bulk Messages Deleted 🗑️")
 //       .setDescription(`Messages Just got deleted in <#${messages.channel.id}> | Messages by **${messages.map((message) => message.author.tag).join(" , ")}**\nAuthor ID: \`${messages.map((message) => message.author.id).join(" , ")}\` | Message ID: \`${messages.map((message) => message.id).join(" , ")}\` \n\n__Message__: *${messages.map((message) => message.content || "*Sorry, We cant fetch that message !*").join(" , ")}*`)
 //       .setColor("RED")
@@ -485,7 +485,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
   if (oldMessage.content === newMessage.content) return;
   client.channels.cache.get(data.Channel).send({
     embeds: [
-      new MessageEmbed()
+      new EmbedBuilder()
       .setTitle(" :new: Message Updated :new:")
       .setTimestamp()
       .setColor("YELLOW")
@@ -505,7 +505,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 //   if (data.vcj === true) return;
 //   client.channels.cache.get(data.Channel).send({
 //     embeds: [
-//       new MessageEmbed()
+//       new EmbedBuilder()
 //       .setTitle("🎤 Voice Channel Join 🎤")
 //       .setColor("GREEN")
 //       .addField("Member", `${member.user.tag}`)
@@ -523,7 +523,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 //   if (data.vcl === true) return;
 //   client.channels.cache.get(data.Channel).send({
 //     embeds: [
-//       new MessageEmbed()
+//       new EmbedBuilder()
 //       .setTitle("🎤 Voice Channel Leave 🎤")
 //       .setColor("RED")
 //       .addField("Member", `${member.user.tag}`)
@@ -541,7 +541,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 //     if (data.vcs === true) return;
 //     client.channels.cache.get(data.Channel).send({
 //       embeds: [
-//         new MessageEmbed()
+//         new EmbedBuilder()
 //         .setTitle("🎤 Voice Channel Switch 🎤")
 //         .setColor("GREEN")
 //         .addField("Member", `${member.user.tag}`)
@@ -562,7 +562,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 //   if (oldMember.voice.channel === null) {
 //     client.channels.cache.get(data.Channel).send({
 //       embeds: [
-//         new MessageEmbed()
+//         new EmbedBuilder()
 //         .setTitle("🎤 Voice Channel Join 🎤")
 //         .setColor("GREEN")
 //         .addField("Member", `${newMember.user.tag}`)
@@ -573,7 +573,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 //   } else if (newMember.voice.channel === null) {
 //     client.channels.cache.get(data.Channel).send({
 //       embeds: [
-//         new MessageEmbed()
+//         new EmbedBuilder()
 //         .setTitle("🎤 Voice Channel Leave 🎤")
 //         .setColor("RED")
 //         .addField("Member", `${oldMember.user.tag}`)
@@ -584,7 +584,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 //   } else {
 //     client.channels.cache.get(data.Channel).send({
 //       embeds: [
-//         new MessageEmbed()
+//         new EmbedBuilder()
 //         .setTitle("🎤 Voice Channel Switch 🎤")
 //         .setColor("GREEN")
 //         .addField("Member", `${newMember.user.tag}`)

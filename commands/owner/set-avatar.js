@@ -1,5 +1,5 @@
 const {
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client
 } = require('discord.js');
@@ -22,7 +22,7 @@ module.exports = {
     let avatarurl = args.join(" ");
     if (!avatarurl) return message.channel.send(`Usage: setavatarbot <url>`)
     client.user.setAvatar(`${avatarurl}`)
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.EmbedBuilder()
       .setTitle('New Avatar Set')
       .setImage(`${avatarurl}`)
       .setTimestamp()

@@ -1,6 +1,6 @@
 const {
     Client,
-    MessageEmbed,
+    EmbedBuilder,
     MessageActionRow,
     MessageSelectMenu,
     MessageAttachment

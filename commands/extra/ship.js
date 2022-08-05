@@ -1,7 +1,7 @@
 const {
     Client,
     Message,
-    MessageEmbed
+    EmbedBuilder
 } = require("discord.js");
 const block = "⬛";
 const heart = ":red_square:";
@@ -26,7 +26,7 @@ module.exports = {
         try {
             await message.channel.send({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setColor('dd2e44')
                     .setTitle('Shipping...')
                     .setDescription(`Shipped ****${user1.user.tag}**** and ****${user2.user.tag}****!`)

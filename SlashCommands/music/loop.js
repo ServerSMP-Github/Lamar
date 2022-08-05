@@ -1,5 +1,5 @@
 const {
-MessageEmbed
+EmbedBuilder
 } = require("discord.js");
 
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
 
         if (client.music === false) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setAuthor({
                     name: `${client.user.username} will not be doing music anymore, please \`youtube\``
                 })
@@ -39,7 +39,7 @@ module.exports = {
         const player = client.music.get(interaction.guild.id);
         if (!player) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("There is nothing playing")
                 .setColor("YELLOW")
             ]
@@ -49,7 +49,7 @@ module.exports = {
 
         if (!channel) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("Sorry, but you need to be in a voice channel to do that")
                 .setColor("YELLOW")
             ]
@@ -57,7 +57,7 @@ module.exports = {
 
         if (player.voiceChannel !== channel.id) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("You are not in my voice channel")
                 .setColor("YELLOW")
             ]
@@ -68,7 +68,7 @@ module.exports = {
         if (mode === 1) {
             if (player.queueRepeat === false && player.trackRepeat === false) return interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription("▶ **|** The repeat mode is already set to **\`OFF\`**")
                     .setColor("YELLOW")
                 ]
@@ -77,7 +77,7 @@ module.exports = {
             player.setTrackRepeat(false);
             interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription(`▶ **|** The repeat mode has been set to **\`OFF\`**`)
                     .setColor("BLUE")
                 ]
@@ -85,7 +85,7 @@ module.exports = {
         } else if (mode === 3) {
             if (player.queueRepeat === true) return interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription("🔁 **|** The repeat mode is already set to **\`ALL\`**")
                     .setColor("YELLOW")
                 ]
@@ -93,7 +93,7 @@ module.exports = {
             player.setQueueRepeat(true);
             interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription(`🔁 **|** The repeat mode has been set to **\`ALL\`**`)
                     .setColor("BLUE")
                 ]
@@ -101,7 +101,7 @@ module.exports = {
         } else if (mode === 2) {
             if (player.trackRepeat === true) return interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription("🔂 **|** The repeat mode is already set to **\`ONE\`**")
                     .setColor("YELLOW")
                 ]
@@ -109,14 +109,14 @@ module.exports = {
             player.setTrackRepeat(true);
             interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription(`🔂 **|** The repeat mode has been set to **\`ONE\`**`)
                     .setColor("BLUE")
                 ]
             });
         } else return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription(`An error occurred while updating loop mode`)
                 .setColor("RED")
             ]

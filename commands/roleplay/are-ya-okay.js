@@ -1,6 +1,6 @@
 const {
   MessageAttachment,
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client
 } = require('discord.js');

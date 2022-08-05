@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client } = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const SchemaNSFW = require('../../models/server/nsfw');
 const axios = require("axios");
 
@@ -26,7 +26,7 @@ module.exports = {
             if (!data.url) return NSFW();
             message.channel.send({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle(`Wallpaper`)
                     .setColor("GREEN")
                     .setImage(data.url)

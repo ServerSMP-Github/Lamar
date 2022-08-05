@@ -4,7 +4,7 @@ const {
     Client,
     MessageActionRow,
     MessageButton,
-    MessageEmbed
+    EmbedBuilder
 } = require("discord.js");
 const { formatedDate, HMS } = require('../../assets/api/time/index');
 const axios = require('axios');
@@ -120,7 +120,7 @@ module.exports = {
         if (member.roles.cache.size > 50) roles = "Too many roles";
         if (roles.length === 0) roles = `No roles.`;
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setThumbnail(member.user.displayAvatarURL({
                 dynamic: true
             }))

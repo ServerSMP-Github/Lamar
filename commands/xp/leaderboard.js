@@ -3,7 +3,7 @@ const {
     Client,
     MessageActionRow,
     MessageButton,
-    MessageEmbed,
+    EmbedBuilder,
     MessageAttachment
 } = require("discord.js");
 const xpSchema = require("../../models/server/xp");
@@ -30,10 +30,10 @@ module.exports = {
                 const lb = leaderboard.map(e => `**${e.position}**. *${e.username}#${e.discriminator}*\nLevel: \`${e.level}\`\nXP: \`${e.xp.toLocaleString()}\``);
                 message.channel.send({
                     embeds: [
-                        new MessageEmbed()
+                        new EmbedBuilder()
                         .setTitle("**Leaderboard**:")
                         .setDescription(`${lb.join("\n\n")}`)
-                        .setColor("RANDOM")
+                        .setColor("Random")
                     ]
                 });
             }

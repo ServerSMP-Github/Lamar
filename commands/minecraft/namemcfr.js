@@ -3,7 +3,7 @@ const {
    Client,
    MessageActionRow,
    MessageButton,
-   MessageEmbed,
+   EmbedBuilder,
    MessageAttachment
 } = require("discord.js");
 const axios = require("axios");
@@ -57,7 +57,7 @@ module.exports = {
          } = new JSDOM("");
          const $ = require("jquery")(window);
          $.getJSON(`https://api.namemc.com/profile/${uuid}/friends`, function (data) {
-            let returnembed = new MessageEmbed()
+            let returnembed = new EmbedBuilder()
                .setTitle(`${nickname}'s NameMC Friends`)
                .setThumbnail('https://visage.surgeplay.com/face/' + uuid)
                .setColor('#c5aaa8');

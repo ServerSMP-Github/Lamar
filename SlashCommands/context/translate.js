@@ -1,7 +1,7 @@
 const {
     Client,
     CommandInteraction,
-    MessageEmbed,
+    EmbedBuilder,
     ContextMenuInteraction
 } = require("discord.js");
 const translate = require("@iamtraction/google-translate")
@@ -23,7 +23,7 @@ module.exports = {
             to: 'en'
         });
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setFooter({ text: `${interaction.user.tag}` })
             .setTimestamp()
             .addField("Text To Translate:", `\`\`\`${msg.content.slice(0, 950)}\`\`\``)

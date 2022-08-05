@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, Message, Client, MessageAttachment } = require('discord.js');
 const DIG = require("discord-image-generation");
 
 module.exports = {

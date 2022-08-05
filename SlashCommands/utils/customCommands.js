@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder } = require("discord.js");
 const customCommandModel = require("../../models/server/cc-slash");
 
 module.exports = {
@@ -70,7 +70,7 @@ module.exports = {
           description: "a custom command",
         });
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
           .setTitle("custom commands")
           .addField("name", commandName)
           .addField("response", response)

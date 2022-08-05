@@ -19,7 +19,7 @@ module.exports = {
 
     message.channel.send({
       embeds: [
-        new Discord.MessageEmbed()
+        new Discord.EmbedBuilder()
         .setTitle("Result for your Search Query: " + query)
         .setDescription(first.title)
         .addField("Tags", first.tags)

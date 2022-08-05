@@ -2,7 +2,7 @@ const rankCardRequest = require('../models/management/rankcard-request');
 const userRankcard = require("../models/user/user-rankcard");
 const pollSchema = require('../models/server/poll-cmd');
 const SchemaModLogs = require("../models/logs/modlogs");
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const simplydjs = require('simply-djs');
 const client = require("../index");
 
@@ -671,7 +671,7 @@ client.on("interactionCreate", async (interaction) => {
 
             if (value == 'botInfo') return interaction.reply({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle("Information")
                     .setDescription("A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!")
                     .setColor('#1abc9c')
@@ -680,7 +680,7 @@ client.on("interactionCreate", async (interaction) => {
             })
             if (value == 'botInvite') return interaction.reply({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle("Invite")
                     .setDescription("You can invite me to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=778409873573412874&scope=applications.commands+bot&permissions=1073203574)")
                     .setColor('#1abc9c')
@@ -689,7 +689,7 @@ client.on("interactionCreate", async (interaction) => {
             })
             if (value == 'botComms') return interaction.reply({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle("Commands")
                     .setDescription("You can view all my commands by clicking [here](https://dash.serversmp.xyz/commands/)")
                     .setColor('#1abc9c')
@@ -698,7 +698,7 @@ client.on("interactionCreate", async (interaction) => {
             })
             if (value == 'website') return interaction.reply({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle("Website")
                     .setDescription("Dashboard: [https://dash.serversmp.xyz/](https://dash.serversmp.xyz/)\n Website: [https://serversmp.xyz/](https://serversmp.xyz/)")
                     .setColor('#1abc9c')

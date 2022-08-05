@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, MessageActionRow, MessageButton } = require("discord.js");
 
 module.exports = {
     name: "avatar",
@@ -15,11 +15,11 @@ module.exports = {
 
       if (user.displayAvatarURL({ dynamic: true }).endsWith('.gif')) str += ` [gif](${user.displayAvatarURL({ dynamic: true })})`;
 
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
           .setTitle(`${user.username}'s avatar`)
           .setDescription(`[jpg](${user.displayAvatarURL({ format: 'jpg' })}) | [webp](${user.displayAvatarURL()}) | [png](${user.displayAvatarURL({ format: 'png' })})`)
           .setImage(user.displayAvatarURL({ dynamic: true, size: 4096 }))
-          .setColor("RANDOM")
+          .setColor("Random")
 
       interaction.followUp({ embeds: [embed] });
     },

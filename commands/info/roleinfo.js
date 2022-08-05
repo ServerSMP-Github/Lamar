@@ -1,7 +1,7 @@
 const {
     Client,
     Message,
-    MessageEmbed
+    EmbedBuilder
 } = require("discord.js");
 const { DMY } = require("../../assets/api/time/index");
 
@@ -72,8 +72,8 @@ module.exports = {
 
             message.channel.send({
                 embeds: [
-                    new MessageEmbed()
-                    .setColor("RANDOM")
+                    new EmbedBuilder()
+                    .setColor("Random")
                     .setTitle(`Role Info !!`)
                     .setThumbnail(message.guild.iconURL({
                         dynamic: true,

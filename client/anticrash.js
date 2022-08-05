@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const winston = require('winston');
-const { MessageEmbed, WebhookClient } = require("discord.js")
+const { EmbedBuilder, WebhookClient } = require("discord.js")
 
 const logger = winston.createLogger({
   transports: [
@@ -22,7 +22,7 @@ module.exports = (client) => {
     loggerHook.send({
       username: client.user.username,
       avatarURL: client.user.displayAvatarURL(),
-      embeds: [new MessageEmbed()
+      embeds: [new EmbedBuilder()
         .setAuthor({ name: `Anti Crash`, iconURI: client.user.displayAvatarURL({ dynamic: true }) })
         .setTitle(`Unhandled Rejection`)
         .setURL("https://nodejs.org/api/process.html#event-unhandledrejection")
@@ -41,7 +41,7 @@ module.exports = (client) => {
     loggerHook.send({
       username: client.user.username,
       avatarURL: client.user.displayAvatarURL(),
-      embeds: [new MessageEmbed()
+      embeds: [new EmbedBuilder()
         .setAuthor({ name: `Anti Crash`, iconURI: client.user.displayAvatarURL({ dynamic: true }) })
         .setTitle(`Uncaught Exception`)
         .setURL("https://nodejs.org/api/process.html#event-uncaughtexception")
@@ -60,7 +60,7 @@ module.exports = (client) => {
     loggerHook.send({
       username: client.user.username,
       avatarURL: client.user.displayAvatarURL(),
-      embeds: [new MessageEmbed()
+      embeds: [new EmbedBuilder()
         .setAuthor({ name: `Anti Crash`, iconURI: client.user.displayAvatarURL({ dynamic: true }) })
         .setTitle(`Uncaught Exception Monitor`)
         .setURL("https://nodejs.org/api/process.html#event-uncaughtexceptionmonitor")
@@ -79,7 +79,7 @@ module.exports = (client) => {
     // loggerHook.send({
     //   username: client.user.username,
     //   avatarURL: client.user.displayAvatarURL(),
-    //   embeds: [new MessageEmbed()
+    //   embeds: [new EmbedBuilder()
     //     .setAuthor({ name: `Anti Crash`, iconURI: client.user.displayAvatarURL({ dynamic: true }) })
     //     .setTitle(`Multiple Resolves`)
     //     .setURL("https://nodejs.org/api/process.html#event-multipleresolves")

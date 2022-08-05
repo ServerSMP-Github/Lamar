@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
 const Schema = require('../../models/moderator/warn');
 
 module.exports = {
@@ -38,12 +38,12 @@ module.exports = {
             data.save()
         });
         user.send({ embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
                 .setDescription(`You have been warned for ${reason}`)
                 .setColor("RED")
         ]})
         message.channel.send({ embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
                 .setDescription(`Warned ${user} for ${reason}`).setColor('BLUE')
         ]})
     }

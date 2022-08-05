@@ -1,5 +1,5 @@
 const {
-    MessageEmbed
+    EmbedBuilder
 } = require("discord.js");
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
 
         if (client.music === false) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setAuthor({
                     name: `${client.user.username} will not be doing music anymore, please \`youtube\``
                 })
@@ -29,7 +29,7 @@ module.exports = {
 
         if (!channel) return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("Sorry, but you need to be in a voice channel to do that")
                 .setColor("YELLOW")
             ]
@@ -40,14 +40,14 @@ module.exports = {
         if (checkPlayer) {
             if (botChannel && channel.id !== botChannel.id) return interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription("You are not in my voice channel")
                     .setColor("YELLOW")
                 ]
             });
             else return interaction.followUp({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription("There is nothing playing")
                     .setColor("YELLOW")
                 ]
@@ -63,7 +63,7 @@ module.exports = {
 
         if (res.loadType === "LOAD_FAILED") return interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription("Failed to find your song")
                 .setColor("YELLOW")
             ]
@@ -81,7 +81,7 @@ module.exports = {
 
         interaction.followUp({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription(`✅ **|** **[${res.tracks[0].title}](${res.tracks[0].uri})** has been added to the queue`)
                 .setThumbnail(`${res.tracks[0].thumbnail ? res.tracks[0].thumbnail : 'https://serversmp-api.herokuapp.com//upload/1/prince/hXLEkmnukU.png'}`)
                 .setColor("BLUE")

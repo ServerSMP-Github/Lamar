@@ -3,7 +3,7 @@ const {
   Client,
   MessageActionRow,
   MessageButton,
-  MessageEmbed,
+  EmbedBuilder,
   MessageAttachment
 } = require("discord.js");
 const fetch = require("axios");
@@ -34,7 +34,7 @@ module.exports = {
     let embed;
     let file = null
     if (data.online === false) {
-      embed = new MessageEmbed()
+      embed = new EmbedBuilder()
         .setColor('RED')
         .setTitle(`${data.hostname} is offline!`)
     } else {
@@ -43,7 +43,7 @@ module.exports = {
         const buf = Buffer.from(decoded, 'base64');
         file = new MessageAttachment(buf, 'icon.png');
 
-        embed = new MessageEmbed()
+        embed = new EmbedBuilder()
           .setColor('RANDOM')
           .setAuthor({
             name: data.hostname,
@@ -63,7 +63,7 @@ module.exports = {
             ].join('\n')
           )
       } else {
-        embed = new MessageEmbed()
+        embed = new EmbedBuilder()
           .setColor('RANDOM')
           .setAuthor({ name: data.hostname })
           .setDescription(

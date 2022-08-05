@@ -1,4 +1,4 @@
-const { Client, ContextMenuInteraction, MessageEmbed } = require("discord.js");
+const { Client, ContextMenuInteraction, EmbedBuilder } = require("discord.js");
 const { readdirSync } = require("fs");
 
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
         categories.push(data);
       });
 
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setTitle("📬 Need help? Here are all of my commands:")
         .addFields(categories)
         .setDescription(
@@ -69,7 +69,7 @@ module.exports = {
         );
 
       if (!command) {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
           .setTitle(
             `Invalid command! Use \`/help\` for all of my commands!`
           )
@@ -77,7 +77,7 @@ module.exports = {
         return interaction.followUp({ embeds: [embed] });
       }
 
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setTitle("Command Details:")
         .addField("PREFIX:", `\`/\``)
         .addField(

@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton, MessageAttachment } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, MessageActionRow, MessageButton, MessageAttachment } = require("discord.js");
 const Schema = require("../../models/user/user-duck");
 const fetch = require('axios');
 
@@ -19,8 +19,8 @@ module.exports = {
                 const guild = client.guilds.cache.get(interaction.guild.id)
                 const user_find = guild.members.cache.get(interaction.targetId)
                 interaction.followUp({ embeds: [
-                    new MessageEmbed()
-                        .setColor("RANDOM")
+                    new EmbedBuilder()
+                        .setColor("Random")
                         .setTitle(`${user_find.user.username}'s duck`)
                         .setImage(await data.URL)
                 ]})
@@ -37,8 +37,8 @@ module.exports = {
                     const guild = client.guilds.cache.get(interaction.guild.id)
                     const user_find = guild.members.cache.get(interaction.targetId)
                     interaction.followUp({ embeds: [
-                        new MessageEmbed()
-                            .setColor("RANDOM")
+                        new EmbedBuilder()
+                            .setColor("Random")
                             .setTitle(`${user_find.user.username}'s duck`)
                             .setImage(await duck.data.url)
                     ]})

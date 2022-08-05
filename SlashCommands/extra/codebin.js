@@ -1,7 +1,7 @@
 const {
   Client,
   CommandInteraction,
-  MessageEmbed
+  EmbedBuilder
 } = require("discord.js");
 const sourcebin = require("sourcebin_js");
 const fetch = require("axios");
@@ -106,9 +106,9 @@ module.exports = {
           }
         )
         .then(src => {
-          let embed = new MessageEmbed()
+          let embed = new EmbedBuilder()
             .setTitle(`Hastebin`)
-            .setColor("RANDOM")
+            .setColor("Random")
             .setDescription(`Code:\n\`\`\`js\n${Content}\n\`\`\``);
           interaction.followUp({
             content: src.url,
@@ -129,22 +129,22 @@ module.exports = {
         url: `${client.config.api.serversmp}codebin/json?text=${code}`,
       }).then(async(response) => {
         if(response.status === 429) return interaction.followUp({ embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
             .setTitle("Rate Limit")
             .setColor("RED")
             .setDescription("Please return in 15 minutes.")
         ]});
         if(response.status === 500) return interaction.followUp({ embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
             .setTitle("ERROR")
             .setColor("RED")
             .setDescription(response.data.url)
         ]});
         return interaction.followUp({ embeds: [
-          new MessageEmbed()
+          new EmbedBuilder()
             .setTitle("CodeBin")
             .setDescription(response.data.url)
-            .setColor("RANDOM")
+            .setColor("Random")
         ]});
       });
     }

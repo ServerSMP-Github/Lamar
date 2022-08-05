@@ -3,7 +3,7 @@ const {
     Client,
     MessageActionRow,
     MessageButton,
-    MessageEmbed,
+    EmbedBuilder,
     MessageAttachment
 } = require("discord.js");
 
@@ -18,7 +18,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle("How To Claim: NameMC")
             .setDescription(`Hey ${message.author.username}, \n` +
                 'To claim your NameMC account, please join the minecraft server `blockmania.com` and type `/namemc` when you have connected. \n' +

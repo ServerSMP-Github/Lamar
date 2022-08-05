@@ -1,6 +1,6 @@
 const {
   MessageAttachment,
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client
 } = require('discord.js');
@@ -22,7 +22,7 @@ module.exports = {
     const music = new MessageAttachment(`./assets/api/undertalemp3/${random}.mp3`, `${data.tracks[random]}.mp3`);
     message.reply({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle(data.tracks[random])
         .setThumbnail(`attachment://${data.art}`)

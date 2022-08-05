@@ -3,7 +3,7 @@ const {
     Client,
     MessageActionRow,
     MessageButton,
-    MessageEmbed,
+    EmbedBuilder,
     MessageAttachment
 } = require("discord.js");
 const jokes = require("../../assets/api/serversmp-api/joke.json");
@@ -21,8 +21,8 @@ module.exports = {
         const randomNumber = Math.floor(Math.random() * jokes.length);
         message.channel.send({
             embeds: [
-                new MessageEmbed()
-                    .setColor("RANDOM")
+                new EmbedBuilder()
+                    .setColor("Random")
                     .setDescription(jokes[randomNumber])
             ]
         });

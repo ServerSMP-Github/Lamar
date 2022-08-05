@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
 const getBoardBase64Node = require("@treasure-chess/chess-image-generator/src/node/getBoardBase64-node");
 const { getBoardLayout } = require("@treasure-chess/chess-image-generator");
 const pgnParser = require("../../assets/js/pgn-parser.js");

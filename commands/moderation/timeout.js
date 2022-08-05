@@ -1,5 +1,5 @@
 const {
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client
 } = require('discord.js');

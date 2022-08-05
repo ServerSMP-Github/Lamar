@@ -1,5 +1,5 @@
 const {
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client
 } = require('discord.js');
@@ -24,10 +24,10 @@ module.exports = {
     });
     message.channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle("CMD stats")
         .setDescription(`${await cmd.splice(0, 10).join("\n\n")}`)
-        .setColor("RANDOM")
+        .setColor("Random")
       ]
     });
   }

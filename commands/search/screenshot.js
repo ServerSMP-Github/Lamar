@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, Message, Client, MessageAttachment } = require('discord.js');
 const SchemaNSFW = require('../../models/server/nsfw');
 
 module.exports = {
@@ -30,11 +30,11 @@ module.exports = {
             if (!isValidHttpUrl(requestedURL)) return message.reply("The url that you requested is not a valid url.");
             message.reply({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle("Here is the website you requested!")
                     .setURL(requestedURL)
                     .setImage(encodeURI(`https://image.thum.io/get/width/1920/crop/675/noanimate/${requestedURL}`))
-                    .setColor("RANDOM")
+                    .setColor("Random")
                 ]
             });
         }

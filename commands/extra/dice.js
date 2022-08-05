@@ -1,5 +1,5 @@
 const {
-    MessageEmbed,
+    EmbedBuilder,
     Message,
     Client,
     MessageAttachment
@@ -19,8 +19,8 @@ module.exports = {
 
         const dice = mathRandomInt(1, 6)
         if (dice == 1) {
-            const embed = new MessageEmbed()
-                .setColor("RANDOM")
+            const embed = new EmbedBuilder()
+                .setColor("Random")
                 .setTitle("Dice")
                 .setDescription(`It was ${dice} on the dice.`)
                 .setImage("https://i.imgur.com/IpdrHdQ.png")
@@ -28,8 +28,8 @@ module.exports = {
                 embeds: [embed]
             })
         } else if (dice == 2) {
-            const embed2 = new MessageEmbed()
-                .setColor("RANDOM")
+            const embed2 = new EmbedBuilder()
+                .setColor("Random")
                 .setTitle("Dice")
                 .setDescription(`It was ${dice} on the dice.`)
                 .setImage("https://i.imgur.com/w1IbsxE.png")
@@ -37,8 +37,8 @@ module.exports = {
                 embeds: [embed2]
             })
         } else if (dice == 3) {
-            const embed3 = new MessageEmbed()
-                .setColor("RANDOM")
+            const embed3 = new EmbedBuilder()
+                .setColor("Random")
                 .setTitle("Dice")
                 .setDescription(`It was ${dice} on the dice.`)
                 .setImage("https://i.imgur.com/dYBcXlp.png")
@@ -46,8 +46,8 @@ module.exports = {
                 embeds: [embed3]
             })
         } else if (dice == 4) {
-            const embed4 = new MessageEmbed()
-                .setColor("RANDOM")
+            const embed4 = new EmbedBuilder()
+                .setColor("Random")
                 .setTitle("Dice")
                 .setDescription(`It was ${dice} on the dice.`)
                 .setImage("https://i.imgur.com/KCVtTVk.png")
@@ -55,8 +55,8 @@ module.exports = {
                 embeds: [embed4]
             })
         } else if (dice == 5) {
-            const embed5 = new MessageEmbed()
-                .setColor("RANDOM")
+            const embed5 = new EmbedBuilder()
+                .setColor("Random")
                 .setTitle("Dice")
                 .setDescription(`It was ${dice} on the dice.`)
                 .setImage("https://i.imgur.com/mwZYzWw.png")
@@ -64,8 +64,8 @@ module.exports = {
                 embeds: [embed5]
             })
         } else if (dice == 6) {
-            const embed6 = new MessageEmbed()
-                .setColor("RANDOM")
+            const embed6 = new EmbedBuilder()
+                .setColor("Random")
                 .setTitle("Dice")
                 .setDescription(`It was ${dice} on the dice.`)
                 .setImage("https://i.imgur.com/jPzK5hv.png")

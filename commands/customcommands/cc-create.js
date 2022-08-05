@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client } = require('discord.js');
+const { Message, Client } = require('discord.js');
 const schema = require('../../models/server/cc');
 
 module.exports = {

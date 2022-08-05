@@ -1,7 +1,7 @@
 const {
   Client,
   Message,
-  MessageEmbed
+  EmbedBuilder
 } = require("discord.js");
 const {
   Emojify

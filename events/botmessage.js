@@ -1,7 +1,7 @@
 const client = require('../index');
 const xpSchema = require('../models/server/xp');
 const {
-  MessageEmbed
+  EmbedBuilder
 } = require('discord.js');
 
 client.on("guildCreate", (guild) => {
@@ -12,8 +12,8 @@ client.on("guildCreate", (guild) => {
   if (!channelToSend) return;
   channelToSend.send({
     embeds: [
-      new MessageEmbed()
-      .setColor("RANDOM")
+      new EmbedBuilder()
+      .setColor("Random")
       .setAuthor({ name: guild.name, iconURL: guild.iconURL({ dynamic: true }) })
       .setDescription(`Thanks for inviting ${client.user.username} to your server!\nThe bot prefix is \`${client.config.bot.info.prefix}\` and for the list of commands do \`${client.config.bot.info.prefix}help\``)
       .addField("TERMS OF SERVICE", "By inviting this bot you accept that I can log all data in your server and users.")

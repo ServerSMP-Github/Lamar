@@ -1,6 +1,6 @@
 module.exports = (client) => {
 
-    const { MessageEmbed } = require("discord.js");
+    const { EmbedBuilder } = require("discord.js");
 
     const config = require("../settings/settings.json");
 
@@ -39,7 +39,7 @@ module.exports = (client) => {
     .on("nodeError", (node, error) => console.log(`${chalk.white(`Lavalink:`)} ${chalk.red("×")} ${chalk.white("||")} ${chalk.white(`Host:`)} ${chalk.red(node.options.identifier)}`))
     .on("trackStart", (player, track) => client.channels.cache.get(player.textChannel).send({
         embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
             .setDescription(`▶ **|** Started playing: **[${track.title}](${track.uri})**`)
             .setThumbnail(`${track.thumbnail ? track.thumbnail : 'https://serversmp-api.herokuapp.com//upload/1/prince/hXLEkmnukU.png'}`)
             .setColor("BLUE")
@@ -50,7 +50,7 @@ module.exports = (client) => {
             .get(player.textChannel)
             .send({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setDescription(`⏹ **|** The music has ended, use **\`/play\`** to play some music`)
                     .setColor("BLUE")
                 ]

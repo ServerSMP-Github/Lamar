@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client, WebhookClient } = require('discord.js');
+const { EmbedBuilder, Message, Client, WebhookClient } = require('discord.js');
 
 module.exports = {
     name: 'report',
@@ -17,7 +17,7 @@ module.exports = {
 
         new WebhookClient({ url: client.config.channel.webhooks.report }).send({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                     .setTitle('New BUG!')
                     .addField('Author', message.author.toString(), true)
                     .addField('Guild', message.guild.name, true)

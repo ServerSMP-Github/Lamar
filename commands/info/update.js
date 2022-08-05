@@ -3,7 +3,7 @@ const {
   Client,
   MessageActionRow,
   MessageButton,
-  MessageEmbed,
+  EmbedBuilder,
   MessageAttachment
 } = require('discord.js');
 const fetch = require('axios');
@@ -26,10 +26,10 @@ module.exports = {
         fetch(`https://raw.githubusercontent.com/Prince527GitHub/ServerSMP/ServerSMP-BOT-(Change-Log)/patch-notes-${version}.json`)
           .then(body => message.channel.send({
             embeds: [
-              new MessageEmbed()
+              new EmbedBuilder()
               .setTitle(body.data.Title)
               .setDescription(body.data.Description.join("\n"))
-              .setColor("RANDOM")
+              .setColor("Random")
               .setImage(body.data.Image)
             ]
           }));
@@ -44,10 +44,10 @@ module.exports = {
             fetch(`https://raw.githubusercontent.com/Prince527GitHub/ServerSMP/ServerSMP-BOT-(Change-Log)/patch-notes-${await ver.data.version}.json`)
               .then(body => message.channel.send({
                 embeds: [
-                  new MessageEmbed()
+                  new EmbedBuilder()
                   .setTitle(body.data.Title)
                   .setDescription(body.data.Description.join("\n"))
-                  .setColor("RANDOM")
+                  .setColor("Random")
                   .setImage(body.data.Image)
                 ]
               }));
@@ -62,8 +62,8 @@ module.exports = {
         fetch(`https://raw.githubusercontent.com/Prince527GitHub/ServerSMP/ServerSMP-BOT-(Change-Log)/list.json`)
           .then(body => message.channel.send({
             embeds: [
-              new MessageEmbed()
-              .setColor("RANDOM")
+              new EmbedBuilder()
+              .setColor("Random")
               .setTitle("Update - Help")
               .setDescription(`Only \`current\` or \`latest\` or \`specify a version\` exist as the query.\n**Versions:**\n\`\`\`\n${body.data.list.join("\n")}\`\`\``)
             ]
@@ -82,10 +82,10 @@ module.exports = {
               fetch(`https://raw.githubusercontent.com/Prince527GitHub/ServerSMP/ServerSMP-BOT-(Change-Log)/patch-notes-${ver}.json`)
                 .then(body3 => message.channel.send({
                   embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle(body3.data.Title)
                     .setDescription(body3.data.Description.join("\n"))
-                    .setColor("RANDOM")
+                    .setColor("Random")
                     .setImage(body3.data.Image)
                   ]
                 }));

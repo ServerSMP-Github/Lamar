@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
 const userRankcard = require('../../models/user/user-rankcard');
 const rankCardRequest = require('../../models/management/rankcard-request');
 const xpSchema = require("../../models/server/xp");
@@ -21,9 +21,9 @@ module.exports = {
             if(!args[0]) return message.reply("You need a color!");
 
             if(args[0] === "list") return message.reply({ embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                   .setTitle("RankCard Command")
-                  .setColor("RANDOM")
+                  .setColor("Random")
                   .addField(
                     "Basic Colors",
                     "🟢: `#008000`\n🟡: `#ffff00`\n🟠: `#ffa500`\n🔴: `#ff0000`\n🟣: `#800080`\n🔵: `#0000ff`\n⚫: `#000000`\n⚪: `#ffffff`"
@@ -99,12 +99,12 @@ module.exports = {
                                     .setLabel("Delete")
                                     .setStyle("SECONDARY")
                             )
-                        const embed = new MessageEmbed()
+                        const embed = new EmbedBuilder()
                             .setTitle(`${message.member.user.username}'s RankCard Image`)
                             .setDescription("Just click one of the buttons to accept or deny the user's rankcard image.")
                             .addField("ImageURL", image)
                             .addField("UserID", message.author.id)
-                            .setColor("RANDOM")
+                            .setColor("Random")
                         rankCardRequest.findOne({ User: message.author.id }, async(err, data) => {
                           if(!data) {
                             client.channels.cache.get(client.config.channel.ids.rankcard).send({ embeds: [embed], components: [row] }).then(async(msg) => {

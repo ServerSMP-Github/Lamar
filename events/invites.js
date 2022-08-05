@@ -1,6 +1,6 @@
 const client = require('../index');
 const Schema = require('../models/logs/invites');
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const InvitesTracker = require("@androz2091/discord-invites-tracker");
 const tracker = InvitesTracker.init(client, {
     fetchGuilds: true,
@@ -18,7 +18,7 @@ tracker.on("guildMemberAdd", async (member, type, invite) => {
         if (type === "normal") {
             channel.send({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setAuthor({
                         name: `${member.user.tag} joined!`,
                         iconURL: member.user.displayAvatarURL()
@@ -37,7 +37,7 @@ tracker.on("guildMemberAdd", async (member, type, invite) => {
         } else if (type === "permissions") {
             channel.send({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setAuthor({
                         name: `${member.user.tag} joined!`,
                         iconURL: member.user.displayAvatarURL()
@@ -54,7 +54,7 @@ tracker.on("guildMemberAdd", async (member, type, invite) => {
         } else if (type === "unknown") {
             channel.send({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setAuthor({
                         name: `${member.user.tag} joined!`,
                         iconURL: member.user.displayAvatarURL()
@@ -68,7 +68,7 @@ tracker.on("guildMemberAdd", async (member, type, invite) => {
         } else if (type === "vanity") {
             channel.send({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setAuthor({
                         name: `${member.user.tag} joined!`,
                         iconURL: member.user.displayAvatarURL()

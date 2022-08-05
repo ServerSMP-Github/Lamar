@@ -1,7 +1,7 @@
 const {
     Client,
     Message,
-    MessageEmbed
+    EmbedBuilder
 } = require('discord.js');
 const {
     Color,
@@ -40,7 +40,7 @@ module.exports = {
             // Message
             message.reply({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle(`Color: ${colorHex}`)
                     .setDescription(`Hex: \`${selectedColor.toHex()}\`\nRGB: \`${selectedColor.toRgb()}\`\nHSL: \`${selectedColor.toHsl()}\`\nHSV: \`${selectedColor.toHsv()}\`\nCMYK: \`${selectedColor.toCmyk()}\``)
                     .setImage("attachment://color.png")
@@ -63,7 +63,7 @@ module.exports = {
             // Message
             message.reply({
                 embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                     .setTitle("Color: RANDOM")
                     .setDescription(`Hex: \`${random.toHex()}\`\nRGB: \`${random.toRgb()}\`\nHSL: \`${random.toHsl()}\`\nHSV: \`${random.toHsv()}\`\nCMYK: \`${random.toCmyk()}\``)
                     .setImage("attachment://color.png")

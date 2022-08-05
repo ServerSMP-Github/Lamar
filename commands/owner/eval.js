@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
 
 module.exports = {
     name: 'eval',
@@ -22,7 +22,7 @@ module.exports = {
 
             if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
 
-            let embed = new MessageEmbed()
+            let embed = new EmbedBuilder()
               .setAuthor({ name: "Eval", iconURL: message.author.avatarURL() })
               .addField("Input", `\`\`\`${code}\`\`\``)
               .addField("Output", `\`\`\`${evaled.replace(new RegExp(client.token.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&"), "gi"), "Nice try you bot!")}\`\`\``)

@@ -1,4 +1,4 @@
-const { Client, Collection, WebhookClient } = require("discord.js");
+const { Client, Collection, GatewayIntentBits } = require("discord.js");
 require('events').EventEmitter.defaultMaxListeners = 15;
 const config = require('./settings/settings.json');
 
@@ -7,15 +7,18 @@ require('./client/settings-check.js')(config);
 global.startSpinner = require('ora')('Starting BOT').start();
 
 const client = new Client({
-    intents: 32767,
-    partials: ["CHANNEL", "MESSAGE", "GUILD_MEMBER", "REACTION", "GUILD_INVITES"],
-    presence: {
-        activities: [{
-            name: "Starting!",
-            type: config.bot.status.type,
-        }],
-        status: config.bot.status.status
-    }
+  intents: [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.MessageContent
+  ],
+  presence: {
+    activities: [{
+        name: "Starting!",
+        type: config.bot.status.type,
+    }],
+    status: config.bot.status.status
+  }
 });
 module.exports = client;
 
@@ -24,9 +27,9 @@ client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = config;
 
-require("./client/anticrash")(client);
+// require("./client/anticrash")(client);
 
-require('discord-logs')(client);
+// require('discord-logs')(client);
 
 require("./client/lavalink")(client);
 
@@ -42,10 +45,10 @@ mongoose.connection.on('error', (err) => console.log(err));
 
 require("discord-xp").setURL(config.bot.database.mongo_main);
 
-const Nuggies = require('nuggies');
+// const Nuggies = require('nuggies');
 
-Nuggies.handleInteractions(client);
-Nuggies.connect(config.bot.database.mongo_main);
+// Nuggies.handleInteractions(client);
+// Nuggies.connect(config.bot.database.mongo_main);
 
 const { MongoDB } = require("ark.db");
 if (config.bot.database.mongo_extra) client.arkDB = new MongoDB(client.config.bot.database.mongo_extra, "ark.db");

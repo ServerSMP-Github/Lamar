@@ -1,5 +1,5 @@
 const {
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client
 } = require('discord.js');
@@ -23,12 +23,12 @@ module.exports = {
     const data = await response.data;
     message.reply({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
           .setAuthor({ name: `Weather - ${data.location.name}`, iconURI: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fpapirus-team%2Fpapirus-apps%2F512%2Fweather-icon.png&f=1&nofb=1" })
           .setDescription(`🌍 - ${data.location.country}\n🚩 - ${data.location.region}\n📌 - ${data.location.name}`)
           .addField("Celsius - KPH", `Current Temp 🌡️ - ${data.current.temp_c}°C\nFeelslike🖐 - ${data.current.feelslike_c}°C\nCondition 🌦️ - ${data.current.condition.text}`, true)
           .addField("Fahrenheit - MPH", `Current Temp 🌡️ - ${data.current.temp_f}°F\nFeelslike 🖐 - ${data.current.feelslike_f}°F\nCondition 🌦️ - ${data.current.condition.text}`, true)
-          .setColor("RANDOM")
+          .setColor("Random")
       ]
     });
   }

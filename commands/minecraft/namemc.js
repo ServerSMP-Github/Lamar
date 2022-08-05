@@ -3,7 +3,7 @@ const {
    Client,
    MessageActionRow,
    MessageButton,
-   MessageEmbed,
+   EmbedBuilder,
    MessageAttachment
 } = require("discord.js");
 const axios = require('axios');
@@ -41,7 +41,7 @@ module.exports = {
 
          const names = (await axios.get(`https://api.mojang.com/user/profiles/${uuid}/names`)).data;
    
-         const nameHistory = new MessageEmbed()
+         const nameHistory = new EmbedBuilder()
             .setTitle(`${args[0]}'s Name History`)
             .setThumbnail('https://visage.surgeplay.com/face/' + uuid)
             .setURL(`https://namemc.com/${args[0]}`)

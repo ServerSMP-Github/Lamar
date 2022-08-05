@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client, MessageReaction, MessageActionRow, MessageButton, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, Message, Client, MessageReaction, MessageActionRow, MessageButton, MessageAttachment } = require('discord.js');
 const { blacklistedwords } = require('../../client/collection');
 const SchemaAutoTranslate = require('../../models/server/translate');
 const SchemaChatBot = require('../../models/server/chatbot-channel');
@@ -46,7 +46,7 @@ module.exports = {
     if (!query) {
       const randomColor = (Math.random() * 0xFFFFFF << 0).toString(16);
 
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setTitle("Options - Exsemple")
         .setDescription(`
                 **Options**: list
@@ -133,7 +133,7 @@ module.exports = {
                 \`${prefix}options global set #channel\`
             `)
         .setColor(`#${randomColor}`)
-      const embed2 = new MessageEmbed()
+      const embed2 = new EmbedBuilder()
           .setDescription(`
                 **Blacklist**: add
                 \`${prefix}options blacklist add fuck\`
@@ -205,7 +205,7 @@ module.exports = {
                 \`${prefix}options starboard off\`
             `)
             .setColor(`#${randomColor}`)
-      const embed3 = new MessageEmbed()
+      const embed3 = new EmbedBuilder()
           .setDescription(`
                 **NQN**: on
                 \`${prefix}options nqn on\`
@@ -808,7 +808,7 @@ module.exports = {
             .setStyle("SECONDARY")
           )
 
-          const embed = new MessageEmbed()
+          const embed = new EmbedBuilder()
             .setTitle("ModLogs - Options")
             .setDescription("Click on the buttons to change stuff.")
             .setColor("AQUA")
@@ -933,7 +933,7 @@ module.exports = {
           if (!data) return message.reply('There is no data.');
           message.channel.send({
             embeds: [
-              new MessageEmbed()
+              new EmbedBuilder()
               .setTitle('Blacklisted Words')
               .setDescription(data.Words.join(', '))
             ]
@@ -1106,9 +1106,9 @@ module.exports = {
 
             message.reply({
               embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                   .setTitle("Welcome Card")
-                  .setColor("RANDOM")
+                  .setColor("Random")
                   .addFields(
                     {
                       name: "Package",
@@ -1206,9 +1206,9 @@ module.exports = {
 
           message.reply({
             embeds: [
-              new MessageEmbed()
+              new EmbedBuilder()
                 .setTitle("Welcome Card")
-                .setColor("RANDOM")
+                .setColor("Random")
                 .addFields(
                   {
                     name: "Package",
@@ -1302,9 +1302,9 @@ module.exports = {
 
           message.reply({
             embeds: [
-              new MessageEmbed()
+              new EmbedBuilder()
                 .setTitle("Welcome Card")
-                .setColor("RANDOM")
+                .setColor("Random")
                 .addFields(
                   {
                     name: "Package",
@@ -1382,9 +1382,9 @@ module.exports = {
 
           message.reply({
             embeds: [
-              new MessageEmbed()
+              new EmbedBuilder()
                 .setTitle("Welcome Card")
-                .setColor("RANDOM")
+                .setColor("Random")
                 .addFields(
                   {
                     name: "Package",
@@ -1449,9 +1449,9 @@ module.exports = {
 
           message.reply({
             embeds: [
-              new MessageEmbed()
+              new EmbedBuilder()
                 .setTitle("Welcome Card")
-                .setColor("RANDOM")
+                .setColor("Random")
                 .addFields(
                   {
                     name: "Package",
@@ -1631,7 +1631,7 @@ module.exports = {
         goodbye_theme = "dark"
       // }
 
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setTitle("Options")
         .setDescription(`
                 **NSFW** - \`????\`
@@ -1657,7 +1657,7 @@ module.exports = {
                 **Log Data** - ${logData}
                 **Starboard** - ${starboard}
                 `)
-        .setColor("RANDOM")
+        .setColor("Random")
       await message.channel.send({
         embeds: [embed]
       })
@@ -2462,7 +2462,7 @@ module.exports = {
 
               const randomColor = (Math.random() * 0xFFFFFF << 0).toString(16);
 
-              const embed = new MessageEmbed()
+              const embed = new EmbedBuilder()
                 .setTitle(message.guild.name)
                 .setThumbnail(message.guild.iconURL())
                 .setColor(`#${randomColor}`)
@@ -2492,21 +2492,21 @@ module.exports = {
                   inline: true
                 })
 
-              const channelsEmbed = new MessageEmbed()
+              const channelsEmbed = new EmbedBuilder()
                 .setAuthor({
                   name: "Channels Data"
                 })
                 .setImage("attachment://channels.png")
                 .setColor(`#${randomColor}`)
 
-              const emojiEmbed = new MessageEmbed()
+              const emojiEmbed = new EmbedBuilder()
                 .setAuthor({
                   name: "Emoji Data"
                 })
                 .setImage("attachment://emoji.png")
                 .setColor(`#${randomColor}`)
 
-              const memberEmbed = new MessageEmbed()
+              const memberEmbed = new EmbedBuilder()
                 .setAuthor({
                   name: "Members Data"
                 })

@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, MessageActionRow, MessageButton } = require('discord.js');
 const Schema = require('../../models/server/poll-cmd');
 
 module.exports = {
@@ -125,9 +125,9 @@ module.exports = {
             "🔟"
         ];
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle(`**${title}**`)
-            .setColor("RANDOM")
+            .setColor("Random")
             .setTimestamp();
 
         const buttons = [];

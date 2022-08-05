@@ -3,7 +3,7 @@ const {
   Client,
   MessageActionRow,
   MessageButton,
-  MessageEmbed,
+  EmbedBuilder,
   MessageAttachment
 } = require('discord.js');
 const { formatedDate } = require("../../assets/api/time/index");
@@ -42,9 +42,9 @@ module.exports = {
             bio
           } = body.data;
 
-          const embed = new MessageEmbed()
+          const embed = new EmbedBuilder()
             .setAuthor({ name: `${login} Information!`, iconURL: avatar_url })
-            .setColor("RANDOM")
+            .setColor("Random")
             .setThumbnail(`${avatar_url}`)
             .addField(`Username`, `${login}`)
             .addField(`ID`, `${id}`)

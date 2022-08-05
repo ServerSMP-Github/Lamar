@@ -1,5 +1,5 @@
 const {
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client
 } = require('discord.js');
@@ -20,10 +20,10 @@ module.exports = {
     const random = Math.floor((Math.random() * 40) + 1);
     message.channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
           .setTitle("Achievement")
           .setImage(encodeURI(`https://minecraftskinstealer.com/achievement/${random}/Achievement/${word}`))
-          .setColor("RANDOM")
+          .setColor("Random")
       ]
     });
   }

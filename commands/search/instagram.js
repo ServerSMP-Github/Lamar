@@ -3,7 +3,7 @@ const {
     Client,
     MessageActionRow,
     MessageButton,
-    MessageEmbed,
+    EmbedBuilder,
     MessageAttachment
 } = require('discord.js');
 const {

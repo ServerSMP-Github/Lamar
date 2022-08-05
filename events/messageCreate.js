@@ -1,4 +1,4 @@
-const { MessageEmbed, Collection, WebhookClient } = require('discord.js');
+const { EmbedBuilder, Collection, WebhookClient } = require('discord.js');
 const blacklistserver = require('../models/management/blacklist');
 const commandstoggle = require('../models/server/command');
 const Userstats = require("../models/user/user-stats"); 
@@ -47,7 +47,7 @@ client.on("messageCreate", async (message) => {
 
         if (!["anal", "ass", "boobs", "gonewild", "hentai", "hentaiass", "hentaithigh", "ihentai", "kitsune", "lewd", "pgif", "pussy", "thigh", "wallpaper"].includes(command.name)) new WebhookClient({ url: client.config.channel.webhooks.cmdlog }).send({
           embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
               .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
               .setDescription(`\`\`\`\n${client.config.bot.info.prefix}${command.name}\n\`\`\``)
               .setColor("YELLOW")
@@ -63,7 +63,7 @@ client.on("messageCreate", async (message) => {
 
         if (command.owner && !client.config.bot.owner.includes(message.author.id)) return message.channel.send({
           embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
               .setColor("RED")
               .setDescription( "This command can only be used by the owners!" )
           ]

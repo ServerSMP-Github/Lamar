@@ -3,7 +3,7 @@ const {
     Client,
     MessageActionRow,
     MessageButton,
-    MessageEmbed,
+    EmbedBuilder,
     MessageAttachment
 } = require("discord.js");
 
@@ -29,7 +29,7 @@ module.exports = {
 
         message.reply({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                 .setDescription(`
                     **Message Content:** ${msg.content}
                     **Sent By:** ${msg.author}
@@ -39,7 +39,7 @@ module.exports = {
                 .setThumbnail(message.guild.iconURL({
                     dynamic: true
                 }))
-                .setColor("RANDOM")
+                .setColor("Random")
                 .setTimestamp()
             ]
         })

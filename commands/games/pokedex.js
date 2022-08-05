@@ -1,5 +1,5 @@
 const {
-  MessageEmbed,
+  EmbedBuilder,
   Message,
   Client,
   MessageAttachment
@@ -30,8 +30,8 @@ module.exports = {
       const evo = res.family.evolutionLine.map((w, i) => [`\`${i + 1}.\` ${w}`]);
 
       message.channel.send({
-        embeds: [new MessageEmbed()
-          .setColor("RANDOM")
+        embeds: [new EmbedBuilder()
+          .setColor("Random")
           .setTitle(`${res.name} | Generation: ${res.generation}`)
           .setAuthor({ name: 'Type: ' + res.type?.join(", ") })
           .setThumbnail(res.sprites.animated || res.sprites.normal || null)

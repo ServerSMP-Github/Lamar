@@ -1,6 +1,6 @@
 const SchemaModlogs = require('../models/logs/modlogs');
 const {
-  MessageEmbed
+  EmbedBuilder
 } = require('discord.js');
 const Schema = require('../models/logs/boost');
 const client = require('../index');
@@ -12,7 +12,7 @@ client.on('guildMemberBoost', (member) => {
     if (!data) return;
     client.channels.cache.get(data.Channel).send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setAuthor({
           name: `${member.user.tag} just boosted ${member.guild.name}!`,
           iconURL: member.user.displayAvatarURL({
@@ -30,7 +30,7 @@ client.on('guildMemberBoost', (member) => {
     if (!data) return;
     client.channels.cache.get(data.Channel).send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle('New Boost')
         .setDescription(`${member.user.tag} has boosted the server!`)
         .setColor('#00ff00')
@@ -47,7 +47,7 @@ client.on('guildMemberUnboost', (member) => {
     if (!data) return;
     client.channels.cache.get(data.Channel).send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setTitle('Boost Removed')
         .setDescription(`${member.user.tag} has unboosted the server.`)
         .setColor('#ff0000')

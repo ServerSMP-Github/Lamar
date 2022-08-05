@@ -1,4 +1,4 @@
-const { ContextMenuInteraction, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require("discord.js");
+const { ContextMenuInteraction, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require("discord.js");
 
 module.exports = {
     name: 'minesweeper',
@@ -277,7 +277,7 @@ module.exports = {
         let row5 = new MessageActionRow()
             .addComponents(positions[20].a, positions[21].a, positions[22].a, positions[23].a, positions[24].a)
 
-        let game = new MessageEmbed()
+        let game = new EmbedBuilder()
             .setDescription(`**${interaction.user}'s Minesweeper Game**`)
             .setColor("#6F8FAF")
 

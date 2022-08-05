@@ -1,4 +1,4 @@
-const { WebhookClient, MessageEmbed } = require('discord.js');
+const { WebhookClient, EmbedBuilder } = require('discord.js');
 const client = require('../index');
 
 const hook = new WebhookClient({ url: client.config.channel.webhooks.guildlogs });
@@ -9,7 +9,7 @@ client.on('guildCreate', async(guild) => {
 
     hook.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
           .setColor("#39ff14")
           .setTitle('New Server')
           .addField('Name', `${guild.name}`, true)
@@ -30,7 +30,7 @@ client.on('guildDelete', async(guild) => {
 
     hook.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
           .setColor("#F72119")
           .setTitle('Server Left')
           .addField('Name', `${guild.name}`, true)

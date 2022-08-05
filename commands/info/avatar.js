@@ -3,7 +3,7 @@ const {
    Client,
    MessageActionRow,
    MessageButton,
-   MessageEmbed
+   EmbedBuilder
 } = require("discord.js");
 
 module.exports = {
@@ -25,8 +25,8 @@ module.exports = {
          const user = client.users.cache.random();
          return message.channel.send({
             embeds: [
-               new MessageEmbed()
-               .setColor("RANDOM")
+               new EmbedBuilder()
+               .setColor("Random")
                .setImage(user.displayAvatarURL({
                   size: 4096,
                   dynamic: true
@@ -38,8 +38,8 @@ module.exports = {
 
       message.channel.send({
          embeds: [
-            new MessageEmbed()
-            .setColor("RANDOM")
+            new EmbedBuilder()
+            .setColor("Random")
             .setImage(member.user.displayAvatarURL({
                size: 4096,
                dynamic: true

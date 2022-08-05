@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder } = require("discord.js");
 const { serverDate, fromNow } = require('../../assets/api/time/index');
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
         const owner = await message.guild.fetchOwner();
         const members = message.guild.members.cache;
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle(message.guild.name)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
             .setColor(roleColor)

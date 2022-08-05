@@ -1,5 +1,5 @@
 const {
-  MessageEmbed
+  EmbedBuilder
 } = require("discord.js");
 const fetch = require("axios");
 
@@ -19,7 +19,7 @@ module.exports = {
     if (result.error) return message.reply("No movie found.");
     message.channel.send({
       embeds: [
-        new MessageEmbed()
+        new EmbedBuilder()
         .setColor("#b39ef3")
         .setThumbnail(result.poster)
         .setURL(result.imdburl)

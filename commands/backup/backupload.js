@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client } = require('discord.js');
+const { Message, Client } = require('discord.js');
 const backup = require("discord-backup");
 
 module.exports = {

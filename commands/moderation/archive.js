@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
 
 module.exports = {
     name: "archive",
@@ -18,7 +18,7 @@ module.exports = {
 
         // create embed
         await message.channel.send({ embeds: [
-            new MessageEmbed()
+            new EmbedBuilder()
             .setTitle("Channel Updates")
             .setDescription(`🔒 ${message.channel} has been Archived!`)
             .setColor("BLURPLE")

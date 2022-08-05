@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, Client } = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const axios = require('axios');
 
 module.exports = {
@@ -46,7 +46,7 @@ module.exports = {
             if (data.platforms.linux) platforms.push('Linux');
         }
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor('RANDOM')
             .setAuthor({ name: 'Steam', iconURL: 'https://i.imgur.com/xxr2UBZ.png', url: 'http://store.steampowered.com/' })
             .setTitle(`__**${data.name}**__`)
