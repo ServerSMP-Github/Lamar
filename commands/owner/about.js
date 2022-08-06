@@ -53,7 +53,7 @@ Ping                :: ${message.client.ws.ping}ms
 OS Uptime           :: ${ms(os.uptime() * 1000)}
 Process Uptime      :: ${ms(process.uptime() * 1000)}
 Bot Uptime          :: ${ms(client.uptime, { long: true })}
-Source Code         :: https://github.com/Prince527GitHub/ServerSMP/tree/ServerSMP-BOT-(v13)
+Source Code         :: https://github.com/ServerSMP-Github/BOT
 \`\`\`
 **Server Stats:**
 \`\`\`asciidoc
