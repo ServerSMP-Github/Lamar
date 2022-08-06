@@ -1,9 +1,0 @@
-node_modules
-fonts
-antiCrashLog.log
-temp
-settings/settings.json
-beta
-build
-.disabled
-.pnpm-debug.log
