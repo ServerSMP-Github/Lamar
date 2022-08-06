@@ -1,9 +1,6 @@
 node_modules
-fonts
-antiCrashLog.log
-temp
-settings/settings.json
-beta
-build
-.disabled
-.pnpm-debug.log
+.env
+json.sqlite
+records
+json
+arkdb.json
