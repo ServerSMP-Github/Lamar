@@ -97,9 +97,8 @@ module.exports = {
         var url = "";
 
         if (!emoji) {
-            if (args[0].endsWith(".png") || args[0].endsWith(".jpg")) {
-                url = args[0];
-            } else {
+            if (args[0].startsWith("https://") || args[0].startsWith("http://") && args[0].endsWith(".png") || args[0].endsWith(".jpg")) url = args[0];
+            else {
                 var text = twemoji.parse(args[0]);
                 if (!text.startsWith("<img")) return message.reply("Error. Only works with custom emojis from this guild / default emojis / png or jpg urls.");
                 var pos = text.indexOf("src");
@@ -127,7 +126,7 @@ module.exports = {
         }
 
         var transColors = [];
-        var imgName = "images/emoji.png";
+        var imgName = "temp/images/emoji.png";
         Jimp.read(url, (err, img) => {
             if (err) return message.reply("Error. Could not read image.");
 
