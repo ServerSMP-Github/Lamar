@@ -14,6 +14,7 @@ module.exports = {
     name: 'emoji-img',
     usage: '[ emoji ]',
     description: 'Turn emoji into an image with emojis',
+    owner: true,
     /**
      *
      * @param {Client} client
@@ -97,7 +98,7 @@ module.exports = {
         var url = "";
 
         if (!emoji) {
-            if (args[0].startsWith("https://") || args[0].startsWith("http://") && args[0].endsWith(".png") || args[0].endsWith(".jpg")) url = args[0];
+            if ((args[0].startsWith("https://") || args[0].startsWith("http://")) && (args[0].endsWith(".png") || args[0].endsWith(".jpg"))) url = args[0];
             else {
                 var text = twemoji.parse(args[0]);
                 if (!text.startsWith("<img")) return message.reply("Error. Only works with custom emojis from this guild / default emojis / png or jpg urls.");
