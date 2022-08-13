@@ -4,7 +4,7 @@ const {
   MessageActionRow,
   MessageButton,
   EmbedBuilder,
-  MessageAttachment
+  AttachmentBuilder
 } = require('discord.js');
 const { formatedDate } = require("../../assets/api/time/index");
 const fetch = require("axios");

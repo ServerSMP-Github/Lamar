@@ -47,7 +47,7 @@ module.exports = {
                     .setColor(selectedColor.toHex())
                 ],
                 files: [
-                    new MessageAttachment(canvas.toBuffer(), "color.png")
+                    new AttachmentBuilder(canvas.toBuffer(), "color.png")
                 ]
             });
         } else {
@@ -70,7 +70,7 @@ module.exports = {
                     .setColor(random.toHex())
                 ],
                 files: [
-                    new MessageAttachment(canvas.toBuffer(), "color.png")
+                    new AttachmentBuilder(canvas.toBuffer(), "color.png")
                 ]
             });
         }

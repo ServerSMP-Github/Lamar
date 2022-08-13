@@ -3,7 +3,7 @@ const {
     EmbedBuilder,
     MessageActionRow,
     MessageSelectMenu,
-    MessageAttachment,
+    AttachmentBuilder,
     ApplicationCommandType,
     ApplicationCommandOptionType
 } = require("discord.js");
@@ -287,7 +287,7 @@ module.exports = {
             ctx.textAlign = "left";
             ctx.fillText(DMY(), 15, 490);
 
-            const attachment = new MessageAttachment(canvas.toBuffer(), "profile.jpg");
+            const attachment = new AttachmentBuilder(canvas.toBuffer(), "profile.jpg");
             interaction.followUp({
                 files: [attachment]
             });

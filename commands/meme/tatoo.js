@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require("discord.js");
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const DIG = require("discord-image-generation");
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
         if(!user) user = message.member;
         let avatar = user.user.displayAvatarURL({ dynamic: false, format: 'png' });
         let img = await new DIG.Tatoo().getImage(avatar);
-        let attach = new MessageAttachment(img, "tatoo.png");
+        let attach = new AttachmentBuilder(img, "tatoo.png");
         message.channel.send({ files: [attach] });
     },
 };

@@ -1,4 +1,4 @@
-const { EmbedBuilder, Message, Client, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, Message, Client, AttachmentBuilder } = require('discord.js');
 const SchemaNSFW = require('../../models/server/nsfw');
 
 module.exports = {

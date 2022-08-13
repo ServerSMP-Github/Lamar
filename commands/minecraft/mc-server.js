@@ -4,7 +4,7 @@ const {
   MessageActionRow,
   MessageButton,
   EmbedBuilder,
-  MessageAttachment
+  AttachmentBuilder
 } = require("discord.js");
 const fetch = require("axios");
 
@@ -41,7 +41,7 @@ module.exports = {
       if (type === 'java') {
         const decoded = data.icon.split(',')[1];
         const buf = Buffer.from(decoded, 'base64');
-        file = new MessageAttachment(buf, 'icon.png');
+        file = new AttachmentBuilder(buf, 'icon.png');
 
         embed = new EmbedBuilder()
           .setColor('RANDOM')

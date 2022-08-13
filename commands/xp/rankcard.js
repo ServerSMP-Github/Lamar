@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require('discord.js');
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const userRankcard = require('../../models/user/user-rankcard');
 const rankCardRequest = require('../../models/management/rankcard-request');
 const xpSchema = require("../../models/server/xp");

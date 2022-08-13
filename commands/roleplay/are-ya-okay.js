@@ -1,5 +1,5 @@
 const {
-  MessageAttachment,
+  AttachmentBuilder,
   EmbedBuilder,
   Message,
   Client
@@ -30,7 +30,7 @@ module.exports = {
     ctx.fillText(`${say}`, 280, 135);
     ctx.textAlign = "center";
 
-    const attachment = new MessageAttachment(canvas.toBuffer(), 'dad.png');
+    const attachment = new AttachmentBuilder(canvas.toBuffer(), 'dad.png');
     message.channel.send({
       files: [attachment]
     });

@@ -1,4 +1,4 @@
-const { EmbedBuilder, Message, Client, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, Message, Client, AttachmentBuilder } = require('discord.js');
 const DIG = require("discord-image-generation");
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
         let avatar = user.user.displayAvatarURL({ dynamic: false, format: 'png' });
         let avata = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
         let img = await new DIG.Kiss().getImage(avata, avatar);
-        let attach = new MessageAttachment(img, "slap.png");
+        let attach = new AttachmentBuilder(img, "slap.png");
         message.channel.send({ files: [attach] });
     }
 }

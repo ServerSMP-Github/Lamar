@@ -4,7 +4,7 @@ const {
   MessageActionRow,
   MessageButton,
   EmbedBuilder,
-  MessageAttachment
+  AttachmentBuilder
 } = require('discord.js');
 const canvas = require("discord-canvas")
 
@@ -34,7 +34,7 @@ module.exports = {
     if (platform !== "pc" && platform !== "xbl" && platform !== "psn") return message.channel.send("Please enter a valid platform")
     if (!image) return message.channel.send("User not found")
 
-    const attachment = new MessageAttachment(image.toBuffer(), "FortniteStats.png");
+    const attachment = new AttachmentBuilder(image.toBuffer(), "FortniteStats.png");
 
     message.channel.send({
       files: [attachment]

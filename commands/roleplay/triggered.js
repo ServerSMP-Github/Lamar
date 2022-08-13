@@ -1,4 +1,4 @@
-const { EmbedBuilder, Message, Client, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, Message, Client, AttachmentBuilder } = require('discord.js');
 const canvacord = require("canvacord");
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
         if(!user) user = message.member;
         let avatar = user.user.displayAvatarURL({ dynamic: false, format: 'png' });
         let image = await canvacord.Canvas.trigger(avatar);
-        let attachment = new MessageAttachment(image, "triggered.gif");
+        let attachment = new AttachmentBuilder(image, "triggered.gif");
         message.channel.send({ files: [attachment] });
     }
 }

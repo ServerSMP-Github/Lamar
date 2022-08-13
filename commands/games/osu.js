@@ -2,7 +2,7 @@ const {
   EmbedBuilder,
   Message,
   Client,
-  MessageAttachment
+  AttachmentBuilder
 } = require('discord.js');
 const {
   createCanvas,
@@ -118,7 +118,7 @@ module.exports = {
       ctx.textAlign = "center";
       ctx.fillText(`${Math.round(user[0].level)}`, 907, 49)
 
-      const attachment = new MessageAttachment(canvas.toBuffer(), 'osu.png');
+      const attachment = new AttachmentBuilder(canvas.toBuffer(), 'osu.png');
       message.channel.send({
         files: [attachment]
       })

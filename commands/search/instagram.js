@@ -4,7 +4,7 @@ const {
     MessageActionRow,
     MessageButton,
     EmbedBuilder,
-    MessageAttachment
+    AttachmentBuilder
 } = require('discord.js');
 const {
     createCanvas,
@@ -88,7 +88,7 @@ module.exports = {
         ctx.fillText(`${user.posts} Posts`, 490, 165);
 
         // Sending
-        const attachment = new MessageAttachment(canvas.toBuffer(), 'insta.png');
+        const attachment = new AttachmentBuilder(canvas.toBuffer(), 'insta.png');
         message.channel.send({
             files: [attachment]
         })

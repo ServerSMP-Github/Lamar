@@ -4,7 +4,7 @@ const {
     MessageActionRow,
     MessageButton,
     EmbedBuilder,
-    MessageAttachment
+    AttachmentBuilder
 } = require("discord.js");
 
 module.exports = {

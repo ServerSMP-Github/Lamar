@@ -1,4 +1,4 @@
-const { EmbedBuilder, Message, Client, MessageReaction, MessageActionRow, MessageButton, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, Message, Client, MessageReaction, MessageActionRow, MessageButton, AttachmentBuilder } = require('discord.js');
 const { blacklistedwords } = require('../../client/collection');
 const SchemaAutoTranslate = require('../../models/server/translate');
 const SchemaChatBot = require('../../models/server/chatbot-channel');
@@ -1056,7 +1056,7 @@ module.exports = {
           })
         });
 
-        const attachment = new MessageAttachment(image, 'bye.png');
+        const attachment = new AttachmentBuilder(image, 'bye.png');
         message.channel.send({
           files: [attachment]
         });
@@ -2398,7 +2398,7 @@ module.exports = {
                   labels: monthsArray,
                 }
               });
-              const channelsAttachment = new MessageAttachment(channelsChart, 'channels.png');
+              const channelsAttachment = new AttachmentBuilder(channelsChart, 'channels.png');
 
               const emojiChart = await chart.renderToBuffer({
                 type: 'bar',
@@ -2423,7 +2423,7 @@ module.exports = {
                   labels: monthsArray,
                 }
               });
-              const emojiAttachment = new MessageAttachment(emojiChart, 'emoji.png');
+              const emojiAttachment = new AttachmentBuilder(emojiChart, 'emoji.png');
 
               const memberChart = await chart.renderToBuffer({
                 type: 'bar',
@@ -2458,7 +2458,7 @@ module.exports = {
                   labels: monthsArray,
                 }
               });
-              const memberAttachment = new MessageAttachment(memberChart, 'member.png');
+              const memberAttachment = new AttachmentBuilder(memberChart, 'member.png');
 
               const randomColor = (Math.random() * 0xFFFFFF << 0).toString(16);
 

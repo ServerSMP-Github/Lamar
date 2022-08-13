@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require("discord.js");
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const canvacord = require("canvacord");
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
     run: async (client, message, args) => {
         let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
         let image = await canvacord.Canvas.delete(avatar);
-        let attachment = new MessageAttachment(image, "deleted.png");
+        let attachment = new AttachmentBuilder(image, "deleted.png");
         return message.channel.send({ files: [attachment] });
     },
 };

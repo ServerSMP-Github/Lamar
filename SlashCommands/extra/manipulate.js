@@ -1,7 +1,7 @@
 const {
     CommandInteraction,
     Client,
-    MessageAttachment,
+    AttachmentBuilder,
     ApplicationCommandType,
     ApplicationCommandOptionType
 } = require('discord.js');
@@ -214,7 +214,7 @@ module.exports = {
 
         function displayResult(url, file_name) {
             return interaction.followUp({
-                files: [new MessageAttachment(url, file_name)]
+                files: [new AttachmentBuilder(url, file_name)]
             });
         }
 

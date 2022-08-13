@@ -4,7 +4,7 @@ const {
     MessageActionRow,
     MessageButton,
     EmbedBuilder,
-    MessageAttachment
+    AttachmentBuilder
 } = require("discord.js");
 const Canvas = require("canvas");
 const Schema = require("../../models/user/simplevel");
@@ -139,7 +139,7 @@ module.exports = {
                 ctx.fillText(`${data.Lowest}%`, 244, 660)
                 ctx.fillText(`${data.Highest}%`, 302, 703);
 
-                const attachment = new MessageAttachment(canvas.toBuffer(), "simpcard.jpg");
+                const attachment = new AttachmentBuilder(canvas.toBuffer(), "simpcard.jpg");
 
                 message.channel.send({
                     content: "If your username contains any non-alphabetical characters, it won't show the username.",

@@ -1,5 +1,5 @@
 const {
-  MessageAttachment,
+  AttachmentBuilder,
   EmbedBuilder,
   Message,
   Client
@@ -20,7 +20,7 @@ module.exports = {
     const randomNumberImage = Math.floor(Math.random() * api.images.length);
     const randomNumberFact = Math.floor(Math.random() * api.facts.length);
     const randomFact = api.facts[randomNumberFact];
-    const file = new MessageAttachment(`./assets/api/axolotl/${api.images[randomNumberImage]}`, 'image.jpg');
+    const file = new AttachmentBuilder(`./assets/api/axolotl/${api.images[randomNumberImage]}`, 'image.jpg');
     message.channel.send({
       embeds: [
         new EmbedBuilder()

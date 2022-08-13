@@ -1,5 +1,5 @@
 const {
-  MessageAttachment,
+  AttachmentBuilder,
   EmbedBuilder,
   Message,
   Client
@@ -17,9 +17,9 @@ module.exports = {
    */
   run: async (client, message, args) => {
     const random = Math.floor(Math.random() * 101);
-    const authorImage = new MessageAttachment(`./assets/api/undertalemp3/${data.author.img}`, `author.jpg`);
-    const albumImage = new MessageAttachment(`./assets/api/undertalemp3/${data.art}`, data.art);
-    const music = new MessageAttachment(`./assets/api/undertalemp3/${random}.mp3`, `${data.tracks[random]}.mp3`);
+    const authorImage = new AttachmentBuilder(`./assets/api/undertalemp3/${data.author.img}`, `author.jpg`);
+    const albumImage = new AttachmentBuilder(`./assets/api/undertalemp3/${data.art}`, data.art);
+    const music = new AttachmentBuilder(`./assets/api/undertalemp3/${random}.mp3`, `${data.tracks[random]}.mp3`);
     message.reply({
       embeds: [
         new EmbedBuilder()

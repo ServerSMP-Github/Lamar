@@ -4,7 +4,7 @@ const {
     EmbedBuilder,
     MessageActionRow,
     MessageButton,
-    MessageAttachment,
+    AttachmentBuilder,
     ApplicationCommandType
 } = require("discord.js");
 const progressbar = require('string-progressbar');
@@ -81,7 +81,7 @@ module.exports = {
                         .setDiscriminator(user_find.user.discriminator);
                     rank.build()
                         .then(data => {
-                            const attachment = new MessageAttachment(data, "RankCard.png");
+                            const attachment = new AttachmentBuilder(data, "RankCard.png");
                             interaction.followUp({
                                 files: [attachment]
                             });

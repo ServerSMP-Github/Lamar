@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require("discord.js");
+const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const progressbar = require('string-progressbar');
 const canvacord = require("canvacord");
 const Levels = require('discord-xp');
@@ -114,7 +114,7 @@ module.exports = {
               }
               rank.build()
               .then(data => {
-                const attachment = new MessageAttachment(data, "RankCard.png");
+                const attachment = new AttachmentBuilder(data, "RankCard.png");
                 message.channel.send({ files: [attachment] });
               })
             }
@@ -194,7 +194,7 @@ module.exports = {
             }
             rank.build()
             .then(data => {
-              const attachment = new MessageAttachment(data, "RankCard.png");
+              const attachment = new AttachmentBuilder(data, "RankCard.png");
               message.channel.send({ files: [attachment] });
             })
           }

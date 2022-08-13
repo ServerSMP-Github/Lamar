@@ -1,4 +1,4 @@
-const { CommandInteraction, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const { CommandInteraction, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 
 module.exports = {
     name: 'wordle',

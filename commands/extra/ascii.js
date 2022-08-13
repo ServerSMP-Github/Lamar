@@ -2,7 +2,7 @@ const {
     EmbedBuilder,
     Message,
     Client,
-    MessageAttachment
+    AttachmentBuilder
 } = require('discord.js');
 const figlet = require('figlet');
 
