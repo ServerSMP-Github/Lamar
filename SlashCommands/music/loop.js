@@ -1,10 +1,13 @@
 const {
-EmbedBuilder
+    EmbedBuilder,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 
 module.exports = {
     name: "loop",
     description: "Sets loop mode",
+    type: ApplicationCommandType.ChatInput,
     options: [{
         name: "mode",
         type: "INTEGER",

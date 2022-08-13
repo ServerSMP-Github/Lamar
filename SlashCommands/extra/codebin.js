@@ -1,7 +1,9 @@
 const {
   Client,
   CommandInteraction,
-  EmbedBuilder
+  EmbedBuilder,
+  ApplicationCommandType,
+  ApplicationCommandOptionType
 } = require("discord.js");
 const sourcebin = require("sourcebin_js");
 const fetch = require("axios");
@@ -9,14 +11,15 @@ const fetch = require("axios");
 module.exports = {
   name: "codebin",
   description: "Bin code or text.",
+  type: ApplicationCommandType.ChatInput,
   options: [{
       name: "serversmp",
       description: "ServerSMP - CodeBin",
-      type: "SUB_COMMAND",
+      type: ApplicationCommandOptionType.Subcommand,
       options: [{
           name: "code",
           description: "What you want to bin?",
-          type: "STRING",
+          type: ApplicationCommandOptionType.String,
           required: true
         },
       ],
@@ -24,15 +27,15 @@ module.exports = {
     {
       name: "hastebin",
       description: "Haste Bin",
-      type: "SUB_COMMAND",
+      type: ApplicationCommandOptionType.Subcommand,
       options: [{
-          type: "STRING",
+          type: ApplicationCommandOptionType.String,
           name: "title",
           description: "What is the name of the source?",
           required: true
         },
         {
-          type: "STRING",
+          type: ApplicationCommandOptionType.String,
           name: "language",
           description: "What is the language in the source?",
           required: true,
@@ -75,7 +78,7 @@ module.exports = {
           ]
         },
         {
-          type: "STRING",
+          type: ApplicationCommandOptionType.String,
           name: "code",
           description: "What's the source?",
           required: true

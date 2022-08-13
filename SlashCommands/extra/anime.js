@@ -1,15 +1,16 @@
-const { Client, CommandInteraction, EmbedBuilder } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
     name: "anime",
     description: "Get Anime Actions",
+    type: ApplicationCommandType.ChatInput,
     options: [
         {
             name: 'category',
             description: "which action do you want",
             required: true,
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             choices: [
                 {
                     name: "cuddle",

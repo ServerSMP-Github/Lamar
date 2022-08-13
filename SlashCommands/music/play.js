@@ -1,15 +1,18 @@
 const {
-    EmbedBuilder
+    EmbedBuilder,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 
 module.exports = {
     name: "play",
     description: "Play a song",
+    type: ApplicationCommandType.ChatInput,
     options: [
         {
             name: "songtitle",
             description: "title of the song",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: true,
         }
     ],
@@ -42,13 +45,6 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("You are not in my voice channel")
-                    .setColor("YELLOW")
-                ]
-            });
-            else return interaction.followUp({
-                embeds: [
-                    new EmbedBuilder()
-                    .setDescription("There is nothing playing")
                     .setColor("YELLOW")
                 ]
             });

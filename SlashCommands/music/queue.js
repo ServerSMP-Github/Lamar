@@ -1,10 +1,13 @@
 const {
-    EmbedBuilder
+    EmbedBuilder,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 
 module.exports = {
     name: "queue",
     description: "Display the song queue",
+    type: ApplicationCommandType.ChatInput,
     options: [{
         name: "page",
         description: "the page of the queue to display",

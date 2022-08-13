@@ -3,7 +3,9 @@ const {
     EmbedBuilder,
     MessageActionRow,
     MessageSelectMenu,
-    MessageAttachment
+    MessageAttachment,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 const {
     createCanvas,
@@ -15,45 +17,46 @@ const { DMY } = require("../../assets/api/time/index");
 module.exports = {
     name: "profile",
     description: "View and modify user profile.",
+    type: ApplicationCommandType.ChatInput,
     options: [{
             name: "view",
             description: "View your profile.",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "user",
                 description: "View a user's profile.",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false,
             }],
         },
         {
             name: "edit",
             description: "Edit your profile.",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "name",
                 description: "Change your name.",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: false,
             }, {
                 name: "descriminator",
                 description: "Change your discriminator.",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: false,
             }, {
                 name: "descripton",
                 description: "Change your description.",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: false,
             }, {
                 name: "status",
                 description: "Change your status.",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: false,
             }, {
                 name: "status-type",
                 description: "Change your status type.",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: false,
                 choices: [{
                         name: "auto",
@@ -83,7 +86,7 @@ module.exports = {
             }, {
                 name: "background",
                 description: "Change your background.",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: false,
                 choices: [{
                         name: "minecraft",

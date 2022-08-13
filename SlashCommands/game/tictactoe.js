@@ -1,22 +1,22 @@
-const { Client, ContextMenuInteraction, EmbedBuilder, MessageActionRow, MessageButton } = require('discord.js');
+const { Client, CommandInteraction, EmbedBuilder, MessageActionRow, MessageButton, ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 const { TicTacToe } = require('discord-gamecord');
 
 module.exports = {
     name: 'tictactoe',
     description: 'A game of ttt',
-    type: 'CHAT_INPUT',
+    type: ApplicationCommandType.ChatInput,
     options: [
         {
             name: 'opponent',
             description: 'Who you want to play with',
-            type: 'USER',
+            type: ApplicationCommandOptionType.User,
             required: true
         }
     ],
 
     /**
      * @param {Client} client
-     * @param {ContextMenuInteraction} interaction
+     * @param {CommandInteraction} interaction
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {

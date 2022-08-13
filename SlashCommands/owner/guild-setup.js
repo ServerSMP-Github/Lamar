@@ -3,11 +3,14 @@ const {
     EmbedBuilder,
     MessageActionRow,
     MessageSelectMenu,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 
 module.exports = {
     name: "guild-setup",
     description: "Setup for the owner of the bot.",
+    type: ApplicationCommandType.ChatInput,
     owner: true,
 
     /**

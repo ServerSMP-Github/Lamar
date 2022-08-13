@@ -1,103 +1,106 @@
 const {
     CommandInteraction,
     Client,
-    MessageAttachment
+    MessageAttachment,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require('discord.js');
 
 module.exports = {
     name: 'manipulate',
     description: 'Image manipulation',
+    type: ApplicationCommandType.ChatInput,
     options: [{
             name: 'caution',
             description: "Create a caution sign!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: 'text',
                 description: "The text that you want to be displayed in the caution sign",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: true
             }],
         },
         {
             name: 'clown',
             description: "Make someone a clown!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: 'user',
                 description: "The user that you want to make a clown into",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
         },
         {
             name: 'gun',
             description: 'Get someones avatar holding a gun',
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "user",
                 description: "The user that you want to hold the gun as",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }],
         },
         {
             name: 'oogway',
             description: "Make an oogway quote meme!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: 'text',
                 description: "The text that you want to be displayed in the oogway meme",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: true
             }],
         },
         {
             name: 'pet',
             description: "Pet someone!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "user",
                 description: "The user that you want to pet",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
         },
         {
             name: 'sadcat',
             description: "Make a sad cat meme!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: 'text',
                 description: "The text that you want to be displayed in the sadcat meme",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: true
             }],
         },
         {
             name: 'wanted',
             description: "Be wanted and have a large bounty",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "user",
                 description: "The user that you want to make wanted",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
         },
         {
             name: 'ship',
             description: "Ship someone as a couple!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                     name: 'user1',
                     description: "The first user that you want to ship with the 2nd user",
-                    type: "USER",
+                    type: ApplicationCommandOptionType.User,
                     required: true,
                 },
                 {
                     name: 'user2',
                     description: "The first user that you want to ship with the 1st user",
-                    type: "USER",
+                    type: ApplicationCommandOptionType.User,
                     required: true,
                 }
             ]
@@ -105,11 +108,11 @@ module.exports = {
         {
             name: 'trigger',
             description: "Make a user triggered!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "user",
                 description: "The user that you want to make triggered",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
 
@@ -117,28 +120,28 @@ module.exports = {
         {
             name: 'simp',
             description: "Give a user a simp stamp!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "user",
                 description: "The user that you want to make simp-stamped!",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
         },
         {
             name: 'tweet',
             description: "Make a fake tweet!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                     name: 'text',
                     description: "The text that you want to tweet!",
-                    type: "STRING",
+                    type: ApplicationCommandOptionType.String,
                     required: true
                 },
                 {
                     name: 'user',
                     description: 'The user that you want to fake tweet as!',
-                    type: "USER",
+                    type: ApplicationCommandOptionType.User,
                     required: false
                 }
             ]
@@ -146,44 +149,44 @@ module.exports = {
         {
             name: 'delete',
             description: "Permanently delete a user! 😳",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: 'user',
                 description: "The user that you want to permantly delete! 😳",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
         },
         {
             name: 'supreme',
             description: "Make someone look like a goat! 🐐",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: 'user',
                 description: "The user that you want to make as a goat!🐐",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
         },
         {
             name: 'shit',
             description: "Step on a ship!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: 'user',
                 description: "The user that you want to make as a shit! 💩",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
         },
         {
             name: 'gravestone',
             description: "Make a gravestone of a user!",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "user",
                 description: "The user that you want to make the gravestone in",
-                type: "USER",
+                type: ApplicationCommandOptionType.User,
                 required: false
             }]
         }

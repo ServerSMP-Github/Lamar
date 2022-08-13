@@ -4,7 +4,8 @@ const {
     EmbedBuilder,
     MessageActionRow,
     MessageButton,
-    MessageAttachment
+    MessageAttachment,
+    ApplicationCommandType
 } = require("discord.js");
 const progressbar = require('string-progressbar');
 const xpSchema = require("../../models/server/xp");
@@ -13,7 +14,7 @@ const Levels = require('discord-xp');
 
 module.exports = {
     name: "user rank",
-    type: "USER",
+    type: ApplicationCommandType.User,
 
     /**
      *

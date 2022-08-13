@@ -1,10 +1,10 @@
-const { Client, CommandInteraction, EmbedBuilder, MessageActionRow, MessageButton, MessageAttachment } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, MessageActionRow, MessageButton, MessageAttachment, ApplicationCommandType } = require("discord.js");
 const Schema = require("../../models/user/user-duck");
 const fetch = require('axios');
 
 module.exports = {
     name: "user duck",
-    type: "USER",
+    type: ApplicationCommandType.User,
 
     /**
      *

@@ -1,26 +1,27 @@
-const { Client, CommandInteraction, EmbedBuilder } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 const customCommandModel = require("../../models/server/cc-slash");
 
 module.exports = {
     name: "custom",
     description: "custom command configuration.",
+    type: ApplicationCommandType.ChatInput,
     userPermissions: ["MANAGE_MESSAGES"],
     options: [
       {
         name: "create",
         description: "create a custom command",
-        type: "SUB_COMMAND",
+        type: ApplicationCommandOptionType.Subcommand,
         options: [
           {
             name: "command",
             description: "name of the custom command",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: true
           },
           {
             name: "response",
             description: "response for this custom command",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: true
           },
         ],
@@ -28,12 +29,12 @@ module.exports = {
       {
         name: "delete",
         description: "remove a custom command",
-        type: "SUB_COMMAND",
+        type: ApplicationCommandOptionType.Subcommand,
         options: [
           {
             name: "command",
             description: "name of the custom command",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: true
           },
         ],

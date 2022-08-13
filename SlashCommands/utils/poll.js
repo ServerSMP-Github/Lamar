@@ -1,80 +1,81 @@
-const { EmbedBuilder, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, MessageActionRow, MessageButton, ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 const Schema = require('../../models/server/poll-cmd');
 
 module.exports = {
     name: 'poll',
     description: 'Creates a poll with many options',
+    type: ApplicationCommandType.ChatInput,
     options: [
         {
             name: 'title',
             description: 'The title of poll',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: true,
         },
         {
             name: 'choice1',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: true,
         },
         {
             name: 'choice2',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: true,
         },
         {
             name: 'choice3',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: false,
         },
         {
             name: 'choice4',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: false,
         },
         {
             name: 'choice5',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: false,
         },
         {
             name: 'choice6',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: false,
         },
         {
             name: 'choice7',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: false,
         },
         {
             name: 'choice8',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: false,
         },
         {
             name: 'choice9',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: false,
         },
         {
             name: 'choice10',
             description: 'A choice',
-            type: 'STRING',
+            type: ApplicationCommandOptionType.String,
             required: false,
         },
         {
             name: 'destination',
             description: 'The channel for the poll',
-            type: 'CHANNEL',
+            type: ApplicationCommandOptionType.Channel,
             required: false,
             channelTypes: ['GUILD_TEXT'],
         }

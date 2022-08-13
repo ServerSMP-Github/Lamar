@@ -1,10 +1,13 @@
 const {
-    EmbedBuilder
+    EmbedBuilder,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 
 module.exports = {
     name: "stop",
     description: "Stop the player",
+    type: ApplicationCommandType.ChatInput,
     run: async (client, interaction) => {
 
         if (client.music === false) return interaction.followUp({

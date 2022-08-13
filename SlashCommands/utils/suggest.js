@@ -2,16 +2,19 @@ const {
     Client,
     CommandInteraction,
     EmbedBuilder,
-    WebhookClient
+    WebhookClient,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 
 module.exports = {
     name: "suggest",
     description: "Suggest ideas that should be added to the bot.",
+    type: ApplicationCommandType.ChatInput,
     options: [{
         name: "idea",
         description: "What you want to suggest?",
-        type: "STRING",
+        type: ApplicationCommandOptionType.String,
         required: true
     }],
 

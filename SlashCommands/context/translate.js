@@ -2,13 +2,13 @@ const {
     Client,
     CommandInteraction,
     EmbedBuilder,
-    ContextMenuInteraction
+    ApplicationCommandType
 } = require("discord.js");
 const translate = require("@iamtraction/google-translate")
 
 module.exports = {
     name: "Translate",
-    type: "MESSAGE",
+    type: ApplicationCommandType.Message,
 
     /**
      *

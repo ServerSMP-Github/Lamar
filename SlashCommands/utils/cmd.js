@@ -1,32 +1,35 @@
 const {
     Client,
-    ContextMenuInteraction
+    CommandInteraction,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 const Schema = require("../../models/server/cmd-slash");
 
 module.exports = {
     name: "cmd",
     description: "Disable or enable a slash command.",
+    type: ApplicationCommandType.ChatInput,
     userPermissions: ["MANAGE_GUILD"],
     options: [{
             name: "enable",
             description: "You can enable disabled Slash Command in your server",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "command",
                 description: "Put your Slash Command",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: true,
             }],
         },
         {
             name: "disable",
             description: "You can disable Slash Command in your server",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "command",
                 description: "Put your Slash Command",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: true,
             }],
         },
@@ -34,7 +37,7 @@ module.exports = {
 
     /**
      * @param {Client} client
-     * @param {ContextMenuInteraction} interaction
+     * @param {CommandInteraction} interaction
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {

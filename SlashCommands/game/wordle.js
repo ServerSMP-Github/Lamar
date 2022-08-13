@@ -1,12 +1,13 @@
-const { ContextMenuInteraction, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment } = require("discord.js");
+const { CommandInteraction, Client, MessageActionRow, MessageButton, EmbedBuilder, MessageAttachment, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 
 module.exports = {
     name: 'wordle',
     description: 'Play wordle in discord',
+    type: ApplicationCommandType.ChatInput,
     /**
      *
      * @param {Client} client
-     * @param {ContextMenuInteraction} interaction
+     * @param {CommandInteraction} interaction
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {

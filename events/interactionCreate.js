@@ -1,9 +1,9 @@
-const client = require("../index");
-const { EmbedBuilder, WebhookClient } = require("discord.js");
-const Userstats = require("../models/user/user-stats");
+const { EmbedBuilder, WebhookClient, ApplicationCommandOptionType, InteractionType  } = require("discord.js");
 const customCommandModel = require("../models/server/cc-slash");
 const profileSchema = require("../models/user/profile");
 const cmdToggle = require("../models/server/cmd-slash");
+const Userstats = require("../models/user/user-stats");
+const client = require("../index");
 
 client.on("interactionCreate", async (interaction) => {
 
@@ -94,7 +94,7 @@ client.on("interactionCreate", async (interaction) => {
       const args = [];
 
       for (let option of interaction.options.data) {
-        if (option.type === "SUB_COMMAND") {
+        if (option.type === ApplicationCommandOptionType.Subcommand) {
           if (option.name) args.push(option.name);
           option.options?.forEach((x) => {
             if (x.value) args.push(x.value);
@@ -148,7 +148,7 @@ client.on("interactionCreate", async (interaction) => {
   }
 
   // Context Menu Handling
-  if (interaction.isContextMenu()) {
+  if (interaction.isContextMenuCommand()) {
     await interaction.deferReply({
       ephemeral: false
     }).catch(() => {});

@@ -1,6 +1,8 @@
 const {
     Client,
     CommandInteraction,
+    ApplicationCommandType,
+    ApplicationCommandOptionType
 } = require("discord.js");
 const roleSchema = require("../../models/server/roles-colors");
 const {
@@ -11,20 +13,21 @@ const ColorHelper = require('../../assets/api/color/index');
 module.exports = {
     name: "role-color",
     description: "Make cool role colors.",
+    type: ApplicationCommandType.ChatInput,
     options: [{
             name: "create",
             description: "create role color",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                     name: "name",
                     description: "name of color",
-                    type: "STRING",
+                    type: ApplicationCommandOptionType.String,
                     required: true
                 },
                 {
                     name: "color",
                     description: "color of role in hex",
-                    type: "STRING",
+                    type: ApplicationCommandOptionType.String,
                     required: true
                 },
             ],
@@ -32,38 +35,38 @@ module.exports = {
         {
             name: "delete",
             description: "remove role color",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "name",
                 description: "name of color",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: false
             }, ],
         },
         {
             name: "list",
             description: "remove role color",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
         },
         {
             name: "add",
             description: "add a role color",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "name",
                 description: "name of color",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: true
             }, ],
         },
         {
             name: "remove",
             description: "remove a role color",
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "name",
                 description: "name of color",
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
                 required: true
             }, ],
         },

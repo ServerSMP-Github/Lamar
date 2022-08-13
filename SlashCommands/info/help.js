@@ -1,21 +1,22 @@
-const { Client, ContextMenuInteraction, EmbedBuilder } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 const { readdirSync } = require("fs");
 
 module.exports = {
   name: "help",
   description: "Show All Commands",
+  type: ApplicationCommandType.ChatInput,
   options: [
       {
         name: "commands",
         description: "Serch for a command",
-        type: "STRING",
+        type: ApplicationCommandOptionType.String,
         required: false,
       }
     ],
 
   /**
    * @param {Client} client
-   * @param {ContextMenuInteraction} interaction
+   * @param {CommandInteraction} interaction
    * @param {String[]} args
    */
   run: async (client, interaction, args) => {

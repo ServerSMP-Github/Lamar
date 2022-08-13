@@ -1,13 +1,13 @@
-const { Client, ContextMenuInteraction } = require("discord.js");
+const { Client, CommandInteraction, ApplicationCommandType } = require("discord.js");
 const figlet = require("figlet");
 
 module.exports = {
   name: "Ascii",
-  type: 'MESSAGE',
+  type: ApplicationCommandType.Message,
   /**
    *
    * @param {Client} client
-   * @param {ContextMenuInteraction} interaction
+   * @param {CommandInteraction} interaction
    * @param {String[]} args
    */
   run: async (client, interaction, args) => {
