@@ -1,4 +1,4 @@
-const { EmbedBuilder, Collection, WebhookClient } = require('discord.js');
+const { EmbedBuilder, Collection, WebhookClient, PermissionsBitField } = require('discord.js');
 const blacklistserver = require('../models/management/blacklist');
 const commandstoggle = require('../models/server/command');
 const Userstats = require("../models/user/user-stats"); 
@@ -50,7 +50,7 @@ client.on("messageCreate", async (message) => {
             new EmbedBuilder()
               .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
               .setDescription(`\`\`\`\n${client.config.bot.info.prefix}${command.name}\n\`\`\``)
-              .setColor("YELLOW")
+              .setColor("Yellow")
               .setTimestamp()
           ]
         });
@@ -59,12 +59,12 @@ client.on("messageCreate", async (message) => {
         if(blacklisted) return message.reply("This server has been blacklisted.");
 
         if(!message.member.permissions.has(command.userPermission || [])) return message.channel.send("You do not have permission to use this command!");
-        if(!message.guild.me.permissions.has(command.botPermission || [])) return message.channel.send("I do not have permission to use this command!");
+        if(!message.guild.members.me.permissions.has(command.botPermission || [])) return message.channel.send("I do not have permission to use this command!");
 
         if (command.owner && !client.config.bot.owner.includes(message.author.id)) return message.channel.send({
           embeds: [
             new EmbedBuilder()
-              .setColor("RED")
+              .setColor("Red")
               .setDescription( "This command can only be used by the owners!" )
           ]
         });

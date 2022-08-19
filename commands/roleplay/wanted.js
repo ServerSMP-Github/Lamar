@@ -15,7 +15,7 @@ module.exports = {
         if(!user) user = message.member;
         let avatar = user.user.displayAvatarURL({ dynamic: false, format: 'png' });
         let img = await new DIG.Wanted().getImage(avatar, "$");
-        let attach = new AttachmentBuilder(img, "wanted.png");
+        let attach = new AttachmentBuilder(img, { name: "wanted.png" });
         message.channel.send({ files: [attach] });
     }
 }

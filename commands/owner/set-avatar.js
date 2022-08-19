@@ -1,8 +1,4 @@
-const {
-  EmbedBuilder,
-  Message,
-  Client
-} = require('discord.js');
+const { Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'set-avatar',

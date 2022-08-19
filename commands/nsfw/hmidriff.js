@@ -28,7 +28,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setTitle(`Hentai Midriff Image`)
-                    .setColor("GREEN")
+                    .setColor("Green")
                     .setImage(data.message)
                 ]
             });

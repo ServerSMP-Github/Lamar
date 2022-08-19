@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder } = require("discord.js");
+const { Message, Client } = require("discord.js");
 
 module.exports = {
     name: "deep-quotes",

@@ -1,14 +1,7 @@
-const {
-    Client,
-    CommandInteraction,
-    ApplicationCommandType,
-    ApplicationCommandOptionType
-} = require("discord.js");
+const { Client, CommandInteraction, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 const roleSchema = require("../../models/server/roles-colors");
-const {
-    isColor
-} = require("coloras");
 const ColorHelper = require('../../assets/api/color/index');
+const { isColor } = require("coloras");
 
 module.exports = {
     name: "role-color",
@@ -80,7 +73,7 @@ module.exports = {
      */
     run: async (client, interaction, args) => {
         const subCommand = interaction.options.getSubcommand();
-        if (!interaction.guild.me.permissions.has("MANAGE_ROLES")) return interaction.followUp({
+        if (!interaction.guild.members.me.permissions.has("MANAGE_ROLES")) return interaction.followUp({
             content: "I do not have permission to use this command!",
             ephemeral: true
         });

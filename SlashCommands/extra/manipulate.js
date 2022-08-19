@@ -1,10 +1,4 @@
-const {
-    CommandInteraction,
-    Client,
-    AttachmentBuilder,
-    ApplicationCommandType,
-    ApplicationCommandOptionType
-} = require('discord.js');
+const { CommandInteraction, Client, AttachmentBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
     name: 'manipulate',
@@ -214,7 +208,7 @@ module.exports = {
 
         function displayResult(url, file_name) {
             return interaction.followUp({
-                files: [new AttachmentBuilder(url, file_name)]
+                files: [new AttachmentBuilder(url, { name: file_name })]
             });
         }
 

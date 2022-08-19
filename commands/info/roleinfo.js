@@ -1,8 +1,4 @@
-const {
-    Client,
-    Message,
-    EmbedBuilder
-} = require("discord.js");
+const { Client, Message, EmbedBuilder } = require("discord.js");
 const { DMY } = require("../../assets/api/time/index");
 
 module.exports = {

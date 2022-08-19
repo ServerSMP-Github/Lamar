@@ -22,71 +22,87 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please \`youtube\``
+                    name: `${client.user.username} will not be doing music anymore, please use \`youtube\``
                 })
-                .setColor("BLUE")
+                .setColor("Blue")
             ]
         });
 
-        let { channel } = interaction.member.voice; 
+        let { channel } = interaction.member.voice;
 
         if (!channel) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("Sorry, but you need to be in a voice channel to do that")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
-        const checkPlayer = client.music.get(interaction.guild.id);
-        let botChannel = interaction.guild.me.voice.channel
+        const checkPlayer = client.poru.players.get(interaction.guild.id);
+        let botChannel = interaction.guild.members.me.voice.channel
         if (checkPlayer) {
             if (botChannel && channel.id !== botChannel.id) return interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("You are not in my voice channel")
-                    .setColor("YELLOW")
+                    .setColor("Yellow")
                 ]
             });
         }
 
+        const player = client.poru.createConnection({
+            guildId: interaction.guild.id,
+            voiceChannel: channel.id,
+            textChannel: interaction.channel.id,
+            deaf: true
+        });
+
         const songTitle = interaction.options.getString("songtitle");
 
-        const res = await client.music.search(
-            songTitle,
-            interaction.user.member
-        );
+        const resolve = await client.poru.resolve(songTitle);
+        const { loadType, tracks, playlistInfo } = resolve;
 
-        if (res.loadType === "LOAD_FAILED") return interaction.followUp({
+        if (loadType === "PLAYLIST_LOADED") {
+
+            for (const track of resolve.tracks) {
+                track.info.requester = interaction.member;
+                player.queue.add(track);
+            }
+
+            interaction.followUp({
+                embeds: [
+                    new EmbedBuilder()
+                    .setDescription(`✅ **|** Added **${tracks.length}** songs from **${playlistInfo.name}**`)
+                    .setThumbnail("https://api.serversmp.xyz/upload/1/prince/hXLEkmnukU.png")
+                    .setColor("Blue")
+                ]
+            });
+
+        } else if (loadType === "SEARCH_RESULT" || loadType === "TRACK_LOADED") {
+
+            const track = tracks.shift();
+            track.info.requester = interaction.member;
+
+            player.queue.add(track);
+
+            interaction.followUp({
+                embeds: [
+                    new EmbedBuilder()
+                    .setDescription(`✅ **|** **[${track.info.title}](${track.info.uri})** has been added to the queue`)
+                    .setThumbnail(`${track.info.image ? track.info.image : 'https://api.serversmp.xyz/upload/1/prince/hXLEkmnukU.png'}`)
+                    .setColor("Blue")
+                ]
+            });
+
+        } else return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("Failed to find your song")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
-        const player = client.music.create({
-            guild: interaction.guild.id,
-            voiceChannel: interaction.member.voice.channel.id,
-            textChannel: interaction.channel.id,
-        });
-
-        if (player.state !== 'CONNECTED') player.connect();
-
-        player.queue.add(res.tracks[0]);
-
-        interaction.followUp({
-            embeds: [
-                new EmbedBuilder()
-                .setDescription(`✅ **|** **[${res.tracks[0].title}](${res.tracks[0].uri})** has been added to the queue`)
-                .setThumbnail(`${res.tracks[0].thumbnail ? res.tracks[0].thumbnail : 'https://serversmp-api.herokuapp.com//upload/1/prince/hXLEkmnukU.png'}`)
-                .setColor("BLUE")
-            ]
-        });
-
-        if (!player.playing && !player.paused && !player.queue.size) player.play();
-
-        if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.length) player.play();
+        if (!player.isPlaying && !player.isPaused) return player.play();
 
     },
 };

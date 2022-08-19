@@ -28,7 +28,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setTitle(`Pussy Image`)
-                    .setColor("GREEN")
+                    .setColor("Green")
                     .setImage(data.message)
                 ]
             });

@@ -1,4 +1,4 @@
-const { EmbedBuilder, Message, Client, version } = require('discord.js');
+const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: "create-server",

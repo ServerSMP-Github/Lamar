@@ -1,7 +1,42 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder } = require("discord.js");
+const { Message, Client, ActionRowBuilder, ButtonBuilder, EmbedBuilder, PermissionsBitField, ButtonStyle } = require("discord.js");
 const env = {
-    permissions: ["KICK_MEMBERS", "BAN_MEMBERS", "READ_MESSAGE_HISTORY", "SEND_MESSAGES", "MANAGE_CHANNELS", "EMBED_LINKS", "ATTACH_FILES", "READ_MESSAGE_HISTORY", "MENTION_EVERYONE", "ADD_REACTIONS", "MANAGE_GUILD", "USE_EXTERNAL_EMOJIS", "MANAGE_WEBHOOKS", "MANAGE_ROLES", "MANAGE_NICKNAMES", "CHANGE_NICKNAME", "MOVE_MEMBERS", "DEAFEN_MEMBERS", "MUTE_MEMBERS", "SPEAK", "CONNECT", "PRIORITY_SPEAKER", "USE_VAD"],
-    scopes: ["applications.commands", "bot"]
+    permissions: [
+        PermissionsBitField.Flags.KickMembers,
+        PermissionsBitField.Flags.BanMembers,
+        PermissionsBitField.Flags.ReadMessageHistory,
+        PermissionsBitField.Flags.SendMessages,
+        PermissionsBitField.Flags.SendMessagesInThreads,
+        PermissionsBitField.Flags.CreatePublicThreads,
+        PermissionsBitField.Flags.CreatePrivateThreads,
+        PermissionsBitField.Flags.ManageChannels,
+        PermissionsBitField.Flags.EmbedLinks,
+        PermissionsBitField.Flags.AttachFiles,
+        PermissionsBitField.Flags.ReadMessageHistory,
+        PermissionsBitField.Flags.MentionEveryone,
+        PermissionsBitField.Flags.AddReactions,
+        PermissionsBitField.Flags.ManageGuild,
+        PermissionsBitField.Flags.UseExternalEmojis,
+        PermissionsBitField.Flags.UseExternalStickers,
+        PermissionsBitField.Flags.ManageWebhooks,
+        PermissionsBitField.Flags.ManageRoles,
+        PermissionsBitField.Flags.ViewChannel,
+        PermissionsBitField.Flags.ManageMessages,
+        PermissionsBitField.Flags.ManageNicknames,
+        PermissionsBitField.Flags.ManageEmojisAndStickers,
+        PermissionsBitField.Flags.ManageThreads,
+        PermissionsBitField.Flags.ChangeNickname,
+        PermissionsBitField.Flags.MoveMembers,
+        PermissionsBitField.Flags.DeafenMembers,
+        PermissionsBitField.Flags.MuteMembers,
+        PermissionsBitField.Flags.Speak,
+        PermissionsBitField.Flags.Connect,
+        PermissionsBitField.Flags.PrioritySpeaker,
+        PermissionsBitField.Flags.UseVAD
+    ],
+    scopes: [
+        "applications.commands",
+        "bot"
+    ]
 }
 
 module.exports = {
@@ -21,19 +56,19 @@ module.exports = {
             .addField("Ping:", `\`${client.ws.ping}ms\``)
             .addField("Servers:", `\`${client.guilds.cache.size}\``)
             .setImage("https://github.com/Prince527GitHub/ServerSMP/blob/ServerSMP-Web/assets/qrcode.png?raw=true")
-        const row = new MessageActionRow().addComponents(
-            new MessageButton()
-                .setStyle('LINK')
+        const row = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Link)
                 .setURL(client.generateInvite({ scopes: env.scopes, permissions: env.permissions }))
                 .setLabel('Invite!')
         ).addComponents(
-            new MessageButton()
-                .setStyle('LINK')
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Link)
                 .setURL('https://serversmp.xyz/')
                 .setLabel('Website!')
         ).addComponents(
-            new MessageButton()
-                .setStyle('LINK')
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Link)
                 .setURL('https://discord.gg/7vfx4QaAcU')
                 .setLabel('Discord!')
         )

@@ -12,7 +12,7 @@ module.exports = {
     options: [{
         name: "percentage",
         description: "percentage to change the volume to",
-        type: "INTEGER",
+        type: ApplicationCommandOptionType.Integer,
         required: false,
     }],
     run: async (client, interaction) => {
@@ -21,18 +21,18 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please \`youtube\``
+                    name: `${client.user.username} will not be doing music anymore, please use \`youtube\``
                 })
-                .setColor("BLUE")
+                .setColor("Blue")
             ]
         });
 
-        const player = client.music.get(interaction.guild.id);
+        const player = client.poru.players.get(interaction.guild.id);
         if (!player) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("There is nothing playing")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -42,7 +42,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setDescription("Sorry, but you need to be in a voice channel to do that")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -50,35 +50,35 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setDescription("You are not in my voice channel")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
-        if (!player.playing) return interaction.followUp({
-            embeds: [
-                new EmbedBuilder()
-                .setDescription("There is nothing playing")
-                .setColor("YELLOW")
-            ]
-        });
+        // if (!player.playing) return interaction.followUp({
+        //     embeds: [
+        //         new EmbedBuilder()
+        //         .setDescription("There is nothing playing")
+        //         .setColor("Yellow")
+        //     ]
+        // });
 
         const volumePercentage = interaction.options.getInteger("percentage");
 
         let bar;
 
-        if (!volumePercentage) {
-            bar = progressbar.filledBar(100, Number(queue.volume), 40, "□", "■")[0];
-            return interaction.followUp({
-                embeds: [
-                    new EmbedBuilder()
-                    .setDescription(`🔊 **|** The current volume is **\`${queue.volume}\`**%`)
-                    .setFooter({
-                        text: String(bar)
-                    })
-                    .setColor("BLUE")
-                ]
-            });
-        }
+        // if (!volumePercentage) {
+        //     bar = progressbar.filledBar(100, Number(queue.volume), 40, "□", "■")[0];
+        //     return interaction.followUp({
+        //         embeds: [
+        //             new EmbedBuilder()
+        //             .setDescription(`🔊 **|** The current volume is **\`${queue.volume}\`**%`)
+        //             .setFooter({
+        //                 text: String(bar)
+        //             })
+        //             .setColor("Blue")
+        //         ]
+        //     });
+        // }
 
         if (volumePercentage < 0 || volumePercentage > 100) return interaction.followUp({
             content: "I can't set the volume above **`100`**% or below **`0`**%",
@@ -86,7 +86,7 @@ module.exports = {
 
         player.setVolume(volumePercentage);
 
-        bar = progressbar.filledBar(100, Number(volumePercentage), 40, "□", "■")[0];
+        bar = progressbar.filledBar(100, volumePercentage, 40, "□", "■")[0];
         return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
@@ -94,7 +94,7 @@ module.exports = {
                 .setFooter({
                     text: String(bar)
                 })
-                .setColor("BLUE")
+                .setColor("Blue")
             ]
         });
 

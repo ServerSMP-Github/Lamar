@@ -1,10 +1,4 @@
-const {
-  Client,
-  CommandInteraction,
-  EmbedBuilder,
-  ApplicationCommandType,
-  ApplicationCommandOptionType
-} = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 const sourcebin = require("sourcebin_js");
 const fetch = require("axios");
 
@@ -134,13 +128,13 @@ module.exports = {
         if(response.status === 429) return interaction.followUp({ embeds: [
           new EmbedBuilder()
             .setTitle("Rate Limit")
-            .setColor("RED")
+            .setColor("Red")
             .setDescription("Please return in 15 minutes.")
         ]});
         if(response.status === 500) return interaction.followUp({ embeds: [
           new EmbedBuilder()
             .setTitle("ERROR")
-            .setColor("RED")
+            .setColor("Red")
             .setDescription(response.data.url)
         ]});
         return interaction.followUp({ embeds: [

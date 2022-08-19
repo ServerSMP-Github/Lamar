@@ -1,6 +1,8 @@
 module.exports = (client) => {
 
     const { EmbedBuilder } = require("discord.js");
+    
+    const { Poru } = require('poru');
 
     const config = require("../settings/settings.json");
 
@@ -8,55 +10,56 @@ module.exports = (client) => {
 
     const chalk = require("chalk");
 
-    const facebook = require('erela.js-facebook');
-    const spotify = require('erela.js-spotify');
-    const apple = require('erela.js-apple');
-    const { Manager } = require('erela.js');
-
-    client.music = new Manager({
-        nodes: [
-            {
-                retryDelay: 5000,
-                host: config.music.lavalink.host,
-                port: config.music.lavalink.port,
-                password: config.music.lavalink.password,
+    client.poru = new Poru(
+        client,
+        config.music.lavalink,
+        {
+            reconnectTime: 5000,
+            deezer: {
+                playlistLimit: 10,
             },
-        ],
-        plugins: [
-            new apple(),
-            new facebook(),
-            new spotify({
+            spotify: {
                 clientID: config.music.spotify.id,
-                clientSecret: config.music.spotify.secret
-            }),
-        ],
-        send(id, payload) {
-            const guild = client.guilds.cache.get(id);
-            if (guild) guild.shard.send(payload);
+                clientSecret: config.music.spotify.secret,
+                playlistLimit: 5,
+            },
+            apple: {
+                playlistLimit: 5,
+            },
         }
+    )
+    .on("nodeConnect", (node) => console.log(`${chalk.white(`Lavalink:`)} ${chalk.green("√")} ${chalk.white("||")} ${chalk.white(`Host:`)} ${chalk.red(node.host)}`))
+    .on("nodeClose", (node) => {
+        setTimeout(()=> node.connect(), 10000);
+        console.log(`${chalk.white(`Lavalink:`)} ${chalk.red("×")} ${chalk.white("||")} ${chalk.white(`Host:`)} ${chalk.red(node.host)}`);
     })
-    .on("nodeConnect", (node) => console.log(`${chalk.white(`Lavalink:`)} ${chalk.green("√")} ${chalk.white("||")} ${chalk.white(`Host:`)} ${chalk.red(node.options.identifier)}`))
-    .on("nodeError", (node, error) => console.log(`${chalk.white(`Lavalink:`)} ${chalk.red("×")} ${chalk.white("||")} ${chalk.white(`Host:`)} ${chalk.red(node.options.identifier)}`))
     .on("trackStart", (player, track) => client.channels.cache.get(player.textChannel).send({
         embeds: [
             new EmbedBuilder()
-            .setDescription(`▶ **|** Started playing: **[${track.title}](${track.uri})**`)
-            .setThumbnail(`${track.thumbnail ? track.thumbnail : 'https://serversmp-api.herokuapp.com//upload/1/prince/hXLEkmnukU.png'}`)
-            .setColor("BLUE")
+            .setDescription(`▶ **|** Started playing: **[${track.info.title}](${track.info.uri})**`)
+            .setThumbnail(`${track.info.image ? track.info.image : 'https://api.serversmp.xyz/upload/1/prince/hXLEkmnukU.png'}`)
+            .setFooter({ text: `Requested by ${track.info.requester.user.username}`, iconURL: track.info.requester.displayAvatarURL() })
+            .setColor("Blue")
         ]
     }))
-    .on("queueEnd", (player) => {
-        client.channels.cache
-            .get(player.textChannel)
-            .send({
-                embeds: [
-                    new EmbedBuilder()
-                    .setDescription(`⏹ **|** The music has ended, use **\`/play\`** to play some music`)
-                    .setColor("BLUE")
-                ]
-            });
-
-        player.destroy();
+    .on("trackError", (client, player, track, error) => client.channels.cache.get(player.textChannel).send({
+        embeds: [
+            new EmbedBuilder()
+            .setDescription(`▶ **|** Failed playing: **[${track.info.title}](${track.info.uri})**`)
+            .setThumbnail(`${track.info.image ? track.info.image : 'https://api.serversmp.xyz/upload/1/prince/hXLEkmnukU.png'}`)
+            .setFooter({ text: error.exception.message, iconURL: "https://api.serversmp.xyz/upload/62fe2685c5e166db131dcfae" })
+            .setColor("Blue")
+        ]
+    }))
+    .on("queueEnd", (player, queue) => {
+        client.channels.cache.get(player.textChannel).send({
+            embeds: [
+                new EmbedBuilder()
+                .setDescription(`⏹ **|** The music has ended, use **\`/play\`** to play some music`)
+                .setColor("Blue")
+            ]
+        });
+        return player.destroy();
     });
 
 }

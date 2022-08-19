@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, EmbedBuilder, MessageActionRow, MessageButton, ApplicationCommandType } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType } = require("discord.js");
 
 module.exports = {
     name: "avatar",

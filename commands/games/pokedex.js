@@ -1,9 +1,4 @@
-const {
-  EmbedBuilder,
-  Message,
-  Client,
-  AttachmentBuilder
-} = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const fetch = require('axios');
 
 module.exports = {
@@ -26,7 +21,6 @@ module.exports = {
 
     if (!res?.name) return message.reply('Couldn\'t find that pokemon.');
     else {
-
       const evo = res.family.evolutionLine.map((w, i) => [`\`${i + 1}.\` ${w}`]);
 
       message.channel.send({
@@ -42,8 +36,7 @@ module.exports = {
           .addField('Egg Groups', `${res.egg_groups?.join(", ")}`)
           .addField('Evolution', `Evolution Stage: **${res.family.evolutionStage}**\n\n${evo.join("\n")}`)
         ]
-      })
-
+      });
     }
 
   }

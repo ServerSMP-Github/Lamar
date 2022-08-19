@@ -1,8 +1,6 @@
 const client = require('../index');
 const xpSchema = require('../models/server/xp');
-const {
-  EmbedBuilder
-} = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 client.on("guildCreate", (guild) => {
   let channelToSend;

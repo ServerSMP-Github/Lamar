@@ -31,7 +31,7 @@ tracker.on("guildMemberAdd", async (member, type, invite) => {
                     .setFooter({
                         text: "Type: Normal"
                     })
-                    .setColor("BLUE")
+                    .setColor("Blue")
                 ]
             });
         } else if (type === "permissions") {
@@ -45,7 +45,7 @@ tracker.on("guildMemberAdd", async (member, type, invite) => {
                     .setFooter({
                         text: `Type: Permissions **|** I don't have the "MANAGE_GUILD" permission`
                     })
-                    .setColor("BLUE")
+                    .setColor("Blue")
                 ]
             });
             channel.send(
@@ -62,7 +62,7 @@ tracker.on("guildMemberAdd", async (member, type, invite) => {
                     .setFooter({
                         text: "Type: Unknown"
                     })
-                    .setColor("BLUE")
+                    .setColor("Blue")
                 ]
             });
         } else if (type === "vanity") {
@@ -79,7 +79,7 @@ tracker.on("guildMemberAdd", async (member, type, invite) => {
                     .setFooter({
                         text: "Type: Vanity URL"
                     })
-                    .setColor("BLUE")
+                    .setColor("Blue")
                 ]
             });
         }

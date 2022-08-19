@@ -1,15 +1,5 @@
-const {
-    Message,
-    Client,
-    MessageActionRow,
-    MessageButton,
-    EmbedBuilder,
-    AttachmentBuilder
-} = require('discord.js');
-const {
-    createCanvas,
-    loadImage
-} = require('canvas');
+const { Message, Client, AttachmentBuilder } = require('discord.js');
+const { createCanvas, loadImage } = require('canvas');
 const axios = require('axios');
 
 module.exports = {
@@ -88,7 +78,7 @@ module.exports = {
         ctx.fillText(`${user.posts} Posts`, 490, 165);
 
         // Sending
-        const attachment = new AttachmentBuilder(canvas.toBuffer(), 'insta.png');
+        const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'insta.png' });
         message.channel.send({
             files: [attachment]
         })

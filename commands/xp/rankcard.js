@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, ActionRowBuilder, MessageButton, EmbedBuilder } = require('discord.js');
 const userRankcard = require('../../models/user/user-rankcard');
 const rankCardRequest = require('../../models/management/rankcard-request');
 const xpSchema = require("../../models/server/xp");
@@ -84,7 +84,7 @@ module.exports = {
                 const image = args[3];
                 if(image) {
                     if(image.startsWith("http") && image.endsWith(".png") || image.endsWith(".jpeg") || image.endsWith(".jpg")) {
-                        const row = new MessageActionRow()
+                        const row = new ActionRowBuilder()
                             .addComponents(
                                 new MessageButton()
                                     .setCustomId("rank-card-yes")

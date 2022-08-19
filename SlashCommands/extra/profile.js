@@ -1,16 +1,5 @@
-const {
-    Client,
-    EmbedBuilder,
-    MessageActionRow,
-    MessageSelectMenu,
-    AttachmentBuilder,
-    ApplicationCommandType,
-    ApplicationCommandOptionType
-} = require("discord.js");
-const {
-    createCanvas,
-    loadImage
-} = require('canvas');
+const { Client, AttachmentBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const { createCanvas, loadImage } = require('canvas');
 const Schema = require("../../models/user/profile");
 const { DMY } = require("../../assets/api/time/index");
 
@@ -287,7 +276,7 @@ module.exports = {
             ctx.textAlign = "left";
             ctx.fillText(DMY(), 15, 490);
 
-            const attachment = new AttachmentBuilder(canvas.toBuffer(), "profile.jpg");
+            const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: "profile.jpg" });
             interaction.followUp({
                 files: [attachment]
             });

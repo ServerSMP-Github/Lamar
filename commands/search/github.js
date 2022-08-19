@@ -1,11 +1,4 @@
-const {
-  Message,
-  Client,
-  MessageActionRow,
-  MessageButton,
-  EmbedBuilder,
-  AttachmentBuilder
-} = require('discord.js');
+const { Message, Client, EmbedBuilder } = require('discord.js');
 const { formatedDate } = require("../../assets/api/time/index");
 const fetch = require("axios");
 
@@ -46,14 +39,16 @@ module.exports = {
             .setAuthor({ name: `${login} Information!`, iconURL: avatar_url })
             .setColor("Random")
             .setThumbnail(`${avatar_url}`)
-            .addField(`Username`, `${login}`)
-            .addField(`ID`, `${id}`)
-            .addField(`Bio`, `${bio || "No Bio"}`)
-            .addField(`Public Repositories`, `${public_repos || "None"}`, true)
-            .addField(`Followers`, `${followers}`, true)
-            .addField(`Following`, `${following}`, true)
-            .addField(`Location`, `${location || "No Location"}`)
-            .addField(`Account Created`, formatedDate(created_at))
+            .addFields([
+              { name: "Username", value: `${login}` },
+              { name: "ID", value: `${id}` },
+              { name: "Bio", value: `${bio || "No Bio"}` },
+              { name: "Public Repositories", value: `${public_repos || "None"}`, inline: true },
+              { name: "Followers", value: `${followers}`, inline: true },
+              { name: "Following", value: `${following}`, inline: true },
+              { name: "Location", value: `${location || "No Location"}` },
+              { name: "Account Created", value: formatedDate(created_at) },
+            ])
 
           message.reply({
             embeds: [embed]

@@ -1,5 +1,5 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { GuessThePokemon } = require('discord-gamecord');
+const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'pokemon',
@@ -23,6 +23,5 @@ module.exports = {
           stopMessage: 'Better luck next time! It was a **{pokemon}**',
           incorrectMessage: 'Your guess was incorrect! The pokemon was **{pokemon}**',
         }).startGame();
-        
     }
 }

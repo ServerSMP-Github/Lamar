@@ -1,9 +1,4 @@
-const {
-  AttachmentBuilder,
-  EmbedBuilder,
-  Message,
-  Client
-} = require('discord.js');
+const { AttachmentBuilder, EmbedBuilder, Message, Client } = require('discord.js');
 const data = require('../../assets/api/undertalemp3/undertalemp3.json');
 
 module.exports = {
@@ -17,9 +12,9 @@ module.exports = {
    */
   run: async (client, message, args) => {
     const random = Math.floor(Math.random() * 101);
-    const authorImage = new AttachmentBuilder(`./assets/api/undertalemp3/${data.author.img}`, `author.jpg`);
-    const albumImage = new AttachmentBuilder(`./assets/api/undertalemp3/${data.art}`, data.art);
-    const music = new AttachmentBuilder(`./assets/api/undertalemp3/${random}.mp3`, `${data.tracks[random]}.mp3`);
+    const authorImage = new AttachmentBuilder(`./assets/api/undertalemp3/${data.author.img}`, { name: `author.jpg` });
+    const albumImage = new AttachmentBuilder(`./assets/api/undertalemp3/${data.art}`, { name: data.art });
+    const music = new AttachmentBuilder(`./assets/api/undertalemp3/${random}.mp3`, { name: `${data.tracks[random]}.mp3` });
     message.reply({
       embeds: [
         new EmbedBuilder()

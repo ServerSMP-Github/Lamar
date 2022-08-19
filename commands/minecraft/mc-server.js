@@ -1,11 +1,4 @@
-const {
-  Message,
-  Client,
-  MessageActionRow,
-  MessageButton,
-  EmbedBuilder,
-  AttachmentBuilder
-} = require("discord.js");
+const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const fetch = require("axios");
 
 module.exports = {
@@ -35,7 +28,7 @@ module.exports = {
     let file = null
     if (data.online === false) {
       embed = new EmbedBuilder()
-        .setColor('RED')
+        .setColor('Red')
         .setTitle(`${data.hostname} is offline!`)
     } else {
       if (type === 'java') {
@@ -44,7 +37,7 @@ module.exports = {
         file = new AttachmentBuilder(buf, 'icon.png');
 
         embed = new EmbedBuilder()
-          .setColor('RANDOM')
+          .setColor('Random')
           .setAuthor({
             name: data.hostname,
             iconURL: 'attachment://icon.png'
@@ -64,7 +57,7 @@ module.exports = {
           )
       } else {
         embed = new EmbedBuilder()
-          .setColor('RANDOM')
+          .setColor('Random')
           .setAuthor({ name: data.hostname })
           .setDescription(
             [

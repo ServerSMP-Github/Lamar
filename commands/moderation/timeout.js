@@ -1,15 +1,11 @@
-const {
-  EmbedBuilder,
-  Message,
-  Client
-} = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 const ms = require('ms');
 
 module.exports = {
   name: 'timeout',
   usage: '[@user] [time]',
   description: "Tempmute players with discords new feature.",
-  userPermission: ['MANAGE_MESSAGES'],
+  userPermission: [PermissionsBitField.Flags.ManageMessages],
 
   /**
    * @param {Client} client

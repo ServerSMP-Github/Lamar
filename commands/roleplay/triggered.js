@@ -14,7 +14,7 @@ module.exports = {
         if(!user) user = message.member;
         let avatar = user.user.displayAvatarURL({ dynamic: false, format: 'png' });
         let image = await canvacord.Canvas.trigger(avatar);
-        let attachment = new AttachmentBuilder(image, "triggered.gif");
+        let attachment = new AttachmentBuilder(image, { name: "triggered.gif" });
         message.channel.send({ files: [attachment] });
     }
 }

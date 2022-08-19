@@ -1,12 +1,12 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     name: 'clear',
     aliases : ['purge'],
     usage: '[1-100]',
     description : "Remove messages.",
-    userPermission: ["MANAGE_MESSAGES"],
-    botPermission: ["MANAGE_MESSAGES"],
+    userPermission: [PermissionsBitField.Flags.ManageMessages],
+    botPermission: [PermissionsBitField.Flags.ManageMessages],
     /**
      * @param {Client} client
      * @param {Message} message

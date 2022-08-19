@@ -1,10 +1,10 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder, Util } = require('discord.js');
+const { Message, Client, Util, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     name: 'steal',
     usage: '[emoji] [emoji] [emoji] [emoji] [emoji]',
     description : "Take emojis from other servers and add them to your server.",
-    userPermission: ["MANAGE_MESSAGES"],
+    userPermission: [PermissionsBitField.Flags.ManageMessages],
     /** 
      * @param {Client} client 
      * @param {Message} message 

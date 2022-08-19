@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder } = require("discord.js");
+const { Message, Client, EmbedBuilder } = require("discord.js");
 const pagination = require('../../assets/js/button-pagination');
 
 module.exports = {

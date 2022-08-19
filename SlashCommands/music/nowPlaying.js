@@ -14,18 +14,18 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please \`youtube\``
+                    name: `${client.user.username} will not be doing music anymore, please use \`youtube\``
                 })
-                .setColor("BLUE")
+                .setColor("Blue")
             ]
         });
 
-        const player = client.music.get(interaction.guild.id);
+        const player = client.poru.players.get(interaction.guild.id);
         if (!player) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("There is nothing playing")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -35,7 +35,7 @@ module.exports = {
         //     embeds: [
         //         new EmbedBuilder()
         //         .setDescription("Sorry, but you need to be in a voice channel to do that")
-        //         .setColor("YELLOW")
+        //         .setColor("Yellow")
         //     ]
         // });
 
@@ -43,27 +43,17 @@ module.exports = {
         //     embeds: [
         //         new EmbedBuilder()
         //         .setDescription("You are not in my voice channel")
-        //         .setColor("YELLOW")
+        //         .setColor("Yellow")
         //     ]
         // });
-
-        const queue = player.queue;
-
-        if (!queue.current) return interaction.followUp({
-            embeds: [
-                new EmbedBuilder()
-                .setDescription("There is nothing playing")
-                .setColor("YELLOW")
-            ]
-        });
 
         interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setTitle("Now Playing")
-                .setDescription(`🎶 | [**${queue.current.title}**](${queue.current.uri})!`)
-                .setFooter({ text: `Queued by ${queue.current.requester}` })
-                .setColor("BLUE")
+                .setDescription(`🎶 | [**${player.currentTrack.info.title}**](${player.currentTrack.info.uri})!`)
+                .setFooter({ text: `Queued by ${player.currentTrack.info.requester.user.username}`, iconURL: player.currentTrack.info.requester.displayAvatarURL() })
+                .setColor("Blue")
             ]
         });
 

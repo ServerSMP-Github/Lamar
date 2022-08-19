@@ -1,12 +1,11 @@
-const { Message, Client } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 const schema = require('../../models/server/cc');
 
 module.exports = {
     name: 'cc-create',
     usage: '[name] [what it do]',
     description: "Create custom commands!",
-    userPermission: ["ADMINISTRATOR"],
-    aliases: ['011000110110001100101101011000110111001001100101011000010111010001100101'],
+    userPermission: [PermissionsBitField.Flags.Administrator],
     /**
      * @param {Client} client
      * @param {Message} message

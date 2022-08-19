@@ -16,7 +16,7 @@ module.exports = {
         let avatar = user.user.displayAvatarURL({ dynamic: false, format: 'png' });
         let avata = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
         let img = await new DIG.Kiss().getImage(avata, avatar);
-        let attach = new AttachmentBuilder(img, "slap.png");
+        let attach = new AttachmentBuilder(img, { name: "slap.png" });
         message.channel.send({ files: [attach] });
     }
 }

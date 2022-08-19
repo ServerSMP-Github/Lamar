@@ -1,11 +1,11 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { Message, Client, ActionRowBuilder, ButtonBuilder, PermissionsBitField, ButtonStyle } = require("discord.js");
 
 module.exports = {
     name: 'kick',
     usage: '[@user]',
     description : "Kick users.",
-    userPermission: ["KICK_MEMBERS"],
-    botPermission: ["KICK_MEMBERS"],
+    userPermission: [PermissionsBitField.Flags.KickMembers],
+    botPermission: [PermissionsBitField.Flags.KickMembers],
     /**
      *
      * @param {Client} client
@@ -21,18 +21,18 @@ module.exports = {
             if(memberTarget.roles.highest.position >= message.member.roles.highest.position) return message.reply({ content: "You can't kick this user." })
 
             message.delete();
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder()
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                 .setCustomId("2")
                 .setLabel("Approve kick")
-                .setStyle("SUCCESS")
+                .setStyle(ButtonStyle.Success)
                 .setEmoji("✅"),
-                new MessageButton()
+                new ButtonBuilder()
                 .setCustomId("1")
                 .setEmoji("🚫")
                 .setLabel("Dissallow kick")
-                .setStyle("DANGER"),
+                .setStyle(ButtonStyle.Danger),
             )
 
             const filter1 = i => i.customId === "2" && i.user.id;

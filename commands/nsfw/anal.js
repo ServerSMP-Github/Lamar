@@ -28,7 +28,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setTitle(`Anal Image`)
-                    .setColor("GREEN")
+                    .setColor("Green")
                     .setImage(data.message)
                 ]
             });

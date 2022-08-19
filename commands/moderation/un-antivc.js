@@ -1,11 +1,11 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     name: 'un-antivc',
     usage: '[@user]',
     description : "Let the user join vc.",
-    userPermission: ["MANAGE_ROLES"],
-    botPermission: ["MANAGE_ROLES"],
+    userPermission: [PermissionsBitField.Flags.ManageRoles],
+    botPermission: [PermissionsBitField.Flags.ManageRoles],
     /** 
      * @param {Client} client 
      * @param {Message} message 

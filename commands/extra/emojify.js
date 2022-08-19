@@ -1,11 +1,5 @@
-const {
-  Client,
-  Message,
-  EmbedBuilder
-} = require("discord.js");
-const {
-  Emojify
-} = require('discord-gamecord');
+const { Client, Message } = require("discord.js");
+const { Emojify } = require('discord-gamecord');
 
 module.exports = {
   name: "emojify",

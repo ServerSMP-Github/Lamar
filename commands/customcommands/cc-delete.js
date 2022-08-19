@@ -1,12 +1,11 @@
-const { Message, Client } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 const schema = require('../../models/server/cc');
 
 module.exports = {
     name: 'cc-delete',
     usage: '[name of command]',
     description : "Delete custom commands!",
-    userPermission: ["ADMINISTRATOR"],
-    aliases: ['011000110110001100101101011001000110010101101100011001010111010001100101'],
+    userPermission: [PermissionsBitField.Flags.Administrator],
     /**
      * @param {Client} client
      * @param {Message} message

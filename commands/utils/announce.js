@@ -1,11 +1,11 @@
-const { EmbedBuilder, Message, Client } = require('discord.js');
+const { EmbedBuilder, Message, Client, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     name: 'announce',
     usage: '[#channel] [message] [-ping ?]',
     aliases : ['an'],
     description : "The bot can send your announcement!",
-    userPermission: ["MANAGE_MESSAGES"],
+    userPermission: [PermissionsBitField.Flags.ManageMessages],
     /**
      * @param {Client} client
      * @param {Message} message
@@ -36,7 +36,7 @@ module.exports = {
                 .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setDescription(args.slice(1).join(" "))
                 .setTimestamp()
-                .setColor('RANDOM')
+                .setColor('Random')
         ]})
 
     }

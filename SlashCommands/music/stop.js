@@ -14,18 +14,18 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please \`youtube\``
+                    name: `${client.user.username} will not be doing music anymore, please use \`youtube\``
                 })
-                .setColor("BLUE")
+                .setColor("Blue")
             ]
         });
 
-        const player = client.music.get(interaction.guild.id);
+        const player = client.poru.players.get(interaction.guild.id);
         if (!player) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("There is nothing playing")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -35,7 +35,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setDescription("Sorry, but you need to be in a voice channel to do that")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -43,30 +43,19 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setDescription("You are not in my voice channel")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
-        if (player.playing) return stop();
-        else if (player.paused) return stop();
-        else return interaction.followUp({
+        player.destroy();
+
+        interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                .setDescription("There is nothing playing")
-                .setColor("YELLOW")
+                .setDescription("⏹ **|** The music player has been stopped")
+                .setColor("Blue")
             ]
         });
-
-        function stop() {
-            interaction.followUp({
-                embeds: [
-                    new EmbedBuilder()
-                    .setDescription("⏹ **|** The music player has been stopped")
-                    .setColor("BLUE")
-                ]
-            });
-            player.destroy();
-        }
 
     },
 };

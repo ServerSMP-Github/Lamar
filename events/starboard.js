@@ -1,7 +1,5 @@
 const starboardSchema = require("../models/server/starboard");
-const {
-    starboard
-} = require('simply-djs');
+const { starboard } = require('simply-djs');
 const client = require('../index');
 
 client.on('messageReactionAdd', async (reaction, user) => {

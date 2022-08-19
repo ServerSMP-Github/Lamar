@@ -1,4 +1,4 @@
-const { CommandInteraction, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const { CommandInteraction, Client, ActionRowBuilder, EmbedBuilder, ApplicationCommandType, ButtonStyle } = require("discord.js");
 
 module.exports = {
     name: 'minesweeper',
@@ -73,20 +73,20 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `💣`,
-                            style: 'DANGER',
+                            style: ButtonStyle.Danger,
                             custom_id: `bomb${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral1${row}${col}`,
                             type: 2,
                         },
                         b: {
                             emoji: `💥`,
-                            style: 'DANGER',
+                            style: ButtonStyle.Danger,
                             custom_id: `boom${row}${col}`,
                             type: 2,
                         }
@@ -96,14 +96,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `0️⃣`,
-                            style: 'SUCCESS',
+                            style: ButtonStyle.Success,
                             custom_id: `0${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             emoji: `0️⃣`,
-                            style: 'SUCCESS',
+                            style: ButtonStyle.Success,
                             custom_id: `neutral0${row}${col}`,
                             disabled: true,
                             type: 2,
@@ -114,14 +114,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `1️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `1${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral2${row}${col}`,
                             type: 2,
                         }
@@ -131,14 +131,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `2️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `2${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral3${row}${col}`,
                             type: 2,
                         }
@@ -148,14 +148,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `3️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `3${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral3${row}${col}`,
                             type: 2,
                         }
@@ -165,14 +165,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `4️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `4${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral4${row}${col}`,
                             type: 2,
                         }
@@ -182,14 +182,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `5️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `5${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral5${row}${col}`,
                             type: 2,
                         }
@@ -199,14 +199,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `6️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `6${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral6${row}${col}`,
                             type: 2,
                         }
@@ -216,14 +216,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `7️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `7${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral7${row}${col}`,
                             type: 2,
                         }
@@ -233,14 +233,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `8️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `8${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral8${row}${col}`,
                             type: 2,
                         }
@@ -250,14 +250,14 @@ module.exports = {
                     let obj = {
                         r: {
                             emoji: `9️⃣`,
-                            style: 'PRIMARY',
+                            style: ButtonStyle.Primary,
                             custom_id: `9${row}${col}`,
                             disabled: true,
                             type: 2,
                         },
                         a: {
                             label: `-`,
-                            style: 'SECONDARY',
+                            style: ButtonStyle.Secondary,
                             custom_id: `neutral9${row}${col}`,
                             type: 2,
                         }
@@ -267,15 +267,15 @@ module.exports = {
             }
         }
 
-        let row1 = new MessageActionRow()
+        let row1 = new ActionRowBuilder()
             .addComponents(positions[0].a, positions[1].a, positions[2].a, positions[3].a, positions[4].a)
-        let row2 = new MessageActionRow()
+        let row2 = new ActionRowBuilder()
             .addComponents(positions[5].a, positions[6].a, positions[7].a, positions[8].a, positions[9].a)
-        let row3 = new MessageActionRow()
+        let row3 = new ActionRowBuilder()
             .addComponents(positions[10].a, positions[11].a, positions[12].a, positions[13].a, positions[14].a)
-        let row4 = new MessageActionRow()
+        let row4 = new ActionRowBuilder()
             .addComponents(positions[15].a, positions[16].a, positions[17].a, positions[18].a, positions[19].a)
-        let row5 = new MessageActionRow()
+        let row5 = new ActionRowBuilder()
             .addComponents(positions[20].a, positions[21].a, positions[22].a, positions[23].a, positions[24].a)
 
         let game = new EmbedBuilder()
@@ -302,15 +302,15 @@ module.exports = {
             }
 
             used.a = used.r;
-            let row1 = new MessageActionRow()
+            let row1 = new ActionRowBuilder()
                 .addComponents(positions[0].a, positions[1].a, positions[2].a, positions[3].a, positions[4].a)
-            row2 = new MessageActionRow()
+            row2 = new ActionRowBuilder()
                 .addComponents(positions[5].a, positions[6].a, positions[7].a, positions[8].a, positions[9].a)
-            row3 = new MessageActionRow()
+            row3 = new ActionRowBuilder()
                 .addComponents(positions[10].a, positions[11].a, positions[12].a, positions[13].a, positions[14].a)
-            row4 = new MessageActionRow()
+            row4 = new ActionRowBuilder()
                 .addComponents(positions[15].a, positions[16].a, positions[17].a, positions[18].a, positions[19].a)
-            row5 = new MessageActionRow()
+            row5 = new ActionRowBuilder()
                 .addComponents(positions[20].a, positions[21].a, positions[22].a, positions[23].a, positions[24].a)
 
             interaction.editReply({
@@ -327,15 +327,15 @@ module.exports = {
             } else {
                 positions.forEach((g) => {
                     g.a = g.r
-                    row1 = new MessageActionRow()
+                    row1 = new ActionRowBuilder()
                         .addComponents(positions[0].a, positions[1].a, positions[2].a, positions[3].a, positions[4].a)
-                    row2 = new MessageActionRow()
+                    row2 = new ActionRowBuilder()
                         .addComponents(positions[5].a, positions[6].a, positions[7].a, positions[8].a, positions[9].a)
-                    row3 = new MessageActionRow()
+                    row3 = new ActionRowBuilder()
                         .addComponents(positions[10].a, positions[11].a, positions[12].a, positions[13].a, positions[14].a)
-                    row4 = new MessageActionRow()
+                    row4 = new ActionRowBuilder()
                         .addComponents(positions[15].a, positions[16].a, positions[17].a, positions[18].a, positions[19].a)
-                    row5 = new MessageActionRow()
+                    row5 = new ActionRowBuilder()
                         .addComponents(positions[20].a, positions[21].a, positions[22].a, positions[23].a, positions[24].a)
                 })
                 interaction.editReply({

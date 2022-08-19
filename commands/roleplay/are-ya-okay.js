@@ -1,9 +1,4 @@
-const {
-  AttachmentBuilder,
-  EmbedBuilder,
-  Message,
-  Client
-} = require('discord.js');
+const { AttachmentBuilder, EmbedBuilder, Message, Client } = require('discord.js');
 const Canvas = require('canvas');
 
 module.exports = {
@@ -30,7 +25,7 @@ module.exports = {
     ctx.fillText(`${say}`, 280, 135);
     ctx.textAlign = "center";
 
-    const attachment = new AttachmentBuilder(canvas.toBuffer(), 'dad.png');
+    const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'dad.png' });
     message.channel.send({
       files: [attachment]
     });

@@ -4,7 +4,6 @@ const schema = require('../../models/server/cc');
 module.exports = {
     name: 'cc-list',
     description: "List the custom commands!",
-    aliases: ['01100011011000110010110101101100011010010111001101110100'],
     /**
      * @param {Client} client
      * @param {Message} message
@@ -15,7 +14,7 @@ module.exports = {
         if(!!data === false) return message.channel.send('There is no custom commands!');
         message.channel.send({ embeds: [
             new EmbedBuilder()
-                .setColor('BLUE')
+                .setColor('Blue')
                 .setDescription(
                     data.map((cmd, i) =>
                         `${i + 1}: ${cmd.Command}`

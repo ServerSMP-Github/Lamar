@@ -67,7 +67,7 @@ client.on("guildMemberAdd", async(member) => {
                 const avatar = await loadImage(member.user.displayAvatarURL({ format: "png", size: 2048 }));
                 ctx.drawImage(avatar, 415, 75, 200, 200);
 
-                attachment = new AttachmentBuilder(canvas.toBuffer(), `welcome-${member.id}.png`);
+                attachment = new AttachmentBuilder(canvas.toBuffer(), { name: `welcome-${member.id}.png` });
 
             } else if (data.Type?.toLowerCase() === "discord-welcome-card") {
                 attachment = new AttachmentBuilder(
@@ -85,7 +85,7 @@ client.on("guildMemberAdd", async(member) => {
                         border: data.Border,
                         rounded: data.Rounded                
                     }),
-                    `welcome-${member.id}.png`
+                    { name: `welcome-${member.id}.png` }
                 )
 
             } else if (data.Type?.toLowerCase() === "ultrax") {
@@ -147,7 +147,7 @@ client.on("guildMemberAdd", async(member) => {
                 const avatar = await loadImage(member.user.displayAvatarURL({ format: "png", size: 2048 }));
                 ctx.drawImage(avatar, 415, 75, 200, 200);
 
-                attachment = new AttachmentBuilder(canvas.toBuffer(), `welcome-${member.id}.png`);
+                attachment = new AttachmentBuilder(canvas.toBuffer(), { name: `welcome-${member.id}.png` });
 
             } else if (data.Type?.toLowerCase() === "swiftcord") {
                 let background = data.Background;
@@ -162,7 +162,7 @@ client.on("guildMemberAdd", async(member) => {
                     .setAvatar(member.user.displayAvatarURL({ format: "png", size: 2048 }))
                     .setBackground(background)
                     .toAttachment();
-                attachment = new AttachmentBuilder(image, `welcome-${member.id}.png`)
+                attachment = new AttachmentBuilder(image, { name: `welcome-${member.id}.png` })
 
             } else if (data.Type?.toLowerCase() === "discord-welcomer") {
 
@@ -247,7 +247,7 @@ client.on("guildMemberAdd", async(member) => {
                 const avatar = await loadImage(member.user.displayAvatarURL({ format: "png", dynamic: true }));
                 ctx.drawImage(avatar, 40, 40, 185, 185);
 
-                attachment = new AttachmentBuilder(canvas.toBuffer(), `welcome-${member.id}.png`);
+                attachment = new AttachmentBuilder(canvas.toBuffer(), { name: `welcome-${member.id}.png`});
 
             } else if (data.Type?.toLowerCase() === "text") {
                 text = `Welcome **${member.user.tag}** to **${member.guild.name}**!`;

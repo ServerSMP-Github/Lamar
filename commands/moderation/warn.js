@@ -1,11 +1,11 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, EmbedBuilder, PermissionsBitField } = require('discord.js');
 const Schema = require('../../models/moderator/warn');
 
 module.exports = {
     name: 'warn',
     usage: '[@user] [reason]',
     description : "Give a warn to a user.",
-    userPermission: ["ADMINISTRATOR"],
+    userPermission: [PermissionsBitField.Flags.Administrator],
     /** 
      * @param {Client} client 
      * @param {Message} message 
@@ -40,11 +40,12 @@ module.exports = {
         user.send({ embeds: [
             new EmbedBuilder()
                 .setDescription(`You have been warned for ${reason}`)
-                .setColor("RED")
+                .setColor("Red")
         ]})
         message.channel.send({ embeds: [
             new EmbedBuilder()
-                .setDescription(`Warned ${user} for ${reason}`).setColor('BLUE')
+                .setDescription(`Warned ${user} for ${reason}`)
+                .setColor('Blue')
         ]})
     }
 }

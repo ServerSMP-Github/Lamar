@@ -1,4 +1,4 @@
-const { EmbedBuilder, MessageActionRow, MessageButton, ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ChannelType, ApplicationCommandType, ApplicationCommandOptionType, ButtonStyle } = require('discord.js');
 const Schema = require('../../models/server/poll-cmd');
 
 module.exports = {
@@ -77,7 +77,7 @@ module.exports = {
             description: 'The channel for the poll',
             type: ApplicationCommandOptionType.Channel,
             required: false,
-            channelTypes: ['GUILD_TEXT'],
+            channelTypes: [ChannelType.GuildText],
         }
     ],
     /**
@@ -147,7 +147,7 @@ module.exports = {
             buttons.push({
                 emoji: `${emoji[i]}`,
                 label: '0',
-                style: 'PRIMARY',
+                style: ButtonStyle.Primary,
                 custom_id: `poll${i + 1}`,
                 disabled: false,
                 type: 2,
@@ -155,7 +155,7 @@ module.exports = {
         });
 
         for (let i = 0; i < Math.ceil(buttons.length / 5); i++) {
-            rows.push(new MessageActionRow());
+            rows.push(new ActionRowBuilder());
         }
 
         rows.forEach((row, i) => {

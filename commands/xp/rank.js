@@ -1,17 +1,16 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require("discord.js");
-const progressbar = require('string-progressbar');
-const canvacord = require("canvacord");
-const Levels = require('discord-xp');
-const xpSchema = require("../../models/server/xp");
+const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const guildRankcard = require("../../models/server/guild-rankcard");
 const userRankcard = require("../../models/user/user-rankcard");
+const progressbar = require('string-progressbar');
+const xpSchema = require("../../models/server/xp");
 const TextEssence = require('text-essence');
+const canvacord = require("canvacord");
+const Levels = require('discord-xp');
 
 module.exports = {
     name: "rank",
     usage: "[@user (or not)]",
     description: "Show's you're rank card (xp/level).",
-    aliases: ['01110010011000010110111001101011'],
     /**
      *
      * @param {Client} client
@@ -114,7 +113,7 @@ module.exports = {
               }
               rank.build()
               .then(data => {
-                const attachment = new AttachmentBuilder(data, "RankCard.png");
+                const attachment = new AttachmentBuilder(data, { name: "RankCard.png" });
                 message.channel.send({ files: [attachment] });
               })
             }
@@ -194,7 +193,7 @@ module.exports = {
             }
             rank.build()
             .then(data => {
-              const attachment = new AttachmentBuilder(data, "RankCard.png");
+              const attachment = new AttachmentBuilder(data, { name: "RankCard.png" });
               message.channel.send({ files: [attachment] });
             })
           }

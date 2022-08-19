@@ -1,12 +1,4 @@
-const {
-    Client,
-    CommandInteraction,
-    EmbedBuilder,
-    MessageActionRow,
-    MessageButton,
-    AttachmentBuilder,
-    ApplicationCommandType
-} = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, AttachmentBuilder, ApplicationCommandType } = require("discord.js");
 const progressbar = require('string-progressbar');
 const xpSchema = require("../../models/server/xp");
 const canvacord = require("canvacord");
@@ -81,7 +73,7 @@ module.exports = {
                         .setDiscriminator(user_find.user.discriminator);
                     rank.build()
                         .then(data => {
-                            const attachment = new AttachmentBuilder(data, "RankCard.png");
+                            const attachment = new AttachmentBuilder(data, { name: "RankCard.png" });
                             interaction.followUp({
                                 files: [attachment]
                             });

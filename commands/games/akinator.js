@@ -1,4 +1,4 @@
-const { EmbedBuilder, MessageActionRow, MessageButton } = require("discord.js")
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js")
 const { Aki } = require("aki-api");
 const isPlaying = new Set();
 
@@ -47,41 +47,41 @@ module.exports = {
             .setColor("Random")
             .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
 
-        const row1 = new MessageActionRow().addComponents(
-            new MessageButton()
-                .setStyle("PRIMARY")
+        const row1 = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Primary)
                 .setLabel("Yes")
                 .setEmoji("✅")
                 .setCustomId("y"),
 
-            new MessageButton()
-                .setStyle("PRIMARY")
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Primary)
                 .setLabel("No")
                 .setEmoji("❌")
                 .setCustomId("n"),
 
-            new MessageButton()
-                .setStyle("PRIMARY")
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Primary)
                 .setLabel("Don't Know")
                 .setEmoji("❓")
                 .setCustomId("idk")
         )
 
-        const row2 = new MessageActionRow().addComponents(
-            new MessageButton()
-                .setStyle("PRIMARY")
+        const row2 = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Primary)
                 .setLabel("Probably")
                 .setEmoji("🤔")
                 .setCustomId("pb"),
 
-            new MessageButton()
-                .setStyle("PRIMARY")
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Primary)
                 .setLabel("Probaby Not")
                 .setEmoji("🙄")
                 .setCustomId("pn"),
 
-            new MessageButton()
-                .setStyle("DANGER")
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.Danger)
                 .setLabel("Stop")
                 .setEmoji("🛑")
                 .setCustomId("stop"),
@@ -148,15 +148,15 @@ module.exports = {
                     .setColor("Random")
                     .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
 
-                const row3 = new MessageActionRow().addComponents(
-                    new MessageButton()
-                        .setStyle("SUCCESS")
+                const row3 = new ActionRowBuilder().addComponents(
+                    new ButtonBuilder()
+                        .setStyle(ButtonStyle.Success)
                         .setLabel("Yes")
                         .setEmoji("✅")
                         .setCustomId("yes"),
 
-                    new MessageButton()
-                        .setStyle("DANGER")
+                    new ButtonBuilder()
+                        .setStyle(ButtonStyle.Danger)
                         .setLabel("No")
                         .setEmoji("❌")
                         .setCustomId("no"),

@@ -1,11 +1,4 @@
-const {
-    Client,
-    CommandInteraction,
-    EmbedBuilder,
-    WebhookClient,
-    ApplicationCommandType,
-    ApplicationCommandOptionType
-} = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, WebhookClient, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 
 module.exports = {
     name: "suggest",
@@ -25,7 +18,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        if (!channelSettings.webhooks.suggest) return interaction.followUp({
+        if (!client.config.channel.webhooks.suggest) return interaction.followUp({
             content: "This feature is disabled."
         });
 

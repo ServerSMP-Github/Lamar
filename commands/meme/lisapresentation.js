@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { Message, Client, AttachmentBuilder } = require("discord.js");
 const DIG = require("discord-image-generation");
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
         if(text.length > 300) return message.reply("Max characters of 300.");
         if(!text) return message.reply("You need to type something!");
         let img = await new DIG.LisaPresentation().getImage(text);
-        let attach = new AttachmentBuilder(img, "LisaPresentation.png");
+        let attach = new AttachmentBuilder(img, { name: "LisaPresentation.png" });
         message.channel.send({ files: [attach] });
     },
 };

@@ -1,10 +1,6 @@
-const {
-    Client,
-    Message,
-    EmbedBuilder
-} = require("discord.js");
-const block = "⬛";
+const { Client, Message, EmbedBuilder } = require("discord.js");
 const heart = ":red_square:";
+const block = "⬛";
 
 module.exports = {
     name: "ship",
@@ -27,7 +23,7 @@ module.exports = {
             await message.channel.send({
                 embeds: [
                     new EmbedBuilder()
-                    .setColor('dd2e44')
+                    .setColor('#dd2e44')
                     .setTitle('Shipping...')
                     .setDescription(`Shipped ****${user1.user.tag}**** and ****${user2.user.tag}****!`)
                     .setImage(`https://api.popcat.xyz/ship?user1=${user1.user.displayAvatarURL({ dynamic: false, format: "png" })}&user2=${user2.user.displayAvatarURL({ dynamic: false, format: "png" })}`)

@@ -1,12 +1,12 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 const Schema = require('../../models/moderator/mute');
 
 module.exports = {
     name: 'mute',
     usage: '[@user]',
     description : "Admins can mute users from messaging in a text channels.",
-    userPermission: ["MANAGE_MESSAGES"],
-    botPermission: ["MANAGE_ROLES"],
+    userPermission: [PermissionsBitField.Flags.ManageMessages],
+    botPermission: [PermissionsBitField.Flags.ManageRoles],
     /** 
      * @param {Client} client 
      * @param {Message} message 

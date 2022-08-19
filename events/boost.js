@@ -1,7 +1,5 @@
 const SchemaModlogs = require('../models/logs/modlogs');
-const {
-  EmbedBuilder
-} = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const Schema = require('../models/logs/boost');
 const client = require('../index');
 

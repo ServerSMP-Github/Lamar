@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client } = require('discord.js');
 const generator = require('generate-password');
 
 module.exports = {
@@ -15,10 +15,12 @@ module.exports = {
         const number = Number(args[0])
         if(!number) return message.channel.send(String('Enter a password length equal to or less than 100 please :)'))
         if(number > 100 || number < 1) return message.channel.send(String('The password length is not a valid number :), enter a number between 1 to 100'))
+
         var password = generator.generate({
           length: number,
           numbers: true
         });
+
         message.member.send(`||\`${password}\`||`);
         message.channel.send(String('A random password has been sent to your DMs'))
     }

@@ -1,16 +1,6 @@
-const {
-    Client,
-    Message,
-    EmbedBuilder
-} = require('discord.js');
-const {
-    Color,
-    isColor
-} = require("coloras");
-const {
-    createCanvas,
-    loadImage
-} = require('canvas');
+const { Client, Message, EmbedBuilder } = require('discord.js');
+const { Color, isColor } = require("coloras");
+const { createCanvas, loadImage } = require('canvas');
 
 
 module.exports = {
@@ -47,7 +37,7 @@ module.exports = {
                     .setColor(selectedColor.toHex())
                 ],
                 files: [
-                    new AttachmentBuilder(canvas.toBuffer(), "color.png")
+                    new AttachmentBuilder(canvas.toBuffer(), { name: "color.png" })
                 ]
             });
         } else {
@@ -70,7 +60,7 @@ module.exports = {
                     .setColor(random.toHex())
                 ],
                 files: [
-                    new AttachmentBuilder(canvas.toBuffer(), "color.png")
+                    new AttachmentBuilder(canvas.toBuffer(), { name: "color.png" })
                 ]
             });
         }

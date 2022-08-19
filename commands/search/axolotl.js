@@ -1,9 +1,4 @@
-const {
-  AttachmentBuilder,
-  EmbedBuilder,
-  Message,
-  Client
-} = require('discord.js');
+const { AttachmentBuilder, EmbedBuilder, Message, Client } = require('discord.js');
 const api = require('../../assets/api/axolotl/axolotl.json');
 
 module.exports = {
@@ -20,7 +15,7 @@ module.exports = {
     const randomNumberImage = Math.floor(Math.random() * api.images.length);
     const randomNumberFact = Math.floor(Math.random() * api.facts.length);
     const randomFact = api.facts[randomNumberFact];
-    const file = new AttachmentBuilder(`./assets/api/axolotl/${api.images[randomNumberImage]}`, 'image.jpg');
+    const file = new AttachmentBuilder(`./assets/api/axolotl/${api.images[randomNumberImage]}`, { name: 'image.jpg' });
     message.channel.send({
       embeds: [
         new EmbedBuilder()

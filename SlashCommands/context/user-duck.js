@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, EmbedBuilder, MessageActionRow, MessageButton, AttachmentBuilder, ApplicationCommandType } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType } = require("discord.js");
 const Schema = require("../../models/user/user-duck");
 const fetch = require('axios');
 

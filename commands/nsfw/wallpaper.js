@@ -28,7 +28,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setTitle(`Wallpaper`)
-                    .setColor("GREEN")
+                    .setColor("Green")
                     .setImage(data.url)
                 ]
             });

@@ -1,37 +1,22 @@
 const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-const {
-    Message,
-    Client,
-    MessageActionRow,
-    MessageButton,
-    EmbedBuilder
-} = require("discord.js");
+const { Message, Client, EmbedBuilder } = require("discord.js");
 const { formatedDate, HMS } = require('../../assets/api/time/index');
 const axios = require('axios');
 
 function checkbadge(x, client) {
     if (!x) return "";
     const duration = Date.now() - x;
+
     let badge = "";
-    if(duration >  1000 * 60 * 60 * 24 * 30 * 24) {
-        badge = client.config.emoji.boost_level.level_9;
-    } else if(duration >  1000 * 60 * 60 * 24 * 30 *18) {
-        badge = client.config.emoji.boost_level.level_8;
-    } else if(duration >  1000 * 60 * 60 * 24 * 30 *15) {
-        badge = client.config.emoji.boost_level.level_7;
-    } else if(duration >  1000 * 60 * 60 * 24 * 30 *12) {
-        badge = client.config.emoji.boost_level.level_6;
-    } else if(duration >  1000 * 60 * 60 * 24 * 30 *9) {
-        badge = client.config.emoji.boost_level.level_5;
-    } else if(duration >  1000 * 60 * 60 * 24 * 30 *6) {
-        badge = client.config.emoji.boost_level.level_4;
-    } else if(duration >  1000 * 60 * 60 * 24 * 30 *3) {
-        badge = client.config.emoji.boost_level.level_3;
-    } else if(duration >  1000 * 60 * 60 * 24 * 30 *2) {
-        badge = client.config.emoji.boost_level.level_2;
-    } else {
-        badge = client.config.emoji.boost_level.level_1;
-    }
+    if(duration >  1000 * 60 * 60 * 24 * 30 * 24) badge = client.config.emoji.boost_level.level_9;
+    else if(duration >  1000 * 60 * 60 * 24 * 30 *18) badge = client.config.emoji.boost_level.level_8;
+    else if(duration >  1000 * 60 * 60 * 24 * 30 *15) badge = client.config.emoji.boost_level.level_7;
+    else if(duration >  1000 * 60 * 60 * 24 * 30 *12) badge = client.config.emoji.boost_level.level_6;
+    else if(duration >  1000 * 60 * 60 * 24 * 30 *9) badge = client.config.emoji.boost_level.level_5;
+    else if(duration >  1000 * 60 * 60 * 24 * 30 *6) badge = client.config.emoji.boost_level.level_4;
+    else if(duration >  1000 * 60 * 60 * 24 * 30 *3) badge = client.config.emoji.boost_level.level_3;
+    else if(duration >  1000 * 60 * 60 * 24 * 30 *2) badge = client.config.emoji.boost_level.level_2;
+    else badge = client.config.emoji.boost_level.level_1;
 
     return badge;
 }
@@ -53,15 +38,11 @@ module.exports = {
 
         let status;
         try {
-            if (member.presence.status === "dnd") {
-                status = "🔴"
-            } else if (member.presence.status === "idle") {
-                status = "🟡"
-            } else if (member.presence.status === "online") {
-                status = "🟢"
-            } else if (member.presence.status === "streaming") {
-                status = "🟣"
-            }
+            if (member.presence.status === "dnd") status = "🔴";
+            else if (member.presence.status === "idle") status = "🟡";
+            else if (member.presence.status === "online") status = "🟢";
+            else if (member.presence.status === "streaming") status = "🟣";
+            else status = "⚫";
         } catch(err) {
             status = "⚫"
         }
@@ -124,7 +105,7 @@ module.exports = {
             .setThumbnail(member.user.displayAvatarURL({
                 dynamic: true
             }))
-            .setColor(message.guild.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.me.displayHexColor)
+            .setColor(message.guild.members.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.members.me.displayHexColor)
             .setTitle(`${member.user.tag}`)
             .addFields({
                 name: "User Identity: ",

@@ -1,11 +1,11 @@
-const { EmbedBuilder, Message, Client } = require('discord.js');
+const {  Message, Client, PermissionsBitField } = require('discord.js');
 const simplydjs = require('simply-djs')
 
 module.exports = {
     name: 'setup-ticket',
     description: "Setup tickets.",
     usage: "[ #channel or current ch ]",
-    userPermissions: ["MANAGE_GUILD"],
+    userPermission: [PermissionsBitField.Flags.ManageGuild],
 
     /**
     * @param {Client} client

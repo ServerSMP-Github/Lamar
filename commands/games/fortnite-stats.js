@@ -1,11 +1,4 @@
-const {
-  Message,
-  Client,
-  MessageActionRow,
-  MessageButton,
-  EmbedBuilder,
-  AttachmentBuilder
-} = require('discord.js');
+const { Message, Client, AttachmentBuilder } = require('discord.js');
 const canvas = require("discord-canvas")
 
 module.exports = {
@@ -22,8 +15,8 @@ module.exports = {
     if (!client.config.api.fortnitetracker) return message.reply("This command is disabled");
     const stats = new canvas.FortniteStats();
 
-    const user = args.slice(0).join(' '),
-      platform = "pc";
+    const user = args.slice(0).join(' ');
+    const platform = "pc";
 
     const image = await stats
       .setToken(client.config.api.fortnitetracker)
@@ -34,7 +27,7 @@ module.exports = {
     if (platform !== "pc" && platform !== "xbl" && platform !== "psn") return message.channel.send("Please enter a valid platform")
     if (!image) return message.channel.send("User not found")
 
-    const attachment = new AttachmentBuilder(image.toBuffer(), "FortniteStats.png");
+    const attachment = new AttachmentBuilder(image.toBuffer(), { name: "FortniteStats.png" });
 
     message.channel.send({
       files: [attachment]

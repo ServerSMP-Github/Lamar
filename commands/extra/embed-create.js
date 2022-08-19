@@ -1,10 +1,10 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 const simplydjs = require('simply-djs');
 
 module.exports = {
     name: 'embed-create',
     description : "Create embeds!",
-    userPermission: ["MANAGE_MESSAGES"],
+    userPermission: [PermissionsBitField.Flags.ManageMessages],
     /**
      * @param {Client} client
      * @param {Message} message

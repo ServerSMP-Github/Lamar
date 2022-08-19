@@ -1,16 +1,11 @@
-const {
-    Client,
-    CommandInteraction,
-    ApplicationCommandType,
-    ApplicationCommandOptionType
-} = require("discord.js");
+const { Client, CommandInteraction, ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField } = require("discord.js");
 const Schema = require("../../models/server/cmd-slash");
 
 module.exports = {
     name: "cmd",
     description: "Disable or enable a slash command.",
     type: ApplicationCommandType.ChatInput,
-    userPermissions: ["MANAGE_GUILD"],
+    userPermissions: [PermissionsBitField.Flags.ManageGuild],
     options: [{
             name: "enable",
             description: "You can enable disabled Slash Command in your server",

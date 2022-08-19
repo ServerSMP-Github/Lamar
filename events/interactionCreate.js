@@ -1,7 +1,7 @@
-const { EmbedBuilder, WebhookClient, ApplicationCommandOptionType, InteractionType  } = require("discord.js");
+const { EmbedBuilder, WebhookClient, ApplicationCommandOptionType, InteractionType } = require("discord.js");
 const customCommandModel = require("../models/server/cc-slash");
 const profileSchema = require("../models/user/profile");
-const cmdToggle = require("../models/server/cmd-slash");
+// const cmdToggle = require("../models/server/cmd-slash");
 const Userstats = require("../models/user/user-stats");
 const client = require("../index");
 
@@ -69,7 +69,7 @@ client.on("interactionCreate", async (interaction) => {
   cmdUsed();
 
   // Slash Command Handling
-  if (interaction.isCommand()) {
+  if (interaction.type === InteractionType.ApplicationCommand) {
     await interaction.deferReply({
       ephemeral: false
     }).catch(() => {});
@@ -86,7 +86,7 @@ client.on("interactionCreate", async (interaction) => {
             iconURL: interaction.member.user.displayAvatarURL()
           })
           .setDescription(`\`\`\`\n/${cmd.name}\n\`\`\``)
-          .setColor("YELLOW")
+          .setColor("Yellow")
           .setTimestamp()
         ]
       })
@@ -107,8 +107,9 @@ client.on("interactionCreate", async (interaction) => {
       if (!interaction.member.permissions.has(cmd.userPermissions || [])) return interaction.followUp({
         content: "You do not have permissions to use this command!",
         ephemeral: true
-      })
-      if (!interaction.guild.me.permissions.has(cmd.botPermission || [])) return interaction.followUp({
+      });
+
+      if (!interaction.guild.members.me.permissions.has(cmd.botPermission || [])) return interaction.followUp({
         content: "I do not have permission to use this command!",
         ephemeral: true
       });
@@ -116,17 +117,9 @@ client.on("interactionCreate", async (interaction) => {
       if (cmd.owner && !client.config.bot.owner.includes(interaction.member.user.id)) return message.channel.send({
         embeds: [
           new EmbedBuilder()
-            .setColor("RED")
+            .setColor("Red")
             .setDescription("This command can only be used by the owners!")
         ]
-      });
-
-      const check = await cmdToggle.findOne({
-        Guild: interaction.guild.id
-      }).exec();
-
-      if (check && check.Cmds.includes(cmd.name)) return interaction.followUp({
-        content: 'This command has been disabled by admins.'
       });
 
       cmd.run(client, interaction, args);
@@ -163,7 +156,7 @@ client.on("interactionCreate", async (interaction) => {
             iconURL: interaction.member.user.displayAvatarURL()
           })
           .setDescription(`\`\`\`\n/${command.name}\n\`\`\``)
-          .setColor("YELLOW")
+          .setColor("Yellow")
           .setTimestamp()
         ]
       });

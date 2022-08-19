@@ -1,12 +1,12 @@
-const { EmbedBuilder, Message, Client, Collection } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 const { antijoin } = require('../../client/collection');
 
 module.exports = {
     name: 'antijoin',
     usage: '[on | off | list]',
     description : "Turn on/off antijoin system, this helps with raids and there is -antijoin list to see the player's that it kicked.",
-    userPermission: ["ADMINISTRATOR"],
-    botPermission: ["KICK_MEMBERS"],
+    userPermission: [PermissionsBitField.Flags.Administrator],
+    botPermission: [PermissionsBitField.Flags.KickMembers],
     /**
      * @param {Client} client
      * @param {Message} message

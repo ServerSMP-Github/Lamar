@@ -1,3 +1,4 @@
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const axios = require("axios");
 
 module.exports = {
@@ -19,7 +20,7 @@ module.exports = {
 
     message.channel.send({
       embeds: [
-        new Discord.EmbedBuilder()
+        new EmbedBuilder()
         .setTitle("Result for your Search Query: " + query)
         .setDescription(first.title)
         .addField("Tags", first.tags)
@@ -28,7 +29,7 @@ module.exports = {
         .addField("Answers", `${first.answers}`)
         .addField("Score", `${first.score}`)
         .setURL(first.link)
-        .setColor("DARK_BLUE")
+        .setColor("DarkBlue")
       ]
     });
 

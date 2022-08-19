@@ -710,5 +710,5 @@ client.on("interactionCreate", async (interaction) => {
         return;
     }
 
-    simplydjs.clickBtn(interaction);
+    // simplydjs.clickBtn(interaction);
 });

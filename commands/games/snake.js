@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client } = require('discord.js');
 const { Snake } = require('discord-gamecord');
 
 module.exports = {
@@ -27,6 +27,6 @@ module.exports = {
               down: '⬇️',
               left: '⬅️',
             },
-        }).startGame()
+        }).startGame();
     }
 }

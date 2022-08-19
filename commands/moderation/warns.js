@@ -1,11 +1,11 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, EmbedBuilder, PermissionsBitField } = require('discord.js');
 const Schema = require('../../models/moderator/warn');
 
 module.exports = {
     name: 'warns',
     usage: '[@user]',
     description : "See all the warns that a user has got.",
-    userPermission: ["ADMINISTRATOR"],
+    userPermission: [PermissionsBitField.Flags.Administrator],
     /** 
      * @param {Client} client 
      * @param {Message} message 
@@ -23,7 +23,7 @@ module.exports = {
                     new EmbedBuilder()
                         .setTitle(`${user.user.tag}'s warns`)
                         .setDescription(String(help))
-                        .setColor("BLUE")
+                        .setColor("Blue")
                 ] })
             } else {
                 message.channel.send('User has no data')

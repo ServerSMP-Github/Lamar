@@ -14,18 +14,18 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please \`youtube\``
+                    name: `${client.user.username} will not be doing music anymore, please use \`youtube\``
                 })
-                .setColor("BLUE")
+                .setColor("Blue")
             ]
         });
 
-        const player = client.music.get(interaction.guild.id);
+        const player = client.poru.players.get(interaction.guild.id);
         if (!player) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("There is nothing playing")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -35,7 +35,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setDescription("Sorry, but you need to be in a voice channel to do that")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -43,31 +43,31 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setDescription("You are not in my voice channel")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
-        if (player.paused) {
+        if (player.isPaused) {
             player.pause(false);
             return interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("▶ **|** The music player has been resumed")
-                    .setColor("BLUE")
+                    .setColor("Blue")
                 ]
             });
-        } else if (player.playing) return interaction.followUp({
+        } else if (player.isPlaying) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("▶ **|** The music player is already resumed")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
         else return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("There is nothing playing")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 

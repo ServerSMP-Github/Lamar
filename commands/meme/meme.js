@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { Message, Client, EmbedBuilder } = require("discord.js");
 const axios = require('axios');
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
         embed.setTitle(`${memeTitle}`)
         embed.setURL(`${memeUrl}`)
         embed.setImage(memeImage)
-        embed.setColor('RANDOM')
+        embed.setColor('Random')
         embed.setFooter({ text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}` })
         message.channel.send({ embeds: [embed] });
     },

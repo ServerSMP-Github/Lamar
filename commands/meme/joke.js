@@ -1,11 +1,4 @@
-const {
-    Message,
-    Client,
-    MessageActionRow,
-    MessageButton,
-    EmbedBuilder,
-    AttachmentBuilder
-} = require("discord.js");
+const { Message, Client, EmbedBuilder } = require("discord.js");
 const jokes = require("../../assets/api/serversmp-api/joke.json");
 
 module.exports = {

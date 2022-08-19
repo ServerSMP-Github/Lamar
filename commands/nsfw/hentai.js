@@ -37,7 +37,7 @@ module.exports = {
             embed.setTitle(`${memeTitle}`)
             embed.setURL(`${memeUrl}`)
             embed.setImage(memeImage)
-            embed.setColor('RANDOM')
+            embed.setColor('Random')
             embed.setFooter({ text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}` })
             message.channel.send({ embeds: [embed] });
         }

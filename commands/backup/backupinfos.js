@@ -4,7 +4,7 @@ const backup = require("discord-backup");
 module.exports = {
     name: 'backupinfos',
     usage: '[backupID]',
-    aliases : ['bi', '0110001001100001011000110110101101110101011100000110100101101110011001100110111101110011'],
+    aliases : ['bi'],
     description : "Get info on the backup.",
     /**
      * @param {Client} client

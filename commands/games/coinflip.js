@@ -1,9 +1,4 @@
-const {
-  EmbedBuilder,
-  Message,
-  Client,
-  AttachmentBuilder
-} = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const fetch = require('axios');
 
 module.exports = {

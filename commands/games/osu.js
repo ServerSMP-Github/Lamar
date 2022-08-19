@@ -1,13 +1,5 @@
-const {
-  EmbedBuilder,
-  Message,
-  Client,
-  AttachmentBuilder
-} = require('discord.js');
-const {
-  createCanvas,
-  loadImage
-} = require('canvas');
+const { Message, Client, AttachmentBuilder } = require('discord.js');
+const { createCanvas, loadImage } = require('canvas');
 const osu = require('node-osu');
 
 module.exports = {
@@ -118,7 +110,7 @@ module.exports = {
       ctx.textAlign = "center";
       ctx.fillText(`${Math.round(user[0].level)}`, 907, 49)
 
-      const attachment = new AttachmentBuilder(canvas.toBuffer(), 'osu.png');
+      const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'osu.png' });
       message.channel.send({
         files: [attachment]
       })

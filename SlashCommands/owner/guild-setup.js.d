@@ -1,11 +1,4 @@
-const {
-    Client,
-    EmbedBuilder,
-    MessageActionRow,
-    MessageSelectMenu,
-    ApplicationCommandType,
-    ApplicationCommandOptionType
-} = require("discord.js");
+const { Client, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, ApplicationCommandType } = require("discord.js");
 
 module.exports = {
     name: "guild-setup",
@@ -39,9 +32,9 @@ module.exports = {
             ]
         });
 
-        const BotFAQs = new MessageActionRow()
+        const BotFAQs = new ActionRowBuilder()
             .addComponents(
-                new MessageSelectMenu()
+                new SelectMenuBuilder()
                 .setCustomId('BotFAQs')
                 .setPlaceholder('Choose an option')
                 .addOptions(

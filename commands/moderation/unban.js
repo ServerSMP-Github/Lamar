@@ -1,10 +1,10 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     name: 'unban',
     description : "Unban users using commands.",
-    userPermission: ["BAN_MEMBERS"],
-    botPermission: ["BAN_MEMBERS"],
+    userPermission: [PermissionsBitField.Flags.BanMembers],
+    botPermission: [PermissionsBitField.Flags.BanMembers],
     /** 
      * @param {Client} client 
      * @param {Message} message 

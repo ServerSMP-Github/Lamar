@@ -1,4 +1,4 @@
-const { EmbedBuilder, WebhookClient } = require("discord.js");
+const { EmbedBuilder, WebhookClient, PermissionsBitField } = require("discord.js");
 const { blacklistedwords } = require('../client/collection');
 const Schema = require('../models/moderator/blackwords');
 const verFile = require('../version.json');
@@ -39,7 +39,7 @@ client.on("ready", async() => {
   });
 
   client.guilds.cache
-    .filter((g) => g.me.permissions.has("MANAGE_GUILD"))
+    .filter((g) => g.members.me.permissions.has(PermissionsBitField.Flags.ManageGuild))
     .forEach((g) => g.invites.fetch({ cache: true }));
 
   if (client.config.bot.database.mongo_extra) {
@@ -50,7 +50,7 @@ client.on("ready", async() => {
     if (!await client.arkDB.has(`${client.user.username}-cmdUsed`)) await client.arkDB.set(`${client.user.username}-cmdUsed`, "0");
   }
 
-  client.music.init(client.user.id);
+  client.poru.init(client);
 
   global.startSpinner.succeed("Started BOT");
 

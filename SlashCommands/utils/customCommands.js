@@ -1,11 +1,11 @@
-const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField } = require("discord.js");
 const customCommandModel = require("../../models/server/cc-slash");
 
 module.exports = {
     name: "custom",
     description: "custom command configuration.",
     type: ApplicationCommandType.ChatInput,
-    userPermissions: ["MANAGE_MESSAGES"],
+    userPermissions: [PermissionsBitField.Flags.ManageMessages],
     options: [
       {
         name: "create",
@@ -73,8 +73,10 @@ module.exports = {
 
         const embed = new EmbedBuilder()
           .setTitle("custom commands")
-          .addField("name", commandName)
-          .addField("response", response)
+          .addFields([
+            { name: 'name', value: commandName },
+            { name: 'response', value: response }
+          ])
 
         return interaction.followUp({ embeds: [embed] });
       } else if(subCommand === "delete") {

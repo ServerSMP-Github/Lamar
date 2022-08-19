@@ -30,7 +30,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setTitle(`Boobs Image`)
-                    .setColor("GREEN")
+                    .setColor("Green")
                     .setImage(image)
                 ]
             });

@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, AttachmentBuilder } = require('discord.js');
 const getBoardBase64Node = require("@treasure-chess/chess-image-generator/src/node/getBoardBase64-node");
 const { getBoardLayout } = require("@treasure-chess/chess-image-generator");
 const pgnParser = require("../../assets/js/pgn-parser.js");
@@ -81,7 +81,7 @@ module.exports = {
                                 .on('end', () => {
 
                                     message.channel.send({
-                                        files: [new AttachmentBuilder(path.join(__dirname, '..', '..', 'temp', `chess-${random}.mp4`), "chess.mp4")]
+                                        files: [new AttachmentBuilder(path.join(__dirname, '..', '..', 'temp', `chess-${random}.mp4`), { name: "chess.mp4" })]
                                     });
 
                                     setTimeout(() => {

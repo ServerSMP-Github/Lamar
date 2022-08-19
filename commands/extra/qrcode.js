@@ -1,8 +1,4 @@
-const {
-  EmbedBuilder,
-  Message,
-  Client
-} = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'qrcode',

@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client } = require('discord.js');
 const { Trivia } = require('discord-gamecord');
 
 module.exports = {

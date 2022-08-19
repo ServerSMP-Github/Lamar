@@ -1,12 +1,12 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 const Schema = require('../../models/moderator/warn');
 
 module.exports = {
     name: 'remove-all-warns',
     usage: '[@user]',
-    aliases : ['clearwarn'],
+    aliases : ['clearwarns'],
     description : "Remove all the warn from a user.",
-    userPermission: ["ADMINISTRATOR"],
+    userPermission: [PermissionsBitField.Flags.Administrator],
     /** 
      * @param {Client} client 
      * @param {Message} message 

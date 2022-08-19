@@ -1,25 +1,29 @@
-const {
-    MessageActionRow,
-    Message,
-    MessageEmbed,
-    MessageButton,
-} = require("discord.js");
+const { SelectMenuBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 
 module.exports = async (message, embeds) => {
     if (!message || !embeds) throw new Error(console.log('Please provide all arguments, make sure they are valid'))
 
     let index = 0;
 
-    let button = new MessageActionRow()
+    let button = new SelectMenuBuilder()
         .addComponents(
-            new MessageButton().setCustomId(`previous`) //button to go back a page
-            .setLabel('Previous Page').setEmoji("◀️").setStyle('SECONDARY'),
+            new ButtonBuilder()
+                .setCustomId(`previous`)
+                .setLabel('Previous Page')
+                .setEmoji("◀️")
+                .setStyle(ButtonStyle.Secondary),
 
-            new MessageButton().setCustomId(`home`) //home button to go back to the main menu
-            .setLabel('Home Page').setEmoji("🏠").setStyle("SECONDARY"),
+            new ButtonBuilder()
+                .setCustomId(`home`)
+                .setLabel('Home Page')
+                .setEmoji("🏠").
+                setStyle(ButtonStyle.Secondary),
 
-            new MessageButton().setCustomId(`next`) //button to go forward a page
-            .setLabel('Next Page').setEmoji("▶️").setStyle('SECONDARY'),
+            new ButtonBuilder()
+                .setCustomId(`next`)
+                .setLabel('Next Page')
+                .setEmoji("▶️")
+                .setStyle(ButtonStyle.Secondary),
         );
 
     let buttons = [button];
@@ -71,7 +75,7 @@ module.exports = async (message, embeds) => {
 
         const collector = message.createMessageComponentCollector({
             filter,
-            componentType: "BUTTON",
+            componentType: "Button",
             time: 50000
         });
 

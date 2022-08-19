@@ -1,8 +1,8 @@
-const { glob } = require("glob");
-const { promisify } = require("util");
-const { Client } = require("discord.js");
-const { fstat } = require("fs");
+const { Client, ApplicationCommandType } = require("discord.js");
 const customCommandModel = require("../models/server/cc-slash");
+const { promisify } = require("util");
+const { glob } = require("glob");
+const { fstat } = require("fs");
 
 const globPromise = promisify(glob);
 
@@ -38,7 +38,7 @@ module.exports = async (client) => {
         if (!file?.name) return;
         client.slashCommands.set(file.name, file);
 
-        if (["MESSAGE", "USER"].includes(file.type)) delete file.description;
+        if ([ApplicationCommandType.Message, ApplicationCommandType.User].includes(file.type)) delete file.description;
         arrayOfSlashCommands.push(file);
     });
     client.on("ready", async () => {

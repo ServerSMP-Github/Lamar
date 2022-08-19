@@ -1,18 +1,10 @@
-const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType } = require("discord.js");
 const { readdirSync } = require("fs");
 
 module.exports = {
   name: "help",
   description: "Show All Commands",
   type: ApplicationCommandType.ChatInput,
-  options: [
-      {
-        name: "commands",
-        description: "Serch for a command",
-        type: ApplicationCommandOptionType.String,
-        required: false,
-      }
-    ],
 
   /**
    * @param {Client} client
@@ -20,89 +12,46 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, interaction, args) => {
+    const { member } = interaction;
 
-    if (!args[0]) {
-      let categories = [];
+    const botColor = interaction.guild.members.me.displayHexColor;
+    const color = botColor === "#000000" ? "#ffffff" : botColor;
 
-      readdirSync("./SlashCommands/").forEach((dir) => {
-        const commands = readdirSync(`./SlashCommands/${dir}/`).filter((file) =>
-          file.endsWith(".js")
-        );
+    let categories = [];
 
-        const cmds = commands.map((command) => {
-          let file = require(`../../SlashCommands/${dir}/${command}`);
+    readdirSync("./SlashCommands/").forEach((dir) => {
+      const commands = readdirSync(`./SlashCommands/${dir}/`).filter((file) =>
+        file.endsWith(".js")
+      );
 
-          if (!file.name) return "No command name.";
+      const cmds = commands.map((command) => {
+        let file = require(`../../SlashCommands/${dir}/${command}`);
 
-          let name = file.name.replace(".js", "");
-          let description = file.description;
+        if (!file.name) return "No command name.";
 
-          return `\`${name}\` : ${description} \n`;
-        });
+        let name = file.name.replace(".js", "");
+        let description = file.description;
 
-        let data = new Object();
-
-        data = {
-          name: dir.toUpperCase(),
-          value: cmds.length === 0 ? "In progress." : cmds.join(" "),
-        };
-
-        categories.push(data);
+        return `\`${name}\` : ${description} \n`;
       });
 
-      const embed = new EmbedBuilder()
-        .setTitle("📬 Need help? Here are all of my commands:")
+      let data = new Object();
+
+      data = {
+        name: `${dir.charAt(0).toUpperCase() + dir.slice(1)}:`,
+        value: cmds.length === 0 ? "In progress." : cmds.join(" "),
+      };
+
+      categories.push(data);
+    });
+
+    return interaction.followUp({ embeds: [
+      new EmbedBuilder()
+        .setColor(color)
         .addFields(categories)
-        .setDescription(
-          `Use \`/help\` followed by a command name to get more additional information on a command. For example: \`/help report\`.`
-        )
-        .setFooter({
-          text: `Requested by ${interaction.user.tag}`,
-        })
-        .setTimestamp()
-        .setColor("BLUE");
-      return interaction.followUp({ embeds: [embed] });
-    } else {
-      const command =
-        client.commands.get(args[0].toLowerCase()) ||
-        client.commands.find(
-          (c) => c.aliases && c.aliases.includes(args[0].toLowerCase())
-        );
-
-      if (!command) {
-        const embed = new EmbedBuilder()
-          .setTitle(
-            `Invalid command! Use \`/help\` for all of my commands!`
-          )
-          .setColor("BLUE");
-        return interaction.followUp({ embeds: [embed] });
-      }
-
-      const embed = new EmbedBuilder()
-        .setTitle("Command Details:")
-        .addField("PREFIX:", `\`/\``)
-        .addField(
-          "COMMAND:",
-          command.name ? `\`${command.name}\`` : "No name for this command."
-        )
-        .addField(
-          "USAGE:",
-          command.usage
-            ? `\`/${command.name} ${command.usage}\``
-            : `\`/${command.name}\``
-        )
-        .addField(
-          "DESCRIPTION:",
-          command.description
-            ? command.description
-            : "No description for this command."
-        )
-        .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-          })
-        .setTimestamp()
-        .setColor("BLUE");
-      return interaction.followUp({ embeds: [embed] });
-    }
+        .setTitle("Who Wants my Help?")
+        .setDescription(`Here are List of My Commands!\n`)
+        .setFooter({ text: `Requested By ${member.user.tag}` })
+    ]});
   },
 };

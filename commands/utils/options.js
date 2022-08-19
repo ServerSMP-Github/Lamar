@@ -1,4 +1,4 @@
-const { EmbedBuilder, Message, Client, MessageReaction, MessageActionRow, MessageButton, AttachmentBuilder } = require('discord.js');
+const { EmbedBuilder, Message, Client, ActionRowBuilder, ButtonBuilder, AttachmentBuilder, PermissionsBitField, ButtonStyle } = require('discord.js');
 const { blacklistedwords } = require('../../client/collection');
 const SchemaAutoTranslate = require('../../models/server/translate');
 const SchemaChatBot = require('../../models/server/chatbot-channel');
@@ -30,7 +30,7 @@ module.exports = {
   name: 'options',
   usage: '[ option 1 | ] [ option 2 ] [ option 3 ] [ option 4 ] { To get a list to the options do the command without options (aka: {prefix}options). }',
   description: "Set up some options stuff.",
-  userPermission: ["ADMINISTRATOR"],
+  userPermission: [PermissionsBitField.Flags.Administrator],
   /**
    * @param {Client} client
    * @param {Message} message
@@ -716,102 +716,102 @@ module.exports = {
         }, async (err, data) => {
           if (!data) return message.reply("This server has no modlogs channel!");
 
-          const row = new MessageActionRow().addComponents(
-            new MessageButton()
+          const row = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
             .setCustomId("modlog-chc")
             .setLabel("channelCreate")
-            .setStyle("PRIMARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
             .setCustomId("modlog-chd")
             .setLabel("channelDelete")
-            .setStyle("PRIMARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
             .setCustomId("modlog-chpu")
             .setLabel("channelPinsUpdate")
-            .setStyle("PRIMARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
             .setCustomId("modlog-chu")
             .setLabel("channelUpdate")
-            .setStyle("PRIMARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
             .setCustomId("modlog-ed")
             .setLabel("emojiDelete")
-            .setStyle("SECONDARY")
+            .setStyle(ButtonStyle.Secondary)
           )
 
-          const row2 = new MessageActionRow().addComponents(
-            new MessageButton()
+          const row2 = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
             .setCustomId("modlog-ec")
             .setLabel("emojiCreate")
-            .setStyle("SECONDARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder()
             .setCustomId("modlog-eu")
             .setLabel("emojiUpdate")
-            .setStyle("SECONDARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder()
             .setCustomId("modlog-gba")
             .setLabel("guildBanAdd")
-            .setStyle("DANGER"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
             .setCustomId("modlog-gbr")
             .setLabel("guildBanRemove")
-            .setStyle("DANGER"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
             .setCustomId("modlog-gma")
             .setLabel("guildMemberAdd")
-            .setStyle("DANGER")
+            .setStyle(ButtonStyle.Danger)
           )
 
-          const row3 = new MessageActionRow().addComponents(
-            new MessageButton()
+          const row3 = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
             .setCustomId("modlog-gmr")
             .setLabel("guildMemberRemove")
-            .setStyle("DANGER"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
             .setCustomId("modlog-gmc")
             .setLabel("guildMemberChunk")
-            .setStyle("DANGER"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
             .setCustomId("modlog-gmu")
             .setLabel("guildMemberUpdate")
-            .setStyle("DANGER"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
             .setCustomId("modlog-rc")
             .setLabel("roleCreate")
-            .setStyle("SUCCESS"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Success),
+            new ButtonBuilder()
             .setCustomId("modlog-rd")
             .setLabel("roleDelete")
-            .setStyle("SUCCESS"),
+            .setStyle(ButtonStyle.Success),
           )
 
-          const row4 = new MessageActionRow().addComponents(
-            new MessageButton()
+          const row4 = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
             .setCustomId("modlog-ru")
             .setLabel("roleUpdate")
-            .setStyle("SUCCESS"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Success),
+            new ButtonBuilder()
             .setCustomId("modlog-ivc")
             .setLabel("inviteCreate")
-            .setStyle("PRIMARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
             .setCustomId("modlog-ivd")
             .setLabel("inviteDelete")
-            .setStyle("PRIMARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
             .setCustomId("modlog-mu")
             .setLabel("messageDelete")
-            .setStyle("SECONDARY"),
-            new MessageButton()
+            .setStyle(ButtonStyle.Secondary),
+            new ButtonBuilder()
             .setCustomId("modlog-md")
             .setLabel("messageUpdate")
-            .setStyle("SECONDARY")
+            .setStyle(ButtonStyle.Secondary)
           )
 
           const embed = new EmbedBuilder()
             .setTitle("ModLogs - Options")
             .setDescription("Click on the buttons to change stuff.")
-            .setColor("AQUA")
+            .setColor("Aqua")
 
           message.channel.send({
             embeds: [embed],
@@ -1056,7 +1056,7 @@ module.exports = {
           })
         });
 
-        const attachment = new AttachmentBuilder(image, 'bye.png');
+        const attachment = new AttachmentBuilder(image, { name: 'bye.png' });
         message.channel.send({
           files: [attachment]
         });
@@ -2398,7 +2398,7 @@ module.exports = {
                   labels: monthsArray,
                 }
               });
-              const channelsAttachment = new AttachmentBuilder(channelsChart, 'channels.png');
+              const channelsAttachment = new AttachmentBuilder(channelsChart, { name: 'channels.png' });
 
               const emojiChart = await chart.renderToBuffer({
                 type: 'bar',
@@ -2423,7 +2423,7 @@ module.exports = {
                   labels: monthsArray,
                 }
               });
-              const emojiAttachment = new AttachmentBuilder(emojiChart, 'emoji.png');
+              const emojiAttachment = new AttachmentBuilder(emojiChart, { name: 'emoji.png' });
 
               const memberChart = await chart.renderToBuffer({
                 type: 'bar',
@@ -2458,7 +2458,7 @@ module.exports = {
                   labels: monthsArray,
                 }
               });
-              const memberAttachment = new AttachmentBuilder(memberChart, 'member.png');
+              const memberAttachment = new AttachmentBuilder(memberChart, { name: 'member.png' });
 
               const randomColor = (Math.random() * 0xFFFFFF << 0).toString(16);
 

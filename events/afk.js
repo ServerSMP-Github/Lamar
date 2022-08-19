@@ -1,6 +1,4 @@
-const {
-    afk
-} = require('../client/collection');
+const { afk } = require('../client/collection');
 const client = require('../index');
 const { fromNow } = require('../assets/api/time/index');
 

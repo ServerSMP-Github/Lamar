@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder } = require("discord.js");
+const { Message, Client, EmbedBuilder } = require("discord.js");
 const { serverDate, fromNow } = require('../../assets/api/time/index');
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
      */
     run: async (client, message, args) => {
 
-        const roleColor = message.guild.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.me.displayHexColor;
+        const roleColor = message.guild.members.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.members.me.displayHexColor;
 
         const verificationLevels = {
             NONE: 'None',

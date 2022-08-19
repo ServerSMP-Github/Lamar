@@ -1,12 +1,12 @@
-const { Message, Client } = require('discord.js');
+const { Message, Client, PermissionsBitField } = require('discord.js');
 const backup = require("discord-backup");
 
 module.exports = {
     name: 'backupload',
     usage: '[backupID]',
-    aliases : ['bl', '01100010011000010110001101101011011101010111000001101100011011110110000101100100'],
+    aliases : ['bl'],
     description : "Load the backup of you're server.",
-    userPermission: ["ADMINISTRATOR"],
+    userPermission: [PermissionsBitField.Flags.Administrator],
     /**
      * @param {Client} client
      * @param {Message} message

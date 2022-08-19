@@ -1,11 +1,11 @@
-const { EmbedBuilder, Message, Client } = require('discord.js');
+const { PermissionsBitField, Message, Client } = require('discord.js');
 
 module.exports = {
     name: "nuke",
     aliases: ["nukechannel", "channelnuke", "channelclear", "clearchannel"],
     cooldown: 1000 * 120,
     description: "This command deletes all messages in the channel it was ran in.",
-    userPermission: ["ADMINISTRATOR"],
+    userPermission: [PermissionsBitField.Flags.Administrator],
     /**
      * @param {Client} client
      * @param {Message} message
@@ -16,7 +16,7 @@ module.exports = {
         channel.send({ content: "Channel has been nuked." })
         message.channel.delete()
         .catch (e => {
-          return message.followUp({content: 'An error occured while trying to delete the channel.'})
+          return channel.send({content: 'An error occured while trying to delete the channel.'})
         });
       });
     }

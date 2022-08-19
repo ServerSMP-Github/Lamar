@@ -1,9 +1,4 @@
-const {
-    Client,
-    CommandInteraction,
-    EmbedBuilder,
-    ApplicationCommandType
-} = require("discord.js");
+const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType } = require("discord.js");
 const translate = require("@iamtraction/google-translate")
 
 module.exports = {
@@ -28,7 +23,7 @@ module.exports = {
             .setTimestamp()
             .addField("Text To Translate:", `\`\`\`${msg.content.slice(0, 950)}\`\`\``)
             .addField("Translateted Text:", `\`\`\`${translated.text.slice(0, 950)}\`\`\``)
-            .setColor('BLUE')
+            .setColor('Blue')
 
         interaction.followUp({
             embeds: [embed]

@@ -10,7 +10,7 @@ module.exports = {
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "mode",
-        type: "INTEGER",
+        type: ApplicationCommandOptionType.Integer,
         description: "Loop type",
         required: true,
         choices: [{
@@ -33,18 +33,18 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please \`youtube\``
+                    name: `${client.user.username} will not be doing music anymore, please use \`youtube\``
                 })
-                .setColor("BLUE")
+                .setColor("Blue")
             ]
         });
 
-        const player = client.music.get(interaction.guild.id);
+        const player = client.poru.players.get(interaction.guild.id);
         if (!player) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription("There is nothing playing")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -54,7 +54,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setDescription("Sorry, but you need to be in a voice channel to do that")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -62,7 +62,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setDescription("You are not in my voice channel")
-                .setColor("YELLOW")
+                .setColor("Yellow")
             ]
         });
 
@@ -73,16 +73,15 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("▶ **|** The repeat mode is already set to **\`OFF\`**")
-                    .setColor("YELLOW")
+                    .setColor("Yellow")
                 ]
             });
-            player.setQueueRepeat(false);
-            player.setTrackRepeat(false);
+            player.DisableRepeat();
             interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription(`▶ **|** The repeat mode has been set to **\`OFF\`**`)
-                    .setColor("BLUE")
+                    .setColor("Blue")
                 ]
             });
         } else if (mode === 3) {
@@ -90,15 +89,15 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("🔁 **|** The repeat mode is already set to **\`ALL\`**")
-                    .setColor("YELLOW")
+                    .setColor("Yellow")
                 ]
             });
-            player.setQueueRepeat(true);
+            player.QueueRepeat();
             interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription(`🔁 **|** The repeat mode has been set to **\`ALL\`**`)
-                    .setColor("BLUE")
+                    .setColor("Blue")
                 ]
             });
         } else if (mode === 2) {
@@ -106,22 +105,22 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("🔂 **|** The repeat mode is already set to **\`ONE\`**")
-                    .setColor("YELLOW")
+                    .setColor("Yellow")
                 ]
             });
-            player.setTrackRepeat(true);
+            player.TrackRepeat();
             interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription(`🔂 **|** The repeat mode has been set to **\`ONE\`**`)
-                    .setColor("BLUE")
+                    .setColor("Blue")
                 ]
             });
         } else return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription(`An error occurred while updating loop mode`)
-                .setColor("RED")
+                .setColor("Red")
             ]
         });
 

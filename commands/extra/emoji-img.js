@@ -1,11 +1,4 @@
-const {
-    Message,
-    Client,
-    MessageActionRow,
-    MessageButton,
-    EmbedBuilder,
-    AttachmentBuilder
-} = require("discord.js");
+const { Message, Client } = require("discord.js");
 const Jimp = require('jimp');
 const diff = require('color-diff');
 const twemoji = require('twemoji');

@@ -1,5 +1,5 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { RockPaperScissors } = require('discord-gamecord');
+const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'rockpaperscissors',

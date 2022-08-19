@@ -1,9 +1,4 @@
-const {
-    EmbedBuilder,
-    Message,
-    Client,
-    AttachmentBuilder
-} = require('discord.js');
+const { Message, Client } = require('discord.js');
 const figlet = require('figlet');
 
 module.exports = {

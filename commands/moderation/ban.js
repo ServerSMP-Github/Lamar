@@ -1,10 +1,10 @@
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, PermissionsBitField, ButtonStyle } = require('discord.js');
 
 module.exports = {
     name: 'ban',
     usage: "<user>",
     description: "This command ban a member!",
-    userPermission: ["BAN_MEMBERS"],
+    userPermission: [PermissionsBitField.Flags.BanMembers],
     run(client, message, args) {
 
         const GuildMember = message.member;
@@ -15,18 +15,18 @@ module.exports = {
             const memberTarget = message.guild.members.cache.get(target.id);
             message.delete();
             
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder()
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                 .setCustomId("2")
                 .setLabel("Approve ban")
-                .setStyle("SUCCESS")
+                .setStyle(ButtonStyle.Success)
                 .setEmoji("✅"),
-                new MessageButton()
+                new ButtonBuilder()
                 .setCustomId("1")
                 .setEmoji("🚫")
                 .setLabel("Dissallow ban")
-                .setStyle("DANGER"),
+                .setStyle(ButtonStyle.Danger),
             )
 
             const filter1 = i => i.customId === "2" && i.user.id;

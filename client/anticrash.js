@@ -26,11 +26,13 @@ module.exports = (client) => {
         .setAuthor({ name: `Anti Crash`, iconURI: client.user.displayAvatarURL({ dynamic: true }) })
         .setTitle(`Unhandled Rejection`)
         .setURL("https://nodejs.org/api/process.html#event-unhandledrejection")
-        .addField("Promise", `\`\`\`${p}\`\`\``, true)
-        .addField("Reason", `\`\`\`${reason}\`\`\``, true)
+        .addFields([
+          { name: "Promise", value: `\`\`\`${p}\`\`\``, inline: true },
+          { name: "Reason", value: `\`\`\`${reason}\`\`\``, inline: true }
+        ])
         .setTimestamp()
         .setFooter({ text: "Imagine a bot without anti-crash" })
-        .setColor("RED")
+        .setColor("Red")
       ]
     });
   });
@@ -45,11 +47,13 @@ module.exports = (client) => {
         .setAuthor({ name: `Anti Crash`, iconURI: client.user.displayAvatarURL({ dynamic: true }) })
         .setTitle(`Uncaught Exception`)
         .setURL("https://nodejs.org/api/process.html#event-uncaughtexception")
-        .addField("Origin", `\`\`\`${origin}\`\`\``, true)
-        .addField("Error", `\`\`\`${err}\`\`\``, true)
+        .addFields([
+          { name: "Origin", value: `\`\`\`${origin}\`\`\``, inline: true },
+          { name: "Error", value: `\`\`\`${err}\`\`\``, inline: true }
+        ])
         .setTimestamp()
         .setFooter({ text: "Imagine a bot without anti-crash" })
-        .setColor("RED")
+        .setColor("Red")
       ]
     });
   });
@@ -64,11 +68,13 @@ module.exports = (client) => {
         .setAuthor({ name: `Anti Crash`, iconURI: client.user.displayAvatarURL({ dynamic: true }) })
         .setTitle(`Uncaught Exception Monitor`)
         .setURL("https://nodejs.org/api/process.html#event-uncaughtexceptionmonitor")
-        .addField("Origin", `\`\`\`${origin}\`\`\``, true)
-        .addField("Error", `\`\`\`${err}\`\`\``, true)
+        .addFields([
+          { name: "Origin", value: `\`\`\`${origin}\`\`\``, inline: true },
+          { name: "Error", value: `\`\`\`${err}\`\`\``, inline: true }
+        ])
         .setTimestamp()
         .setFooter({ text: "Imagine a bot without anti-crash" })
-        .setColor("RED")
+        .setColor("Red")
       ]
     });
   });
@@ -88,7 +94,7 @@ module.exports = (client) => {
     //     .addField("Reason", `\`\`\`${reason}\`\`\``, true)
     //     .setTimestamp()
     //     .setFooter({ text: "Imagine a bot without anti-crash" })
-    //     .setColor("RED")
+    //     .setColor("Red")
     //   ]
     // });
   });

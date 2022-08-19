@@ -1,8 +1,4 @@
-const {
-  EmbedBuilder,
-  Message,
-  Client
-} = require('discord.js');
+const { Message, Client } = require('discord.js');
 const img = require('images-scraper');
 const google = new img({
   puppeteer: {
@@ -20,6 +16,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    return message.reply({ content: "CMD is being re-worked" });
     if (await client.mongo_quick.has(`nsfw-${message.guild.id}`) === false) return message.reply("NSFW commands disabled on this guild.");
     if (await client.mongo_quick.has(`nsfw-ch-${message.guild.id}`) === true) {
       if (message.channel.id === await client.mongo_quick.get(`nsfw-ch-${message.guild.id}`)) {

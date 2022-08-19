@@ -1,8 +1,4 @@
-const {
-  EmbedBuilder,
-  Message,
-  Client
-} = require('discord.js');
+const { EmbedBuilder, Message, Client } = require('discord.js');
 const Userstats = require("../../models/user/user-stats");
 
 module.exports = {

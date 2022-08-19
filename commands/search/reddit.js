@@ -1,4 +1,4 @@
-const { Message, Client, MessageActionRow, MessageButton, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { Message, Client, EmbedBuilder } = require('discord.js');
 const fetch = require("axios");
 
 module.exports = {
@@ -28,16 +28,18 @@ module.exports = {
                 new EmbedBuilder()
                 .setTitle("Subreddit Info")
                 .setThumbnail(response.icon.split("?")[0])
-                .setColor("FF5700")
-                .addField("Name", response.name, true)
-                .addField("Title", response.title, true)
-                .addField("URL", `[URL](${response.url})`, true)
-                .addField("Active Users", response.active_users, true)
-                .addField("Total Users", response.members, true)
-                .addField("Images Allowed", yesno[response.allow_images], true)
-                .addField("Videos Allowed", yesno[response.allow_videos], true)
-                .addField("Over 18", yesno[response.over_18], true)
-                .addField("Description", response.description ? response.description : "None")
+                .setColor("#FF5700")
+                .addFields([
+                    { name: "Name", value: response.name, inline: true },
+                    { name: "Title", value: response.title, inline: true },
+                    { name: "URL", value: `[URL](${response.url})`, inline: true },
+                    { name: "Active Users", value: response.active_users, inline: true },
+                    { name: "Total Users", value: response.members, inline: true },
+                    { name: "Images Allowed", value: yesno[response.allow_images], inline: true },
+                    { name: "Videos Allowed", value: yesno[response.allow_videos], inline: true },
+                    { name: "Over 18", value: yesno[response.over_18], inline: true },
+                    { name: "Description", value: response.description ? response.description : "None" },
+                ])
             ]
         })
     }
