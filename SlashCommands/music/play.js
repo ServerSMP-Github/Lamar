@@ -61,6 +61,8 @@ module.exports = {
             interaction.user.member
         );
 
+        console.log(res)
+
         if (res.loadType === "LOAD_FAILED") return interaction.followUp({
             embeds: [
                 new MessageEmbed()

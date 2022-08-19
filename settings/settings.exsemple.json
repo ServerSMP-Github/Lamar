@@ -28,7 +28,7 @@
         "weatherapi": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "hypixel": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         "virustotal": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "serversmp": "https://serversmp-api.herokuapp.com/"
+        "serversmp": "https://api.serversmp.xyz/"
     },
     "channel": {
         "ids": {

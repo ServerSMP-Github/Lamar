@@ -22,14 +22,14 @@ module.exports = (client) => {
                 password: config.music.lavalink.password,
             },
         ],
-        plugins: [
-            new apple(),
-            new facebook(),
-            new spotify({
-                clientID: config.music.spotify.id,
-                clientSecret: config.music.spotify.secret
-            }),
-        ],
+        // plugins: [
+        //     new apple(),
+        //     new facebook(),
+        //     new spotify({
+        //         clientID: config.music.spotify.id,
+        //         clientSecret: config.music.spotify.secret
+        //     }),
+        // ],
         send(id, payload) {
             const guild = client.guilds.cache.get(id);
             if (guild) guild.shard.send(payload);
