@@ -9,7 +9,7 @@ const {
 const {
     createCanvas,
     loadImage
-} = require('canvas');
+} = require('@napi-rs/canvas');
 const axios = require('axios');
 
 module.exports = {
