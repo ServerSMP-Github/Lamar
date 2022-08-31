@@ -5,7 +5,7 @@ const Schema = require('../models/logs/welcome');
 const { Swiftcord } = require("swiftcord");
 const { MessageAttachment } = require('discord.js');
 const { drawCard } = require('discord-welcome-card');
-const { createCanvas, loadImage, registerFont } = require('canvas');
+const { createCanvas, loadImage, registerFont } = require('@napi-rs/canvas');
 
 const cord = new Swiftcord();
 
