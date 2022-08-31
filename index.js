@@ -53,9 +53,6 @@ if (config.bot.database.mongo_extra) client.arkDB = new MongoDB(client.config.bo
 const ffmpeg = require("fluent-ffmpeg");
 client.ffmpeg = ffmpeg;
 
-ffmpeg.setFfmpegPath("C:/ffmpeg/ffmpeg.exe");
-ffmpeg.setFfprobePath("C:/ffmpeg/ffprobe.exe");
-
 client.prefix = async function(message) {
   let custom;
 
