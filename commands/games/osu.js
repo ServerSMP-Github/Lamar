@@ -8,7 +8,7 @@ const {
   createCanvas,
   loadImage
 } = require('canvas');
-const osu = require('node-osu');
+const osu = require('@napi-rs/canvas');
 
 module.exports = {
   name: 'osu',
