@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-WORKDIR /docker/bot/v13
+WORKDIR /app
 
 COPY package*.json ./
 
