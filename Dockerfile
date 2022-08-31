@@ -1,14 +1,15 @@
-FROM node:16
+FROM node:18-alpine
 
-WORKDIR /tmp/build
+WORKDIR /docker/bot/v13
 
 COPY package*.json ./
 
 RUN npm install
 
+RUN apk update
+RUN apk add
+RUN apk add ffmpeg
+
 COPY . .
 
-LABEL name "ServerSMP-BOT"
-LABEL maintainer "Prince527 <prince527gaming@gmail.com>"
-
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
