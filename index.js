@@ -63,19 +63,13 @@ require("discord-xp").setURL(config.bot.database.mongo_main);
 const { MongoDB } = require("ark.db");
 if (config.bot.database.mongo_extra) client.arkDB = new MongoDB(client.config.bot.database.mongo_extra, "ark.db");
 
-const ffmpeg = require("fluent-ffmpeg");
-client.ffmpeg = ffmpeg;
-
-ffmpeg.setFfmpegPath("C:/ffmpeg/ffmpeg.exe");
-ffmpeg.setFfprobePath("C:/ffmpeg/ffprobe.exe");
+client.ffmpeg = require("fluent-ffmpeg");
 
 client.prefix = async function(message) {
   let custom;
 
-  const data = await require('./models/server/prefix').findOne({
-    Guild: message.guild.id
-  }).exec()
-  .catch(err => console.log(err));
+  const data = await require('./models/server/prefix').findOne({ Guild: message.guild.id }).exec()
+    .catch(err => console.log(err));
 
   if (data) custom = data.Prefix;
   else custom = config.bot.info.prefix;
