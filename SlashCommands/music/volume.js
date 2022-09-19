@@ -1,9 +1,5 @@
-const {
-    EmbedBuilder,
-    ApplicationCommandType,
-    ApplicationCommandOptionType
-} = require("discord.js");
-const progressbar = require('string-progressbar');
+const { EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const progressbar = require('../../assets/api/progressbar/index');
 
 module.exports = {
     name: "volume",
@@ -86,13 +82,12 @@ module.exports = {
 
         player.setVolume(volumePercentage);
 
-        bar = progressbar.filledBar(100, volumePercentage, 40, "□", "■")[0];
         return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setDescription(`🔊 **|** Volume set to **\`${volumePercentage}\`**%`)
                 .setFooter({
-                    text: String(bar)
+                    text: progressbar(volumePercentage, 100, 40, "□", "■")
                 })
                 .setColor("Blue")
             ]

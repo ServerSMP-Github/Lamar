@@ -14,6 +14,8 @@ module.exports = {
      */
     run: async (client, message, args) => {
 
+        return message.reply("CMD is being reworked");
+
         // Get username
         const query = args[0];
 
@@ -36,14 +38,14 @@ module.exports = {
         const background = await loadImage('./assets/image/instagram.png')
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
-        // name
+        // Name
         ctx.font = "27px Arial";
         ctx.rotate(0);
         ctx.fillStyle = "#ffffff";
         ctx.textAlign = "left";
         ctx.fillText(user.username, 215, 70);
 
-        // bio
+        // Bio
         ctx.font = "13px Arial";
         ctx.rotate(0);
         ctx.fillStyle = "#ffffff";

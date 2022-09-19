@@ -1,10 +1,10 @@
-const { EmbedBuilder, WebhookClient, PermissionsBitField } = require("discord.js");
+const { EmbedBuilder, WebhookClient, PermissionsBitField, ActivityType } = require("discord.js");
 const { blacklistedwords } = require('../client/collection');
 const Schema = require('../models/moderator/blackwords');
 const verFile = require('../version.json');
 const client = require("../index");
 const { table } = require('table');
-const chalk = require('chalk');
+const colors = require('colors');
 
 client.on("ready", async() => {
 
@@ -19,7 +19,7 @@ client.on("ready", async() => {
     .replace(/{botName}/g, client.user.username)
     .replace(/{botPrefix}/g, client.config.bot.info.prefix);
 
-  client.user.setPresence({ activities: [{ name: activityName, type: client.config.bot.status.type.toUpperCase() }], status: client.config.bot.status.status })
+  client.user.setPresence({ activities: [{ name: activityName, type: global.statusType }], status: client.config.bot.status.status });
 
   if (client.config.channel.webhooks.status) new WebhookClient({ url: client.config.channel.webhooks.status }).send({
     embeds: [
@@ -55,9 +55,9 @@ client.on("ready", async() => {
   global.startSpinner.succeed("Started BOT");
 
   console.log(table([
-    [`${chalk.gray("Connected To")} ${chalk.yellow(`${client.user.tag}`)}`],
-    [`${chalk.white("Watching")} ${chalk.red(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}`)} ${chalk.white(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1 ? "Users + Bots," : "User,"}`)} ${chalk.red(`${client.guilds.cache.size}`)} ${chalk.white(`${client.guilds.cache.size > 1 ? "Servers." : "Server."}`)}`],
-    [`${chalk.white(`MongoDB:`)} ${global.mongoStatus} ${chalk.white("||")} ${chalk.white(`Prefix:` + chalk.red(` ${client.config.bot.info.prefix}`))} ${chalk.white("||")} ${chalk.red(cmdCount)} ${chalk.white(`Commands`)}`],
+    [`${colors.gray("Connected To")} ${colors.yellow(`${client.user.tag}`)}`],
+    [`${colors.white("Watching")} ${colors.red(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}`)} ${colors.white(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1 ? "Users + Bots," : "User,"}`)} ${colors.red(`${client.guilds.cache.size}`)} ${colors.white(`${client.guilds.cache.size > 1 ? "Servers." : "Server."}`)}`],
+    [`${colors.white(`MongoDB:`)} ${global.mongoStatus} ${colors.white("||")} ${colors.white(`Prefix:` + colors.red(` ${client.config.bot.info.prefix}`))} ${colors.white("||")} ${colors.red(cmdCount)} ${colors.white(`Commands`)}`],
   ], {
     columnDefault: {
       width: 50,
@@ -71,10 +71,11 @@ client.on("ready", async() => {
         `╚══╗║║╔╗║║╔╝║╚╝║║╔╗║║╔╝╚══╗║║║║║║║║╔══╝`,
         `║╚═╝║║║═╣║║ ╚╗╔╝║║═╣║║ ║╚═╝║║║║║║║║║   `,
         `╚═══╝╚══╝╚╝  ╚╝ ╚══╝╚╝ ╚═══╝╚╝╚╝╚╝╚╝   `
-      ].join('\n'))}\n${chalk.green.bold("Success!")}`,
+      ].join('\n'))}\n${colors.green.bold("Success!")}`,
     }
   }));
 
   global.mongoStatus = true;
 
+  require("../website/dashboard")(client);
 });

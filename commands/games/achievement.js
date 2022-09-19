@@ -13,7 +13,9 @@ module.exports = {
   run: async (client, message, args) => {
     const word = args.join(" ");
     if (!word) return message.reply("Please enter some text!");
+
     const random = Math.floor((Math.random() * 40) + 1);
+
     message.channel.send({
       embeds: [
         new EmbedBuilder()

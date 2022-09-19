@@ -1,11 +1,11 @@
-const { Message, Client, AttachmentBuilder } = require('discord.js');
 const getBoardBase64Node = require("@treasure-chess/chess-image-generator/src/node/getBoardBase64-node");
 const { getBoardLayout } = require("@treasure-chess/chess-image-generator");
+const { Message, Client, AttachmentBuilder } = require('discord.js');
 const pgnParser = require("../../assets/js/pgn-parser.js");
 const { createCanvas, Image } = require('canvas');
 const GIFEncoder = require("gif-encoder-2");
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
 
 module.exports = {
     name: 'chess',

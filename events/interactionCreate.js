@@ -122,7 +122,7 @@ client.on("interactionCreate", async (interaction) => {
         ]
       });
 
-      cmd.run(client, interaction, args);
+      return cmd.run(client, interaction, args);
     } else {
       const customCommand = await customCommandModel.findOne({
         commandName: interaction.commandName,
@@ -161,7 +161,7 @@ client.on("interactionCreate", async (interaction) => {
         ]
       });
 
-      command.run(client, interaction);
+      return command.run(client, interaction);
     }
   }
 });

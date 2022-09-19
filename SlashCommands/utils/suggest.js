@@ -18,19 +18,13 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        if (!client.config.channel.webhooks.suggest) return interaction.followUp({
-            content: "This feature is disabled."
-        });
+        if (!client.config.channel.webhooks.suggest) return interaction.followUp({ content: "This feature is disabled.", ephemeral: true });
 
         const suggestion = interaction.options.getString("idea");
 
-        if (suggestion.length > 2000) return interaction.followUp({
-            content: "Suggestion can't be more then 2000 characters."
-        });
+        if (suggestion.length > 2000) return interaction.followUp({ content: "Suggestion can't be more then 2000 characters.", ephemeral: true });
 
-        new WebhookClient({
-            url: client.config.channel.webhooks.suggest
-        }).send({
+        new WebhookClient({ url: client.config.channel.webhooks.suggest }).send({
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
@@ -42,8 +36,6 @@ module.exports = {
             ]
         });
 
-        interaction.followUp({
-            content: "Suggestion sent!"
-        });
+        interaction.followUp({ content: "Suggestion sent!", ephemeral: true });
     },
 };

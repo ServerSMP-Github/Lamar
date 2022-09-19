@@ -14,11 +14,13 @@ client.on("guildCreate", (guild) => {
       .setColor("Random")
       .setAuthor({ name: guild.name, iconURL: guild.iconURL({ dynamic: true }) })
       .setDescription(`Thanks for inviting ${client.user.username} to your server!\nThe bot prefix is \`${client.config.bot.info.prefix}\` and for the list of commands do \`${client.config.bot.info.prefix}help\``)
-      .addField("TERMS OF SERVICE", "By inviting this bot you accept that I can log all data in your server and users.")
-      .addField("BETA", "This bot is in beta so stuff will change.")
+      .addFields([
+        { name: "TERMS OF SERVICE", value: "By inviting this bot you accept that I can log all data in your server and users." },
+        { name: "BETA", value: "This bot is in beta so stuff will change." },
+      ])
       .setTimestamp()
     ]
-  })
+  });
 
   xpSchema.findOne({ Guild: guild.id }, (err, data) => {
     if (!data) {

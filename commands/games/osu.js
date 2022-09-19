@@ -1,5 +1,5 @@
 const { Message, Client, AttachmentBuilder } = require('discord.js');
-const { createCanvas, loadImage } = require('canvas');
+const { createCanvas, loadImage } = require('@napi-rs/canvas');
 const osu = require('node-osu');
 
 module.exports = {

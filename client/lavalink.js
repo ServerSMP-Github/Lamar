@@ -6,9 +6,9 @@ module.exports = (client) => {
 
     const config = require("../settings/settings.json");
 
-    if (!config.music.enabled) return client.music = false;
+    if (!config.music.enabled) return client.poru = false;
 
-    const chalk = require("chalk");
+    const colors = require("colors");
 
     client.poru = new Poru(
         client,
@@ -28,10 +28,10 @@ module.exports = (client) => {
             },
         }
     )
-    .on("nodeConnect", (node) => console.log(`${chalk.white(`Lavalink:`)} ${chalk.green("√")} ${chalk.white("||")} ${chalk.white(`Host:`)} ${chalk.red(node.host)}`))
+    .on("nodeConnect", (node) => console.log(`${colors.white(`Lavalink:`)} ${colors.green("√")} ${colors.white("||")} ${colors.white(`Host:`)} ${colors.red(node.host)}`))
     .on("nodeClose", (node) => {
         setTimeout(()=> node.connect(), 10000);
-        console.log(`${chalk.white(`Lavalink:`)} ${chalk.red("×")} ${chalk.white("||")} ${chalk.white(`Host:`)} ${chalk.red(node.host)}`);
+        console.log(`${colors.white(`Lavalink:`)} ${colors.red("×")} ${colors.white("||")} ${colors.white(`Host:`)} ${colors.red(node.host)}`);
     })
     .on("trackStart", (player, track) => client.channels.cache.get(player.textChannel).send({
         embeds: [

@@ -14,37 +14,26 @@ module.exports = {
      */
     run: async (client, interaction, args) => {
 
-        Schema.findOne({ User: interaction.targetId }, async(err, data) => {
-            if(data) {
-                const guild = client.guilds.cache.get(interaction.guild.id)
-                const user_find = guild.members.cache.get(interaction.targetId)
-                interaction.followUp({ embeds: [
-                    new EmbedBuilder()
-                        .setColor("Random")
-                        .setTitle(`${user_find.user.username}'s duck`)
-                        .setImage(await data.URL)
-                ]})
-            }
+        const { user } = interaction.guild.members.cache.get(interaction.targetId);
 
-            if(!data) {
-                if(interaction.member.user.id !== interaction.targetId) return interaction.followUp("This user does not have a user duck.")
-                fetch("https://random-d.uk/api/v2/random")
-                .then(async(duck) => {
-                    new Schema({
-                        User: interaction.targetId,
-                        URL: await duck.data.url
-                    }).save();
-                    const guild = client.guilds.cache.get(interaction.guild.id)
-                    const user_find = guild.members.cache.get(interaction.targetId)
-                    interaction.followUp({ embeds: [
-                        new EmbedBuilder()
-                            .setColor("Random")
-                            .setTitle(`${user_find.user.username}'s duck`)
-                            .setImage(await duck.data.url)
-                    ]})
-                })
-            }
+        let userData = await Schema.findOne({ User: user.id });
 
+        if (!userData) {
+            const image = (await fetch("https://random-d.uk/api/v2/random")).data;
+
+            userData = await Schema.create({
+                User: user.id,
+                URL: image.url
+            });
+        }
+
+        interaction.followUp({
+            embeds: [
+                new EmbedBuilder()
+                .setColor("Random")
+                .setTitle(`${user.username}'s duck`)
+                .setImage(userData.URL)
+            ]
         });
 
     },

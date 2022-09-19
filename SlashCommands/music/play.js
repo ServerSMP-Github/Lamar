@@ -102,6 +102,8 @@ module.exports = {
             ]
         });
 
+        player.setVolume(50);
+
         if (!player.isPlaying && !player.isPaused) return player.play();
 
     },

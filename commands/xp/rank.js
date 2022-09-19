@@ -1,7 +1,7 @@
 const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const guildRankcard = require("../../models/server/guild-rankcard");
 const userRankcard = require("../../models/user/user-rankcard");
-const progressbar = require('string-progressbar');
+const progressbar = require('../../assets/api/progressbar');
 const xpSchema = require("../../models/server/xp");
 const TextEssence = require('text-essence');
 const canvacord = require("canvacord");
@@ -30,7 +30,7 @@ module.exports = {
               if (!user) return message.reply("You dont have xp. try to send some messages.", true)
               var total = Levels.xpFor(user.level + 1);
               var current = user.xp;
-              let bar = progressbar.filledBar(total, current, 40, "□", "■")[0];
+              let bar = progressbar(current, total, 40, "□", "■");
               const embed = new EmbedBuilder()
                 .setTitle(`${message.member.user.username}'s Rank`)
                 .setDescription(`**Rank**: \`${user.position}\`\n**Level**: \`${user.level}\`\n**XP**: \`${bar} ${current}/${total}\``)

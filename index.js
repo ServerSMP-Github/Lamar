@@ -1,15 +1,19 @@
-const { Client, Collection, GatewayIntentBits, Partials } = require("discord.js");
-require('events').EventEmitter.defaultMaxListeners = 15;
+const { Client, Collection, GatewayIntentBits, Partials, ActivityType } = require("discord.js");
 const config = require('./settings/settings.json');
 
-require('./client/settings-check.js')(config);
+require('events').EventEmitter.defaultMaxListeners = 15;
+
+require('./client/settings.js')(config);
+require('./client/font.js')();
 
 global.startSpinner = require('ora')('Starting BOT').start();
 
 const client = new Client({
   intents: [
       GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildPresences,
       GatewayIntentBits.GuildVoiceStates,
       GatewayIntentBits.MessageContent
   ],
@@ -25,21 +29,20 @@ const client = new Client({
   presence: {
     activities: [{
         name: "Starting!",
-        type: config.bot.status.type,
+        type: global.statusType,
     }],
     status: config.bot.status.status
   }
 });
+
 module.exports = client;
 
-client.invites = new Collection();
+// client.invites = new Collection(); // Where is this used.
 client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = config;
 
 // require("./client/anticrash")(client);
-
-// require('discord-logs')(client);
 
 require("./client/lavalink")(client);
 
@@ -48,17 +51,12 @@ const mongoose = require("mongoose");
 mongoose.connect(config.bot.database.mongo_main);
 
 global.mongoStatus = null;
-const chalk = require('chalk');
-mongoose.connection.on('connected', () => global.mongoStatus === true ? console.log("MongoDB √") : global.mongoStatus = chalk.green("√"));
-mongoose.connection.on('disconnected', () => global.mongoStatus === true ? console.log("MongoDB ×") : global.mongoStatus = chalk.red("×"));
+const colors  = require('colors/safe');
+mongoose.connection.on('connected', () => global.mongoStatus === true ? console.log("MongoDB √") : global.mongoStatus = colors.green("√"));
+mongoose.connection.on('disconnected', () => global.mongoStatus === true ? console.log("MongoDB ×") : global.mongoStatus = colors.red("×"));
 mongoose.connection.on('error', (err) => console.log(err));
 
 require("discord-xp").setURL(config.bot.database.mongo_main);
-
-// const Nuggies = require('nuggies');
-
-// Nuggies.handleInteractions(client);
-// Nuggies.connect(config.bot.database.mongo_main);
 
 const { MongoDB } = require("ark.db");
 if (config.bot.database.mongo_extra) client.arkDB = new MongoDB(client.config.bot.database.mongo_extra, "ark.db");

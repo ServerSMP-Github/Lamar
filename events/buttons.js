@@ -663,6 +663,24 @@ client.on("interactionCreate", async (interaction) => {
                 }
             }
 
+        } else if (interaction.customId.split('-')[0] === "roles") {
+
+            const roleID = interaction.customId.split('-')[1];
+
+            if (interaction.member.roles.cache.has(roleID)) {
+                interaction.member.roles.remove(roleID);
+                interaction.reply({
+                    content: `You have removed <@&${roleID}> role`,
+                    ephemeral: true
+                });
+            } else {
+                interaction.member.roles.add(roleID);
+                interaction.reply({
+                    content: `You have added <@&${roleID}> role`,
+                    ephemeral: true
+                });
+            }
+
         }
 
     } else if (interaction.isSelectMenu()) {

@@ -12,13 +12,12 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    const chances = ["Heads", "Tails"];
 
-    let chances = [
-        "Heads",
-        "Tails"
-    ];
-    let response = chances[Math.floor(Math.random() * chances.length)];
+    const response = chances[Math.floor(Math.random() * chances.length)];
+
     const user = message.author;
+
     message.channel.send({
         embeds: [
             new EmbedBuilder()
@@ -28,7 +27,6 @@ module.exports = {
             .setColor("#daffff")
             .setThumbnail("https://i.pinimg.com/originals/c1/2d/c5/c12dc536b8f8797b629eb9942a2dbbf1.gif")
         ]
-    })
-
+    });
   }
 }

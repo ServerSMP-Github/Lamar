@@ -1,10 +1,10 @@
 const { Message, Client } = require('discord.js');
-const img = require('images-scraper');
-const google = new img({
-  puppeteer: {
-    headless: true,
-  }
-});
+// const img = require('images-scraper');
+// const google = new img({
+//   puppeteer: {
+//     headless: true,
+//   }
+// });
 
 module.exports = {
   name: 'image',

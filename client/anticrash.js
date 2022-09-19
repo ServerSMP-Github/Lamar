@@ -1,6 +1,6 @@
-const chalk = require('chalk');
+const { EmbedBuilder, WebhookClient } = require("discord.js");
 const winston = require('winston');
-const { EmbedBuilder, WebhookClient } = require("discord.js")
+const colors = require('colors');
 
 const logger = winston.createLogger({
   transports: [
@@ -16,7 +16,7 @@ module.exports = (client) => {
   const loggerHook = new WebhookClient({ url: client.config.channel.webhooks.error });
 
   process.on('unhandledRejection', (reason, p) => {
-    logger.error(chalk.blueBright('[antiCrash.js]') + chalk.red(' Unhandled rejection/crash detected.'));
+    logger.error(colors.blueBright('[antiCrash.js]') + colors.red(' Unhandled rejection/crash detected.'));
     logger.error(reason, p);
 
     loggerHook.send({
@@ -36,8 +36,9 @@ module.exports = (client) => {
       ]
     });
   });
+
   process.on("uncaughtException", (err, origin) => {
-    logger.error(chalk.blueBright('[antiCrash.js]') + chalk.red(' Uncaught exception/catch detected.'));
+    logger.error(colors.blueBright('[antiCrash.js]') + colors.red(' Uncaught exception/catch detected.'));
     logger.error(err, origin);
 
     loggerHook.send({
@@ -57,8 +58,9 @@ module.exports = (client) => {
       ]
     });
   });
+
   process.on('uncaughtExceptionMonitor', (err, origin) => {
-    logger.error(chalk.blueBright('[antiCrash.js]') + chalk.red(' Uncaught exception/catch detected. (Monitor)'));
+    logger.error(colors.blueBright('[antiCrash.js]') + colors.red(' Uncaught exception/catch detected. (Monitor)'));
     logger.error(err, origin);
 
     loggerHook.send({
@@ -78,24 +80,6 @@ module.exports = (client) => {
       ]
     });
   });
-  process.on('multipleResolves', (type, promise, reason) => {
-    logger.error(chalk.blueBright('[antiCrash.js]') + chalk.red(' Multiple resolves detected.'));
-    logger.error(type, promise, reason);
 
-    // loggerHook.send({
-    //   username: client.user.username,
-    //   avatarURL: client.user.displayAvatarURL(),
-    //   embeds: [new EmbedBuilder()
-    //     .setAuthor({ name: `Anti Crash`, iconURI: client.user.displayAvatarURL({ dynamic: true }) })
-    //     .setTitle(`Multiple Resolves`)
-    //     .setURL("https://nodejs.org/api/process.html#event-multipleresolves")
-    //     .addField("Type", `\`\`\`${type}\`\`\``, false)
-    //     .addField("Promise", `\`\`\`${promise}\`\`\``, true)
-    //     .addField("Reason", `\`\`\`${reason}\`\`\``, true)
-    //     .setTimestamp()
-    //     .setFooter({ text: "Imagine a bot without anti-crash" })
-    //     .setColor("Red")
-    //   ]
-    // });
-  });
+  process.on('multipleResolves', (type, promise, reason) => { return });
 };

@@ -1,8 +1,9 @@
 const SchemaAntiInvite = require("../models/moderator/anti-invite.js");
-const translate = require("@iamtraction/google-translate");
 const SchemaTranslate = require("../models/server/translate.js");
+const translate = require("@iamtraction/google-translate");
 const SchemaPoll = require('../models/server/poll');
 const client = require('../index');
+const axios = require("axios");
 const cld = require('cld');
 
 client.on("messageCreate", async (message) => {
@@ -76,15 +77,43 @@ client.on("messageCreate", async (message) => {
                     return;
                 });
                 if (!result || result === undefined) return;
-                if (result.languages[0].percent < Number(data.Percent)) return;
+                if (result.languages[0].percent < data.Percent) return;
                 if (result.languages[0].code === data.Language) return;
-                const translated = await translate(String(message.content), {
-                    from: 'auto',
-                    to: data.Language
-                });
-                if (translated.from.language.iso == "en" || translated.text.toLocaleLowerCase() == msg.toLocaleLowerCase()) return;
+
+                const stringContent = String(message.content);
+
+                let translated = null;
+                if (client.config.translate.type === "google") {
+                    translated = await translate(stringContent, {
+                        from: 'auto',
+                        to: data.Language
+                    });
+
+                    if (!translated.text) return;
+
+                    translated = {
+                        text: translated.text,
+                        iso: translated.from.language.iso
+                    };
+                } else if (client.config.translate.type === "libre") {
+                    translated = (await axios.post(`${client.config.translate.url}/translate`, {
+                        q: stringContent,
+                        source: "auto",
+                        target: data.Language
+                    })).data;
+
+                    if (!translated.translatedText) return;
+
+                    translated = {
+                        text: translated.translatedText,
+                        iso: translated.detectedLanguage.translated
+                    };
+                }
+
+                if (translated.iso == "en" || translated.text.toLocaleLowerCase() == stringContent.toLocaleLowerCase()) return;
+
                 message.reply({
-                    content: String(translated.text),
+                    content: translated.text,
                     allowedMentions: {
                         repliedUser: false
                     }
