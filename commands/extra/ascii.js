@@ -13,19 +13,15 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-
         if (!args.length) return message.reply("Please specify some text to ascii.")
 
         try {
-            figlet.text(args.join(" "), {
-                font: "",
-            }, async (err, data) => {
-                message.channel.send(`\`\`\`${data.slice(0, 1980)}\`\`\``).catch((err) => {
-                    return message.reply("An error occurred.");
-                });
-            });
+            const text = await figlet.text(args.join(" "), { font: "" });
+
+            message.channel.send(`\`\`\`${text.slice(0, 1980)}\`\`\``);
         } catch (err) {
             console.error(err);
+
             return message.reply("An error occurred!");
         }
 

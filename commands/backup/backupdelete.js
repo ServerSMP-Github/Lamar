@@ -1,4 +1,4 @@
-const { Message, Client, PermissionsBitField } = require('discord.js');
+const { Message, Client, PermissionsBitField, EmbedBuilder } = require('discord.js');
 const backup = require("discord-backup");
 
 module.exports = {
@@ -13,15 +13,17 @@ module.exports = {
      * @param {String[]} args
      */
     run: async(client, message, args) => {
-        let backupID = args[0];
-        if(!backupID){
-            return message.channel.send(":x: | You must specify a valid backup ID!");
-        }
+        const backupID = args[0];
+
+        if (!backupID) return message.channel.send(":x: | You must specify a valid backup ID!");
+
         backup.remove(backupID);
-        let embed = new Discord.MessageEmbed()
+
+        message.channel.send({ embeds: [
+            EmbedBuilder()
             .setColor("#FF0000")
             .setTitle("Backup delete")
-            .setDescription("Deleted backup `"+backupID+"`.")
-        message.channel.send({ embeds: [embed] })
+            .setDescription(`Deleted backup \`${backupID}\`.`)
+        ]});
     }
 }

@@ -1,5 +1,5 @@
 const { Message, Client, PermissionsBitField } = require('discord.js');
-const schema = require('../../models/server/cc');
+const customSchema = require('../../models/server/cc');
 
 module.exports = {
     name: 'cc-delete',
@@ -16,9 +16,11 @@ module.exports = {
 
         if(!name) return message.channel.send('Please specify a command name');
 
-        const data = await schema.findOne({ Guild: message.guild.id, Command: name }).exec();
-        if(!data) return message.channel.send('That custom command does not exist!');
-        await schema.findOneAndDelete({ Guild: message.guild.id, Command: name });
+        const customData = await customSchema.findOne({ Guild: message.guild.id, Command: name }).exec();
+        if (!customData) return message.channel.send('That custom command does not exist!');
+
+        await customData.delete();
+
         message.channel.send(`Removed **${name}** from custom commands!`);
     }
 }

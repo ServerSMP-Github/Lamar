@@ -1,6 +1,7 @@
 const { Client, Message, EmbedBuilder } = require('discord.js');
-const { Color, isColor } = require("coloras");
-const { createCanvas, loadImage } = require('canvas');
+const { isValidHexCode } = require("../../assets/api/color");
+const { createCanvas } = require('@napi-rs/canvas');
+const { Color } = require("coloras");
 
 
 module.exports = {
@@ -16,9 +17,7 @@ module.exports = {
         const colorHex = args[0];
         if (colorHex) {
             // Color
-            const colorCheck = isColor(colorHex);
-            if (colorCheck.color === false) return message.reply("The color is not a valid color.");
-            if (colorCheck.colorSystem !== "hex") return message.reply("The color is not a valid color.");
+            if (!isValidHexCode(colorHex)) return message.reply("The color is not a valid color.")
             const selectedColor = new Color(colorHex);
 
             // Color Image

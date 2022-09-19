@@ -11,16 +11,17 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    const channel = message.member.voice.channel
+    const channel = message.member.voice.channel;
+
     if (channel) {
       const activitys = new EmbedBuilder()
         .setTitle("Activity")
         .setDescription("Here is a list of options!\n```\nyoutube\nchess\nchess-dev\nbetrayal\nfishing\npoker\nscrabble\ncrossword\ndrawing\nawkword\nspellcast\ncheckers\nscribble```")
         .setColor("Random")
-      if (!args[0]) return message.reply({
-        embeds: [activitys]
-      });
-      const query = args[0].toLowerCase();
+
+      const query = args[0]?.toLowerCase();
+      if (!query) return message.reply({ embeds: [activitys] });
+
       if (query === "youtube") return ActiviteFetch("880218394199220334", channel, "870909668090851399", "Youtube Together", "RED", "Click the button below to watch youtube in vc", client, message);
       else if (query === "chess") return ActiviteFetch("832012774040141894", channel, "♟️", "Chess In The Park", "WHITE", "Click the button below to play chess in vc", client, message);
       else if (query === "betrayal") return ActiviteFetch("773336526917861400", channel, "🤫", "Betrayal.io", "BLUE", "Click the button below to play betrayal (amoug us clone) in vc", client, message);
@@ -36,6 +37,7 @@ module.exports = {
       else return message.reply({
         embeds: [activitys]
       });
+
     } else return message.channel.send({
       embeds: [
         new EmbedBuilder()
@@ -72,18 +74,22 @@ async function ActiviteFetch(code, channel, emoji, name, color, description, cli
     });
 
     message.channel.send({
-      embeds: [new EmbedBuilder()
+      embeds: [
+        new EmbedBuilder()
         .setTitle(name)
         .setDescription(description)
         .setColor(color)
       ],
-      components: [new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-        .setStyle(ButtonStyle.Link)
-        .setLabel(name)
-        .setEmoji(emoji)
-        .setURL(`https://discord.com/invite/${invite.data.code}`)
-      )]
+      components: [
+        new ActionRowBuilder()
+          .addComponents(
+            new ButtonBuilder()
+            .setStyle(ButtonStyle.Link)
+            .setLabel(name)
+            .setEmoji(emoji)
+            .setURL(`https://discord.com/invite/${invite.data.code}`)
+          )
+      ]
     });
   });
 }

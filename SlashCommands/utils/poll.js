@@ -99,7 +99,7 @@ module.exports = {
         let c9 = interaction.options.getString('choice9');
         let c10 = interaction.options.getString('choice10');
 
-        if (title.length > 255) return interaction.followUp({ content: `Keep The Title Under \`255\` Characters`, ephemeral: true });
+        if (title.length > 255) return interaction.followUp({ content: "Keep the title under 255 characters", ephemeral: true });
 
         const array = [];
         array.push(c1);

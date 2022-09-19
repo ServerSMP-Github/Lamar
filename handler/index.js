@@ -2,7 +2,6 @@ const { Client, ApplicationCommandType } = require("discord.js");
 const customCommandModel = require("../models/server/cc-slash");
 const { promisify } = require("util");
 const { glob } = require("glob");
-const { fstat } = require("fs");
 
 const globPromise = promisify(glob);
 

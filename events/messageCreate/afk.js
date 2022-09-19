@@ -1,9 +1,10 @@
-const { afk } = require('../client/collection');
-const client = require('../index');
-const { fromNow } = require('../assets/api/time/index');
+const { fromNow } = require('../../assets/api/time/index');
+const { afk } = require('../../client/collection');
+const client = require("../../index");
 
-client.on('messageCreate', async (message) => {
+module.exports = async(message) => {
     if (!message.guild || message.author.bot) return;
+
     const mentionMember = message.mentions.members.first();
     if (mentionMember) {
         const data = afk.get(mentionMember.id);
@@ -13,9 +14,10 @@ client.on('messageCreate', async (message) => {
             message.reply(`${mentionMember} is currenly afk (${timeAgo})\nReason: ${reason}`)
         }
     }
+
     const getData = afk.get(message.author.id);
     if (getData) {
         afk.delete(message.author.id);
         message.reply('afk has been removed!')
     }
-})
+}

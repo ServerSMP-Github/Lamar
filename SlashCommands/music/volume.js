@@ -87,7 +87,7 @@ module.exports = {
                 new EmbedBuilder()
                 .setDescription(`🔊 **|** Volume set to **\`${volumePercentage}\`**%`)
                 .setFooter({
-                    text: progressbar(volumePercentage, 100, 40, "□", "■")
+                    text: progressbar(client, volumePercentage, 100, 40, "□", "■")
                 })
                 .setColor("Blue")
             ]

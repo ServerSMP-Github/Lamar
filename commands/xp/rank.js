@@ -30,7 +30,7 @@ module.exports = {
               if (!user) return message.reply("You dont have xp. try to send some messages.", true)
               var total = Levels.xpFor(user.level + 1);
               var current = user.xp;
-              let bar = progressbar(current, total, 40, "□", "■");
+              let bar = progressbar(client, current, total, 40, "□", "■");
               const embed = new EmbedBuilder()
                 .setTitle(`${message.member.user.username}'s Rank`)
                 .setDescription(`**Rank**: \`${user.position}\`\n**Level**: \`${user.level}\`\n**XP**: \`${bar} ${current}/${total}\``)

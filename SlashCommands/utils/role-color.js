@@ -32,7 +32,7 @@ module.exports = {
                 name: "name",
                 description: "name of color",
                 type: ApplicationCommandOptionType.String,
-                required: false
+                required: true
             }],
         },
         {
@@ -126,56 +126,32 @@ module.exports = {
             }
 
         } else if (subCommand === "delete") {
-            if (!interaction.member.permissions.has("MANAGE_ROLES")) return interaction.followUp({
-                content: "You do not have permissions to use this command!",
-                ephemeral: true
-            });
 
-            roleSchema.findOne({
-                Guild: interaction.guild.id
-            }, async (err, data) => {
-                if (data) {
-                    const colorName = interaction.options.getString("name");
-                    if (colorName) {
-                        let newData = [];
-                        if (data.Color.length < 2) {
-                            data.Color.forEach(async (cData) => {
-                                if (cData.name === colorName.toLowerCase()) {
-                                    const role = interaction.guild.roles.cache.get(cData.id);
-                                    role.delete();
-                                    data.delete();
-                                    return interaction.followUp({
-                                        content: `Deleted ${colorName.toLowerCase()} from the database.`
-                                    });
-                                }
-                            });
-                        }
-                        data.Color.forEach(async (cData) => {
-                            if (cData.name === colorName.toLowerCase()) {
-                                const role = interaction.guild.roles.cache.get(cData.id);
-                                return role.delete();
-                            }
-                            newData.push(cData);
-                        });
-                        data.Color = newData;
-                        data.save();
-                        return interaction.followUp({
-                            content: `Deleted ${colorName.toLowerCase()} from the database.`
-                        });
-                    } else {
-                        data.Color.forEach(async (cData) => {
-                            const role = interaction.guild.roles.cache.get(cData.id);
-                            role.delete();
-                        });
-                        data.delete();
-                        return interaction.followUp({
-                            content: "Deleted role color."
-                        });
-                    }
-                } else return interaction.followUp({
-                    content: "You don't have role color data."
-                })
-            });
+            if (!interaction.member.permissions.has("MANAGE_ROLES")) return interaction.followUp({ content: "You do not have permissions to use this command!", ephemeral: true });
+
+            const colorName = (interaction.options.getString("name")).toLowerCase();
+
+            const roleData = await roleSchema.findOne({ Guild: interaction.guild.id });
+
+            if (!roleData) return interaction.followUp({ content: "This guild does not have role color data.", ephemeral: true });
+
+            for (let index = 0; index < roleData.Color.length; index++) {
+                const element = roleData.Color[index];
+
+                if (element.name === colorName) {
+                    (interaction.guild.roles.cache.get(id)).delete();
+                    roleData.Color.filter(color => color.name === element.name);
+                    await roleData.save();
+                }
+
+                if (colorName === "all") await roleData.delete();
+
+            }
+
+            const content = colorName == 'all' ? "Deleted all role color data." : `Deleted ${colorName.toLowerCase()} from the database.`;
+
+            return interaction.followUp({ content: content });
+
         } else if (subCommand === "list") {
 
             const roleData = await roleSchema.findOne({ Guild: interaction.guild.id });

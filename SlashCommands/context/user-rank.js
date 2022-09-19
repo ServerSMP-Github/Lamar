@@ -36,7 +36,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setTitle(`${interaction.member.user.username}'s Rank`)
-                .setDescription(`**Rank**: \`${xpUser.position}\`\n**Level**: \`${xpUser.level}\`\n**XP**: \`${progressbar(current, total, 40, "□", "■")} ${current}/${total}\``)
+                .setDescription(`**Rank**: \`${xpUser.position}\`\n**Level**: \`${xpUser.level}\`\n**XP**: \`${progressbar(client, current, total, 40, "□", "■")} ${current}/${total}\``)
                 .setThumbnail(user.displayAvatarURL({
                     format: 'png',
                     size: 512

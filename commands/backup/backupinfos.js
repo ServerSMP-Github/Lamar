@@ -1,4 +1,4 @@
-const { Message, Client } = require('discord.js');
+const { Message, Client, EmbedBuilder } = require('discord.js');
 const backup = require("discord-backup");
 
 module.exports = {
@@ -12,31 +12,31 @@ module.exports = {
      * @param {String[]} args
      */
     run: async(client, message, args) => {
-        let backupID = args[0];
-        if(!backupID){
-            return message.channel.send(":x: | You must specify a valid backup ID!");
-        }
-        // Fetch the backup
-        backup.fetch(backupID).then((backupInfos) => {
-            const date = new Date(backupInfos.data.createdTimestamp);
+        const backupID = args[0];
+
+        try {
+            if (!backupID) return message.channel.send(":x: | You must specify a valid backup ID!");
+
+            const backupData = await backup.fetch(backupID);
+
+            const date = new Date(backupData.data.createdTimestamp);
             const yyyy = date.getFullYear().toString(), mm = (date.getMonth()+1).toString(), dd = date.getDate().toString();
             const formatedDate = `${yyyy}/${(mm[1]?mm:"0"+mm[0])}/${(dd[1]?dd:"0"+dd[0])}`;
-            let embed = new Discord.MessageEmbed()
+
+            message.channel.send({ embeds: [
+                new EmbedBuilder()
                 .setAuthor({ name: "Backup Informations" })
-                // Display the backup ID
-                .addField("Backup ID", backupInfos.id, false)
-                // Displays the server from which this backup comes
-                .addField("Server ID", backupInfos.data.guildID, false)
-                // Display the size (in mb) of the backup
-                .addField("Size", `${backupInfos.size} kb`, false)
-                // Display when the backup was created
-                .addField("Created at", formatedDate, false)
-                .setColor("#FF0000");
-            message.channel.send(embed);
-        }).catch((err) => {
+                .setColor("#FF0000")
+                .addFields([
+                    { name: "Backup ID", value: backupData.id, inline: false },
+                    { name: "Server ID", value: backupData.data.guildID, inline: false },
+                    { name: "Size", value: `${backupData.size} kb`, inline: false },
+                    { name: "Created at", value: formatedDate, inline: false }
+                ])
+            ]});
+        } catch (err) {
             console.error(err);
-            // if the backup wasn't found
-            return message.channel.send(":x: | No backup found for `"+backupID+"`!");
-        });
+            return message.channel.send(`:x: | No backup found for \`${backupID}\`!`);
+        }
     }
 }

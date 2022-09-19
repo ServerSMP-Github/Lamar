@@ -14,14 +14,22 @@ module.exports = {
      */
     run: async (client, message, args) => {
       const text = args.join(" ");
-      if(!text) return message.reply("You need a question.");
-      if(text.length > 1000) return message.reply("Question can't be more then 1000 length.")
+
+      if (!text) return message.reply("You need a question.");
+
+      if (text.length > 1000) return message.reply("Question can't be more then 1000 length.");
+
       const randomNumber = Math.floor(Math.random() * _8ball.length);
       const responseText = _8ball[randomNumber];
+
       message.reply({ embeds: [
         new EmbedBuilder()
-          .setDescription(`**Question:** *${text}*\n**Answer:** ${responseText.emoji} *${responseText.text}*`)
-          .setColor(`${responseText.color}`)
-      ]})
+        .setDescription(`**Question:** *${text}*\n**Answer:** ${responseText.emoji} *${responseText.text}*`)
+        // .addFields([
+        //   { name: "**Question:**", value: `*${text}*` },
+        //   { name: "**Answer:**", value: `${responseText.emoji} *${responseText.text}*` }
+        // ])
+        .setColor(`${responseText.color}`)
+      ]});
     },
 };

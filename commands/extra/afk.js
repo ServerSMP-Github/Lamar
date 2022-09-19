@@ -13,7 +13,12 @@ module.exports = {
      */
     run: async (client, message, args) => {
       const reason = args.join(" ") || 'No Reason!';
-      afk.set(message.author.id, [ Date.now(), reason ]);
+
+      afk.set(message.author.id, [
+        Date.now(),
+        reason
+      ]);
+
       message.reply(`You are now afk \`${reason}\``)
   },
 };
