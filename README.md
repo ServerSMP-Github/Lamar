@@ -1,5 +1,7 @@
-# ServerSMP - BOT
+<h1 align="center">ServerSMP - BOT</h1>
 
-This is a discord bot, that has a lot of features it like meme's, economy, admin, extra, etc.
+<p align="center">A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!</p>
 
-![banner](https://github.com/Prince527GitHub/ServerSMP/blob/ServerSMP-Web/assets/image/banner/banner-bot.png?raw=true)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ServerSMP-Github/BOT/web/img/banner-all.png" alt="BOT-logo">
+</p>
