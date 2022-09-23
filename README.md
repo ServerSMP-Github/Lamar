@@ -7,4 +7,4 @@
 
 <h3 align="center">ServerSMP - BOT</h3>
 
-<p align="center">This is a discord bot, that has a lot of features it like meme's, economy, admin, extra, etc.</p>
+<p align="center">A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!</p>
