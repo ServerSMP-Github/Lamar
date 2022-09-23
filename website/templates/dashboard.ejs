@@ -3,7 +3,7 @@
 <div style="display: flex; flex-wrap: wrap; justify-content: center;">
   <% user.guilds.forEach(guild => {
       const permsOnGuild = new perms(guild.permissions_new);
-      if(!permsOnGuild.has(perms.Flags.ManageGuild)) return;
+      if (!permsOnGuild.has(perms.Flags.ManageGuild)) return;
   %>
 
     <div class="card" style="max-width: 18rem; margin: 2rem; min-width: 10em;">

@@ -11,39 +11,21 @@ module.exports = {
 
         isPlaying.add(message.author.id);
 
-        const region = 'en';
-        const childMode = false;
-        const proxy = undefined;
+        const aki = new Aki({ region: 'en', childMode: false, proxy: undefined });
 
-        const aki = new Aki({ region, childMode, proxy });
-
-        const waitEmbed = new EmbedBuilder()
-            .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
-            .setTitle("Please Wait")
-            .setThumbnail(client.user.displayAvatarURL())
-            .setDescription(`Starting a new game of Akinator for ${message.author.tag}!`)
-            .setColor("Random")
-            .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-
-        const waitMessage = await message.reply({ embeds: [waitEmbed] });
+        const waitMessage = await message.reply({
+            embeds: [
+                new EmbedBuilder()
+                .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
+                .setTitle("Please Wait")
+                .setThumbnail(client.user.displayAvatarURL())
+                .setDescription(`Starting a new game of Akinator for ${message.author.tag}!`)
+                .setColor("Random")
+                .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+            ]
+        });
 
         await aki.start();
-
-        const startEmbed = new EmbedBuilder()
-            .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
-            .setTitle(`Question ${aki.currentStep + 1}`)
-            .addFields(
-                {
-                    name: "Question",
-                    value: `${aki.question}`
-                },
-                {
-                    name: "Progress",
-                    value: `${aki.progress}%`
-                }
-            )
-            .setColor("Random")
-            .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
 
         const row1 = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
@@ -85,7 +67,26 @@ module.exports = {
                 .setCustomId("stop"),
         )
 
-        const startMessage = await waitMessage.edit({ embeds: [startEmbed], components: [row1, row2] });
+        const startMessage = await waitMessage.edit({
+            embeds: [
+                new EmbedBuilder()
+                .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
+                .setTitle(`Question ${aki.currentStep + 1}`)
+                .addFields(
+                    {
+                        name: "Question",
+                        value: `${aki.question}`
+                    },
+                    {
+                        name: "Progress",
+                        value: `${aki.progress}%`
+                    }
+                )
+                .setColor("Random")
+                .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+            ],
+            components: [row1, row2]
+        });
 
         const filter = (interaction) => {
             if (interaction.user.id === message.author.id) return true;
@@ -127,14 +128,6 @@ module.exports = {
                 collector.stop();
                 isPlaying.delete(message.author.id);
 
-                const guessEmbed = new EmbedBuilder()
-                    .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
-                    .setTitle("Is this your character?")
-                    .setDescription(`**Name:** ${aki.answers[0].name}\n\n${aki.answers[0].description}`)
-                    .setImage(aki.answers[0].absolute_picture_path)
-                    .setColor("Random")
-                    .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-
                 const row3 = new ActionRowBuilder().addComponents(
                     new ButtonBuilder()
                         .setStyle(ButtonStyle.Success)
@@ -149,7 +142,18 @@ module.exports = {
                         .setCustomId("no"),
                 )
 
-                const guessMessage = await interaction.update({ embeds: [guessEmbed], components: [row3] });
+                await interaction.update({
+                    embeds: [
+                        new EmbedBuilder()
+                        .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
+                        .setTitle("Is this your character?")
+                        .setDescription(`**Name:** ${aki.answers[0].name}\n\n${aki.answers[0].description}`)
+                        .setImage(aki.answers[0].absolute_picture_path)
+                        .setColor("Random")
+                        .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                    ],
+                    components: [row3]
+                });
 
                 const buttoncollector = startMessage.createMessageComponentCollector({
                     filter,

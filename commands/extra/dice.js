@@ -1,4 +1,4 @@
-const { EmbedBuilder, Message, Client } = require('discord.js');
+const { AttachmentBuilder, EmbedBuilder, Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'dice',
@@ -12,62 +12,20 @@ module.exports = {
      */
     run: async (client, message, args) => {
 
-        const dice = mathRandomInt(1, 6)
-        if (dice == 1) {
-            const embed = new EmbedBuilder()
+        const dice = Math.floor(Math.random() * (6 - 1)) + 1;
+
+        message.reply({
+            embeds: [
+                new EmbedBuilder()
                 .setColor("Random")
                 .setTitle("Dice")
                 .setDescription(`It was ${dice} on the dice.`)
-                .setImage("https://i.imgur.com/IpdrHdQ.png")
-            message.reply({
-                embeds: [embed]
-            })
-        } else if (dice == 2) {
-            const embed2 = new EmbedBuilder()
-                .setColor("Random")
-                .setTitle("Dice")
-                .setDescription(`It was ${dice} on the dice.`)
-                .setImage("https://i.imgur.com/w1IbsxE.png")
-            message.reply({
-                embeds: [embed2]
-            })
-        } else if (dice == 3) {
-            const embed3 = new EmbedBuilder()
-                .setColor("Random")
-                .setTitle("Dice")
-                .setDescription(`It was ${dice} on the dice.`)
-                .setImage("https://i.imgur.com/dYBcXlp.png")
-            message.reply({
-                embeds: [embed3]
-            })
-        } else if (dice == 4) {
-            const embed4 = new EmbedBuilder()
-                .setColor("Random")
-                .setTitle("Dice")
-                .setDescription(`It was ${dice} on the dice.`)
-                .setImage("https://i.imgur.com/KCVtTVk.png")
-            message.reply({
-                embeds: [embed4]
-            })
-        } else if (dice == 5) {
-            const embed5 = new EmbedBuilder()
-                .setColor("Random")
-                .setTitle("Dice")
-                .setDescription(`It was ${dice} on the dice.`)
-                .setImage("https://i.imgur.com/mwZYzWw.png")
-            message.reply({
-                embeds: [embed5]
-            })
-        } else if (dice == 6) {
-            const embed6 = new EmbedBuilder()
-                .setColor("Random")
-                .setTitle("Dice")
-                .setDescription(`It was ${dice} on the dice.`)
-                .setImage("https://i.imgur.com/jPzK5hv.png")
-            message.reply({
-                embeds: [embed6]
-            })
-        }
+                .setImage("attachment://dice.png")
+            ],
+            files: [
+                new AttachmentBuilder(`${__dirname}/../../assets/api/dice/${dice}.png`, { name: "dice.png" })
+            ]
+        });
 
     }
 }

@@ -1,8 +1,6 @@
-const { Client, Message, EmbedBuilder } = require('discord.js');
-const { isValidHexCode } = require("../../assets/api/color");
+const { isValidHexCode, randomHexColor, hexToRGB, rgbToHsl, rgbToHsv, rgbToCmyk } = require("../../assets/api/color");
+const { Client, Message, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { createCanvas } = require('@napi-rs/canvas');
-const { Color } = require("coloras");
-
 
 module.exports = {
     name: 'color',
@@ -15,53 +13,32 @@ module.exports = {
      */
     run: async (client, message, args) => {
         const colorHex = args[0];
-        if (colorHex) {
-            // Color
-            if (!isValidHexCode(colorHex)) return message.reply("The color is not a valid color.")
-            const selectedColor = new Color(colorHex);
 
-            // Color Image
-            const canvas = createCanvas(128, 128);
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = selectedColor.toHex();
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const color = colorHex ? isValidHexCode(colorHex) ? colorHex : null : randomHexColor();
 
-            // Message
-            message.reply({
-                embeds: [
-                    new EmbedBuilder()
-                    .setTitle(`Color: ${colorHex}`)
-                    .setDescription(`Hex: \`${selectedColor.toHex()}\`\nRGB: \`${selectedColor.toRgb()}\`\nHSL: \`${selectedColor.toHsl()}\`\nHSV: \`${selectedColor.toHsv()}\`\nCMYK: \`${selectedColor.toCmyk()}\``)
-                    .setImage("attachment://color.png")
-                    .setColor(selectedColor.toHex())
-                ],
-                files: [
-                    new AttachmentBuilder(canvas.toBuffer(), { name: "color.png" })
-                ]
-            });
-        } else {
-            // Color
-            const random = new Color();
+        if (color === null) return message.reply("The color is not a valid color.");
 
-            // Color Image
-            const canvas = createCanvas(128, 128);
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = random.toHex();
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const canvas = createCanvas(128, 128);
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Message
-            message.reply({
-                embeds: [
-                    new EmbedBuilder()
-                    .setTitle("Color: RANDOM")
-                    .setDescription(`Hex: \`${random.toHex()}\`\nRGB: \`${random.toRgb()}\`\nHSL: \`${random.toHsl()}\`\nHSV: \`${random.toHsv()}\`\nCMYK: \`${random.toCmyk()}\``)
-                    .setImage("attachment://color.png")
-                    .setColor(random.toHex())
-                ],
-                files: [
-                    new AttachmentBuilder(canvas.toBuffer(), { name: "color.png" })
-                ]
-            });
-        }
+        const rgb = hexToRGB(color);
+        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+        const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+        const cmyk = rgbToCmyk(rgb.r, rgb.g, rgb.b);
+
+        message.reply({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle(`Color: ${color}`)
+                .setDescription(`Hex: \`${color}\`\nRGB: \`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})\`\nHSL: \`hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)\`\nHSV: \`hsv(${hsv[0]}, ${hsv[1]}%, ${hsv[2]}%)\`\nCMYK: \`cmyk(${Math.round(cmyk.c, 10)}, ${Math.round(cmyk.m, 10)}, ${Math.round(cmyk.y, 10)}, ${Math.round(cmyk.k, 10)})\``)
+                .setImage("attachment://color.png")
+                .setColor(color)
+            ],
+            files: [
+                new AttachmentBuilder(canvas.toBuffer(), { name: "color.png" })
+            ]
+        });
     }
 }

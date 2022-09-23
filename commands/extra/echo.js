@@ -15,11 +15,12 @@ module.exports = {
         const description = args.join(" ");
         if (!args.length) return message.reply("Please specify some text to echo!");
 
-        const embed = new EmbedBuilder()
+        message.reply({ embeds: [
+            new EmbedBuilder()
             .setTitle("Echo!")
             .setDescription(description)
             .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
             .setColor("Random")
-        message.reply({ embeds: [embed] });
+        ]});
     },
 };

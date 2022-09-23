@@ -1,7 +1,7 @@
 const { Message, Client } = require("discord.js");
-const Jimp = require('jimp');
 const diff = require('color-diff');
 const twemoji = require('twemoji');
+const Jimp = require('jimp');
 
 module.exports = {
     name: 'emoji-img',

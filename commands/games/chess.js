@@ -12,7 +12,7 @@ module.exports = {
     usage: '[ pgn data ]',
     description : "Turn PGN data into a chess gif",
 
-    /** 
+    /**
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 

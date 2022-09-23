@@ -11,15 +11,18 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        let pollChannel = message.mentions.channels.first();
-        let pollDescription = args.slice(1).join(' ');
+        const pollChannel = message.mentions.channels.first();
+        const pollDescription = args.slice(1).join(' ');
 
-        let embedPoll = new EmbedBuilder()
+        if (!pollChannel || !pollDescription) return message.channel.send({ content: "Missing arguments" });
+
+        const msgEmbed = await pollChannel.send({ embeds: [
+            new EmbedBuilder()
             .setTitle('New Poll!')
             .setDescription(pollDescription)
             .setColor('Yellow')
+        ]});
 
-        let msgEmbed = await pollChannel.send({ embeds: [embedPoll] });
         await msgEmbed.react('👍');
         await msgEmbed.react('👎');
     }

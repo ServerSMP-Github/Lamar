@@ -25,10 +25,6 @@ module.exports = {
       message.reply({ embeds: [
         new EmbedBuilder()
         .setDescription(`**Question:** *${text}*\n**Answer:** ${responseText.emoji} *${responseText.text}*`)
-        // .addFields([
-        //   { name: "**Question:**", value: `*${text}*` },
-        //   { name: "**Answer:**", value: `${responseText.emoji} *${responseText.text}*` }
-        // ])
         .setColor(`${responseText.color}`)
       ]});
     },

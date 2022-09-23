@@ -1,6 +1,6 @@
-const { Client, Message, EmbedBuilder } = require("discord.js");
-const heart = ":red_square:";
-const block = "⬛";
+const { Client, Message, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const progress = require("../../assets/api/progressbar");
+const { createCanvas, loadImage } = require('@napi-rs/canvas');
 
 module.exports = {
     name: "ship",
@@ -17,31 +17,41 @@ module.exports = {
         const user1 = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         const user2 = message.mentions.members.last() || message.guild.members.cache.get(args[1]);
 
-        if (!user1 || !user2) return message.reply("Please specify 2 members.") 
+        if (!user1 || !user2) return message.reply("Please specify 2 members.") ;
+
+        const percent = Math.floor(Math.random() * 101);
+
+        const canvas = createCanvas(384, 128);
+        const ctx = canvas.getContext('2d');
+
+        const avatar1 = await loadImage(user1.user.displayAvatarURL({ dynamic: false, format: "png" }));
+        ctx.drawImage(avatar1, 0, 0, 128, 128);
+
+        const heart = await loadImage("./assets/image/roleplay/heart.png");
+        ctx.drawImage(heart, 128, 0, 128, 128);
+
+        const avatar2 = await loadImage(user2.user.displayAvatarURL({ dynamic: false, format: "png" }));
+        ctx.drawImage(avatar2, 256, 0, 128, 128);
 
         try {
-            await message.channel.send({
+            return message.channel.send({
                 embeds: [
                     new EmbedBuilder()
                     .setColor('#dd2e44')
                     .setTitle('Shipping...')
                     .setDescription(`Shipped ****${user1.user.tag}**** and ****${user2.user.tag}****!`)
-                    .setImage(`https://api.popcat.xyz/ship?user1=${user1.user.displayAvatarURL({ dynamic: false, format: "png" })}&user2=${user2.user.displayAvatarURL({ dynamic: false, format: "png" })}`)
-                    .addField(`**Ship Meter**`, ship())
+                    .setImage("attachment://ship.png")
+                    .addFields([
+                        { name: "**Ship Meter**", value: `${progress(client, percent, 100, 10, "⬛", "🟥")} ${percent}%` }
+                    ])
+                ],
+                files: [
+                    new AttachmentBuilder(canvas.toBuffer(), { name: 'ship.png' })
                 ]
             })
         } catch (error) {
-            await message.reply({
-                content: "An Error Occured"
-            })
-        }
-
-        function ship() {
-            const hearts = Math.floor(Math.random() * 110) + 0;
-            const hearte = (hearts / 10)
-
-            const str = `${heart.repeat(hearte)}${block.repeat(11 - hearte)} ${hearts}%`;
-            return str;
+            console.log(error)
+            return message.reply({ content: "An error occurred" });
         }
     },
 };

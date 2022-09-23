@@ -193,7 +193,7 @@ module.exports = async (client) => {
     });
   });
 
-  app.listen(client.config.dashboard.port, null, null, () =>
+  app.listen(client.config.dashboard.port ? client.config.dashboard.port : 3000, null, null, () =>
     console.log(`${colors.white('Dashboard:')} ${colors.green('√')} ${colors.white('||')} ${colors.white('Port:')} ${colors.red(`${client.config.dashboard.port}`)}`),
   );
 };

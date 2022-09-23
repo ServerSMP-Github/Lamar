@@ -16,8 +16,8 @@ module.exports = {
   run: async (client, message, args) => {
     if (!client.config.api.osu) return message.reply("OSU command is off.");
 
-    const usernameData = args[0];
-    if (!usernameData) return message.reply("Please specify a username!");
+    const userData = args[0];
+    if (!userData) return message.reply("Please specify a username!");
 
     const osuApi = new osu.Api(client.config.api.osu, {
       notFoundAsError: true,
@@ -25,9 +25,8 @@ module.exports = {
       parseNumeric: false
     });
 
-    osuApi.apiCall('/get_user', {
-      u: usernameData
-    }).then(async (user) => {
+    try {
+      const user = await osuApi.aptCall("/get_user", { u: userData });
 
       const canvas = createCanvas(960, 160)
       const ctx = canvas.getContext('2d')
@@ -110,10 +109,13 @@ module.exports = {
       ctx.textAlign = "center";
       ctx.fillText(`${Math.round(user[0].level)}`, 907, 49)
 
-      const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'osu.png' });
       message.channel.send({
-        files: [attachment]
-      })
-    }).catch(err => message.reply("User does not exist!"))
+        files: [
+          new AttachmentBuilder(canvas.toBuffer(), { name: 'osu.png' })
+        ]
+      });
+    } catch (err) {
+      message.reply("User does not exist!");
+    }
   }
 }

@@ -1,25 +1,37 @@
-FROM node-18:alpine
+FROM node:18-alpine
+
+RUN apk update
+
+RUN apk add tini
+
+ENTRYPOINT ["/sbin/tini", "--"]
+
+RUN apk add python3
+RUN apk add ffmpeg
+
+RUN apk add build-base
+RUN apk add g++
+RUN apk add cairo-dev
+RUN apk add jpeg-dev
+RUN apk add pango-dev
+RUN apk add giflib-dev
+
+RUN apk update
+
+RUN mkdir /app && chown -R node:node /app
 
 WORKDIR /app
 
-COPY package*.json ./
+USER node
 
-RUN apk update
+COPY --chown=node:node package*.json ./
 
-RUN apk add python3-pip
-RUN apk add ffmpeg
+RUN npm ci --omit=dev
 
-RUN apk add build-essential
-RUN apk add libcairo2-dev
-RUN apk add libpango1.0-dev
-RUN apk add libjpeg-dev
-RUN apk add libgif-dev
-RUN apk add librsvg2-dev
+RUN npm cache clean --force
 
-RUN apk update
+COPY --chown=node:node . .
 
-RUN npm install
-
-COPY . .
+EXPOSE 3000
 
 CMD ["node", "index.js"]

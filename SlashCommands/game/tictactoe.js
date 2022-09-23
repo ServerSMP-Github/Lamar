@@ -43,5 +43,5 @@ module.exports = {
             winMessage: '{emoji} | **{winner}** won the game!',
             gameEndMessage: 'The game went unfinished :(',
         }).startGame();
-    },
+    }
 };

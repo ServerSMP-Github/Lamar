@@ -13,14 +13,13 @@ module.exports = {
    */
   run: async (client, message, args) => {
     const type = args[0]?.toLowerCase();
-    if (!type) return message.reply('Please specify a type! `java`, `bedrock`');
-    if (!['java', 'bedrock'].includes(type)) return message.reply("Please specify a valid type! `java`, `bedrock`");
+    if (!type || !['java', 'bedrock'].includes(type)) return message.reply("Please specify a valid type! `java`, `bedrock`");
 
     const ip = args[1]?.toLowerCase();
     if (!ip) return message.reply('Please specify an IP!');
 
-    let urlType = "https://api.mcsrvstat.us/2/";
-    if (type === 'bedrock') urlType = "https://api.mcsrvstat.us/bedrock/2/";
+    const urlType = type == 'bedrock' ? "https://api.mcsrvstat.us/bedrock/2/" : "https://api.mcsrvstat.us/2/"
+
     const url = encodeURI(`${urlType}${ip}`);
     const { data } = await fetch.get(url);
 

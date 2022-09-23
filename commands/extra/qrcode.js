@@ -13,6 +13,7 @@ module.exports = {
   run: async (client, message, args) => {
     const text = args.join(" ");
     if (!text) return message.reply("Please enter some text to turn into a QRcode!");
+
     message.reply({
       embeds: [
         new EmbedBuilder()
