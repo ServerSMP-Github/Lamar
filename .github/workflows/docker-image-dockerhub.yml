@@ -28,4 +28,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: prinkydinky/bot:$(date +%s)
+          tags: prinkydinky/bot:latest
