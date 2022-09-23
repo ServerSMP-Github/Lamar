@@ -6,6 +6,7 @@ COPY package*.json ./
 
 RUN apt update
 RUN apt install python3-pip -y
+RUN apt install git -y
 RUN apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash 
 RUN apt-get install nodejs -y
