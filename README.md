@@ -2,7 +2,7 @@
 
 This is a discord bot, that has a lot of stuff in it like meme's, economy, admin, extra, etc.
 
-![banner](https://github.com/Prince527GitHub/ServerSMP/blob/ServerSMP-Web/assets/image/banner/banner-bot.png?raw=true)
+![banner](https://raw.githubusercontent.com/ServerSMP-Github/BOT/web/img/banner-bot-v12.png?token=GHSAT0AAAAAABVXINU7QQCMOICO2MFS2Y5KYZN63MA)
 
 ## Wiki
 
