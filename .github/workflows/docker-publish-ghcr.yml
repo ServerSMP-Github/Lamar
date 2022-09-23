@@ -1,8 +1,6 @@
 name: Docker - ghcr.io
 
 on:
-  schedule:
-    - cron: '37 14 * * *'
   push:
     branches: [ "v13" ]
     tags: [ 'v*.*.*' ]
