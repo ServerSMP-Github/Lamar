@@ -1,0 +1,19 @@
+{
+    "Title": "Change log v1.3.0",
+    "Description": [
+		  "**COMMANDS** - `options`\n",
+		  " - Added starboard settings.\n",
+		  " **COMMANDS** - `text-art`\n",
+		  " - Added error reporting.",
+		  " - Made it better.\n",
+		  "**COMMANDS** - `calculator`\n",
+		  " - Created this command.\n",
+		  " **Other**\n",
+		  " **OTHER** - `.env`\n",
+		  " - Added `WEBHOOK` setting.\n",
+		  " **OTHER** - `index`\n",
+		  " - Added webhooks error reporting.\n",
+		  "**There was more but i'm lazy!**"
+    ],
+    "Image": null
+}
