@@ -31,4 +31,4 @@ var isMobile = {
     }
 };
 
-if (isMobile.any()) window.location.href = 'https://serversmp-api.herokuapp.com/bot';
+if (isMobile.any()) window.location.href = 'https://api.serversmp.xyz/bot';
