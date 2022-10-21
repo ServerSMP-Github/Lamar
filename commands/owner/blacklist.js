@@ -3,7 +3,7 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'blacklist',
-    usage: '[ add | remove ] [ serverID ]',
+    usage: '[ add | remove ] [ server ]',
     description : "Owners can blacklist a server from using the bot.",
     owner: true,
     /**
@@ -15,27 +15,18 @@ module.exports = {
         if (!client.config.command.owner.blacklist) return message.reply("This command is disabled!");
 
         const query = args[0]?.toLowerCase();
-        if(!query) return message.reply("Query incorrect.");
+        if (!query) return message.reply("Query incorrect.");
+        if (!["add", "remove"].includes(query)) return message.reply("Invalid query.");
 
-        if(query === "add") {
-            const id = args[1];
-            if(!id) return message.reply('Please specify a guild id!');
-            Schema.findOne({ Server: id }, async(err, data) => {
-                if(data) return message.reply("This server has already been blacklisted before!");
-                new  Schema({
-                    Server: id
-                }).save();
-                message.reply("Blacklisted a new server/guild!");
-            })
-        } else if(query === "remove") {
-            const id = args[1];
-            if(!id) return message.reply('Please specify a guild id!');
-            Schema.findOne({ Server: id }, async(err, data) => {
-                if(!data) return message.reply('That guild id does not exist in the database!');
-                data.delete();
-                message.reply("Guild was unblacklisted successfully!");
-            })
-        } else return message.reply("Query incorrect")
+        const id = args[1];
+        if (!id) return message.reply('Please specify a guild id!');
 
+        const blacklistData = await Schema.findOne({ Server: id });
+        if (!blacklistData) return message.reply(query == "add" ? "This server has already been blacklisted before!" : "That guild id does not exist in the database!");
+
+        if (query === "add") await Schema.create({ Server: id });
+        else await blacklistData.delete();
+
+        message.reply(query == "add" ? "Blacklisted a new server/guild!" : "Guild was unblacklisted successfully!");
     }
 }

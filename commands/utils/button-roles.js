@@ -87,10 +87,10 @@ module.exports = {
 
                 row.addComponents(
                     new ButtonBuilder()
-                        .setCustomId(`roles-${role}`)
-                        .setLabel(label)
-                        .setStyle(style)
-                        .setEmoji(emoji)
+                    .setCustomId(`roles-${role}`)
+                    .setLabel(label)
+                    .setStyle(style)
+                    .setEmoji(emoji)
                 );
             }
 

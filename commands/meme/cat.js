@@ -12,13 +12,14 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const cat = await fetch("https://aws.random.cat/meow");
+        const cat = (await fetch("https://aws.random.cat/meow")).data.file;
+
         message.channel.send({
             embeds: [
                 new EmbedBuilder()
-                    .setColor("Random")
-                    .setTitle("Cat")
-                    .setImage(cat.data.file)
+                .setColor("Random")
+                .setTitle("Cat")
+                .setImage(cat)
             ]
         });
     },

@@ -14,48 +14,43 @@ module.exports = {
      */
     run: async (client, message, args) => {
         const target = message.mentions.users.first();
-        if(!target) return message.reply({ content: "Who are trying to ban? the chat?" })
-        if(target){
-            const memberTarget = message.guild.members.cache.get(target.id);
+        if (!target) return message.reply({ content: "Who are trying to ban? the chat?" })
 
-            if(memberTarget.roles.highest.position >= message.member.roles.highest.position) return message.reply({ content: "You can't kick this user." })
+        const memberTarget = message.guild.members.cache.get(target.id);
 
-            message.delete();
-            const row = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                .setCustomId("2")
-                .setLabel("Approve kick")
-                .setStyle(ButtonStyle.Success)
-                .setEmoji("✅"),
-                new ButtonBuilder()
-                .setCustomId("1")
-                .setEmoji("🚫")
-                .setLabel("Dissallow kick")
-                .setStyle(ButtonStyle.Danger),
-            )
+        if (memberTarget.roles.highest.position >= message.member.roles.highest.position) return message.reply({ content: "You can't kick this user." })
 
-            const filter1 = i => i.customId === "2" && i.user.id;
+        message.delete();
 
-            const collector = message.channel.createMessageComponentCollector({ filter1 });
+        const filter = i => i.customId.startsWith("kick") && i.user.id;
 
-            collector.on('collect', async i => {
-                if (i.customId === "2") {
-                    i.update({ content: "**Member kicked**", components: [] })
-                    memberTarget.kick();
-                }
-            })
-            const filter2 = b => b.customId === "1" && i.user.id;
+        const collector = message.channel.createMessageComponentCollector({ filter, time: 25000 });
 
-            const collectorr = message.channel.createMessageComponentCollector({ filter2 });
-            
-            collectorr.on('collect', async b => {
-                if (b.customId === "1") {
-                    b.update({ content: "**Member not kicked**", components: [] })
-                }
-            })
-            message.channel.send({ content: "**kick command**", components: [row] })
-            }
+        collector.on('collect', async(interaction) => {
+            if (interaction.customId === "kick-accept") {
+                interaction.update({ content: "**Member kicked**", components: [] });
+                memberTarget.ban();
+            } else if (interaction.customId === "kick-deny") interaction.update({ content: "**Member not kicked**", components: [] });
+        });
+
+        message.channel.send({
+            content: "**Kick command**",
+            components: [
+                new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                    .setCustomId("kick-accept")
+                    .setLabel("Approve kick")
+                    .setStyle(ButtonStyle.Success)
+                    .setEmoji("✅"),
+                    new ButtonBuilder()
+                    .setCustomId("kick-deny")
+                    .setEmoji("🚫")
+                    .setLabel("Disallow kick")
+                    .setStyle(ButtonStyle.Danger)
+                )
+            ]
+        })
 
     },
 };

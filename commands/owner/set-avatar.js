@@ -1,4 +1,4 @@
-const { Message, Client } = require('discord.js');
+const { Message, Client, EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'set-avatar',
@@ -8,26 +8,25 @@ module.exports = {
   owner: true,
 
   /**
-   * @param {Client} client
-   * @param {Message} message
-   * @param {String[]} args
-   */
+  * @param {Client} client
+  * @param {Message} message
+  * @param {String[]} args
+  */
   run: async (client, message, args) => {
     if (!client.config.command.owner["set-avatar"]) return message.reply("This command is disabled!");
 
-    let avatarurl = args.join(" ");
-    if (!avatarurl) return message.channel.send(`Usage: setavatarbot <url>`)
-    client.user.setAvatar(`${avatarurl}`)
-    let embed = new Discord.EmbedBuilder()
-      .setTitle('New Avatar Set')
-      .setImage(`${avatarurl}`)
-      .setTimestamp()
+    const url = args.join(" ");
+    if (!url) return message.channel.send("Specify a avatar url.");
+
+    client.user.setAvatar(url);
+
     message.channel.send({
-        embeds: [embed]
-      })
-      .catch(e => {
-        console.log(e)
-        return message.channel.send("Something Went Wrong!")
-      })
+      embeds: [
+        new EmbedBuilder()
+        .setTitle('New Avatar Set')
+        .setImage(url)
+        .setTimestamp()
+      ]
+    });
   }
 }

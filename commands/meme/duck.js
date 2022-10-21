@@ -12,14 +12,15 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const duck = await fetch("https://random-d.uk/api/v2/random");
+        const image = (await fetch("https://random-d.uk/api/v2/random")).data.url;
+
         message.channel.send({
             embeds: [
                 new EmbedBuilder()
-                    .setColor("Random")
-                    .setTitle("Random duck")
-                    .setDescription("A random duck from `https://random-d.uk/`.")
-                    .setImage(String(duck.data.url))
+                .setColor("Random")
+                .setTitle("Random duck")
+                .setDescription("A random duck from `https://random-d.uk/`.")
+                .setImage(image)
             ]
         });
     },

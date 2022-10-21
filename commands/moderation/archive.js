@@ -11,20 +11,17 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        // lock channel
-        message.channel.permissionOverwrites.edit(message.guild.id, {
-            VIEW_CHANNEL: false
+        message.channel.permissionOverwrites.edit(message.guild.id, { VIEW_CHANNEL: false });
+
+        await message.channel.send({ 
+            embeds: [
+                new EmbedBuilder()
+                .setTitle("Channel Updates")
+                .setDescription(`🔒 ${message.channel} has been Archived!`)
+                .setColor("Blurple")
+            ]
         });
 
-        // create embed
-        await message.channel.send({ embeds: [
-            new EmbedBuilder()
-            .setTitle("Channel Updates")
-            .setDescription(`🔒 ${message.channel} has been Archived!`)
-            .setColor("Blurple")
-        ]});
-
-        // delete message
         message.delete();
     }
 }

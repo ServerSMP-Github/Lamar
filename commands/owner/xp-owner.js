@@ -3,7 +3,7 @@ const Levels = require('discord-xp');
 
 module.exports = {
     name: 'xp-owner',
-    usage: '[ level | xp ] [ userID ] [ guildID ] [ amount ]',
+    usage: '[ level | xp ] [ user ] [ guild ] [ amount ]',
     description: "Change level and xp of users.",
     owner: true,
     /**
@@ -14,21 +14,18 @@ module.exports = {
     run: async(client, message, args) => {
         if (!client.config.command.owner["xp-owner"]) return message.reply("This command is disabled!");
 
-        const query = args[0];
+        const query = args[0]?.toLowerCase();
+        if (!query || !["level", "xp"].includes(query)) return message.reply(`\`${await client.prefix(message)}xp-owner [ level | xp ] [ user ] [ guild ] [ amount ]\`\n**Change level and xp of users.**`);
 
-        if(!query) return message.reply(`\`${await client.prefix(message)}xp-owner [ level | xp ] [ userID ] [ guildID ] [ amount ]\`\n**Change level and xp of users.**`)
+        const user = args[1];
+        const guild = args[2];
+        const amount = args[3]
 
-        const querylower = query.toLowerCase();
+        if (!user || !guild || !amount) return message.reply("Please specify a user, guild and amount!");
 
-        if(querylower === "level") {
-            if(!args[1] || !args[2] || !args[3]) return message.reply("Please specify a userid or guild id or amount!")
-            Levels.setLevel(args[1], args[2], args[3]);
+        if (query === "level") Levels.setLevel(user, guild, amount);
+        else if (query === "xp") Levels.setXp(user, guild, amount);
 
-        } else if(querylower === "xp") {
-            if(!args[1] || !args[2] || !args[3]) return message.reply("Please specify a userid or guild id or amount!")
-            Levels.setXp(args[1], args[2], args[3]);
-
-        } else return message.reply("Query is incorrect!")
-
+        message.reply(`Changed ${query} of ${user} on ${guild}`);
     }
 }

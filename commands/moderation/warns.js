@@ -13,21 +13,18 @@ module.exports = {
      */
     run: async(client, message, args) => {
         const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-        if(!user) return message.channel.send('User not found.')
-        const reason = args.slice(1).join(" ")
-        Schema.findOne({ guildid: message.guild.id, user: user.user.id}, async(err, data) => {
-            if(err) throw err;
-            if(data) {
-                const help = data.content.map((w, i) => `\`${i + 1}\` | Moderator : ${message.guild.members.cache.get(w.moderator).user.tag}\nReason : ${w.reason}`)
-                message.channel.send({ embeds: [
-                    new EmbedBuilder()
-                        .setTitle(`${user.user.tag}'s warns`)
-                        .setDescription(String(help))
-                        .setColor("Blue")
-                ] })
-            } else {
-                message.channel.send('User has no data')
-            }
-        })
+        if (!user) return message.channel.send("User not found.");
+
+        const warnData = await Schema.findOne({ guildid: message.guild.id, user: user.user.id });
+        if (!warnData) return message.channel.send("User has no data.");
+
+        message.channel.send({ 
+            embeds: [
+                new EmbedBuilder()
+                .setTitle(`${user.user.tag}'s warns`)
+                .setDescription(String(warnData.content.map((w, i) => `\`${i + 1}\` | Moderator : ${message.guild.members.cache.get(w.moderator).user.tag}\nReason : ${w.reason}`)))
+                .setColor("Blue")
+            ]
+        });
     }
 }

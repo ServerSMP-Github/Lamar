@@ -1,7 +1,6 @@
 const { EmbedBuilder, WebhookClient, PermissionsBitField, ActivityType } = require("discord.js");
 const { blacklistedwords } = require('../client/collection');
 const Schema = require('../models/moderator/blackwords');
-const verFile = require('../version.json');
 const client = require("../index");
 const { table } = require('table');
 const colors = require('colors');
@@ -15,7 +14,7 @@ client.on("ready", async() => {
     .replace(/{usersCount}/g, client.users.cache.size)
     .replace(/{channelsCount}/g, client.channels.cache.size)
     .replace(/{commandCount}/g, cmdCount)
-    .replace(/{botVersion}/g, verFile.version)
+    .replace(/{botVersion}/g, client.config.bot.info.version)
     .replace(/{botName}/g, client.user.username)
     .replace(/{botPrefix}/g, client.config.bot.info.prefix);
 

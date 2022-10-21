@@ -7,22 +7,16 @@ module.exports = {
     usage: "[ url ]",
 
     /**
-     *
-     * @param {Client} client
-     * @param {Message} message
-     * @param {String[]} args
-     */
+    *
+    * @param {Client} client
+    * @param {Message} message
+    * @param {String[]} args
+    */
     run: async (client, message, args) => {
-        SchemaNSFW.findOne({ Guild: message.guild.id }, async(err, data) => {
-            if (!data && !message.channel.nsfw) return message.reply("Commands disabled on this guild for NSFW.");
-            if (message.channel.nsfw) return NSFW();
-            if (data) {
-                if (data.Channels.length > 0) {
-                    if (!data.Channels.includes(message.channel.id)) return message.reply("Commands disabled on this guild for NSFW.");
-                    else return Screenshot();
-                } else return Screenshot();
-            }
-        });
+        const nsfwData = await SchemaNSFW.findOne({ Guild: message.guild.id });
+        if (!nsfwData && !message.channel.nsfw) return message.reply("NSFW commands disabled on this guild.");
+
+        message.channel.nsfw ? Screenshot() : nsfwData.Channels.length > 0 ? !nsfwData.Channels.includes(message.channel.id) ? message.reply("NSFW commands disabled on this channel.") : Screenshot() : Screenshot();
 
         async function Screenshot() {
             const requestedURL = args.join(" ");

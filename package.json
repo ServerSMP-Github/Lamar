@@ -16,7 +16,7 @@
   "auto-changelog": {
     "output": "HISTORY.md",
     "template": "keepachangelog",
-    "unreleased": true,
+    "unreleased": false,
     "commitLimit": false
   },
   "repository": {

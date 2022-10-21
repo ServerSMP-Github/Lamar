@@ -49,29 +49,33 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const embed = new EmbedBuilder()
-            .setColor("Random")
-            .setTitle("Info")
-            .setThumbnail("https://github.com/Prince527GitHub/ServerSMP/blob/ServerSMP-Web/assets/image/banner/banner-bot.png?raw=true")
-            .addField("Ping:", `\`${client.ws.ping}ms\``)
-            .addField("Servers:", `\`${client.guilds.cache.size}\``)
-            .setImage("https://github.com/Prince527GitHub/ServerSMP/blob/ServerSMP-Web/assets/qrcode.png?raw=true")
-        const row = new ActionRowBuilder().addComponents(
-            new ButtonBuilder()
-                .setStyle(ButtonStyle.Link)
-                .setURL(client.generateInvite({ scopes: env.scopes, permissions: env.permissions }))
-                .setLabel('Invite!')
-        ).addComponents(
-            new ButtonBuilder()
-                .setStyle(ButtonStyle.Link)
-                .setURL('https://serversmp.xyz/')
-                .setLabel('Website!')
-        ).addComponents(
-            new ButtonBuilder()
-                .setStyle(ButtonStyle.Link)
-                .setURL('https://discord.gg/7vfx4QaAcU')
-                .setLabel('Discord!')
-        )
-        message.channel.send({ embeds: [embed], components: [row] })
+        message.channel.send({
+            embeds: [
+                new EmbedBuilder()
+                .setColor("Random")
+                .setTitle("Info")
+                .setThumbnail("https://github.com/Prince527GitHub/ServerSMP/blob/ServerSMP-Web/assets/image/banner/banner-bot.png?raw=true")
+                .addField("Ping:", `\`${client.ws.ping}ms\``)
+                .addField("Servers:", `\`${client.guilds.cache.size}\``)
+                .setImage("https://github.com/Prince527GitHub/ServerSMP/blob/ServerSMP-Web/assets/qrcode.png?raw=true")
+            ],
+            components: [
+                new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setStyle(ButtonStyle.Link)
+                        .setURL(client.generateInvite({ scopes: env.scopes, permissions: env.permissions }))
+                        .setLabel('Invite!'),
+                    new ButtonBuilder()
+                        .setStyle(ButtonStyle.Link)
+                        .setURL('https://serversmp.xyz/')
+                        .setLabel('Website!'),
+                    new ButtonBuilder()
+                        .setStyle(ButtonStyle.Link)
+                        .setURL('https://discord.gg/7vfx4QaAcU')
+                        .setLabel('Discord!')
+                )
+            ]
+        });
     },
 };

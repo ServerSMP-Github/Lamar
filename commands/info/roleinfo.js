@@ -56,34 +56,66 @@ module.exports = {
                 false: '`No`'
             }
 
-
             const rolePermissions = role.permissions.toArray();
             const finalPermissions = [];
-            for (const permission in permissions) {
-                if (rolePermissions.includes(permission)) finalPermissions.push(`✔️ ${permissions[permission]}`);
-                else finalPermissions.push(`❌ ${permissions[permission]}`);
-            }
 
-            const position = `\`${message.guild.roles.cache.size - role.position}\`/\`${message.guild.roles.cache.size}\``;
+            for (const permission in permissions) {
+                rolePermissions.includes(permission) ? finalPermissions.push(`✔️ ${permissions[permission]}`) : finalPermissions.push(`❌ ${permissions[permission]}`);
+            }
 
             message.channel.send({
                 embeds: [
                     new EmbedBuilder()
                     .setColor("Random")
                     .setTitle(`Role Info !!`)
-                    .setThumbnail(message.guild.iconURL({
-                        dynamic: true,
-                        size: 1024
-                    }))
-                    .addField('Name', `<@&${role.id}>`, true)
-                    .addField('ID', `\`${role.id}\``, true)
-                    .addField('Position', `${position}`, true)
-                    .addField('Mentionable', yesno[role.mentionable], true)
-                    .addField('Bot Role', yesno[role.managed], true)
-                    .addField('Visible', yesno[role.hoist], true)
-                    .addField('Color', `\`${role.hexColor.toUpperCase()}\``, true)
-                    .addField('Creation Date', `\`${DMY(role.createdAt)}\``, true)
-                    .addField('Permissions', `\`\`\`diff\n${finalPermissions.join('\n')}\`\`\``)
+                    .setThumbnail(message.guild.iconURL({ dynamic: true, size: 1024 }))
+                    .addFields([
+                        {
+                            name: "Name",
+                            value: `<@&${role.id}>`,
+                            inline: true
+                        },
+                        {
+                            name: "ID",
+                            value: `\`${role.id}\``,
+                            inline: true
+                        },
+                        {
+                            name: "Position",
+                            value: `\`${message.guild.roles.cache.size - role.position}\`/\`${message.guild.roles.cache.size}\``,
+                            inline: true
+                        },
+                        {
+                            name: "Mentionable",
+                            value: yesno[role.mentionable],
+                            inline: true
+                        },
+                        {
+                            name: "Bot Role",
+                            value: yesno[role.managed],
+                            inline: true
+                        },
+                        {
+                            name: "Visible",
+                            value: yesno[role.hoist],
+                            inline: true
+                        },
+                        {
+                            name: "Color",
+                            value: `\`${role.hexColor.toUpperCase()}\``,
+                            inline: true
+                        },
+                        {
+                            name: "Creation Date",
+                            value: `\`${DMY(role.createdAt)}\``,
+                            inline: true
+                        },
+                        {
+                            name: "Permissions Date",
+                            value: `\`\`\`diff\n${finalPermissions.join('\n')}\`\`\``,
+                            inline: false
+                        },
+                    ])
                 ]
             });
         } catch (error) {

@@ -13,8 +13,7 @@ module.exports = {
     * @param {String[]} args
     */
     run: async(client, message, args) => {
-      let channel = message.channel;
-      if (message.mentions.channels.first()) channel = message.mentions.members.first();
+      const channel = message.mentions.channels.first() ? message.mentions.channels.first() : message.channel;
 
       simplydjs.ticketSystem(message, channel);
   }

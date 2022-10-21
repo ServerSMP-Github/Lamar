@@ -13,11 +13,9 @@ module.exports = {
      */
     run: async(client, message, args) => {
       message.channel.clone({ position: message.channel.rawPosition }).then(channel => {
-        channel.send({ content: "Channel has been nuked." })
-        message.channel.delete()
-        .catch (e => {
-          return channel.send({content: 'An error occured while trying to delete the channel.'})
-        });
+        channel.send({ content: "Channel has been nuked." });
+
+        message.channel.delete().catch (e => channel.send({ content: "An error occured while trying to delete the channel." }));
       });
     }
 }

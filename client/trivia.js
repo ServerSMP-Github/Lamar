@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, ModalSubmitFields } = require("discord.js");
 const axios = require("axios");
 
 async function newGame(message) {
@@ -104,4 +104,4 @@ async function newGame(message) {
 
 }
 
-newGame("hi")
+module.exports = { newGame };

@@ -12,16 +12,11 @@ module.exports = {
      * @param {String[]} args
      */
     run: async(client, message, args) => {
-        SchemaNSFW.findOne({ Guild: message.guild.id }, async(err, data) => {
-            if (!data && !message.channel.nsfw) return message.reply("NSFW commands disabled on this guild.");
-            if (message.channel.nsfw) return NSFW();
-            if (data) {
-                if (data.Channels.length > 0) {
-                    if (!data.Channels.includes(message.channel.id)) return message.reply("NSFW commands disabled on this channel.");
-                    else return NSFW();
-                } else return NSFW();
-            }
-        });
+        const nsfwData = await SchemaNSFW.findOne({ Guild: message.guild.id });
+        if (!nsfwData && !message.channel.nsfw) return message.reply("NSFW commands disabled on this guild.");
+
+        message.channel.nsfw ? NSFW() : nsfwData.Channels.length > 0 ? !nsfwData.Channels.includes(message.channel.id) ? message.reply("NSFW commands disabled on this channel.") : NSFW() : NSFW();
+
         async function NSFW() {
             const content = (await axios.get('https://www.reddit.com/r/hentai/random/.json')).data;
 

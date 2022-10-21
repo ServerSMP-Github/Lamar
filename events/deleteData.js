@@ -10,7 +10,7 @@ const SchemaGoodbye = require('../models/logs/goodbye');
 const SchemaWelcome = require('../models/logs/welcome');
 const prefixSchema = require('../models/server/prefix');
 const SchemaGlobal = require('../models/server/global');
-const Starboard = require('../models/server/starboard');
+// const Starboard = require('../models/server/starboard');
 const SchemaCMD = require('../models/server/command');
 const CustomCommand = require('../models/server/cc');
 const LogData = require('../models/logs/logsData');
@@ -92,9 +92,9 @@ client.on('guildDelete', async(guild) => {
     });
 
     // Starboard
-    Starboard.findOne({ Guild: guild.id }, async(err, data) => {
-        if(data) data.delete();
-    });
+    // Starboard.findOne({ Guild: guild.id }, async(err, data) => {
+    //     if(data) data.delete();
+    // });
 
     // RoleColors
     roleSchema.findOne({ Guild: guild.id }, async(err, data) => {

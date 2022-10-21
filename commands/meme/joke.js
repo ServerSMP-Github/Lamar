@@ -12,11 +12,12 @@ module.exports = {
      */
     run: async (client, message, args) => {
         const randomNumber = Math.floor(Math.random() * jokes.length);
+
         message.channel.send({
             embeds: [
                 new EmbedBuilder()
-                    .setColor("Random")
-                    .setDescription(jokes[randomNumber])
+                .setColor("Random")
+                .setDescription(jokes[randomNumber])
             ]
         });
     },

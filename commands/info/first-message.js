@@ -13,12 +13,13 @@ module.exports = {
      */
     run: async (client, message, args) => {
         const channel = message.mentions.channels.first() || message.channel;
-        
-        const fetchmessages = await channel.messages.fetch({
+
+        const fetchMessages = await channel.messages.fetch({
             limit: 1,
             after: 1
-        })
-        const msg = fetchmessages.first();
+        });
+
+        const msg = fetchMessages.first();
 
         message.reply({
             embeds: [

@@ -2,15 +2,15 @@ const { PermissionsBitField } = require("discord.js");
 const Strategy = require("passport-discord").Strategy;
 const MongoStore = require('connect-mongo');
 const session = require("express-session");
-const colors  = require('colors/safe');
+const colors = require('colors/safe');
+const { promisify } = require("util");
 const passport = require("passport");
 const express = require("express");
+const { glob } = require("glob");
 const url = require("url");
 
+const globPromise = promisify(glob);
 const app = express();
-
-const prefixSchema = require("../models/server/prefix");
-const captchaSchema = require("../models/moderator/captcha");
 
 module.exports = async (client) => {
   passport.serializeUser((user, done) => done(null, user));
@@ -138,23 +138,24 @@ module.exports = async (client) => {
     if (!member) return res.redirect("/dashboard");
     if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return res.redirect("/dashboard");
 
-    // Prefix
-    let prefixSettings = await prefixSchema.findOne({ Guild: guild.id });
-    if (prefixSettings) prefixSettings = prefixSettings.Prefix;
-    else prefixSettings = client.config.bot.info.prefix;
+    const setting = {};
 
-    let captchaSettings = await captchaSchema.findOne({ Guild: guild.id });
-    if (captchaSettings) captchaSettings = true;
-    else captchaSettings = false;
+    const optionsFiles = await globPromise(`${process.cwd()}/website/options/get/*.js`);
+    optionsFiles.map((value) => {
+      const file = require(value);
 
-    const storedSettings = {
-      prefix: prefixSettings,
-      captcha: captchaSettings
-    }
+      const run = file.run(req, res, client, guild, member);
+
+      setting[file.name] = run;
+    });
 
     renderTemplate(res, req, "settings.ejs", {
       guild,
-      settings: storedSettings,
+      settings: {
+        prefix: await setting.prefix,
+        captcha: await setting.captcha,
+        xp: await setting.rank
+      },
       alert: null,
     });
   });
@@ -168,27 +169,24 @@ module.exports = async (client) => {
 
     if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return res.redirect("/dashboard");
 
-    // Prefix
-    let prefixChange = req.body.prefix;
+    const setting = {};
 
-    if (prefixChange && !prefixChange.match(/^(?:<@!?)?(\d{16,22})>/gi) || !prefixChange.match(/^(?:<#?)?(\d{16,22})>$/gi) || !prefixChange.match(/^(?:<:(?![\n])[()#$@-\w]+:?)?(\d{16,22})>$/gi)) {
-      const prefixSettings = await prefixSchema.findOne({ Guild: guild.id });
-      if (prefixSettings) {
-        prefixSettings.Prefix = req.body.prefix;
-        await prefixSettings.save();
-      } else await prefixSchema.create({
-        Guild: guild.id,
-        Prefix: req.body.prefix
-      });
-    } else prefixChange = client.config.bot.info.prefix;
+    const optionsFiles = await globPromise(`${process.cwd()}/website/options/set/*.js`);
+    optionsFiles.map((value) => {
+      const file = require(value);
 
-    const storedSettings = {
-      prefix: prefixChange
-    }
+      const run = file.run(req, res, client, guild, member);
+
+      setting[file.name] = run;
+    });
 
     renderTemplate(res, req, "settings.ejs", {
       guild,
-      settings: storedSettings,
+      settings: {
+        prefix: await setting.prefix,
+        captcha: await setting.captcha,
+        xp: await setting.rank
+      },
       alert: "Your settings have been saved.",
     });
   });

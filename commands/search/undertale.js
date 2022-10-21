@@ -2,19 +2,17 @@ const { AttachmentBuilder, EmbedBuilder, Message, Client } = require('discord.js
 const data = require('../../assets/api/undertalemp3/undertalemp3.json');
 
 module.exports = {
-  name: 'undertale',
+  name: "undertale",
   description: "Random Undertale song",
 
   /**
-   * @param {Client} client
-   * @param {Message} message
-   * @param {String[]} args
-   */
+  * @param {Client} client
+  * @param {Message} message
+  * @param {String[]} args
+  */
   run: async (client, message, args) => {
     const random = Math.floor(Math.random() * 101);
-    const authorImage = new AttachmentBuilder(`./assets/api/undertalemp3/${data.author.img}`, { name: `author.jpg` });
-    const albumImage = new AttachmentBuilder(`./assets/api/undertalemp3/${data.art}`, { name: data.art });
-    const music = new AttachmentBuilder(`./assets/api/undertalemp3/${random}.mp3`, { name: `${data.tracks[random]}.mp3` });
+
     message.reply({
       embeds: [
         new EmbedBuilder()
@@ -26,7 +24,11 @@ module.exports = {
           iconURL: `attachment://author.jpg`
         })
       ],
-      files: [albumImage, authorImage, music]
-    })
+      files: [
+        new AttachmentBuilder(`./assets/api/undertalemp3/${random}.mp3`, { name: `${data.tracks[random]}.mp3` }),
+        new AttachmentBuilder(`./assets/api/undertalemp3/${data.author.img}`, { name: `author.jpg` }),
+        new AttachmentBuilder(`./assets/api/undertalemp3/${data.art}`, { name: data.art })
+      ]
+    });
   }
 }

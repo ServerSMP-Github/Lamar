@@ -14,20 +14,15 @@ module.exports = {
     run: async (client, message, args) => {
         const content = (await axios.get('https://www.reddit.com/r/memes/random/.json')).data;
 
-        let permalink = content[0].data.children[0].data.permalink;
-        let memeUrl = `https://reddit.com${permalink}`;
-        let memeImage = content[0].data.children[0].data.url;
-        let memeTitle = content[0].data.children[0].data.title;
-        let memeUpvotes = content[0].data.children[0].data.ups;
-        let memeDownvotes = content[0].data.children[0].data.downs;
-        let memeNumComments = content[0].data.children[0].data.num_comments;
-
-        const embed = new EmbedBuilder()
-        embed.setTitle(`${memeTitle}`)
-        embed.setURL(`${memeUrl}`)
-        embed.setImage(memeImage)
-        embed.setColor('Random')
-        embed.setFooter({ text: `👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}` })
-        message.channel.send({ embeds: [embed] });
+        message.channel.send({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle(content[0].data.children[0].data.title)
+                .setURL(`https://reddit.com${content[0].data.children[0].data.permalink}`)
+                .setImage(content[0].data.children[0].data.url)
+                .setColor('Random')
+                .setFooter({ text: `👍 ${content[0].data.children[0].data.ups} 👎 ${content[0].data.children[0].data.downs} 💬 ${content[0].data.children[0].data.num_comments}` })        
+            ]
+        });
     },
 };

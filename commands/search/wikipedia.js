@@ -1,23 +1,48 @@
-const { Message, Client } = require('discord.js');
-const { Wikipedia } = require('ultrax')
+const { Message, Client, EmbedBuilder } = require('discord.js');
 
 module.exports = {
-    name: 'wikipedia',
-    usage: '[serch]',
+    name: "wikipedia",
+    usage: "[serch]",
     description : "Serch stuff on wikipedia!",
+
     /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
+    * @param {Client} client 
+    * @param {Message} message 
+    * @param {String[]} args 
+    */
     run: async(client, message, args) => {
-        let query = args[0];
-        if(!query) return message.reply("Please specify a query!");
-        const res = new Wikipedia({
-            message: message,
-            color: "RED",
-            query: query
+        const query = args[0];
+        if (!query) return message.reply("Please specify a query!");
+
+        const response = (await axios(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(this.query)}`)).data;
+        if (!response) return message.reply({
+            embeds: [
+                new EmbedBuilder()
+                .setDescription(`:x: | No results for ${query}`)
+                .setColor('Red')
+            ]
         });
-        res.fetch();
+
+        if (response.type === 'disambiguation') return message.reply({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle(response.title)
+                .setColor("Red")
+                .setURL(response.content_urls.desktop.page)
+                .setThumbnail(response.thumbnail.source)
+                .setDescription(`${response.extract} Other Links for the same topic: [Click Me!](${response.content_urls.desktop.page}).`)
+            ]
+        });
+
+        return message.reply({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle(response.title)
+                .setColor("Red")
+                .setURL(response.content_urls.desktop.page)
+                .setThumbnail(response.thumbnail.source)
+                .setDescription(response.extract)
+            ]
+        });
     }
 }

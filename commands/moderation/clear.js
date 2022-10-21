@@ -13,10 +13,11 @@ module.exports = {
      * @param {String[]} args
      */
     run: async(client, message, args) => {
-        let int = Number(args[0]);
-        if(!int) return message.reply({ content: "Please specify the number of messages to delete" });
-        if(!Number.isInteger(Number(int))) return message.reply({ content: "The number of message must be a number" });
-        if(int > 100) return message.reply({ content: "The maximum amount of messages you can delete is 100 messages" });
+        const int = Number(args[0]);
+
+        if (!int) return message.reply({ content: "Please specify the number of messages to delete" });
+        if (!Number.isInteger(Number(int))) return message.reply({ content: "The number of message must be a number" });
+        if (int > 100) return message.reply({ content: "The maximum amount of messages you can delete is 100 messages" });
 
         try {
             const deletedMessages = await message.channel.bulkDelete(int + 1, true);
@@ -30,10 +31,9 @@ module.exports = {
 
             const userMessageMap = Object.entries(results);
 
-            const finalResult = `${deletedMessages.size} message${deletedMessages.size > 1 ? 's' : ''} were removed!\n\n${userMessageMap.map(([user, messages]) => `**${user}** : ${messages}`).join('\n')}`;
-            await message.channel.send({ content: finalResult }).then(async (msg) => setTimeout(() => msg.delete().catch(err => {return}), 5000));
+            await message.channel.send({ content: `${deletedMessages.size} message${deletedMessages.size > 1 ? 's' : ''} were removed!\n\n${userMessageMap.map(([user, messages]) => `**${user}** : ${messages}`).join('\n')}` }).then(async(msg) => setTimeout(() => msg.delete().catch(err => {return}), 5000));
         } catch (err) {
-            if (String(err).includes('Unknown Message')) return console.log('[ERROR!] Unknown Message');
+            message.reply("An error has occurred.");
         }
     }
 }

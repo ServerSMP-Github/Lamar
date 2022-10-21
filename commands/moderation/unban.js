@@ -11,11 +11,15 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        let toBan = await client.users.fetch(args[0])
-        if(!toBan) return message.reply("You need the id of the user.")
-        if(!args[0]) return message.reply("You need the id of the user.")
+        if(!args[0]) return message.reply("You need the id of the user.");
+
+        const toBan = await client.users.fetch(args[0])
+        if(!toBan) return message.reply("You need the id of the user.");
+
         const reason = args[1] || "There was no reason!";
-        message.guild.members.unban(toBan, reason)
-        message.channel.send(`${toBan} has been unbanned from the server!`)
+
+        message.guild.members.unban(toBan, reason);
+
+        message.channel.send(`${toBan} has been unbanned from the server!`);
     }
 }

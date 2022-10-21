@@ -1,25 +1,8 @@
-const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-const { Message, Client, EmbedBuilder } = require("discord.js");
+const { capitalizeFirstLetter, boostLevel } = require('../../assets/api/member');
 const { formatedDate, HMS } = require('../../assets/api/time/index');
+const { Message, Client, EmbedBuilder } = require("discord.js");
+const emojiList = require('../../assets/api/member/emoji.json');
 const axios = require('axios');
-
-function checkbadge(x, client) {
-    if (!x) return "";
-    const duration = Date.now() - x;
-
-    let badge = "";
-    if(duration >  1000 * 60 * 60 * 24 * 30 * 24) badge = client.config.emoji.boost_level.level_9;
-    else if(duration >  1000 * 60 * 60 * 24 * 30 *18) badge = client.config.emoji.boost_level.level_8;
-    else if(duration >  1000 * 60 * 60 * 24 * 30 *15) badge = client.config.emoji.boost_level.level_7;
-    else if(duration >  1000 * 60 * 60 * 24 * 30 *12) badge = client.config.emoji.boost_level.level_6;
-    else if(duration >  1000 * 60 * 60 * 24 * 30 *9) badge = client.config.emoji.boost_level.level_5;
-    else if(duration >  1000 * 60 * 60 * 24 * 30 *6) badge = client.config.emoji.boost_level.level_4;
-    else if(duration >  1000 * 60 * 60 * 24 * 30 *3) badge = client.config.emoji.boost_level.level_3;
-    else if(duration >  1000 * 60 * 60 * 24 * 30 *2) badge = client.config.emoji.boost_level.level_2;
-    else badge = client.config.emoji.boost_level.level_1;
-
-    return badge;
-}
 
 module.exports = {
     name: "memberinfo",
@@ -36,20 +19,11 @@ module.exports = {
 
         const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
 
-        let status;
-        try {
-            if (member.presence.status === "dnd") status = "🔴";
-            else if (member.presence.status === "idle") status = "🟡";
-            else if (member.presence.status === "online") status = "🟢";
-            else if (member.presence.status === "streaming") status = "🟣";
-            else status = "⚫";
-        } catch(err) {
-            status = "⚫"
-        }
+        const status = member.presence.status ? emojiList.status[member.presence.status] : "⚫";
 
-        let badge = member.user.flags.toArray();
+        const badge = member.user.flags.toArray();
 
-        const flags = {
+        const flagToEmoji = {
             DISCORD_EMPLOYEE: client.config.emoji.badges.DISCORD_EMPLOYEE,
             DISCORD_PARTNER: client.config.emoji.badges.DISCORD_PARTNER,
             DISCORD_CLASSIC: client.config.emoji.badges.DISCORD_CLASSIC,
@@ -66,66 +40,66 @@ module.exports = {
         };
 
         const activities = [];
-        member?.presence?.activities.forEach(activity => {
-            if (activity.id !== 'custom') {
-                if (activity.name === 'Spotify') activities.push(` **•** Listening to **${activity.details}** by **${activity.state}**`);
-                else activities.push(` **•** ${capitalizeFirstLetter(activity.type)} **${activity.name}**`);
-            }
-        });
+        const activitiesArray = member?.presence?.activities;
 
-        let bannerCheck = null;
-        let bannerLink = null;
-        try {
-            await axios.get(`https://discord.com/api/users/${member.user.id}`, {
-                headers: {
-                    Authorization: `Bot ${client.config.token}`
-                }
-            }).then(res => {
-                const { banner } = res.data;
+        for (let index = 0; index < activitiesArray.length; index++) {
+            const element = activitiesArray[index];
 
-                if (banner) {
-                    bannerCheck = true;
-                    const extension = banner.startsWith("a_") ? '.gif' : '.png';
-                    const url = `https://cdn.discordapp.com/banners/${member.user.id}/${banner}${extension}?size=1024`;
-                    bannerLink = url;
-                }
-            });
-        } catch (err) {
-            bannerCheck = null;
+            if (element.id === 'custom') return;
+
+            if (element.name === 'Spotify') activities.push(` **•** Listening to **${element.details}** by **${element.state}**`);
+            else activities.push(` **•** ${capitalizeFirstLetter(element.type)} **${element.name}**`);
         }
 
-        let nitro = "";
-        if (bannerCheck !== null || member.user.avatarURL({ dynamic: true }).includes('gif')) nitro = client.config.emoji.badges.DISCORD_NITRO;
+        let bannerLink = null;
+        try {
+            const response = (await axios.get(`https://discord.com/api/users/${member.user.id}`, { headers: { Authorization: `Bot ${client.config.token}` } })).data;
 
-        let roles = `<@&${member._roles.join('> <@&')}>`;
-        if (member.roles.cache.size > 50) roles = "Too many roles";
-        if (roles.length === 0) roles = `No roles.`;
+            const { banner } = response;
+
+            if (banner) {
+                const extension = banner.startsWith("a_") ? '.gif' : '.png';
+                const url = `https://cdn.discordapp.com/banners/${member.user.id}/${banner}${extension}?size=1024`;
+
+                bannerLink = url;
+            }
+        } catch (err) {
+            bannerLink = null;
+        }
+
+        const nitroEmoji = client.config.emoji.badges.DISCORD_NITRO;
+        const nitro = bannerLink !== null ? nitroEmoji : member.user.avatarURL({ dynamic: true }).includes('gif') ? nitroEmoji : "";
+
+        const roles = member.roles.cache.size > 50 ? "Too many roles" : member.roles.cache.size <= 1 ? "No roles." : `<@&${member._roles.join('> <@&')}>`;
 
         const embed = new EmbedBuilder()
-            .setThumbnail(member.user.displayAvatarURL({
-                dynamic: true
-            }))
+            .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.members.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.members.me.displayHexColor)
             .setTitle(`${member.user.tag}`)
-            .addFields({
-                name: "User Identity: ",
-                value: `**⚙️ ID**: ${member.user.id}\n**🕐 Created At**: ${formatedDate(member.user.createdAt)}\n**📛 Badges**: ${badge.length ? badge.map(f => flags[f]).join(" ") : ""}${nitro}${member.premiumSince ? (checkbadge(member.premiumSince, client)) : ""}\n**🖼️ Avatar**: [link](${member.user.displayAvatarURL({ type: "png" })})`,
-                inline: false
-            }, {
-                name: "Presence: ",
-                value: `**📃 Status**: ${status}\n**⚽ Activity**:\n${activities.join('\n') ? activities.slice(0, 5).join('\n') : " **•** Nothing"}`,
-                inline: false
-            }, {
-                name: "Server Member Info: ",
-                value: `**💰 Booster**: ${member.premiumSince ? `${formatedDate(member.premiumSince)}` : "Not booster"}\n**🙍‍♂️ Nickname**: ${member.nickname ? member.nickname : "No nickname set"}\n**🤖 Bot**: ${member.user.bot ? `${member.user.bot}` : "Not bot account"}\n**⌛ Joined At**: ${formatedDate(member.joinedAt)}, ${HMS(member.joinedAt)}\n> ${Math.floor(Number(Date.now() - message.guild.members.cache.get(member.id).joinedAt) / 86400000)} day(S) Ago`,
-                inline: false
-            }, {
-                name: `Roles: (${Number(member.roles.cache.size) - 1})`,
-                value: `${roles}`,
-                inline: false
-            });
+            .addFields([
+                {
+                    name: "User Identity: ",
+                    value: `**⚙️ ID**: ${member.user.id}\n**🕐 Created At**: ${formatedDate(member.user.createdAt)}\n**📛 Badges**: ${badge.length ? badge.map(f => flagToEmoji[f]).join(" ") : ""}${nitro}${member.premiumSince ? (boostLevel(member.premiumSince, client)) : ""}\n**🖼️ Avatar**: [link](${member.user.displayAvatarURL({ type: "png" })})`,
+                    inline: false
+                },
+                {
+                    name: "Presence: ",
+                    value: `**📃 Status**: ${status}\n**⚽ Activity**:\n${activities.join('\n') ? activities.slice(0, 5).join('\n') : " **•** Nothing"}`,
+                    inline: false
+                },
+                {
+                    name: "Server Member Info: ",
+                    value: `**💰 Booster**: ${member.premiumSince ? `${formatedDate(member.premiumSince)}` : "Not booster"}\n**🙍‍♂️ Nickname**: ${member.nickname ? member.nickname : "No nickname set"}\n**🤖 Bot**: ${member.user.bot ? `${member.user.bot}` : "Not bot account"}\n**⌛ Joined At**: ${formatedDate(member.joinedAt)}, ${HMS(member.joinedAt)}\n> ${Math.floor(Number(Date.now() - message.guild.members.cache.get(member.id).joinedAt) / 86400000)} day(S) Ago`,
+                    inline: false
+                },
+                {
+                    name: `Roles: (${Number(member.roles.cache.size) - 1})`,
+                    value: `${roles}`,
+                    inline: false
+                }
+            ]);
 
-        if (bannerCheck === true) embed.setImage(bannerLink);
+        if (bannerLink) embed.setImage(bannerLink);
 
         message.channel.send({ embeds: [embed] });
     },

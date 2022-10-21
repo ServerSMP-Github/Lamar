@@ -2,20 +2,20 @@ const { Message, Client, EmbedBuilder } = require('discord.js');
 const fetch = require("axios");
 
 module.exports = {
-    name: 'reddit',
-    usage: '[ subreddit name ]',
+    name: "reddit",
+    usage: "[ subreddit name ]",
     description : "Get info on a subreddit!",
+
     /**
-     * @param {Client} client
-     * @param {Message} message
-     * @param {String[]} args
-     */
+    * @param {Client} client
+    * @param {Message} message
+    * @param {String[]} args
+    */
     run: async(client, message, args) => {
         const input = args.join(" ");
-        if(!input) return message.channel.send("Please provide a subreddit name!");
+        if (!input) return message.channel.send("Please provide a subreddit name!");
 
         const response = (await fetch(`https://api.popcat.xyz/subreddit/${encodeURIComponent(input)}`)).data;
-
         if (response.error) return message.channel.send("Subreddit Not Found!");
 
         const yesno = {
@@ -41,6 +41,6 @@ module.exports = {
                     { name: "Description", value: response.description ? response.description : "None" },
                 ])
             ]
-        })
+        });
     }
 }

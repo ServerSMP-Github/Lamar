@@ -12,40 +12,36 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-        if(!user) return message.channel.send('User not found.')
-        const reason = args.slice(1).join(" ")
-        Schema.findOne({ guildid: message.guild.id, user: user.user.id}, async(err, data) => {
-            if(err) throw err;
-            if(!data) {
-                data = new Schema({
-                    guildid: message.guild.id,
-                    user : user.user.id,
-                    content : [
-                        {
-                            moderator : message.author.id,
-                            reason : reason
-                        }
-                    ]
-                })
-            } else {
-                const obj = {
-                    moderator: message.author.id,
-                    reason : reason
-                }
-                data.content.push(obj)
-            }
-            data.save()
+        const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+        if (!user) return message.channel.send("User not found.");
+
+        let reasonArgs = args.slice(1).join(" ");
+        const reason = reasonArgs ? reasonArgs : "no reason specified";
+
+        let warnData = await Schema.findOne({ guildid: message.guild.id, user: user.user.id });
+        if (!warnData) warnData = await Schema.create({ guildid: message.guild.id, user : user.user.id });
+
+        warnData.content.push({
+            moderator: message.author.id,
+            reason : reason
         });
-        user.send({ embeds: [
-            new EmbedBuilder()
+        await warnData.save();
+
+        user.send({
+            embeds: [
+                new EmbedBuilder()
                 .setDescription(`You have been warned for ${reason}`)
                 .setColor("Red")
-        ]})
-        message.channel.send({ embeds: [
-            new EmbedBuilder()
+            ]
+        });
+
+        message.channel.send({
+            embeds: [
+                new EmbedBuilder()
                 .setDescription(`Warned ${user} for ${reason}`)
                 .setColor('Blue')
-        ]})
+            ]
+        });
+
     }
 }
