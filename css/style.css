@@ -58,16 +58,9 @@ body {
 .container {
     font-family: Arial, Helvetica, sans-serif;
     justify-content: center;
-    margin-right: 10vw;
-    margin-left: 10vw;
+    margin-right: auto;
+    margin-left: auto;
     color: #ffffff;
-}
-
-@media (min-width: 800px) {
-    .container {
-        margin-left: 0;
-        margin-right: 0;
-    }
 }
 
 .nav ul {
