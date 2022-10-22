@@ -1,0 +1,19 @@
+{
+    "Title": "Change log 4.0.0",
+    "Description": [
+        "Full docker support:",
+        " - Hosting the bot has never been easier\n",
+        "Changed commands:",
+        " - Removed some added some\n",
+        "Removed dashboard:",
+        " - I did not like it much so I removed it\n",
+        "Added build in packages:",
+        " - Instead of install packages I made my own\n",
+        "Switched from `.env` to `settings.json`",
+        " - Makes the setting more organized\n",
+        "Better music player:",
+        " - Now uses lavalink\n",
+        "*If you want the full changelog, go take a look at the github*"
+    ],
+    "Image": "https://raw.githubusercontent.com/ServerSMP-Github/BOT/updates/img/4.0.0.png"
+}
