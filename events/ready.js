@@ -50,7 +50,7 @@ client.on("ready", async() => {
     if (!await client.arkDB.has(`${client.user.username}-cmdUsed`)) await client.arkDB.set(`${client.user.username}-cmdUsed`, "0");
   }
 
-  // client.music.init(client.user.id);
+  client.music.init(client.user.id);
 
   global.startSpinner.succeed("Started BOT");
 

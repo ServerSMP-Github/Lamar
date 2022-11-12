@@ -28,7 +28,7 @@ require("./client/anticrash")(client);
 
 require('discord-logs')(client);
 
-// require("./client/lavalink")(client);
+require("./client/lavalink")(client);
 
 const mongoose = require("mongoose");
 
