@@ -40,4 +40,4 @@ jobs:
           push: true
           tags: |
             prinkydinky/bot:v14
-            ghcr.io/ServerSMP-Github/bot:v14
+            ghcr.io/serversmp-github/bot:v14
