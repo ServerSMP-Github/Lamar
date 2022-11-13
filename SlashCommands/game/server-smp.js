@@ -5,7 +5,7 @@ module.exports = {
     description: 'ServerSMP Info',
     run: async(client, interaction, args) => {
       
-      interaction.followUp({content: "Test"});
+      interaction.followUp({content: "ServerSMP Info"});
       
     }
 }
