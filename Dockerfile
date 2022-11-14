@@ -1,4 +1,4 @@
-FROM nodejs-12-centos7
+FROM centos/nodejs-12-centos7:latest
 
 WORKDIR /app
 
