@@ -1,17 +1,15 @@
-FROM ubuntu
+FROM nodejs-12-centos7
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN apt update
-RUN apt install python3-pip -y
-RUN apt install git -y
-RUN apt-get install curl -y
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev -y
-RUN apt install ffmpeg -y
-RUN apt update
+RUN dnf update
+RUN dnf install python3-pip -y
+RUN dnf install git -y
+RUN dnf install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev -y
+RUN dnf install ffmpeg -y
+RUN dnf update
 
 RUN npm install
 
