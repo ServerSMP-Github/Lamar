@@ -15,9 +15,9 @@
 
 <p align="center">
   <a href="https://github.com/Prince527GitHub">
-    <img src="https://github-readme-stats.vercel.app/api?username=Prince527GitHub&show_icons=true&theme=transparent&hide_border=true" width="50%" height="50%" />
+    <img align="center" src="https://github-readme-stats.vercel.app/api?username=Prince527GitHub&show_icons=true&theme=transparent&hide_border=true" width="50%" height="50%" />
   </a>
   <a href="https://github.com/AdrianoAla">
-    <img src="https://github-readme-stats.vercel.app/api?username=AdrianoAla&show_icons=true&theme=transparent&hide_border=true" width="50%" height="50%" />
+    <img align="center" src="https://github-readme-stats.vercel.app/api?username=AdrianoAla&show_icons=true&theme=transparent&hide_border=true" width="50%" height="50%" />
   </a>
 </p>
