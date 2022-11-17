@@ -9,7 +9,13 @@
 
 <p align="center">A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!</p>
 
-Contributor
+<br />
 
-[![Prince527GitHub's GitHub stats](https://github-readme-stats.vercel.app/api?username=Prince527GitHub&show_icons=true&theme=transparent&hide_border=true)](https://github.com/anuraghazra/github-readme-stats)
-[![AdrianoAla's GitHub stats](https://github-readme-stats.vercel.app/api?username=AdrianoAla&show_icons=true&theme=transparent&hide_border=true)](https://github.com/anuraghazra/github-readme-stats)
+<h4 align="center">Contributor<h4>
+
+<a href="https://github.com/Prince527GitHub">
+  <img align="center" src="https://github-readme-stats.vercel.app/api?username=Prince527GitHub&show_icons=true&theme=transparent&hide_border=true" />
+</a>
+<a href="https://github.com/AdrianoAla">
+  <img align="center" src="https://github-readme-stats.vercel.app/api?username=AdrianoAla&show_icons=true&theme=transparent&hide_border=true" />
+</a>
