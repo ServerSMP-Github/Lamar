@@ -1,0 +1,48 @@
+<%- include("partials/header", { bot, user, path, title: `Settings | ${guild.name}` }) %>
+
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+      <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white" style="min-height: 94.5vh!important">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link align-middle px-0" onclick="general()">
+              <i class="fs-4 bi-collection"></i> <span class="ms-1 d-none d-sm-inline">General</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link px-0 align-middle" onclick="moderation()">
+              <i class="fs-4 bi-hammer"></i> <span class="ms-1 d-none d-sm-inline">Moderation</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link px-0 align-middle" onclick="rank()">
+              <i class="fs-4 bi-card-list"></i> <span class="ms-1 d-none d-sm-inline">Rank</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col py-3" id="content">
+      <%- include("./settings/home.ejs") %>
+    </div>
+  </div>
+</div>
+
+<script>
+  function general() {
+    document.getElementById("content").innerHTML = `<%- include("./settings/general.ejs") %>`
+  }
+
+  function moderation() {
+    document.getElementById("content").innerHTML = `<%- include("./settings/moderation.ejs") %>`
+  }
+
+  function rank() {
+    document.getElementById("content").innerHTML = `<%- include("./settings/rank.ejs") %>`
+  }
+</script>
+
+<script src="/js/settings.js"></script>
+
+<%- include("partials/footer") %>
