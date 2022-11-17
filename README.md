@@ -11,5 +11,5 @@
 
 Contributor
 
-[![Prince527GitHub's GitHub stats](https://github-readme-stats.vercel.app/api?username=Prince527GitHub)](https://github.com/anuraghazra/github-readme-stats)
-[![AdrianoAla's GitHub stats](https://github-readme-stats.vercel.app/api?username=AdrianoAla)](https://github.com/anuraghazra/github-readme-stats)
+[![Prince527GitHub's GitHub stats](https://github-readme-stats.vercel.app/api?username=Prince527GitHub&show_icons=true&theme=transparent)](https://github.com/anuraghazra/github-readme-stats)
+[![AdrianoAla's GitHub stats](https://github-readme-stats.vercel.app/api?username=AdrianoAla&show_icons=true&theme=transparent)](https://github.com/anuraghazra/github-readme-stats)
