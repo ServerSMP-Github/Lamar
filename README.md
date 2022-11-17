@@ -8,3 +8,8 @@
 <h3 align="center">ServerSMP - BOT</h3>
 
 <p align="center">A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!</p>
+
+Contributor
+
+[![Prince527GitHub's GitHub stats](https://github-readme-stats.vercel.app/api?username=Prince527GitHub)](https://github.com/anuraghazra/github-readme-stats)
+[![AdrianoAla's GitHub stats](https://github-readme-stats.vercel.app/api?username=AdrianoAla)](https://github.com/anuraghazra/github-readme-stats)
