@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType } = require("discord.js");
-const translate = require("@iamtraction/google-translate")
+const axios = require("axios");
 
 module.exports = {
     name: "Translate",
