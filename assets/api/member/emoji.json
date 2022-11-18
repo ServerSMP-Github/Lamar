@@ -1,9 +1,0 @@
-{
-    "status": {
-        "online": "🟢",
-        "dnd": "🔴",
-        "idle": "🟡",
-        "offline": "⚫",
-        "streaming": "🟣"
-    }
-}
