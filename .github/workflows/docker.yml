@@ -1,4 +1,4 @@
-name: BuildBOT-v13
+name: BuildBOT
 
 on:
   push:
