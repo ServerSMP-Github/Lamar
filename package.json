@@ -37,7 +37,6 @@
   "dependencies": {
     "@androz2091/discord-invites-tracker": "^1.1.1",
     "@discordjs/opus": "0.8.0",
-    "@iamtraction/google-translate": "^1.1.2",
     "@napi-rs/canvas": "0.1.29",
     "@treasure-chess/chess-image-generator": "^1.5.8",
     "aki-api": "^6.0.8",
@@ -48,7 +47,6 @@
     "captcha-canvas": "3.2.1",
     "chart.js": "3.9.1",
     "chartjs-node-canvas": "^4.1.6",
-    "cld": "^2.8.4",
     "color-diff": "^1.2.0",
     "coloras": "^2.0.2",
     "colors": "^1.4.0",

@@ -1,12 +1,12 @@
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType } = require("discord.js");
-const config = require('./settings/settings.json');
+const config = require("./settings/settings.json");
 
-require('events').EventEmitter.defaultMaxListeners = 15;
+require("events").EventEmitter.defaultMaxListeners = 15;
 
-require('./client/settings.js')(config);
-require('./client/font.js')();
+require("./client/settings.js")(config);
+require("./client/font.js")();
 
-global.startSpinner = require('ora')('Starting BOT').start();
+global.startSpinner = require("ora")("Starting BOT").start();
 
 const client = new Client({
   intents: [
@@ -53,10 +53,10 @@ const mongoose = require("mongoose");
 mongoose.connect(config.bot.database.mongo_main);
 
 global.mongoStatus = null;
-const colors  = require('colors/safe');
-mongoose.connection.on('connected', () => global.mongoStatus === true ? console.log("MongoDB √") : global.mongoStatus = colors.green("√"));
-mongoose.connection.on('disconnected', () => global.mongoStatus === true ? console.log("MongoDB ×") : global.mongoStatus = colors.red("×"));
-mongoose.connection.on('error', (err) => console.log(err));
+const colors  = require("colors/safe");
+mongoose.connection.on("connected", () => global.mongoStatus === true ? console.log("MongoDB √") : global.mongoStatus = colors.green("√"));
+mongoose.connection.on("disconnected", () => global.mongoStatus === true ? console.log("MongoDB ×") : global.mongoStatus = colors.red("×"));
+mongoose.connection.on("error", (err) => console.log(err));
 
 require("discord-xp").setURL(config.bot.database.mongo_main);
 
@@ -68,7 +68,7 @@ client.ffmpeg = require("fluent-ffmpeg");
 client.prefix = async function(message) {
   let custom;
 
-  const data = await require('./models/server/prefix').findOne({ Guild: message.guild.id }).exec()
+  const data = await require("./models/server/prefix").findOne({ Guild: message.guild.id }).exec()
     .catch(err => console.log(err));
 
   if (data) custom = data.Prefix;
