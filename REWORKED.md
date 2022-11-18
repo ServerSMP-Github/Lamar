@@ -114,5 +114,9 @@
 - -button-roles
 - -nqn
 - -options*
+- -reaction-roles
 - -report
+- -setup-ticket*
+- -xp-import
+- -cmd-stats*
 - -rank
