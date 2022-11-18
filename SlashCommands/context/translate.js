@@ -14,19 +14,22 @@ module.exports = {
     run: async (client, interaction, args) => {
         const msg = await interaction.channel.messages.fetch(interaction.targetId);
 
-        const translated = await translate(msg.content, {
-            to: 'en'
-        });
-
-        const embed = new EmbedBuilder()
-            .setFooter({ text: `${interaction.user.tag}` })
-            .setTimestamp()
-            .addField("Text To Translate:", `\`\`\`${msg.content.slice(0, 950)}\`\`\``)
-            .addField("Translateted Text:", `\`\`\`${translated.text.slice(0, 950)}\`\`\``)
-            .setColor('Blue')
+        const translated = (await axios.post(`${client.config.translate.url}/translate`, {
+            q: msg.content,
+            source: "auto",
+            target: "en",
+            api_key: client.config.translate.key
+        })).data;
 
         interaction.followUp({
-            embeds: [embed]
+            embeds: [
+                new EmbedBuilder()
+                .setFooter({ text: `${interaction.user.tag}` })
+                .setTimestamp()
+                .addField("Text To Translate:", `\`\`\`${msg.content.slice(0, 950)}\`\`\``)
+                .addField("Translateted Text:", `\`\`\`${translated.translatedText.slice(0, 950)}\`\`\``)
+                .setColor("Blue")
+            ]
         });
 
     },
