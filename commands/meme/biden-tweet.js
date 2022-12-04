@@ -30,7 +30,7 @@ module.exports = {
 
         message.channel.send({
           files: [
-            new AttachmentBuilder(canvas.toBuffer(), { name: 'biden.png' })
+            new AttachmentBuilder(canvas.toBuffer('image/png'), { name: 'biden.png' })
           ],
           embeds: [
             new EmbedBuilder()

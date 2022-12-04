@@ -14,7 +14,6 @@ module.exports = {
      */
     run: async(client, message, args) => {
         const backupID = args[0];
-
         if (!backupID) return message.channel.send(":x: | You must specify a valid backup ID!");
 
         backup.remove(backupID);

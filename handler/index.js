@@ -2,6 +2,7 @@ const { Client, ApplicationCommandType } = require("discord.js");
 const customCommandModel = require("../models/server/cc-slash");
 const { promisify } = require("util");
 const { glob } = require("glob");
+const path = require("path");
 
 const globPromise = promisify(glob);
 
@@ -27,9 +28,7 @@ module.exports = async (client) => {
     eventFiles.map((value) => require(value));
 
     // Slash Commands
-    const slashCommands = await globPromise(
-        `${process.cwd()}/SlashCommands/*/*.js`
-    );
+    const slashCommands = await globPromise(`${process.cwd()}/SlashCommands/*/*.js`);
 
     const arrayOfSlashCommands = [];
     slashCommands.map((value) => {

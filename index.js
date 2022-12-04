@@ -10,13 +10,13 @@ global.startSpinner = require("ora")("Starting BOT").start();
 
 const client = new Client({
   intents: [
-      GatewayIntentBits.Guilds,
-      GatewayIntentBits.GuildMembers,
-      GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.GuildPresences,
-      GatewayIntentBits.GuildVoiceStates,
-      GatewayIntentBits.MessageContent,
-      GatewayIntentBits.GuildMessageReactions
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildPresences,
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMessageReactions
   ],
   partials: [
     Partials.User,
@@ -44,7 +44,7 @@ client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = config;
 
-require("./client/anticrash")(client);
+// require("./client/anticrash")(client);
 
 require("./client/lavalink")(client);
 

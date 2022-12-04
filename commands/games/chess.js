@@ -2,7 +2,7 @@ const getBoardBase64Node = require("@treasure-chess/chess-image-generator/src/no
 const { getBoardLayout } = require("@treasure-chess/chess-image-generator");
 const { Message, Client, AttachmentBuilder } = require('discord.js');
 const pgnParser = require("../../assets/js/pgn-parser.js");
-const { createCanvas, Image } = require('canvas');
+const { createCanvas, Image } = require('@napi-rs/canvas');
 const GIFEncoder = require("gif-encoder-2");
 const path = require('path');
 const fs = require('fs');
@@ -43,64 +43,62 @@ module.exports = {
         const ctx = canvas.getContext('2d'); 
 
         let index = 0;
-        Promise.all(
-            await new Promise(async(resolve2) => {
-                for (const move of array) {
-                    const boardLayout = getBoardLayout(String(array.slice(0, index + 1).join(",")));
-                    const boardBase64 = await getBoardBase64Node(
-                        boardLayout,
-                        "black",
-                        {
-                            size: 500,
-                            dark: "rgb(181, 137, 98)",
-                            light: "rgb(241, 216, 180)",
-                            style: "neo",
-                        }
-                    );
-                    index = index + 1;
-
-                    const image = new Image()
-                    image.onload = () => {
-                        ctx.drawImage(image, 0, 0, 500, 500);
-                        encoder.addFrame(ctx);
-                        resolve2();
+        await new Promise(async(resolve2) => {
+            for (const move of array) {
+                const boardLayout = getBoardLayout(String(array.slice(0, index + 1).join(",")));
+                const boardBase64 = await getBoardBase64Node(
+                    boardLayout,
+                    "black",
+                    {
+                        size: 500,
+                        dark: "rgb(181, 137, 98)",
+                        light: "rgb(241, 216, 180)",
+                        style: "neo",
                     }
-                    image.src = boardBase64;
+                );
+                index = index + 1;
 
-                    if (index === max) {
+                const image = new Image()
+                image.onload = () => {
+                    ctx.drawImage(image, 0, 0, 500, 500);
+                    encoder.addFrame(ctx);
+                    resolve2();
+                }
+                image.src = boardBase64;
 
-                        const random = Math.floor(Math.random() * Math.pow(2, 16)).toString(16);
+                if (index === max) {
 
-                        fs.writeFile(path.join(__dirname, '..', '..', 'temp', `chess-${random}.gif`), encoder.out.getData(), (error) => {
-                            if (error) return message.channel.send("Error writing file");
+                    const random = Math.floor(Math.random() * Math.pow(2, 16)).toString(16);
 
-                            client.ffmpeg(path.join(__dirname, '..', '..', 'temp', `chess-${random}.gif`))
-                                .toFormat('mp4')
-                                .size('500x500')
-                                .output(path.join(__dirname, '..', '..', 'temp', `chess-${random}.mp4`))
-                                .on('end', () => {
+                    fs.writeFile(path.join(__dirname, '..', '..', 'temp', `chess-${random}.gif`), encoder.out.getData(), (error) => {
+                        if (error) return message.channel.send("Error writing file");
 
-                                    message.channel.send({
-                                        files: [new AttachmentBuilder(path.join(__dirname, '..', '..', 'temp', `chess-${random}.mp4`), { name: "chess.mp4" })]
+                        client.ffmpeg(path.join(__dirname, '..', '..', 'temp', `chess-${random}.gif`))
+                            .toFormat('mp4')
+                            .size('500x500')
+                            .output(path.join(__dirname, '..', '..', 'temp', `chess-${random}.mp4`))
+                            .on('end', () => {
+
+                                message.channel.send({
+                                    files: [new AttachmentBuilder(path.join(__dirname, '..', '..', 'temp', `chess-${random}.mp4`), { name: "chess.mp4" })]
+                                });
+
+                                setTimeout(() => {
+                                    fs.unlink(path.join(__dirname, '..', '..', 'temp', `chess-${random}.mp4`), (err) => {
+                                        if (err) console.log(err);
                                     });
 
-                                    setTimeout(() => {
-                                        fs.unlink(path.join(__dirname, '..', '..', 'temp', `chess-${random}.mp4`), (err) => {
-                                            if (err) console.log(err);
-                                        });
-
-                                        fs.unlink(path.join(__dirname, '..', '..', 'temp', `chess-${random}.gif`), (err) => {
-                                            if (err) console.log(err);
-                                        });
-                                    }, 10000);
-                                })
-                                .on('error', (err) => message.channel.send("Error converting file"))
-                                .run();
-                        });
-                    }
+                                    fs.unlink(path.join(__dirname, '..', '..', 'temp', `chess-${random}.gif`), (err) => {
+                                        if (err) console.log(err);
+                                    });
+                                }, 10000);
+                            })
+                            .on('error', (err) => message.channel.send("Error converting file"))
+                            .run();
+                    });
                 }
-            })
-        )
+            }
+        });
 
     }
 }

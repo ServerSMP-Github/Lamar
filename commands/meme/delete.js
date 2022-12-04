@@ -22,7 +22,7 @@ module.exports = {
 
         return message.channel.send({
             files: [
-                new AttachmentBuilder(canvas.toBuffer(), { name: "deleted.png" })
+                new AttachmentBuilder(canvas.toBuffer('image/png'), { name: "deleted.png" })
             ]
         });
     },

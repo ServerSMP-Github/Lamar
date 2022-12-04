@@ -10,7 +10,6 @@ const goodbyeSchema = require("../../models/logs/goodbye");
 const welcomeSchema = require("../../models/logs/welcome");
 const prefixSchema = require("../../models/server/prefix");
 const cmdSchema = require("../../models/server/command");
-const nsfwSchema = require("../../models/server/nsfw");
 const pollSchema = require("../../models/server/poll");
 const nqnSchema = require("../../models/server/nqn");
 
@@ -42,74 +41,7 @@ module.exports = {
       query === file.name ? file.run(client, message, args) : !file.name && !query ? file.run(client, message, args) : null
     });
 
-    if (query === "nsfw") {
-      if (options === "on") {
-        SchemaNSFW.findOne({ Guild: message.guild.id }, async(err, data) => {
-          if(!data) {
-            new SchemaNSFW({
-              Guild: message.guild.id,
-              Channels: [],
-            }).save();
-            message.channel.send("NSFW is turned on.");
-          } else return message.reply("NSFW is allready on.");
-        });
-
-      } else if (options === "off") {
-        SchemaNSFW.findOne({ Guild: message.guild.id }, async(err, data) => {
-          if(data) {
-            data.delete();
-            message.channel.send("NSFW is turned off.");
-          } else return message.reply("NSFW is allready off.");
-        });
-
-      } else if (options === "channel") {
-        if (args[2]?.toLowerCase() === "add") {
-          const channel = message.mentions.channels.last();
-          if (!channel) return message.reply("Please mention a channel!");
-          SchemaNSFW.findOne({ Guild: message.guild.id }, async(err, data) => {
-            if (data) {
-              if (data.Channels.includes(channel.id)) return message.reply("This channel is allready on the list!");
-              data.Channels.push(channel.id);
-              data.save();
-              message.channel.send(`Added ${channel} to NSFW whitelist.`);
-            } else {
-              new SchemaNSFW({
-                Guild: message.guild.id,
-                Channels: [channel.id],
-              }).save();
-              message.channel.send(`Added ${channel} to NSFW whitelist.`);
-            }
-          });
-
-        } else if (args[2]?.toLowerCase() === "remove") {
-          if (args[3]?.toLowerCase() === "all") {
-            SchemaNSFW.findOne({ Guild: message.guild.id }, async(err, data) => {
-              if (data) {
-                data.Channels = [];
-                data.save();
-                message.channel.send("Removed all NSFW channels.");
-              } else return message.reply("This guild does not have a NSFW whitelist!");
-            });
-
-          } else {
-            const channel = message.mentions.channels.last();
-            if (!channel) return message.reply("Please mention a channel!");
-            SchemaNSFW.findOne({ Guild: message.guild.id }, async(err, data) => {
-              if (data) {
-                if (!data.Channels.includes(channel.id)) return message.reply("This channel is not on the list!");
-                data.Channels.splice(data.Channels.indexOf(channel.id), 1);
-                data.save();
-                message.channel.send(`Removed ${channel} from NSFW whitelist.`);
-              } else return message.reply("This guild does not have a NSFW whitelist!");
-            });
-
-          }
-
-        } else return message.reply("Option is not correct!");
-
-      } else return message.reply("Option is not correct!");
-
-    } else if (query === "prefix") {
+    if (query === "prefix") {
       if (options === "set") {
         const res = args[2]
         if (!res) return message.channel.send("Please specify a prefix to change to.")

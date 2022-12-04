@@ -25,7 +25,7 @@ module.exports = {
     ctx.fillStyle = '#000000';
     ctx.fillText(`${say}`, 280, 135);
     ctx.textAlign = "center";
-
+W
     message.channel.send({
       files: [
         new AttachmentBuilder(canvas.toBuffer(), { name: 'dad.png' })

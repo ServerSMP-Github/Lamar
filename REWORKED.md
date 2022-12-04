@@ -38,7 +38,7 @@
 - -rockpaperscissors
 - -snake
 - -tictactoe*
-- -trivia*
+- -trivia
 - -avatar
 - -first-message
 - -help
@@ -93,12 +93,12 @@
 - -set-avatar
 - -set-status
 - -xp-owner
-- -are-ya-okay
+- -are-ya-okay*
 - -kiss*
 - -rip*
 - -slap*
 - -triggered*
-- -wanted*
+- -wanted
 - -axolotl
 - -github
 - -imdb

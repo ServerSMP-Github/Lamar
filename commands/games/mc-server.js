@@ -1,5 +1,4 @@
 const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
-const fetch = require("axios");
 
 module.exports = {
   name: 'mc-server',
@@ -21,7 +20,7 @@ module.exports = {
     const urlType = type == 'bedrock' ? "https://api.mcsrvstat.us/bedrock/2/" : "https://api.mcsrvstat.us/2/"
 
     const url = encodeURI(`${urlType}${ip}`);
-    const { data } = await fetch.get(url);
+    const { data } = await (await fetch(url)).json();
 
     let embed;
     let file = null

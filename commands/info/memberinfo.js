@@ -2,11 +2,10 @@ const { capitalizeFirstLetter, boostLevel } = require('../../assets/api/member')
 const { formatedDate, HMS } = require('../../assets/api/time/index');
 const { Message, Client, EmbedBuilder } = require("discord.js");
 const emojiList = require('../../assets/api/member/emoji.json');
-const axios = require('axios');
 
 module.exports = {
     name: "memberinfo",
-    usage: '[@user (or not)]',
+    usage: '[ @user? ]',
     aliases: ['userinfo', 'who'],
     description: "Show's info of you or mention user.",
     /**
@@ -24,19 +23,19 @@ module.exports = {
         const badge = member.user.flags.toArray();
 
         const flagToEmoji = {
-            DISCORD_EMPLOYEE: client.config.emoji.badges.DISCORD_EMPLOYEE,
-            DISCORD_PARTNER: client.config.emoji.badges.DISCORD_PARTNER,
-            DISCORD_CLASSIC: client.config.emoji.badges.DISCORD_CLASSIC,
-            BUGHUNTER_LEVEL_1: client.config.emoji.badges.BUGHUNTER_LEVEL_1,
-            BUGHUNTER_LEVEL_2: client.config.emoji.badges.BUGHUNTER_LEVEL_2,
-            HYPESQUAD_EVENTS: client.config.emoji.badges.HYPESQUAD_EVENTS,
-            HOUSE_BRAVERY: client.config.emoji.badges.HOUSE_BRAVERY,
-            HOUSE_BRILLIANCE: client.config.emoji.badges.HOUSE_BRILLIANCE,
-            HOUSE_BALANCE: client.config.emoji.badges.HOUSE_BALANCE,
-            EARLY_SUPPORTER: client.config.emoji.badges.EARLY_SUPPORTER,
-            VERIFIED_BOT: client.config.emoji.badges.VERIFIED_BOT,
-            VERIFIED_DEVELOPER: client.config.emoji.badges.VERIFIED_DEVELOPER,
-            EARLY_VERIFIED_DEVELOPER: client.config.emoji.badges.EARLY_VERIFIED_DEVELOPER,
+            Staff: client.config.emoji.badges.staff,
+            Partner: client.config.emoji.badges.partner,
+            Hypesquad: client.config.emoji.badges.hypesquad_events,
+            BugHunterLevel1: client.config.emoji.badges.bughunter_level_1,
+            BugHunterLevel2: client.config.emoji.badges.bughunter_level_2,
+            HypeSquadOnlineHouse1: client.config.emoji.badges.hypesquad_bravery,
+            HypeSquadOnlineHouse2: client.config.emoji.badges.hypesquad_brilliance,
+            HypeSquadOnlineHouse3: client.config.emoji.badges.hypesquad_balance,
+            PremiumEarlySupporter: client.config.emoji.badges.early_supporter,
+            VerifiedBot: client.config.emoji.badges.verified_bot,
+            VerifiedDeveloper: client.config.emoji.badges.verified_developer,
+            CertifiedModerator: client.config.emoji.badges.certified_moderator,
+            ActiveDeveloper: client.config.emoji.badges.active_developer
         };
 
         const activities = [];
@@ -53,7 +52,7 @@ module.exports = {
 
         let bannerLink = null;
         try {
-            const response = (await axios.get(`https://discord.com/api/users/${member.user.id}`, { headers: { Authorization: `Bot ${client.config.token}` } })).data;
+            const response = await (await fetch(`https://discord.com/api/users/${member.user.id}`, { headers: { Authorization: `Bot ${client.config.token}` } })).json();
 
             const { banner } = response;
 
@@ -67,7 +66,7 @@ module.exports = {
             bannerLink = null;
         }
 
-        const nitroEmoji = client.config.emoji.badges.DISCORD_NITRO;
+        const nitroEmoji = client.config.emoji.badges.discord_nitro;
         const nitro = bannerLink !== null ? nitroEmoji : member.user.avatarURL({ dynamic: true }).includes('gif') ? nitroEmoji : "";
 
         const roles = member.roles.cache.size > 50 ? "Too many roles" : member.roles.cache.size <= 1 ? "No roles." : `<@&${member._roles.join('> <@&')}>`;

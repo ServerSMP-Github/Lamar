@@ -1,5 +1,4 @@
 const { Message, Client, EmbedBuilder } = require('discord.js');
-const fetch = require('axios');
 
 module.exports = {
   name: 'update',
@@ -13,9 +12,9 @@ module.exports = {
   run: async (client, message, args) => {
     const query = args[0]?.toLowerCase();
 
-    const update = (await fetch(`https://raw.githubusercontent.com/${client.config.bot.repo.user}/${client.config.bot.repo.repo}/${client.config.bot.repo.branche}/updates.json`)).data
+    const update = await (await fetch(`https://raw.githubusercontent.com/${client.config.bot.repo.user}/${client.config.bot.repo.repo}/${client.config.bot.repo.branche}/updates.json`)).json();
 
-    const version = query == "current" ? client.config.bot.info.version : query == "latest" ? update.latest : update.versions.includes(query) ? query : null;
+    const version = query == "current" ? client.config.bot.repo.version : query == "latest" ? update.latest : update.versions.includes(query) ? query : null;
 
     if (version === null) return message.channel.send({
       embeds: [
@@ -26,7 +25,7 @@ module.exports = {
       ]
     });
 
-    const notes = (await fetch(`https://raw.githubusercontent.com/${client.config.bot.repo.user}/${client.config.bot.repo.repo}/${client.config.bot.repo.branche}/json/update-${version}.json`)).data;
+    const notes = await (await fetch(`https://raw.githubusercontent.com/${client.config.bot.repo.user}/${client.config.bot.repo.repo}/${client.config.bot.repo.branche}/json/update-${version}.json`)).json();
 
     message.channel.send({
       embeds: [

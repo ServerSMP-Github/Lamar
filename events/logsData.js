@@ -224,28 +224,6 @@ client.on("guildMemberAdd", async (member) => {
     });
 });
 
-client.on("guildMemberRemove", async (member) => {
-    const data = await Schema.findOne({
-        Guild: member.guild.id
-    }).exec();
-    if (!data) return;
-    data.MemberRemove.push(`${format}`);
-    data.save();
-
-    let arrayData = [];
-    data.MemberRemove.forEach(channelData => {
-        const parsedYear = channelData.split("-").slice(0, 1);
-
-        const format = dayjs().format('YYYY');
-
-        if(parsedYear === format) {
-            arrayData.push(channelData);
-        } else return;
-        data.MemberRemove = arrayData;
-        data.save();
-    });
-});
-
 client.on("guildMemberUpdate", async (oldMember, newMember) => {
     const data = await Schema.findOne({
         Guild: oldMember.guild.id

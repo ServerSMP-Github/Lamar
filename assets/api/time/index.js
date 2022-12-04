@@ -2,7 +2,7 @@ const month = ["January", "February", "March", "April", "May", "June", "July", "
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 function nth(n) {
-    return [,'st','nd','rd'][n/10%10^1&&n%10]||'th'
+    return [,'st','nd','rd'][n/10%10^1&&n%10]||'th';
 }
 
 function DMY(date) {
@@ -47,9 +47,21 @@ function serverDate(date) {
     return `${time.getHours()}:${time.getMinutes()} ${(time.getHours() >= 12) ? "PM" : "AM"} ${weekday[time.getDay()]} ${time.getDate()}, ${time.getFullYear()}`;
 }
 
+function YYYY(date) {
+    const time = new Date(date);
+    return time.getFullYear();
+}
+
+function YYYY_MM(date) {
+    const time = new Date(date);
+    return `${time.getFullYear()}-${time.getMonth() + 1}`;
+}
+
 module.exports = {
     DMY,
     HMS,
+    YYYY,
+    YYYY_MM,
     fromNow,
     formatedDate,
     serverDate

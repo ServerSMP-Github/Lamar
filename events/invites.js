@@ -1,6 +1,7 @@
-const client = require('../index');
 const Schema = require('../models/logs/invites');
 const { EmbedBuilder } = require("discord.js");
+const client = require('../index');
+
 const InvitesTracker = require("@androz2091/discord-invites-tracker");
 const tracker = InvitesTracker.init(client, {
     fetchGuilds: true,

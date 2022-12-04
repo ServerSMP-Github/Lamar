@@ -1,7 +1,5 @@
-const fetch = require("axios");
-
 module.exports = async(guild, limit = 1000, page = 0) => {
-    const { players } = (await fetch(`https://mee6.xyz/api/plugins/levels/leaderboard/${guild}?limit=${limit}&page=${page}`)).data;
+    const { players } = await (await fetch(`https://mee6.xyz/api/plugins/levels/leaderboard/${guild}?limit=${limit}&page=${page}`)).json();
 
     return players.map((user, index) => {
         const { id, level } = user;

@@ -37,7 +37,7 @@ module.exports = {
                 .setColor(color)
             ],
             files: [
-                new AttachmentBuilder(canvas.toBuffer(), { name: "color.png" })
+                new AttachmentBuilder(canvas.toBuffer('image/png'), { name: "color.png" })
             ]
         });
     }

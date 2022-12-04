@@ -50,20 +50,26 @@ async function newGame(message, opponent) {
                 // fix this logic
                 switch (challengerChoice) {
                     case 'rock': {
-                        if (opponentChoice === 'paper') winner = userOpponent;
-                        else winner = userChallenger;
+                        if (!winner) {
+                            if (opponentChoice === 'paper') winner = userOpponent;
+                            else winner = userChallenger;
+                        }
                     }
                     case 'paper': {
-                        if (opponentChoice === 'scissors') winner = userOpponent;
-                        else winner = userChallenger;
+                        if (!winner) {
+                            if (opponentChoice === 'scissors') winner = userOpponent;
+                            else winner = userChallenger;
+                        }
                     }
                     case 'scissors': {
-                        if (opponentChoice === 'rock') winner = userOpponent;
-                        else winner = userChallenger;
+                        if (!winner) {
+                            if (opponentChoice === 'rock') winner = userOpponent;
+                            else winner = userChallenger;
+                        }
                     }
                 }
 
-                if (challengerChoice === opponentChoice) winner = "draw"
+                if (challengerChoice === opponentChoice) winner = "draw";
             }
 
             if (winner) {
