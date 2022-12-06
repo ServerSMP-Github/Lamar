@@ -1,6 +1,5 @@
 const { EmbedBuilder, Message, Client } = require('discord.js');
 const SchemaNSFW = require('../../models/server/nsfw');
-const axios = require("axios");
 
 module.exports = {
     name: 'boobs',
@@ -17,7 +16,7 @@ module.exports = {
         message.channel.nsfw ? NSFW() : nsfwData.Channels.length > 0 ? !nsfwData.Channels.includes(message.channel.id) ? message.reply("NSFW commands disabled on this channel.") : NSFW() : NSFW();
 
         async function NSFW() {
-            const data = (await axios.get(`http://api.oboobs.ru/boobs/${[Math.floor(Math.random() * 10930)]}`)).data;
+            const data = await (await fetch(`http://api.oboobs.ru/boobs/${[Math.floor(Math.random() * 10930)]}`)).json();
             const preview = data[0]["PREVIEW".toLowerCase()];
             const image = `http://media.oboobs.ru/${preview}`;
             if (!preview) return NSFW();

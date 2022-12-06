@@ -1,7 +1,6 @@
 const translateSchema = require("../../models/server/translate.js");
 const translate = require("@iamtraction/google-translate");
 const client = require("../../index");
-const axios = require("axios");
 const cld = require('cld');
 
 module.exports = async(message) => {
@@ -38,11 +37,14 @@ module.exports = async(message) => {
             iso: translated.from.language.iso
         };
     } else if (client.config.translate.type === "libre") {
-        translated = (await axios.post(`${client.config.translate.url}/translate`, {
-            q: stringContent,
-            source: "auto",
-            target: translateData.Language
-        })).data;
+        translated = await (await fetch(`${client.config.translate.url}/translate`, {
+            method: "POST",
+            body: JSON.stringify({
+                q: stringContent,
+                source: "auto",
+                target: translateData.Language
+            })
+        })).json();
 
         if (!translated.translatedText) return;
 

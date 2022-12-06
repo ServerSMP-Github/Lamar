@@ -1,5 +1,4 @@
 const { Message, Client, EmbedBuilder } = require("discord.js");
-const axios = require('axios');
 
 module.exports = {
     name : 'meme',
@@ -12,7 +11,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const content = (await axios.get('https://www.reddit.com/r/memes/random/.json')).data;
+        const content = await (await fetch('https://www.reddit.com/r/memes/random/.json')).json();
 
         message.channel.send({
             embeds: [

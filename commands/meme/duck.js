@@ -1,5 +1,4 @@
 const { Client, Message, EmbedBuilder } = require("discord.js");
-const fetch = require("axios");
 
 module.exports = {
     name: "duck",
@@ -12,7 +11,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const image = (await fetch("https://random-d.uk/api/v2/random")).data.url;
+        const image = (await (await fetch("https://random-d.uk/api/v2/random")).json()).url;
 
         message.channel.send({
             embeds: [

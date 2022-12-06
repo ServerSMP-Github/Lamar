@@ -1,5 +1,4 @@
 const { Client, Message, EmbedBuilder } = require("discord.js");
-const fetch = require("axios");
 
 module.exports = {
     name: "cat",
@@ -12,7 +11,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const cat = (await fetch("https://aws.random.cat/meow")).data.file;
+        const cat = (await (await fetch("https://aws.random.cat/meow")).json()).file;
 
         message.channel.send({
             embeds: [

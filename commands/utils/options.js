@@ -2,7 +2,6 @@ const { EmbedBuilder, Message, Client, AttachmentBuilder, PermissionsBitField } 
 const { blacklistedwords } = require("../../client/collection");
 const { ChartJSNodeCanvas } = require("chartjs-node-canvas");
 const { drawCard } = require("discord-welcome-card");
-const axios = require("axios");
 
 const blacklistSchema = require("../../models/moderator/blackwords");
 const logDataSchema = require("../../models/logs/logsData");
@@ -1766,9 +1765,9 @@ module.exports = {
 }
 
 async function shorten(url) {
-  const response = await axios.get(encodeURI(`https://api.1pt.co/addURL?long=${url}`));
-  if (response.data.status !== 201) return shorten(url);
-  return response.data.short;
+  const response = await (await fetch(encodeURI(`https://api.1pt.co/addURL?long=${url}`))).json();
+  if (response.status !== 201) return shorten(url);
+  return response.short;
 }
 
 function isValidHttpUrl(string) {

@@ -1,6 +1,5 @@
 const { Message, Client, EmbedBuilder } = require('discord.js');
 const { formatedDate } = require("../../assets/api/time/index");
-const fetch = require("axios");
 
 module.exports = {
   name: "github",
@@ -28,7 +27,7 @@ module.exports = {
         avatar_url,
         created_at,
         public_repos,
-      } = (await fetch(`https://api.github.com/users/${args.join('-')}`)).data;
+      } = await (await fetch(`https://api.github.com/users/${args.join('-')}`)).json();
 
       if (message) return message.reply("User not found | Please give me a valid username!");
 

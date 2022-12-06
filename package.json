@@ -34,7 +34,6 @@
     "@treasure-chess/chess-image-generator": "^1.5.8",
     "aki-api": "^6.0.8",
     "ark.db": "^2.7.1",
-    "axios": "1.2.0",
     "canvacord": "5.4.8",
     "canvas": "2.10.2",
     "captcha-canvas": "3.2.1",
@@ -81,7 +80,6 @@
     "text-essence": "^1.0.15",
     "twemoji": "^14.0.2",
     "ultrax": "2.0.5",
-    "url": "^0.11.0",
     "winston": "3.8.2",
     "ytdl-core": "4.11.2"
   }

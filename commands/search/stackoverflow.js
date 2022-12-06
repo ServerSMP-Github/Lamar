@@ -1,5 +1,4 @@
 const { EmbedBuilder, Message, Client } = require('discord.js');
-const axios = require("axios");
 
 module.exports = {
   name: "stackoverflow",
@@ -15,7 +14,7 @@ module.exports = {
     const query = args.join(" ");
     if (!query) return message.reply("Please provide a query to search for!");
 
-    const result = (await axios(encodeURI(`https://api.discube.gq/stackoverflow?query=${query}`))).data;
+    const result = await (await fetch(encodeURI(`https://api.discube.gq/stackoverflow?query=${query}`))).json();
 
     const { title, tags, answered, views, answers, score, link } = result.result_one;
 

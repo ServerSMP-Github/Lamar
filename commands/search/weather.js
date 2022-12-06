@@ -1,5 +1,4 @@
 const { EmbedBuilder, Message, Client } = require('discord.js');
-const fetch = require("axios");
 
 module.exports = {
   name: "weather",
@@ -17,7 +16,7 @@ module.exports = {
     const location = args.join(" ");
     if (!location) return message.reply("Please enter a location.");
 
-    const response = (await fetch(encodeURI(`http://api.weatherapi.com/v1/current.json?key=${client.config.api.weatherapi}&q=${location}`))).data;
+    const response = await (await fetch(encodeURI(`http://api.weatherapi.com/v1/current.json?key=${client.config.api.weatherapi}&q=${location}`))).json();
 
     message.reply({
       embeds: [

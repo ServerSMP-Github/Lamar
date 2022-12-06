@@ -1,5 +1,4 @@
 const { EmbedBuilder, Message, Client } = require('discord.js');
-const axios = require('axios');
 
 module.exports = {
     name: "steam",
@@ -15,23 +14,23 @@ module.exports = {
         const query = args.join(" ");
         if (!query) return message.reply("You need to specify a game.");
 
-        const search = (await axios.get('https://store.steampowered.com/api/storesearch', {
+        const search = await (await fetch('https://store.steampowered.com/api/storesearch', {
             params: {
                 cc: 'us',
                 l: 'en',
                 term: query
             }
-        })).data;
+        })).json();
 
         if (!search.items.length) return message.channel.send(`No search results found for **${query}**!`);
 
         const { id, tiny_image } = search.items[0];
 
-        const body = (await axios.get('https://store.steampowered.com/api/appdetails', {
+        const body = await (await fetch('https://store.steampowered.com/api/appdetails', {
             params: {
                 appids: id
             }
-        })).data;
+        })).json();
 
         const { data } = body[id.toString()];
         const current = data.price_overview ? `$${data.price_overview.final / 100}` : 'Free';

@@ -1,5 +1,4 @@
 const { Message, Client, EmbedBuilder } = require('discord.js');
-const fetch = require("axios");
 
 module.exports = {
     name: "reddit",
@@ -15,7 +14,7 @@ module.exports = {
         const input = args.join(" ");
         if (!input) return message.channel.send("Please provide a subreddit name!");
 
-        const response = (await fetch(`https://api.popcat.xyz/subreddit/${encodeURIComponent(input)}`)).data;
+        const response = await (await fetch(`https://api.popcat.xyz/subreddit/${encodeURIComponent(input)}`)).json();
         if (response.error) return message.channel.send("Subreddit Not Found!");
 
         const yesno = {

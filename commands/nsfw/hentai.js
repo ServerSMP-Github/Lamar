@@ -1,6 +1,5 @@
 const { EmbedBuilder, Message, Client } = require('discord.js');
 const SchemaNSFW = require('../../models/server/nsfw');
-const axios = require('axios');
 
 module.exports = {
     name: 'hentai',
@@ -18,7 +17,7 @@ module.exports = {
         message.channel.nsfw ? NSFW() : nsfwData.Channels.length > 0 ? !nsfwData.Channels.includes(message.channel.id) ? message.reply("NSFW commands disabled on this channel.") : NSFW() : NSFW();
 
         async function NSFW() {
-            const content = (await axios.get('https://www.reddit.com/r/hentai/random/.json')).data;
+            const content = await (await fetch('https://www.reddit.com/r/hentai/random/.json')).json();
 
             let permalink = content[0].data.children[0].data.permalink;
             let memeUrl = `https://reddit.com${permalink}`;

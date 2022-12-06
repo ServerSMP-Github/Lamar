@@ -1,5 +1,4 @@
 const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
-const axios = require("axios");
 
 module.exports = {
     name: "anime",
@@ -144,7 +143,7 @@ module.exports = {
         else return interaction.followUp("Invalid category");
 
         try {
-            const image = (await axios.get(url)).data.url;
+            const image = (await (await fetch(url)).json()).url;
             interaction.followUp({
                 embeds: [
                     new EmbedBuilder()

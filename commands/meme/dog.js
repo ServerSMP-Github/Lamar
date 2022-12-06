@@ -1,5 +1,4 @@
 const { Client, Message, EmbedBuilder } = require("discord.js");
-const axios = require("axios");
 
 module.exports = {
     name: "dog",
@@ -12,8 +11,8 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        let dog = (await axios.get("https://random.dog/woof.json")).data.url;
-        while (dog.url.endsWith(".webm") || dog.url.endsWith(".mp4")) dog = (await axios.get("https://random.dog/woof.json")).data.url;
+        let dog = (await (await fetch("https://random.dog/woof.json")).json()).url;
+        while (dog.url.endsWith(".webm") || dog.url.endsWith(".mp4")) dog = (await (await fetch("https://random.dog/woof.json")).json()).url;
 
         message.channel.send({
             embeds: [

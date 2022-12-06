@@ -1,6 +1,5 @@
 const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
 const sourcebin = require("sourcebin_js");
-const fetch = require("axios");
 
 module.exports = {
   name: "codebin",
@@ -121,10 +120,10 @@ module.exports = {
         });
     } else if(subCommand === "serversmp") {
       const code = interaction.options.getString("code");
-      fetch({
-        method: 'get',
-        url: `${client.config.api.serversmp}codebin/json?text=${code}`,
-      }).then(async(response) => {
+
+      fetch(`${client.config.api.serversmp}codebin/json?text=${code}`)
+      .then(res => res.json())
+      .then(async(response) => {
         if(response.status === 429) return interaction.followUp({ embeds: [
           new EmbedBuilder()
             .setTitle("Rate Limit")

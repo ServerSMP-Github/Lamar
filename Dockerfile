@@ -26,7 +26,8 @@ USER node
 
 COPY --chown=node:node package*.json ./
 
-RUN npm ci --omit=dev
+# RUN npm ci --omit=dev
+RUN npm i
 
 RUN npm cache clean --force
 

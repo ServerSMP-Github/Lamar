@@ -1,5 +1,4 @@
 const { EmbedBuilder, Message, Client } = require('discord.js');
-const fetch = require('axios');
 
 module.exports = {
   name: 'pokedex',
@@ -17,7 +16,7 @@ module.exports = {
     const name = args.join(" ");
     if (!name) return message.reply('Please provide a pokemon name to search!');
 
-    const res = (await fetch(`https://some-random-api.ml/pokedex?pokemon=${name}`)).data;
+    const res = await (await fetch(`https://some-random-api.ml/pokedex?pokemon=${name}`)).json();
 
     if (!res?.name) return message.reply('Couldn\'t find that pokemon.');
 

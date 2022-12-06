@@ -1,5 +1,4 @@
 const { Message, Client, EmbedBuilder } = require("discord.js");
-const fetch = require("axios");
 
 module.exports = {
   name: "imdb",
@@ -15,7 +14,7 @@ module.exports = {
     const query = args.join(" ");
     if (!query) return message.reply("Please provide a query to search for!");
 
-    const result = (await fetch(`https://api.popcat.xyz/imdb?q=${encodeURIComponent(query)}`)).data;
+    const result = await (await fetch(`https://api.popcat.xyz/imdb?q=${encodeURIComponent(query)}`)).json();
     if (result.error) return message.reply("No movie found.");
 
     message.channel.send({
