@@ -6,8 +6,8 @@
 **/**.disabled
 **/install.sh
 **/.vscode
-**/fonts
 **/build
 **/temp
 **/beta
 **/**.d
+./fonts
