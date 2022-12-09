@@ -14,7 +14,7 @@ module.exports = {
         const query = args[0];
         if (!query) return message.reply("Please specify a query!");
 
-        const response = (await axios(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(this.query)}`)).data;
+        const response = await (await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(this.query)}`)).json();
         if (!response) return message.reply({
             embeds: [
                 new EmbedBuilder()

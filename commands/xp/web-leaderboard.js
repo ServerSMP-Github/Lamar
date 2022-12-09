@@ -1,6 +1,6 @@
+const xpSchema = require("../../models/server/xp");
 const { Message, Client } = require('discord.js');
 const Levels = require('discord-xp');
-const xpSchema = require("../../models/server/xp");
 
 module.exports = {
   name: 'web-leaderboard',
