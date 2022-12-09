@@ -21,7 +21,7 @@ module.exports = {
       if (rawLeaderboard.length < 1) return reply("Nobody's in leaderboard yet.");
       const leaderboard = await Levels.computeLeaderboard(client, rawLeaderboard, true);
       const lb = leaderboard.map(e => `{"username":"${e.username}","discriminator":"${e.discriminator}","level":"${e.level}","xp":"${e.xp.toLocaleString()}"}`);
-      return message.reply(encodeURI(`https://serversmp-api.herokuapp.com/bot/leaderboard?users=[${lb.join(',')}]&name=${message.guild.name}&icon=${message.guild.iconURL()}`));
+      return message.reply(encodeURI(`${client.config.api.serversmp}bot/leaderboard?users=[${lb.join(',')}]&name=${message.guild.name}&icon=${message.guild.iconURL()}`));
     });
   }
 }
