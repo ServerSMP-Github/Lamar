@@ -4,7 +4,7 @@ const config = require("./settings/settings.json");
 require("events").EventEmitter.defaultMaxListeners = 15;
 
 require("./client/settings.js")(config);
-require("./client/font.js")();
+require("./client/font.js")(config);
 
 global.startSpinner = require("ora")("Starting BOT").start();
 
@@ -53,9 +53,9 @@ const mongoose = require("mongoose");
 mongoose.connect(config.bot.database.mongo_main);
 
 global.mongoStatus = null;
-const colors  = require("colors/safe");
-mongoose.connection.on("connected", () => global.mongoStatus === true ? console.log("MongoDB √") : global.mongoStatus = colors.green("√"));
-mongoose.connection.on("disconnected", () => global.mongoStatus === true ? console.log("MongoDB ×") : global.mongoStatus = colors.red("×"));
+const colors  = require("./assets/api/console");
+mongoose.connection.on("connected", () => global.mongoStatus === true ? console.log(`${colors.fgWhite("MongoDB")} ${colors.fgGreen("√")}`) : global.mongoStatus = colors.fgGreen("√"));
+mongoose.connection.on("disconnected", () => global.mongoStatus === true ? console.log(`${colors.fgWhite("MongoDB")} ${colors.fgRed("×")}`) : global.mongoStatus = colors.fgRed("×"));
 mongoose.connection.on("error", (err) => console.log(err));
 
 require("discord-xp").setURL(config.bot.database.mongo_main);

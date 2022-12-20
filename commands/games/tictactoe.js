@@ -1,3 +1,4 @@
+// const { newGame } = require("../../client/tictactoe");
 const { Message, Client } = require('discord.js');
 const { TicTacToe } = require('discord-gamecord');
 
@@ -12,7 +13,9 @@ module.exports = {
    * @param {String[]} args 
    */
   run: async(client, message, args) => {
-    if(!message.mentions.users.first()) return message.reply('Please mention a user to play against!');
+    if (!message.mentions.users.first()) return message.reply('Please mention a user to play against!');
+
+    // await newGame(message, message.mentions.users.first())
 
     new TicTacToe({
       message: message,

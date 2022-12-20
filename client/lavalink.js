@@ -8,7 +8,7 @@ module.exports = (client) => {
 
     if (!config.music.enabled) return client.poru = false;
 
-    const colors = require("colors");
+    const colors = require("../assets/api/console");
 
     client.poru = new Poru(
         client,
@@ -28,10 +28,10 @@ module.exports = (client) => {
             },
         }
     )
-    .on("nodeConnect", (node) => console.log(`${colors.white(`Lavalink:`)} ${colors.green("√")} ${colors.white("||")} ${colors.white(`Host:`)} ${colors.red(node.host)}`))
+    .on("nodeConnect", (node) => console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgGreen("√")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.host)}`))
     .on("nodeClose", (node) => {
         setTimeout(()=> node.connect(), 10000);
-        console.log(`${colors.white(`Lavalink:`)} ${colors.red("×")} ${colors.white("||")} ${colors.white(`Host:`)} ${colors.red(node.host)}`);
+        console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgRed("×")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.host)}`);
     })
     .on("trackStart", (player, track) => client.channels.cache.get(player.textChannel).send({
         embeds: [

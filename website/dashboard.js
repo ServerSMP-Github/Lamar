@@ -1,8 +1,8 @@
 const { PermissionsBitField } = require("discord.js");
 const Strategy = require("passport-discord").Strategy;
+const colors = require('../assets/api/console');
 const MongoStore = require('connect-mongo');
 const session = require("express-session");
-const colors = require('colors/safe');
 const { promisify } = require("util");
 const passport = require("passport");
 const express = require("express");
@@ -192,6 +192,6 @@ module.exports = async (client) => {
   });
 
   app.listen(client.config.dashboard.port ? client.config.dashboard.port : 3000, null, null, () =>
-    console.log(`${colors.white('Dashboard:')} ${colors.green('√')} ${colors.white('||')} ${colors.white('Port:')} ${colors.red(`${client.config.dashboard.port}`)}`),
+    console.log(`${colors.fgWhite('Dashboard:')} ${colors.fgGreen('√')} ${colors.fgWhite('||')} ${colors.fgWhite('Port:')} ${colors.fgRed(`${client.config.dashboard.port}`)}`),
   );
 };

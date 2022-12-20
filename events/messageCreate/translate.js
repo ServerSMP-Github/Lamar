@@ -1,7 +1,7 @@
 const translateSchema = require("../../models/server/translate.js");
 const translate = require("@iamtraction/google-translate");
+const { detectAll } = require("tinyld");
 const client = require("../../index");
-const cld = require('cld');
 
 module.exports = async(message) => {
     if (!message.guild || message.author.bot) return;
@@ -14,11 +14,11 @@ module.exports = async(message) => {
 
     if (!translateData) return;
 
-    const result = await cld.detect(String(msg)).catch(err => { return; });
+    const result = detectAll(msg);
 
     if (!result || result === undefined) return;
-    if (result.languages[0].percent < translateData.Percent) return;
-    if (result.languages[0].code === translateData.Language) return;
+    if (result[0].accuracy * 100 < translateData.Percent) return;
+    if (result[0].lang === translateData.Language) return;
 
     const stringContent = String(message.content);
 
@@ -39,6 +39,10 @@ module.exports = async(message) => {
     } else if (client.config.translate.type === "libre") {
         translated = await (await fetch(`${client.config.translate.url}/translate`, {
             method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 q: stringContent,
                 source: "auto",

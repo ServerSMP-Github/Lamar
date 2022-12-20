@@ -1,11 +1,11 @@
 const { EmbedBuilder, WebhookClient, PermissionsBitField, ActivityType } = require("discord.js");
 const { blacklistedwords } = require('../client/collection');
 const Schema = require('../models/moderator/blackwords');
+const colors = require('../assets/api/console');
 const client = require("../index");
 const { table } = require('table');
-const colors = require('colors');
 
-client.on("ready", async() => {
+client.once("ready", async() => {
 
   const cmdCount = String(Number(client.commands.size) + Number(client.slashCommands.size));
 
@@ -54,23 +54,32 @@ client.on("ready", async() => {
   global.startSpinner.succeed("Started BOT");
 
   console.log(table([
-    [`${colors.gray("Connected To")} ${colors.yellow(`${client.user.tag}`)}`],
-    [`${colors.white("Watching")} ${colors.red(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}`)} ${colors.white(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1 ? "Users + Bots," : "User,"}`)} ${colors.red(`${client.guilds.cache.size}`)} ${colors.white(`${client.guilds.cache.size > 1 ? "Servers." : "Server."}`)}`],
-    [`${colors.white(`MongoDB:`)} ${global.mongoStatus} ${colors.white("||")} ${colors.white(`Prefix:` + colors.red(` ${client.config.bot.info.prefix}`))} ${colors.white("||")} ${colors.red(cmdCount)} ${colors.white(`Commands`)}`],
+    [`${colors.fgGray("Connected To")} ${colors.fgYellow(`${client.user.tag}`)}`],
+    [`${colors.fgWhite("Watching")} ${colors.fgRed(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}`)} ${colors.fgWhite(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1 ? "Users + Bots," : "User,"}`)} ${colors.fgRed(`${client.guilds.cache.size}`)} ${colors.fgWhite(`${client.guilds.cache.size > 1 ? "Servers." : "Server."}`)}`],
+    [`${colors.fgWhite(`MongoDB:`)} ${global.mongoStatus} ${colors.fgWhite("||")} ${colors.fgWhite(`Prefix:` + colors.fgRed(` ${client.config.bot.info.prefix}`))} ${colors.fgWhite("||")} ${colors.fgRed(cmdCount)} ${colors.fgWhite(`Commands`)}`],
   ], {
     columnDefault: {
       width: 50,
     },
     header: {
       alignment: 'center',
-      content: `${require('gradient-string')(['#C19C00', '#13A10E', '#0037DA', '#881798', '#C50F1F']).multiline([
-        `╔═══╗                  ╔═══╗╔═╗╔═╗╔═══╗`,
-        `║╔═╗║                  ║╔═╗║║║╚╝║║║╔═╗║`,
-        `║╚══╗╔══╗╔═╗╔╗╔╗╔══╗╔═╗║╚══╗║╔╗╔╗║║╚═╝║`,
-        `╚══╗║║╔╗║║╔╝║╚╝║║╔╗║║╔╝╚══╗║║║║║║║║╔══╝`,
-        `║╚═╝║║║═╣║║ ╚╗╔╝║║═╣║║ ║╚═╝║║║║║║║║║   `,
-        `╚═══╝╚══╝╚╝  ╚╝ ╚══╝╚╝ ╚═══╝╚╝╚╝╚╝╚╝   `
-      ].join('\n'))}\n${colors.green.bold("Success!")}`,
+      content: `${colors.gradient(
+        [
+          `╔═══╗                  ╔═══╗╔═╗╔═╗╔═══╗`,
+          `║╔═╗║                  ║╔═╗║║║╚╝║║║╔═╗║`,
+          `║╚══╗╔══╗╔═╗╔╗╔╗╔══╗╔═╗║╚══╗║╔╗╔╗║║╚═╝║`,
+          `╚══╗║║╔╗║║╔╝║╚╝║║╔╗║║╔╝╚══╗║║║║║║║║╔══╝`,
+          `║╚═╝║║║═╣║║ ╚╗╔╝║║═╣║║ ║╚═╝║║║║║║║║║   `,
+          `╚═══╝╚══╝╚╝  ╚╝ ╚══╝╚╝ ╚═══╝╚╝╚╝╚╝╚╝   `
+        ].join('\n'),
+        [
+          '#C19C00',
+          '#13A10E',
+          '#0037DA',
+          '#881798',
+          '#C50F1F'
+        ]
+      )}\n${colors.bold(colors.fgGreen("Success!"))}`,
     }
   }));
 

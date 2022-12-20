@@ -116,13 +116,13 @@ async function newGame(message, opponent) {
     }
 
     async function run() {
-        if (!userOpponent) return message.reply("You mush mention someone.");
+        if (!userOpponent) return message.reply("You must mention someone.");
 
         if (userOpponent.bot) return message.reply("You can't play with bots!");
         if (userOpponent.id === userChallenger.id) return message.reply("You cannot play with yourself!");
 
-        const snakeData = await rpsSchema.findOne({ User: userChallenger.id });
-        if (snakeData) return message.reply({ content: "You are already playing rock paper scissors." });
+        const rpsData = await rpsSchema.findOne({ User: userChallenger.id });
+        if (rpsData) return message.reply({ content: "You are already playing rock paper scissors." });
 
         await rpsSchema.create({ Guild: message.guild.id, User: userChallenger.id });
         await rpsSchema.create({ Guild: message.guild.id, User: userOpponent.id });
@@ -155,7 +155,7 @@ async function newGame(message, opponent) {
         });
     }
 
-    run()
+    run();
 
 }
 

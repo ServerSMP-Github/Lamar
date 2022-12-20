@@ -1,6 +1,6 @@
 const { EmbedBuilder, WebhookClient } = require("discord.js");
+const colors = require('../assets/api/console');
 const winston = require('winston');
-const colors = require('colors');
 
 const logger = winston.createLogger({
   transports: [
@@ -16,7 +16,7 @@ module.exports = (client) => {
   const loggerHook = new WebhookClient({ url: client.config.channel.webhooks.error });
 
   process.on('unhandledRejection', (reason, p) => {
-    logger.error(colors.blue('[antiCrash.js]') + colors.red(' Unhandled rejection/crash detected.'));
+    logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Unhandled rejection/crash detected.'));
     logger.error(reason, p);
 
     loggerHook.send({
@@ -38,7 +38,7 @@ module.exports = (client) => {
   });
 
   process.on("uncaughtException", (err, origin) => {
-    logger.error(colors.blue('[antiCrash.js]') + colors.red(' Uncaught exception/catch detected.'));
+    logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Uncaught exception/catch detected.'));
     logger.error(err, origin);
 
     loggerHook.send({
@@ -60,7 +60,7 @@ module.exports = (client) => {
   });
 
   process.on('uncaughtExceptionMonitor', (err, origin) => {
-    logger.error(colors.blue('[antiCrash.js]') + colors.red(' Uncaught exception/catch detected. (Monitor)'));
+    logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Uncaught exception/catch detected. (Monitor)'));
     logger.error(err, origin);
 
     loggerHook.send({

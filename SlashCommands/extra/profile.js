@@ -1,7 +1,7 @@
 const { Client, AttachmentBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const { DMY } = require("../../assets/api/time/index");
 const { createCanvas, loadImage } = require('canvas');
 const Schema = require("../../models/user/profile");
-const { DMY } = require("../../assets/api/time/index");
 
 module.exports = {
     name: "profile",

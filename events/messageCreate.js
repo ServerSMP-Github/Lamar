@@ -4,8 +4,6 @@ const nsfwList = require("../assets/api/cmd/nsfw.json");
 const userSchema = require("../models/user/user-stats"); 
 const ccSchema = require('../models/server/cc');
 const client = require("../index");
-// const Timeout = new Collection();
-// const ms = require("ms");
 
 client.on("messageCreate", async (message) => {
 
@@ -66,23 +64,6 @@ client.on("messageCreate", async (message) => {
           .setDescription( "This command can only be used by the owners!" )
       ]
     });
-
-    // if (command.cooldown) {
-    //     if (Timeout.has(`${command.name}${message.author.id}`))
-    //         return message.channel.send(
-    //             `You are on a \`${ms(
-    //                 Timeout.get(`${command.name}${message.author.id}`) - Date.now(),
-    //                 { long: true }
-    //             )}\` cooldown.`
-    //         );
-    //     Timeout.set(
-    //         `${command.name}${message.author.id}`,
-    //         Date.now() + command.cooldown
-    //     );
-    //     setTimeout(() => {
-    //         Timeout.delete(`${command.name}${message.author.id}`);
-    //     }, command.cooldown);
-    // }
 
     if(client.config.bot.database.mongo_extra && await client.arkDB.has(`${client.user.username}-cmdUsed`) === true) await client.arkDB.set(`${client.user.username}-cmdUsed`, `${Number(await client.arkDB.get(`${client.user.username}-cmdUsed`)) + 1}`);
 
