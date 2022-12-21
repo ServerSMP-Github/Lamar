@@ -19,9 +19,11 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setTitle("New BUG!")
-                .addField("Author", message.author.toString(), true)
-                .addField("Guild", message.guild.name, true)
-                .addField("Report", query)
+                .addFields(
+                    { name: "Author", value: message.author.toString(), inline: true },
+                    { name: "Guild", value: message.guild.name, inline: true },
+                    { name: "Report", value: query }
+                )
                 .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
                 .setTimestamp()
             ]
