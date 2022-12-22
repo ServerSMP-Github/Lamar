@@ -1,15 +1,13 @@
 const { PermissionsBitField } = require("discord.js");
 const Strategy = require("passport-discord").Strategy;
+const { getFileList } = require("../assets/api/file");
 const colors = require('../assets/api/console');
 const MongoStore = require('connect-mongo');
 const session = require("express-session");
-const { promisify } = require("util");
 const passport = require("passport");
 const express = require("express");
-const { glob } = require("glob");
 const url = require("url");
 
-const globPromise = promisify(glob);
 const app = express();
 
 module.exports = async (client) => {
@@ -140,7 +138,7 @@ module.exports = async (client) => {
 
     const setting = {};
 
-    const optionsFiles = await globPromise(`${process.cwd()}/website/options/get/*.js`);
+    const optionsFiles = await getFileList(`${process.cwd()}/website/options/get`, { type: ".js", recursively: false });
     optionsFiles.map((value) => {
       const file = require(value);
 
@@ -171,7 +169,7 @@ module.exports = async (client) => {
 
     const setting = {};
 
-    const optionsFiles = await globPromise(`${process.cwd()}/website/options/set/*.js`);
+    const optionsFiles = await getFileList(`${process.cwd()}/website/options/set`, { type: ".js", recursively: false });
     optionsFiles.map((value) => {
       const file = require(value);
 

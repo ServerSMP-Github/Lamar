@@ -6,7 +6,7 @@ const fs = require('fs');
 
 module.exports = {
     name: "ytdownload",
-    usage: "[url]",
+    usage: "[url] [name]",
     description : "Downloads a video from youtube",
 
     /** 
@@ -16,20 +16,20 @@ module.exports = {
     */
     run: async(client, message, args) => {
         try {
-            const file = args[0];
-            const url = args[1];
+            const file = `${args[1]}.mp4`;
+            const url = args[0];
 
             if (!isValidHttpUrl(url)) return message.reply("Invalid url");
 
-            if (!file) return message.reply('Please provide a file name with the extension.');
-            if (!['mp4', 'webm'].includes(file.split('.')[1])) return message.reply('Please provide a valid file type.');
+            if (!args[1]) return message.reply('Please provide a file name.');
 
             const path = pathMaker.join(__dirname, '..', '..', 'temp', file);
-
             if (fs.existsSync(path)) return message.reply('Someone is already downloading a video with the same file name.');
 
             const stream = fs.createWriteStream(path);
-            ytdl(url, { filter: format => format.container === file.split('.')[1] }).pipe(stream);
+            ytdl(url, { quality: 'highest', filter: 'audioandvideo' }).pipe(stream);
+
+            message.reply(`Downloading <${url}> (this may take a while)`);
 
             stream.on('finish', async() => {
                 fs.stat(path, async(err, { size }) => {
@@ -39,12 +39,10 @@ module.exports = {
                         return message.channel.send('Error downloading file.');
                     }
 
-                    let filesizemax = 8000000;
+                    const premiumTier = message.guild.premiumTier;
+                    const fileSizeMax = premiumTier === 'Tier3' ? 104857600 : premiumTier === 'Tier2' ? 52428800 : 20971520;
 
-                    if (message.guild.premiumTier === 'TIER_2') filesizemax = 5000000;
-                    if (message.guild.premiumTier === 'TIER_3') filesizemax = 10000000;
-
-                    if (size > filesizemax) {
+                    if (size > fileSizeMax) {
                         message.reply('Sorry, the file is too big to send.');
                         fs.unlink(path, (err) => { if (err) console.log(err); });
                     } else {

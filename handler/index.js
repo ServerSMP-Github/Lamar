@@ -1,17 +1,13 @@
 const { Client, ApplicationCommandType } = require("discord.js");
 const customCommandModel = require("../models/server/cc-slash");
-const { promisify } = require("util");
-const { glob } = require("glob");
-const path = require("path");
-
-const globPromise = promisify(glob);
+const { getFileList } = require("../assets/api/file");
 
 /**
  * @param {Client} client
  */
 module.exports = async (client) => {
     // Commands
-    const commandFiles = await globPromise(`${process.cwd()}/commands/**/*.js`);
+    const commandFiles = await getFileList(`${process.cwd()}/commands`, { type: ".js", recursively: true });
     commandFiles.map((value) => {
         const file = require(value);
         const splitted = value.split("/");
@@ -24,11 +20,11 @@ module.exports = async (client) => {
     });
 
     // Events
-    const eventFiles = await globPromise(`${process.cwd()}/events/*.js`);
+    const eventFiles = await getFileList(`${process.cwd()}/events`, { type: ".js", recursively: false });
     eventFiles.map((value) => require(value));
 
     // Slash Commands
-    const slashCommands = await globPromise(`${process.cwd()}/SlashCommands/*/*.js`);
+    const slashCommands = await getFileList(`${process.cwd()}/SlashCommands`, { type: ".js", recursively: true });
 
     const arrayOfSlashCommands = [];
     slashCommands.map((value) => {

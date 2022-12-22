@@ -1,11 +1,8 @@
 const client = require('../index');
 
-const { promisify } = require("util");
-const { glob } = require("glob");
-
-const globPromise = promisify(glob);
+const { getFileList } = require("../assets/api/file");
 
 client.on("messageCreate", async(message) => {
-    const eventFiles = await globPromise(`${process.cwd()}/events/messageCreate/*.js`);
+    const eventFiles = await getFileList(`${process.cwd()}/events/messageCreate`, { type: ".js", recursively: false });
     eventFiles.map((value) => require(value)(message));
 });

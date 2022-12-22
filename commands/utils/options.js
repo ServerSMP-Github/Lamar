@@ -13,6 +13,7 @@ const pollSchema = require("../../models/server/poll");
 const nqnSchema = require("../../models/server/nqn");
 
 const { randomHexColor } = require("../../assets/api/color");
+const { getFileList } = require("../../assets/api/file");
 
 module.exports = {
   name: "options",
@@ -28,12 +29,7 @@ module.exports = {
 
     const query = args[0]?.toLowerCase();
 
-    const { promisify } = require("util");
-    const { glob } = require("glob");
-
-    const globPromise = promisify(glob);
-
-    const optionsFiles = await globPromise(`${process.cwd()}/commands/utils/options/*.js`);
+    const optionsFiles = await getFileList(`${process.cwd()}/commands/utils/options`, { type: ".js", recursively: false });
     return optionsFiles.map((value) => {
       const file = require(value);
 
