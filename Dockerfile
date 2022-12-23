@@ -6,7 +6,7 @@ RUN apk add tini
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-RUN apk add openjdk18
+RUN apk add openjdk18-jre
 RUN apk add python3
 RUN apk add ffmpeg
 
