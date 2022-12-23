@@ -85,7 +85,7 @@ client.once("ready", async() => {
 
   global.mongoStatus = true;
 
-  if (client.config.music.server) console.log(global.lavalinkServer.success ? global.lavalinkServer.success : global.lavalinkServer.error);
+  if (client.config.music.server.enabled) console.log(global.lavalinkServer.success ? global.lavalinkServer.success : global.lavalinkServer.error);
   global.lavalinkServer.check = true;
 
   require("../website/dashboard")(client);
