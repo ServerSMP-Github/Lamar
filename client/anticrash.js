@@ -19,7 +19,7 @@ module.exports = (client) => {
     logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Unhandled rejection/crash detected.'));
     logger.error(reason, p);
 
-    if (!client?.user?.username) return;
+    if (!global.clientLoaded) return;
 
     loggerHook.send({
       username: client.user.username,
@@ -43,7 +43,7 @@ module.exports = (client) => {
     logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Uncaught exception/catch detected.'));
     logger.error(err, origin);
 
-    if (!client?.user?.username) return;
+    if (!global.clientLoaded) return;
 
     loggerHook.send({
       username: client.user.username,
@@ -67,7 +67,7 @@ module.exports = (client) => {
     logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Uncaught exception/catch detected. (Monitor)'));
     logger.error(err, origin);
 
-    if (!client?.user?.username) return;
+    if (!global.clientLoaded) return;
 
     loggerHook.send({
       username: client.user.username,

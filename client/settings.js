@@ -15,6 +15,8 @@ module.exports = (config) => {
 
     global.lavalinkServer = { check: false, success: null, error: null };
 
+    global.clientLoaded = false;
+
     return;
 
     if (!config.channel.ids.report.type) {
