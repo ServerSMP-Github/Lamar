@@ -22,7 +22,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please use \`youtube\``
+                    name: `${client.user.username} will not be doing music anymore, please use \`youtube together\``
                 })
                 .setColor("Blue")
             ]
@@ -59,7 +59,7 @@ module.exports = {
 
         const songTitle = interaction.options.getString("songtitle");
 
-        const resolve = await client.poru.resolve(songTitle);
+        const resolve = await client.poru.resolve({ query: songTitle, source: "ytsearch" });
         const { loadType, tracks, playlistInfo } = resolve;
 
         if (loadType === "PLAYLIST_LOADED") {

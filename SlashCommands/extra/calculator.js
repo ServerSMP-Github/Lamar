@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, ButtonBuilder, ActionRowBuilder, EmbedBuilder, ButtonStyle } = require("discord.js");
-const math = require('mathjs');
+const { doMath } = require("../../assets/api/member");
 
 module.exports = {
     name: 'calculator',
@@ -161,7 +161,7 @@ module.exports = {
             }
             if (i.customId === '=') {
                 await i.deferUpdate();
-                let answer = math.evaluate(equation)
+                let answer = doMath(equation)
                 await i.editReply({
                     embeds: [embed.setDescription(`\`\`\`css\n ${equation + ` = ${answer}`}\n\`\`\``)],
                 }).catch(e => {})

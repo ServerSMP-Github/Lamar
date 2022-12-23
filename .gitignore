@@ -1,4 +1,7 @@
+**/lavalink/app/application.yml
 **/settings/settings.json
+**/lavalink/app/plugins
+**/lavalink/app/logs
 **/antiCrashLog.log
 **/.pnpm-debug.log
 **/pnpm-lock.yaml

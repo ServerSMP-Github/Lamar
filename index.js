@@ -6,7 +6,8 @@ require("events").EventEmitter.defaultMaxListeners = 15;
 require("./client/settings.js")(config);
 require("./client/font.js")(config);
 
-global.startSpinner = require("ora")("Starting BOT").start();
+global.startSpinner = require("./assets/api/console").createSpinner("Starting BOT");
+global.startSpinner.start();
 
 const client = new Client({
   intents: [

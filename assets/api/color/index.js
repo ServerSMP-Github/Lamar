@@ -126,12 +126,40 @@ function randomHexColor() {
     return color;
 }
 
+function distanceColor(c1, c2) {
+    const r1 = c1.R;
+    const g1 = c1.G;
+    const b1 = c1.B;
+
+    const r2 = c2.R;
+    const g2 = c2.G;
+    const b2 = c2.B;
+
+    return Math.sqrt((r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2);
+}
+
+function nearestColor(target, referenceColors) {
+    let minDistance = Infinity;
+    let nearestColor = null;
+
+    for (const color of referenceColors) {
+        const distance = distanceColor(target, color);
+        if (distance < minDistance) {
+            minDistance = distance;
+            nearestColor = color;
+        }
+    }
+
+    return nearestColor;
+}
+
 module.exports = {
     findClosestColor,
     isValidHexCode,
+    randomHexColor,
+    nearestColor,
+    rgbToCmyk,
     hexToRGB,
     rgbToHsv,
-    rgbToHsl,
-    rgbToCmyk,
-    randomHexColor
+    rgbToHsl
 }

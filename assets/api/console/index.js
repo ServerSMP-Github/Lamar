@@ -20,6 +20,10 @@ function fgGray(string) {
     return `\x1b[90m${string}\x1b[0m`;
 }
 
+function fgCyan(string) {
+    return `\x1b[36m${string}\x1b[0m`;
+}
+
 function fgRed(string) {
     return `\x1b[31m${string}\x1b[0m`;
 }
@@ -48,13 +52,54 @@ function gradient(string, colors) {
     return results.join('\n');
 }
 
+const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+let i = 0;
+
+function createSpinner(text) {
+    let interval;
+
+    function start() {
+        interval = setInterval(() => {
+            process.stdout.clearLine();
+            process.stdout.cursorTo(0);
+            process.stdout.write(`${fgCyan(frames[i])} ${text}`);
+            i = (i + 1) % frames.length;
+        }, 50);
+    }
+
+    function stop() {
+        clearInterval(interval);
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+    }
+
+    function succeed() {
+        stop();
+        console.log(`${fgGreen("✔")} ${text}`);
+    }
+
+    function fail() {
+        stop();
+        console.log(`${fgRed("✖")} ${text}`);
+    }
+
+    return {
+        start,
+        stop,
+        succeed,
+        fail
+    };
+}
+
 module.exports = {
+    createSpinner,
     fgYellow,
     gradient,
     fgGreen,
     fgWhite,
     fgBlue,
     fgGray,
+    fgCyan,
     fgRed,
     bold
 }

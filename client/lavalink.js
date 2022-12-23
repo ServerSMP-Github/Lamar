@@ -1,8 +1,11 @@
 module.exports = (client) => {
 
+    require("../lavalink");
+
     const { EmbedBuilder } = require("discord.js");
-    
-    const { Poru } = require('poru');
+
+    const { Poru } = require("poru");
+    // const { Spotify } = require("poru-spotify");
 
     const config = require("../settings/settings.json");
 
@@ -14,25 +17,18 @@ module.exports = (client) => {
         client,
         config.music.lavalink,
         {
-            reconnectTime: 5000,
-            deezer: {
-                playlistLimit: 10,
-            },
-            spotify: {
-                clientID: config.music.spotify.id,
-                clientSecret: config.music.spotify.secret,
-                playlistLimit: 5,
-            },
-            apple: {
-                playlistLimit: 5,
-            },
+            library: "discord.js",
+            defaultPlatform: "ytsearch",
+            plugins: [
+                // new Spotify({
+                //     clientID: config.music.spotify.id,
+                //     clientSecret: config.music.spotify.secret
+                // })
+            ]
         }
     )
-    .on("nodeConnect", (node) => console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgGreen("√")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.host)}`))
-    .on("nodeClose", (node) => {
-        setTimeout(()=> node.connect(), 10000);
-        console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgRed("×")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.host)}`);
-    })
+    .on("nodeConnect", (node) => console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgGreen("√")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.options.host)}`))
+    .on("nodeDisconnect", (node) => console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgRed("×")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.options.host)}`))
     .on("trackStart", (player, track) => client.channels.cache.get(player.textChannel).send({
         embeds: [
             new EmbedBuilder()

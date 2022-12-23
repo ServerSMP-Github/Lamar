@@ -11,7 +11,9 @@ module.exports = (config) => {
     else if (statusType === 'playing') global.statusType = ActivityType.Playing;
     else if (statusType === 'streaming') global.statusType = ActivityType.Streaming;
     else if (statusType === 'competing') global.statusType = ActivityType.Competing;
-    else if (statusType === 'custom') global.statusType = ActivityType.Custom;14
+    else if (statusType === 'custom') global.statusType = ActivityType.Custom;
+
+    global.lavalinkServer = { check: false, success: null, error: null };
 
     return;
 
