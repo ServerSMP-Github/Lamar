@@ -1,5 +1,5 @@
+const { generatePassword } = require('../../assets/api/crypto');
 const { Message, Client } = require('discord.js');
-const generator = require('generate-password');
 
 module.exports = {
     name: 'password',
@@ -16,12 +16,7 @@ module.exports = {
         if(!number) return message.channel.send(String('Enter a password length equal to or less than 100 please :)'))
         if(number > 100 || number < 1) return message.channel.send(String('The password length is not a valid number :), enter a number between 1 to 100'))
 
-        const password = generator.generate({
-          length: number,
-          numbers: true
-        });
-
-        message.member.send(`||\`${password}\`||`);
-        message.channel.send('A random password has been sent to your DMs');
+        message.member.send(`||\`${generatePassword(number)}\`||`);
+        message.reply('A random password has been sent to your DMs');
     }
 }

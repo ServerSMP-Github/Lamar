@@ -1,8 +1,6 @@
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType } = require("discord.js");
 const config = require("./settings/settings.json");
 
-require("events").EventEmitter.defaultMaxListeners = 15;
-
 require("./client/settings.js")(config);
 require("./client/font.js")(config);
 
@@ -45,7 +43,7 @@ client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = config;
 
-require("./client/anticrash")(client);
+// require("./client/anticrash")(client);
 
 require("./client/lavalink")(client);
 

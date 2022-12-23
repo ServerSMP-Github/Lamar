@@ -1,0 +1,143 @@
+{
+    "bot": {
+        "info": {
+            "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "version": "5.0.0 alpha",
+            "prefix": "-"
+        },
+        "database": {
+            "mongo_main": "mongodb://username:password@ip:port/BOT",
+            "mongo_extra": "mongodb://username:password@ip:port/API"
+        },
+        "status": {
+            "text": "{botPrefix}help | {botName} v{botVersion}",
+            "type": "Playing",
+            "status": "dnd"
+        },
+        "owner": [
+            "xxxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxx"
+        ],
+        "repo": {
+            "user": "ServerSMP-Github",
+            "repo": "BOT",
+            "branche": "updates",
+            "version": "5.0.0"
+        }
+    },
+    "api": {
+        "osu": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "chatbot": "xxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "fortnitetracker": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "weatherapi": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "hypixel": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "virustotal": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "serversmp": "https://api.serversmp.xyz/"
+    },
+    "channel": {
+        "ids": {
+            "rankcard": "xxxxxxxxxxxxxxxxxx"
+        },
+        "webhooks": {
+            "status": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "cmdlog": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "report": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "suggest": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "guildlogs": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "error": "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        }
+    },
+    "music": {
+        "enabled": true,
+        "server": {
+            "enabled": true,
+            "debug": false
+        },
+        "lavalink": [
+            {
+                "name": "NODE_1",
+                "host": "localhost",
+                "port": 2333,
+                "password": "youshallnotpass",
+                "secure": false
+            }
+        ]
+    },
+    "dashboard": {
+        "port": 3000,
+        "domain": "https://bot.serversmp.xyz",
+        "customDomain": true,
+        "invite": "https://discord.com/invite/xxxxxxxxxx",
+        "secret": "xxxxxxxxxxxxxx"
+    },
+    "translate": {
+        "type": "libre",
+        "url": "http://localhost:8080",
+        "key": null
+    },
+    "command": {
+        "owner": {
+            "about": true,
+            "blacklist": false,
+            "create-server": false,
+            "eval": false,
+            "set-avatar": true,
+            "set-status": false,
+            "xp-owner": true
+        }
+    },
+    "emoji": {
+        "progressbar": {
+            "fill": {
+                "start": "<:empty_start:xxxxxxxxxxxxxxxxxx>",
+                "bar": "<:empty_bar:xxxxxxxxxxxxxxxxxx>",
+                "end": "<:empty_end:xxxxxxxxxxxxxxxxxx>"
+            },
+            "empty": {
+                "start": "<a:fill_start:xxxxxxxxxxxxxxxxxx>",
+                "bar": "<a:fill_bar:xxxxxxxxxxxxxxxxxx>",
+                "end": "<a:fill_end:xxxxxxxxxxxxxxxxxx>"
+            }
+        },
+        "badges": {
+            "staff": "<:DISCORD_EMPLOYEE:xxxxxxxxxxxxxxxxxx>",
+            "partner": "<:DISCORD_PARTNER:xxxxxxxxxxxxxxxxxx>",
+            "discord_nitro": "<:DISCORD_NITRO:xxxxxxxxxxxxxxxxxx>",
+            "bughunter_level_1": "<:BUGHUNTER_LEVEL_1:xxxxxxxxxxxxxxxxxx>",
+            "bughunter_level_2": "<:BUGHUNTER_LEVEL_2:xxxxxxxxxxxxxxxxxx>",
+            "hypesquad_events": "<:HYPESQUAD_EVENTS:xxxxxxxxxxxxxxxxxx>",
+            "hypesquad_bravery": "<:HOUSE_BRAVERY:xxxxxxxxxxxxxxxxxx>",
+            "hypesquad_brilliance": "<:HOUSE_BRILLIANCE:xxxxxxxxxxxxxxxxxx>",
+            "hypesquad_balance": "<:HOUSE_BALANCE:xxxxxxxxxxxxxxxxxx>",
+            "early_supporter": "<:EARLY_SUPPORTER:xxxxxxxxxxxxxxxxxx>",
+            "verified_bot": "<:VERIFIED_BOT:xxxxxxxxxxxxxxxxxx>",
+            "verified_developer": "<:VERIFIED_DEVELOPER:xxxxxxxxxxxxxxxxxx>",
+            "certified_moderator": "<:CERTIFIED_MODERATOR:xxxxxxxxxxxxxxxxxx>",
+            "active_developer": "<:ACTIVE_DEVELOPER:xxxxxxxxxxxxxxxxxx>"
+        },
+        "boost_level": {
+            "level_1": "<:level_1:xxxxxxxxxxxxxxxxxx>",
+            "level_2": "<:level_2:xxxxxxxxxxxxxxxxxx>",
+            "level_3": "<:level_3:xxxxxxxxxxxxxxxxxx>",
+            "level_4": "<:level_4:xxxxxxxxxxxxxxxxxx>",
+            "level_5": "<:level_5:xxxxxxxxxxxxxxxxxx>",
+            "level_6": "<:level_6:xxxxxxxxxxxxxxxxxx>",
+            "level_7": "<:level_7:xxxxxxxxxxxxxxxxxx>",
+            "level_8": "<:level_8:xxxxxxxxxxxxxxxxxx>",
+            "level_9": "<:level_9:xxxxxxxxxxxxxxxxxx>"
+        }
+    },
+    "font": [
+        {
+            "file": "arial.woff",
+            "name": "Arial"
+        },
+        {
+            "file": "amaranth.woff2",
+            "name": "Amaranth"
+        }
+    ]
+}

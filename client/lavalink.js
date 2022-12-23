@@ -5,7 +5,6 @@ module.exports = (client) => {
     const { EmbedBuilder } = require("discord.js");
 
     const { Poru } = require("poru");
-    // const { Spotify } = require("poru-spotify");
 
     const config = require("../settings/settings.json");
 
@@ -19,17 +18,11 @@ module.exports = (client) => {
         {
             library: "discord.js",
             defaultPlatform: "ytsearch",
-            plugins: [
-                // new Spotify({
-                //     clientID: config.music.spotify.id,
-                //     clientSecret: config.music.spotify.secret
-                // })
-            ]
         }
     )
     .on("nodeConnect", (node) => console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgGreen("√")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.options.host)}`))
     .on("nodeDisconnect", (node) => console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgRed("×")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.options.host)}`))
-    .on("trackStart", (player, track) => client.channels.cache.get(player.textChannel).send({
+    .on("playerStart", (player, track) => client.channels.cache.get(player.textChannel).send({
         embeds: [
             new EmbedBuilder()
             .setDescription(`▶ **|** Started playing: **[${track.info.title}](${track.info.uri})**`)
@@ -38,7 +31,7 @@ module.exports = (client) => {
             .setColor("Blue")
         ]
     }))
-    .on("trackError", (client, player, track, error) => client.channels.cache.get(player.textChannel).send({
+    .on("playerError", (player, track, error) => client.channels.cache.get(player.textChannel).send({
         embeds: [
             new EmbedBuilder()
             .setDescription(`▶ **|** Failed playing: **[${track.info.title}](${track.info.uri})**`)
@@ -47,7 +40,7 @@ module.exports = (client) => {
             .setColor("Blue")
         ]
     }))
-    .on("queueEnd", (player, queue) => {
+    .on("playerDisconnect", (player, track) => {
         client.channels.cache.get(player.textChannel).send({
             embeds: [
                 new EmbedBuilder()

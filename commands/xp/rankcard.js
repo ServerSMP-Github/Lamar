@@ -1,156 +1,129 @@
-const { Message, Client, ActionRowBuilder, MessageButton, EmbedBuilder } = require('discord.js');
-const userRankcard = require('../../models/user/user-rankcard');
+const { Message, Client, ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require('discord.js');
 const rankCardRequest = require('../../models/management/rankcard-request');
+const userRankcard = require('../../models/user/user-rankcard');
+const { isValidHexCode } = require("../../assets/api/color");
 const xpSchema = require("../../models/server/xp");
-const { isColor } = require("coloras");
 
 module.exports = {
-    name: 'rankcard',
-    usage: "[ list or #color ] [ true or false ] [ status or false ] [ image url or not ]",
-    description : "Options for user rankcards.",
-    /**
-     * @param {Client} client
-     * @param {Message} message
-     * @param {String[]} args
-     */
-    run: async(client, message, args) => {
-        xpSchema.findOne({ Guild: message.guild.id }, async(mainErr, mainData) => {
-          if (mainErr) return console.error(mainErr);
-          if (!mainData) return message.reply("XP system is disabled on this server!");
-          if (mainData) {
-            if(!args[0]) return message.reply("You need a color!");
+  name: 'rankcard',
+  usage: "[ list or #color ] [ true or false ] [ status or false ] [ image url or not ]",
+  description : "Options for user rankcards.",
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
+  run: async(client, message, args) => {
+    const xpData = await xpSchema.findOne({ Guild: message.guild.id });
+    if (!xpData) return message.reply("XP system is disabled on this server!");
 
-            if(args[0] === "list") return message.reply({ embeds: [
-                new EmbedBuilder()
-                  .setTitle("RankCard Command")
-                  .setColor("Random")
-                  .addField(
-                    "Basic Colors",
-                    "🟢: `#008000`\n🟡: `#ffff00`\n🟠: `#ffa500`\n🔴: `#ff0000`\n🟣: `#800080`\n🔵: `#0000ff`\n⚫: `#000000`\n⚪: `#ffffff`"
-                  )
-                  .addField(
-                    "Status Style",
-                    "🔴: `true`\n⭕: `false`"
-                  )
-                  .addField(
-                    "Status Type",
-                    "🟢: `online`\n🟡: `idle`\n🔴: `dnd`\n⚫: `offline`\n🟣: `streaming`\n🌈: `false`"
-                  )
-                  .addField(
-                    "URL",
-                    "Just add the url after status type or not."
-                  )
-                  .addField(
-                    "Example",
-                    `\`${await client.prefix(message)}rankcard #ffff00 false idle https://prince527.reeee.ee/5ajFfZxeS.png\``
-                  )
-                  .addField(
-                    "Schema",
-                    `\`${await client.prefix(message)}rankcard [ #color ] [ true or false ] [ status or false ] [ image url or not ]\``
-                  )
-            ]});
+    let color = args[0]?.toLowerCase();
+    let style = args[1]?.toLowerCase();
+    let status = args[2]?.toLowerCase();
+    let image = args[3];
 
-            if(!args[1]) return message.reply("You need a status style (true or false)!");
-            if(!args[2]) return message.reply("You need a status (dnd, idle, offline, online, streaming)!");
+    if (!color) return message.reply({ embeds: [
+      new EmbedBuilder()
+      .setTitle("RankCard Command")
+      .setColor("Random")
+      .addFields(
+        {
+          name: "Basic Colors",
+          value: "🟢: `#008000`\n🟡: `#ffff00`\n🟠: `#ffa500`\n🔴: `#ff0000`\n🟣: `#800080`\n🔵: `#0000ff`\n⚫: `#000000`\n⚪: `#ffffff`"
+        },
+        {
+          name: "Status Style",
+          value: "🔴: `true`\n⭕: `false`"
+        },
+        {
+          name: "Status Type",
+          value: "🟢: `online`\n🟡: `idle`\n🔴: `dnd`\n⚫: `offline`\n🟣: `streaming`\n🌈: `false`"
+        },
+        {
+          name: "URL",
+          value: "Just add the url after status type or not."
+        },
+        {
+          name: "Example",
+          value: `\`${await client.prefix(message)}rankcard #ffff00 false idle https://prince527.reeee.ee/5ajFfZxeS.png\``
+        },
+        {
+          name: "Schema",
+          value: `\`${await client.prefix(message)}rankcard [ #color ] [ true or false ] [ status or false ] [ image url or not ]\``
+        }
+      )
+    ]});
 
-            const isHexColor = color => /^#([0-9A-F]{3}|[0-9A-F]{4}|[0-9A-F]{6}|[0-9A-F]{8})$/i.test(color);
-            if(!isColor(args[0]).color) return message.reply("Not a valid color");
-            if(isHexColor(args[0]) === false) return message.reply("Not a valid hex color");
-            const color = args[0]
+    if (!isValidHexCode(color)) return message.reply("Not a valid color");
 
-            let style;
-            if(args[1] === "true") {
-                style = args[1].toString();
-            } else if(args[1] === "false") {
-                style = args[1].toString();
-            } else return message.reply("Status style are `true`, `false`.");
+    if(!["true", "false"].includes(style)) return message.reply("You need a status style (true or false)!");
 
-            let type;
-            if(args[2] === "false") {
-                type = args[2];
-            } else if(args[2] === "dnd") {
-                type = args[2];
-            } else if(args[2] === "idle") {
-                type = args[2];
-            } else if(args[2] === "offline") {
-                type = args[2];
-            } else if(args[2] === "online") {
-                type = args[2];
-            } else if(args[2] === "streaming") {
-                type = args[2];
-            } else return message.reply("Status type are `dnd`, `idle`, `offline`, `online`, `streaming` or `false`.");
+    if(!["false", "dnd", "idle", "offline", "online", "streaming"].includes(status)) return message.reply("You need a status (dnd, idle, offline, online, streaming)!");
 
-            if(client.config.channel.ids.rankcard) {
-                const image = args[3];
-                if(image) {
-                    if(image.startsWith("http") && image.endsWith(".png") || image.endsWith(".jpeg") || image.endsWith(".jpg")) {
-                        const row = new ActionRowBuilder()
-                            .addComponents(
-                                new MessageButton()
-                                    .setCustomId("rank-card-yes")
-                                    .setLabel("Accept")
-                                    .setStyle("SUCCESS"),
-                                new MessageButton()
-                                    .setCustomId("rank-card-deny")
-                                    .setLabel("Deny")
-                                    .setStyle("DANGER"),
-                                new MessageButton()
-                                    .setCustomId("rank-card-delete")
-                                    .setLabel("Delete")
-                                    .setStyle("SECONDARY")
-                            )
-                        const embed = new EmbedBuilder()
-                            .setTitle(`${message.member.user.username}'s RankCard Image`)
-                            .setDescription("Just click one of the buttons to accept or deny the user's rankcard image.")
-                            .addField("ImageURL", image)
-                            .addField("UserID", message.author.id)
-                            .setColor("Random")
-                        rankCardRequest.findOne({ User: message.author.id }, async(err, data) => {
-                          if(!data) {
-                            client.channels.cache.get(client.config.channel.ids.rankcard).send({ embeds: [embed], components: [row] }).then(async(msg) => {
-                              new rankCardRequest({
-                                Mesaage: msg.id,
-                                User: message.author.id,
-                                Background: image,
-                              }).save();
-                            });
-                            if(data) {
-                              await client.channels.cache.get(client.config.channel.ids.rankcard).messages.fetch(data.Message).then((msg) => msg.delete());
-                              await data.delete();
-                              client.channels.cache.get(client.config.channel.ids.rankcard).send({ embeds: [embed], components: [row] }).then(async(msg) => {
-                                new rankCardRequest({
-                                  Mesaage: msg.id,
-                                  User: message.author.id,
-                                  Background: image,
-                                }).save();
-                              });
-                            }
-                          }
-                        })
-                    } else return message.reply("If you want a image it has to start with `http` and end with `.png` or `.jpeg` or `.jpg`");
-                }
-            }
+    if (client.config.channel.ids.rankcard && image) {
+      if (!image.startsWith("http") && !(image.endsWith(".png") || image.endsWith(".jpeg") || image.endsWith(".jpg"))) return message.reply("If you want a image it has to start with `http` and end with `.png` or `.jpeg` or `.jpg`");
 
-            userRankcard.findOne({ User: message.author.id }, async(err, data) => {
-                if(!data) {
-                    new userRankcard({
-                        User: message.author.id,
-                        ProgressBar: color,
-                        StatusStyle: style,
-                        StatusType: type,
-                        Background: "default",
-                    }).save();
-                } else {
-                    data.ProgressBar = color
-                    data.StatusStyle = style
-                    data.StatusType = type
-                    data.Background = "default"
-                    data.save();
-                }
-            })
+      const row = new ActionRowBuilder()
+        .addComponents(
+          new ButtonBuilder()
+          .setCustomId("rank-card-yes")
+          .setLabel("Accept")
+          .setStyle(ButtonStyle.Success),
+          new ButtonBuilder()
+          .setCustomId("rank-card-deny")
+          .setLabel("Deny")
+          .setStyle(ButtonStyle.Danger),
+          new ButtonBuilder()
+          .setCustomId("rank-card-delete")
+          .setLabel("Delete")
+          .setStyle(ButtonStyle.Secondary)
+        )
 
-            return message.reply("Data Saved!");
+      const embed = new EmbedBuilder()
+        .setTitle(`${message.author.username}'s RankCard Image`)
+        .setDescription("Just click one of the buttons to accept or deny the user's rankcard image.")
+        .addFields(
+          {
+            name: "ImageURL",
+            value: image,
+          },
+          {
+            name: "UserID",
+            value: message.author.id,
           }
-        });
+        )
+        .setColor("Random")
+
+      const channel = client.channels.cache.get(client.config.channel.ids.rankcard);
+
+      const rankCardData = await rankCardRequest.findOne({ User: message.author.id });
+      if (!rankCardData) {
+        const msg = await channel.send({ embeds: [embed], components: [row] });
+
+        await rankCardRequest.create({ Mesaage: msg.id, User: message.author.id, Background: image });
+
+      } else {
+        await channel.messages.fetch(rankCardData.Message).then((msg) => msg.delete());
+
+        await rankCardData.delete();
+
+        const msg = await channel.send({ embeds: [embed], components: [row] });
+
+        await rankCardRequest.create({ Mesaage: msg.id, User: message.author.id, Background: image });
+      }
     }
+
+    const userData = await userRankcard.findOne({ User: message.author.id });
+    if (!userData) await userRankcard.create({ User: message.author.id, ProgressBar: color, StatusStyle: style, StatusType: status, Background: "default" });
+    else {
+      userData.ProgressBar = color;
+      userData.StatusStyle = style;
+      userData.StatusType = status;
+      userData.Background = "default";
+
+      await userData.save();
+    }
+
+    return message.reply("Data Saved!");
+  }
 }

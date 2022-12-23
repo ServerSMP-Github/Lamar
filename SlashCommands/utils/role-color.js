@@ -1,7 +1,6 @@
 const { Client, CommandInteraction, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const { isValidHexCode, findClosestColor } = require("../../assets/api/color");
 const roleSchema = require("../../models/server/roles-colors");
-const ColorHelper = require('../../assets/api/color/index');
-const { isColor } = require("coloras");
 
 module.exports = {
     name: "role-color",
@@ -79,7 +78,7 @@ module.exports = {
 
             const optionColor = interaction.options.getString("color");
 
-            const colorCheck = isColor(optionColor);
+            const colorCheck = isValidHexCode(optionColor);
             if (colorCheck.color !== true && colorCheck.colorSystem !== "hex") return interaction.followUp({ content: "Color is invalid", ephemeral: true });
 
             const colorName = interaction.options.getString("name");
@@ -165,7 +164,7 @@ module.exports = {
 
                 colorList.push({
                     name: `**${element.name}**`,
-                    value: `\`${element.color}\` **-** *${await ColorHelper.findClosestColor(element.color)}*`
+                    value: `\`${element.color}\` **-** *${await findClosestColor(element.color)}*`
                 });
 
             }
