@@ -52,7 +52,6 @@ client.once("ready", async() => {
   client.poru.init(client);
 
   global.startSpinner.succeed();
-  global.clientLoaded = true;
 
   console.log(table([
     [`${colors.fgGray("Connected To")} ${colors.fgYellow(`${client.user.tag}`)}`],

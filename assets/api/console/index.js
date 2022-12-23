@@ -60,7 +60,7 @@ function createSpinner(text) {
 
     function start() {
         interval = setInterval(() => {
-            process.stdout.clearLine();
+            // process.stdout.clearLine();
             process.stdout.cursorTo(0);
             process.stdout.write(`${fgCyan(frames[i])} ${text}`);
             i = (i + 1) % frames.length;
@@ -69,7 +69,7 @@ function createSpinner(text) {
 
     function stop() {
         clearInterval(interval);
-        process.stdout.clearLine();
+        // process.stdout.clearLine();
         process.stdout.cursorTo(0);
     }
 
