@@ -16,7 +16,7 @@ module.exports = async(message) => {
 
     const result = detectAll(msg);
 
-    if (!result || result === undefined) return;
+    if (!result[0] || !result || result === undefined) return;
     if (result[0].accuracy * 100 < translateData.Percent) return;
     if (result[0].lang === translateData.Language) return;
 
