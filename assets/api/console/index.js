@@ -60,8 +60,6 @@ function createSpinner(text) {
 
     function start() {
         interval = setInterval(() => {
-            // process.stdout.clearLine();
-            process.stdout.cursorTo(0);
             process.stdout.write(`\r${fgCyan(frames[i])} ${text}`);
             i = (i + 1) % frames.length;
         }, 50);
@@ -69,18 +67,16 @@ function createSpinner(text) {
 
     function stop() {
         clearInterval(interval);
-        // process.stdout.clearLine();
-        process.stdout.cursorTo(0);
     }
 
     function succeed() {
         stop();
-        console.log(`${fgGreen("✔")} ${text}`);
+        console.log(`\r${fgGreen("✔")} ${text}`);
     }
 
     function fail() {
         stop();
-        console.log(`${fgRed("✖")} ${text}`);
+        console.log(`\r${fgRed("✖")} ${text}`);
     }
 
     return {
