@@ -1,14 +1,12 @@
 FROM node:18-alpine
 
-RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
-
 RUN apk update
 
 RUN apk add tini
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-RUN apk add openjdk18-jdk@community
+RUN apk add openjdk11
 RUN apk add python3
 RUN apk add ffmpeg
 
