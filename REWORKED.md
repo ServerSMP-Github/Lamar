@@ -15,13 +15,12 @@
 - -cc-delete
 - -cc-list
 - -8ball
-- -activity*
 - -afk
 - -ascii
 - -color
 - -dice
 - -echo
-- -emoji-img*
+- -emoji-img
 - -password*
 - -polls
 - -qrcode*
