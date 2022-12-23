@@ -1,12 +1,12 @@
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const { nearestColor } = require("../../assets/api/color");
 const { Message, Client } = require("discord.js");
 const twemoji = require('twemoji');
-const Jimp = require('jimp');
 
 module.exports = {
     name: 'emoji-img',
-    usage: '[ emoji ]',
-    description: 'Turn emoji into an image with emojis',
+    usage: '[ emoji | img ]',
+    description: 'Turn emoji/images into emojis',
     /**
      *
      * @param {Client} client
@@ -82,95 +82,73 @@ module.exports = {
             }
         ];
 
-        if (args.length < 1) return message.reply(":warning: Need one argument. A custom emoji or image url.");
+        const getUrl = (client, args) => {
+            const emojiName = (args[0]?.split(":")[2])?.split(">")[0];
+            const emoji = message.guild.emojis.resolve(emojiName);
 
-        const emojiName = args[0].split(":")[1];
-
-        const emoji = client.emojis.resolve(emojiName);
-        let url = "";
-
-        if (!emoji) {
-            if (args[0].startsWith("https://") || args[0].startsWith("http://") && args[0].endsWith(".png") || args[0].endsWith(".jpg")) url = args[0];
+            if (emoji) return emoji.url;
+            else if (args[0].startsWith("https://") || args[0].startsWith("http://") && args[0].endsWith(".png") || args[0].endsWith(".jpg")) return args[0];
             else {
-                let text = twemoji.parse(args[0]);
-                if (!text.startsWith("<img")) return message.reply("Error. Only works with custom emojis from this guild / default emojis / png or jpg urls.");
-                const pos = text.indexOf("src");
-                text = text.substring(pos + 5);
-                text = text.substring(0, text.length - 3);
-                url = text;
+
+                const text = twemoji.parse(args[0]);
+                if (text.startsWith("<img")) {
+                    const pos = text.indexOf("src");
+                    return text.substring(pos + 5, text.length - 3);
+                } else return null;
             }
         }
 
-        if (url == "") {
-            url = emoji.url;
-            message.channel.send(url);
-        } else message.channel.send("Generating..");
+        const processImage = async (url, palette) => {
+            const canvas = createCanvas(30, 30);
+            const ctx = canvas.getContext('2d');
 
-        const palette = [];
-        for (let i = 0; i < emojiRgb.length; i++) {
-            palette.push({
-                R: emojiRgb[i].R,
-                G: emojiRgb[i].G,
-                B: emojiRgb[i].B,
-            });
+            const image = await loadImage(url);
+            ctx.drawImage(image, 0, 0, 30, 30);
+
+            const imageData = ctx.getImageData(0, 0, 30, 30);
+
+            const characters = [];
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const color = {
+                    R: imageData.data[i],
+                    G: imageData.data[i + 1],
+                    B: imageData.data[i + 2],
+                };
+                const nearest = nearestColor(color, palette);
+                characters.push(nearest);
+            }
+
+            return characters;
         }
 
-        const transColors = [];
-        const imgName = "temp/images/emoji.png";
-        Jimp.read(url, (err, img) => {
-            if (err) return message.reply("Error. Could not read image.");
+        try {
+            const url = getUrl(client, args);
+            if (!url) return message.reply("Error. Only works with custom emojis from this guild / default emojis / png or jpg urls.");
 
-            img
-                .resize(30, 30)
-                .write(imgName, () => {
-                    Jimp.read(imgName, (err, img) => {
-                        if (err) throw err;
+            message.channel.send("Generating..");
 
-                        for (let i = 0; i < 30; i++) {
-                            for (let j = 0; j < 30; j++) {
-                                const hex = img.getPixelColor(j, i);
-                                const rgb = Jimp.intToRGBA(hex);
+            const rgbValue = await processImage(url, emojiRgb);
 
-                                transColors.push(nearestColor({
-                                    R: rgb.r,
-                                    G: rgb.g,
-                                    B: rgb.b
-                                }, palette));
-                            }
-                        }
+            const results = [];
+            for (let i = 0; i < rgbValue.length; i++) results.push(rgbValue[i].E);
 
-                        const results = [];
-                        for (let i = 0; i < transColors.length; i++) {
-                            const e2 = Object.values(transColors[i]);
+            for (let mul = 0; mul < 10; mul++) {
+                let string1 = "";
+                let string2 = "";
+                let string3 = "";
 
-                            for (let j = 0; j < emojiRgb.length; j++) {
-                                const e1 = Object.values(emojiRgb[j]).slice(0, -1);
-                                let e3 = false;
+                const base = 90 * mul;
+                for (var i = 0; i < 30; i++) {
+                    string1 += results[i + base];
+                    string2 += results[i + 30 + base];
+                    string3 += results[i + 60 + base];
+                }
 
-                                if (e1[0] == e2[0] && e1[1] == e2[1] && e1[2] == e2[2]) e3 = true;
-                                if (e3) {
-                                    results.push(emojiRgb[j].E);
-                                    break;
-                                }
-                            }
-                        }
-
-                        for (let mul = 0; mul < 10; mul++) {
-                            let string1 = "";
-                            let string2 = "";
-                            let string3 = "";
-
-                            const base = 90 * mul;
-                            for (var i = 0; i < 30; i++) {
-                                string1 += results[i + base];
-                                string2 += results[i + 30 + base];
-                                string3 += results[i + 60 + base];
-                            }
-
-                            message.channel.send(`${string1}\n${string2}\n${string3}`);
-                        }
-                    });
-                });
-        });
+                message.channel.send(`${string1}\n${string2}\n${string3}`);
+            }
+        } catch (err) {
+            console.error(err);
+            message.reply("Error. Could not process image.");
+        }
     },
 };
