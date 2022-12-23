@@ -18,8 +18,8 @@ module.exports = {
       ],
     },
     {
-      name: "hastebin",
-      description: "Haste Bin",
+      name: "sourcebin",
+      description: "SourceBin",
       type: ApplicationCommandOptionType.Subcommand,
       options: [{
           type: ApplicationCommandOptionType.String,
