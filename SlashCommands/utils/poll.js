@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ChannelType, ApplicationCommandType, ApplicationCommandOptionType, ButtonStyle } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ChannelType, ApplicationCommandType, ApplicationCommandOptionType, ButtonStyle, ButtonBuilder } = require('discord.js');
 const Schema = require('../../models/server/poll-cmd');
 
 module.exports = {
@@ -87,82 +87,48 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        let title = interaction.options.getString('title');
-        let c1 = interaction.options.getString('choice1');
-        let c2 = interaction.options.getString('choice2');
-        let c3 = interaction.options.getString('choice3');
-        let c4 = interaction.options.getString('choice4');
-        let c5 = interaction.options.getString('choice5');
-        let c6 = interaction.options.getString('choice6');
-        let c7 = interaction.options.getString('choice7');
-        let c8 = interaction.options.getString('choice8');
-        let c9 = interaction.options.getString('choice9');
-        let c10 = interaction.options.getString('choice10');
-
+        const title = interaction.options.getString('title');
         if (title.length > 255) return interaction.followUp({ content: "Keep the title under 255 characters", ephemeral: true });
 
         const array = [];
-        array.push(c1);
-        array.push(c2);
-        array.push(c3);
-        array.push(c4);
-        array.push(c5);
-        array.push(c6);
-        array.push(c7);
-        array.push(c8);
-        array.push(c9);
-        array.push(c10);
+        for (let i = 1; i <= 10; i++) array.push(interaction.options.getString(`choice${i}`));
 
-        const emoji = [
-            "1️⃣",
-            "2️⃣",
-            "3️⃣",
-            "4️⃣",
-            "5️⃣",
-            "6️⃣",
-            "7️⃣",
-            "8️⃣",
-            "9️⃣",
-            "🔟"
-        ];
+        const emoji = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"];
 
         const embed = new EmbedBuilder()
             .setTitle(`**${title}**`)
             .setColor("Random")
             .setTimestamp();
 
-        const buttons = [];
-        const rows = [];
-
-        array.forEach((element, i) => {
-            if (!element) return;
-
-            if (element.length > 1023) return interaction.followUp({ content: `Keep The Choice ${i + 1} Under \`1023\` Characters`, ephemeral: true });
+        const buttons = array.reduce((acc, element, i) => {
+            if (!element || element.length > 1023) return acc;
 
             embed.addFields({
                 value: '\u200b',
                 name: `${emoji[i]} ${element}`,
             });
 
-            buttons.push({
-                emoji: `${emoji[i]}`,
-                label: '0',
-                style: ButtonStyle.Primary,
-                custom_id: `poll${i + 1}`,
-                disabled: false,
-                type: 2,
-            });
-        });
+            acc.push(
+                new ButtonBuilder()
+                .setCustomId(`poll${i + 1}`)
+                .setLabel('0')
+                .setEmoji(`${emoji[i]}`)
+                .setDisabled(false)
+                .setStyle(ButtonStyle.Primary)
+            )
 
-        for (let i = 0; i < Math.ceil(buttons.length / 5); i++) {
+            return acc;
+        }, []);
+
+        let index = 0;
+        const rows = [];
+        while (index < buttons.length) {
             rows.push(new ActionRowBuilder());
+            rows[rows.length - 1].addComponents(buttons.slice(index, index + 5));
+            index += 5;
         }
 
-        rows.forEach((row, i) => {
-            row.addComponents(buttons.slice(0 + (i * 5), 5 + (i * 5)));
-        });
-
-        let message = null;
+        const channelOption = interaction.options.getChannel('destination');
 
         const content = {
             content: `📊 ${interaction.user} started a poll`,
@@ -170,17 +136,12 @@ module.exports = {
             components: rows
         };
 
-        let channel = interaction.options.getChannel('destination');
-        if (channel) {
-            message = await channel.send(content);
-            interaction.followUp({
-                content: "Created poll"
-            });
-        } else message = await interaction.followUp(content);
+        let message = null;
+        if (channelOption) message = await channel.send(content);
+        else message = await interaction.followUp(content);
 
-        await Schema.create({
-            messageId: message.id
-        });
+        if (channelOption) interaction.followUp({ content: "Created poll" });
 
+        await Schema.create({ message: message.id });
     },
 };
