@@ -2,10 +2,10 @@ const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js
 const guildRankcard = require("../../models/server/guild-rankcard");
 const userRankcard = require("../../models/user/user-rankcard");
 const progressbar = require('../../assets/api/progressbar');
+const { fetchUser, xpFor } = require("../../assets/api/xp");
 const { cleanText } = require('../../assets/api/text');
 const xpSchema = require("../../models/server/xp");
 const canvacord = require("canvacord");
-const Levels = require('discord-xp');
 
 module.exports = {
   name: "rank",
@@ -24,10 +24,10 @@ module.exports = {
     const getUser = message.mentions.members.first() ? message.mentions.members.first() : message.member;
     const checkUser = getUser.user.id == client.user.id ? message.member : getUser;
 
-    const userXp = await Levels.fetch(checkUser.user.id, message.guild.id, true);
+    const userXp = await fetchUser(checkUser.user.id, message.guild.id, true);
     if (!userXp) return message.reply("You dont have xp. try to send some messages.");
 
-    const totalXp = Levels.xpFor(userXp.level + 1);
+    const totalXp = xpFor(userXp.level + 1);
     const positionXp = userXp.position;
     const levelXp = userXp.level;
     const currentXp = userXp.xp;

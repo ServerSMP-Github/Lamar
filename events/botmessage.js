@@ -1,7 +1,7 @@
+const { createUser, setLevel } = require("../assets/api/xp");
 const getLeaderboard = require("../assets/api/mee6");
 const xpSchema = require('../models/server/xp');
 const { EmbedBuilder } = require('discord.js');
-const Levels = require("discord-xp");
 const client = require('../index');
 
 client.on("guildCreate", async(guild) => {
@@ -40,8 +40,8 @@ client.on("guildCreate", async(guild) => {
   for (let index = 0; index < mee6Data.length; index++) {
     const element = mee6Data[index];
 
-    await Levels.createUser(element.id, message.guild.id);
-    if (element.level >= 1) await Levels.setLevel(element.id, message.guild.id, element.level);
+    await createUser(element.id, message.guild.id);
+    if (element.level >= 1) await setLevel(element.id, message.guild.id, element.level);
     // if (element.xp >= 1) await Levels.appendXp(element.id, message.guild.id, element.xp);
   }
 

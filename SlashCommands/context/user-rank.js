@@ -1,8 +1,8 @@
 const { Client, CommandInteraction, EmbedBuilder, AttachmentBuilder, ApplicationCommandType } = require("discord.js");
 const progressbar = require('../../assets/api/progressbar');
+const { fetchUser, xpFor } = require("../../assets/api/xp");
 const xpSchema = require("../../models/server/xp");
 const canvacord = require("canvacord");
-const Levels = require('discord-xp');
 
 module.exports = {
     name: "user rank",
@@ -23,13 +23,13 @@ module.exports = {
             ephemeral: true
         });
 
-        const xpUser = await Levels.fetch(user.id, interaction.guild.id, true);
+        const xpUser = await fetchUser(user.id, interaction.guild.id, true);
         if (!xpUser) return interaction.followUp({
             content: "You dont have xp. try to send some messages.",
             ephemeral: true
         });
 
-        const total = Levels.xpFor(xpUser.level + 1);
+        const total = xpFor(xpUser.level + 1);
         const current = xpUser.xp;
 
         if (user.id === client.user.id) return interaction.followUp({

@@ -1,5 +1,5 @@
+const { setLevel, setXp } = require("../../assets/api/xp");
 const { Message, Client } = require('discord.js');
-const Levels = require('discord-xp');
 
 module.exports = {
     name: 'xp-owner',
@@ -23,8 +23,8 @@ module.exports = {
 
         if (!user || !guild || !amount) return message.reply("Please specify a user, guild and amount!");
 
-        if (query === "level") Levels.setLevel(user, guild, amount);
-        else if (query === "xp") Levels.setXp(user, guild, amount);
+        if (query === "level") setLevel(user, guild, amount);
+        else if (query === "xp") setXp(user, guild, amount);
 
         message.reply(`Changed ${query} of ${user} on ${guild}`);
     }

@@ -13,10 +13,10 @@ const SchemaGlobal = require('../models/server/global');
 // const Starboard = require('../models/server/starboard');
 const SchemaCMD = require('../models/server/command');
 const CustomCommand = require('../models/server/cc');
+const { deleteGuild } = require("../assets/api/xp");
 const LogData = require('../models/logs/logsData');
 const Schema = require('../models/logs/invites');
 const xpSchema = require('../models/server/xp');
-const Levels = require("discord-xp");
 const client = require('../index');
 
 client.on('guildDelete', async(guild) => {
@@ -122,6 +122,6 @@ client.on('guildDelete', async(guild) => {
     });
 
     // XP
-    Levels.deleteGuild(guild.id);
+    deleteGuild(guild.id);
 
 });
