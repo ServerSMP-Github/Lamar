@@ -138,6 +138,14 @@
         {
             "file": "amaranth.woff",
             "name": "Amaranth"
+        },
+        {
+            "file": "noto-regular.ttf",
+            "name": "Noto"
+        },
+        {
+            "file": "noto-emoji.ttf",
+            "name": "Noto"
         }
     ]
 }

@@ -136,11 +136,23 @@ async function deleteGuild(guildID) {
     return guild;
 }
 
+async function deleteUser(userID, guildID) {
+    if (!userID | !guildID) return console.error("Missing argument");
+
+    const user = await Schema.findOne({ userID, guildID });
+    if (!user) return false;
+
+    await Schema.findOneAndDelete({ userID, guildID });
+
+    return user;
+}
+
 
 module.exports = {
     computeLeaderboard,
     fetchLeaderboard,
     deleteGuild,
+    deleteUser,
     createUser,
     fetchUser,
     appendXp,

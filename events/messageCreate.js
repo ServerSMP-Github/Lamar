@@ -1,7 +1,8 @@
 const { EmbedBuilder, Collection, WebhookClient } = require('discord.js');
 const blacklistSchema = require('../models/management/blacklist');
 const nsfwList = require("../assets/api/cmd/nsfw.json");
-const userSchema = require("../models/user/user-stats"); 
+const userSchema = require("../models/user/user-stats");
+const botSchema = require("../models/logs/botStats");
 const ccSchema = require('../models/server/cc');
 const client = require("../index");
 
@@ -11,9 +12,7 @@ client.on("messageCreate", async (message) => {
 
   const prefix = await client.prefix(message);
 
-  const mentionRegex = new RegExp(`^<@!?${client.user.id}>( |)$`);
-
-  if (message.content.match(mentionRegex)) return message.channel.send({ content: `Prefix: \`${prefix}\`` });
+  if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) return message.channel.send({ content: `Prefix: \`${prefix}\`` });
 
   if (!message.content.toLowerCase().startsWith(prefix)) return;
 
@@ -30,15 +29,20 @@ client.on("messageCreate", async (message) => {
   if (command) {
 
     const userData = await userSchema.findOne({ User: message.author.id }).exec();
-
     if (userData) {
       userData.CmdUsed = `${Number(userData.CmdUsed) + 1}`;
+  
       await userData.save();
-    } else {
-      userSchema.create({
-        User: message.author.id,
-        CmdUsed: "1",
-      });
+    } else userSchema.create({
+      User: message.author.id,
+      CmdUsed: "1",
+    });
+
+    const botStats = await botSchema.findOne({ Account: client.user.id });
+    if (client.config.bot.database.mongo_extra && botStats) {
+      botStats.CmdUsed = botStats.CmdUsed + 1;
+
+      await botStats.save();
     }
 
     if (!nsfwList.includes(command.name)) new WebhookClient({ url: client.config.channel.webhooks.cmdlog }).send({
@@ -64,8 +68,6 @@ client.on("messageCreate", async (message) => {
           .setDescription( "This command can only be used by the owners!" )
       ]
     });
-
-    if(client.config.bot.database.mongo_extra && await client.arkDB.has(`${client.user.username}-cmdUsed`) === true) await client.arkDB.set(`${client.user.username}-cmdUsed`, `${Number(await client.arkDB.get(`${client.user.username}-cmdUsed`)) + 1}`);
 
     await command.run(client, message, args);
 

@@ -12,7 +12,7 @@ child.stdout.on('data', (data) => {
     if (config.music.server.debug) console.log(stringData);
 
     if (stringData.includes("Lavalink is ready to accept connections.")) return global.lavalinkServer.success = `${colors.fgWhite("Lavalink Server:")} ${colors.fgGreen("√")}`;
-    else global.lavalinkServer.success = `${colors.fgWhite("Lavalink Server:")} ${colors.fgRed("×")}`;
+    else global.lavalinkServer.success = `${colors.fgWhite("Lavalink Server:")} ${colors.fgBlue("?")}`;
 
     if (global.lavalinkServer.check) stringData.includes("Lavalink is ready to accept connections.") ? console.log(global.lavalinkServer.success) : null;
 });

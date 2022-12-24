@@ -1,5 +1,5 @@
 const { Message, Client, PermissionsBitField } = require('discord.js');
-const ms = require('ms');
+const { parseDuration } = require("../../assets/api/time");
 
 module.exports = {
   name: 'timeout',
@@ -18,13 +18,13 @@ module.exports = {
     if (!time) return message.channel.send('please specify the time!');
 
     const user = message.mentions.users.first();
-    const milliseconds = ms(time);
+    const milliseconds = parseDuration(time);
 
     if (!user) return message.channel.send('no user specified');
 
     const guildMember = message.guild.members.cache.get(user.id);
 
-    if (guildMember.permissions.has('MANAGE_MESSAGES')) return message.reply("Can't mute this user.");
+    if (guildMember.permissions.has(PermissionsBitField.Flags.ManageMessages)) return message.reply("Can't mute this user.");
 
     if (!milliseconds || milliseconds < 10000 || milliseconds > 2419200000) return message.channel.send('invalid time or it isn\'t 10s-28d');
 

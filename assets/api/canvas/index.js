@@ -7,4 +7,24 @@ function applyText(canvas, text, defaultFontSize, width, font) {
     return ctx.font;
 }
 
-module.exports = { applyText };
+function wrapText(ctx, text, maxWidth) {
+    const lines = [];
+    let line = '';
+
+    text.split(' ').forEach(word => {
+        if (ctx.measureText(`${line} ${word}`).width < maxWidth) line += ` ${word}`;
+        else {
+            lines.push(line.trim());
+            line = word;
+        }
+    });
+
+    lines.push(line.trim());
+
+    return lines;
+}
+
+module.exports = {
+    applyText,
+    wrapText
+}

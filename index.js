@@ -43,7 +43,7 @@ client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = config;
 
-require("./client/anticrash")(client);
+// require("./client/anticrash")(client);
 
 require("./client/lavalink")(client);
 
@@ -57,8 +57,7 @@ mongoose.connection.on("connected", () => global.mongoStatus === true ? console.
 mongoose.connection.on("disconnected", () => global.mongoStatus === true ? console.log(`${colors.fgWhite("MongoDB")} ${colors.fgRed("×")}`) : global.mongoStatus = colors.fgRed("×"));
 mongoose.connection.on("error", (err) => console.log(err));
 
-const { MongoDB } = require("ark.db");
-if (config.bot.database.mongo_extra) client.arkDB = new MongoDB(client.config.bot.database.mongo_extra, "ark.db");
+if (config.bot.database.mongo_extra) client.apiConnection = mongoose.createConnection(client.config.bot.database.mongo_extra);
 
 client.ffmpeg = require("fluent-ffmpeg");
 

@@ -57,12 +57,45 @@ function YYYY_MM(date) {
     return `${time.getFullYear()}-${time.getMonth() + 1}`;
 }
 
+function parseDuration(durationString) {
+    if (durationString.includes(" ")) durationString = (durationString.split(" ")).join("");
+
+    const [, days, hours, minutes, seconds] = durationString.match(/^(\d+d)?(\d+h)?(\d+m)?(\d+s)?$/);
+
+    return (
+        (days ? parseInt(days, 10) * 86400 : 0) +
+        (hours ? parseInt(hours, 10) * 3600 : 0) +
+        (minutes ? parseInt(minutes, 10) * 60 : 0) +
+        (seconds ? parseInt(seconds, 10) : 0)
+    ) * 1000;
+}
+
+function msToDurationString(milliseconds, { d = true, h = true, m = true, s = true } = {}) {
+    const timeUnits = { d: 86400000, h: 3600000, m: 60000, s: 1000 };
+    const options = { d, h, m, s } ;
+    let durationString = "";
+
+    for (const unit in timeUnits) {
+        if (options[unit] === false) continue;
+
+        const amount = Math.floor(milliseconds / timeUnits[unit]);
+        if (amount > 0) {
+            durationString += `${amount}${unit} `;
+            milliseconds %= timeUnits[unit];
+        }
+    }
+
+    return durationString;
+}
+
 module.exports = {
+    msToDurationString,
+    parseDuration,
+    formatedDate,
+    serverDate,
+    fromNow,
+    YYYY_MM,
+    YYYY,
     DMY,
     HMS,
-    YYYY,
-    YYYY_MM,
-    fromNow,
-    formatedDate,
-    serverDate
 }

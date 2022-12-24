@@ -1,13 +1,14 @@
 const { EmbedBuilder, WebhookClient, PermissionsBitField, ActivityType } = require("discord.js");
 const { blacklistedwords } = require('../client/collection');
 const Schema = require('../models/moderator/blackwords');
+const botSchema = require("../models/logs/botStats");
 const colors = require('../assets/api/console');
 const client = require("../index");
 const { table } = require('table');
 
 client.once("ready", async() => {
 
-  const cmdCount = String(Number(client.commands.size) + Number(client.slashCommands.size));
+  const cmdCount = client.commands.size + client.slashCommands.size;
 
   const activityName = client.config.bot.status.text
     .replace(/{guildsCount}/g, client.guilds.cache.size)
@@ -42,11 +43,24 @@ client.once("ready", async() => {
     .forEach((g) => g.invites.fetch({ cache: true }));
 
   if (client.config.bot.database.mongo_extra) {
-    await client.arkDB.set(`${client.user.username}-guilds`, client.guilds.cache.size);
-    await client.arkDB.set(`${client.user.username}-users`, client.users.cache.size);
-    await client.arkDB.set(`${client.user.username}-channels`, client.channels.cache.size);
-    await client.arkDB.set(`${client.user.username}-commands`, cmdCount);
-    if (!await client.arkDB.has(`${client.user.username}-cmdUsed`)) await client.arkDB.set(`${client.user.username}-cmdUsed`, "0");
+    const botStats = await botSchema.findOne({ Account: client.user.id });
+
+    if (!botStats) await botSchema.create({
+      Account: client.user.id,
+      Guilds: client.guilds.cache.size,
+      Channels: client.channels.cache.size,
+      Users: client.users.cache.size,
+      Commands: cmdCount,
+      CmdUsed: 0,
+    });
+    else {
+      botStats.Guilds = client.guilds.cache.size;
+      botStats.Channels = client.channels.cache.size;
+      botStats.Users = client.users.cache.size;
+      botStats.Commands = cmdCount;
+
+      await botStats.save();
+    }
   }
 
   client.poru.init(client);

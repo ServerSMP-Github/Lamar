@@ -1,5 +1,5 @@
 const { Message, Client, PermissionsBitField, EmbedBuilder } = require('discord.js');
-const backup = require("discord-backup");
+// const backup = require("discord-backup");
 
 module.exports = {
     name: 'backupdelete',
@@ -13,6 +13,8 @@ module.exports = {
      * @param {String[]} args
      */
     run: async(client, message, args) => {
+        return message.reply("An error occurred!.");
+
         const backupID = args[0];
         if (!backupID) return message.channel.send(":x: | You must specify a valid backup ID!");
 
