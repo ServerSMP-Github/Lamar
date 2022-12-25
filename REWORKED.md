@@ -27,9 +27,9 @@
 - -ship
 - -steal
 - -akinator*
-- -chess*
+<!-- - -chess* -->
 - -connectfour*
-- -fortnite-stats
+<!-- - -fortnite-stats -->
 - -mc-server*
 - -osu
 - -pokedex
@@ -54,12 +54,12 @@
 - -dog
 - -duck
 - -joke
-- -lisapresentation*
+- -lisapresentation
 - -meme
 - -simp
-- -tatoo*
-- -thicc*
-- -trash*
+- -tatoo
+- -thicc
+- -trash
 - -archive
 - -ban*
 - -clear
@@ -92,10 +92,10 @@
 - -set-avatar
 - -set-status
 - -xp-owner
-- -are-ya-okay*
-- -kiss*
-- -rip*
-- -slap*
+- -are-ya-okay
+- -kiss
+- -rip
+- -slap
 - -triggered*
 - -wanted
 - -axolotl
