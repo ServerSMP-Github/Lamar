@@ -1,4 +1,4 @@
-const { EmbedBuilder, Collection, WebhookClient } = require('discord.js');
+const { EmbedBuilder, Events, WebhookClient } = require('discord.js');
 const blacklistSchema = require('../models/management/blacklist');
 const nsfwList = require("../assets/api/cmd/nsfw.json");
 const userSchema = require("../models/user/user-stats");
@@ -6,7 +6,7 @@ const botSchema = require("../models/logs/botStats");
 const ccSchema = require('../models/server/cc');
 const client = require("../index");
 
-client.on("messageCreate", async (message) => {
+client.on(Events.MessageCreate, async (message) => {
 
   if (message.author.bot || !message.guild) return;
 

@@ -1,10 +1,10 @@
-const { EmbedBuilder, WebhookClient, ApplicationCommandOptionType, InteractionType } = require("discord.js");
+const { EmbedBuilder, WebhookClient, ApplicationCommandOptionType, InteractionType, Events } = require("discord.js");
 const customCommandModel = require("../models/server/cc-slash");
 const userSchema = require("../models/user/user-stats");
 const botSchema = require("../models/logs/botStats");
 const client = require("../index");
 
-client.on("interactionCreate", async (interaction) => {
+client.on(Events.InteractionCreate, async (interaction) => {
 
   if (!interaction.guild) return interaction.followUp({ content: "You have to be in a guild to use slash commands!" });
 

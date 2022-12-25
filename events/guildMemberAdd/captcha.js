@@ -1,18 +1,16 @@
+const CaptchaGenerator = require('../../assets/api/canvas/captcha');
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const captchaSchema = require('../../models/moderator/captcha');
-const { CaptchaGenerator } = require('captcha-canvas');
 const client = require("../../index");
 
 module.exports = async(member) => {
     if (member.user.bot) return;
 
     const captchaData = await captchaSchema.findOne({ Guild: member.guild.id });
-
     if (!captchaData) return;
 
     try {
-        const captchaImg = await (new CaptchaGenerator({ height: 200, width: 600 })).generate();
-        const attachment = new AttachmentBuilder(captchaImg, { name: "captcha.png" });
+        const captcha = CaptchaGenerator();
 
         const msg = await member.send({
             embeds: [
@@ -21,7 +19,9 @@ module.exports = async(member) => {
                 .setImage('attachment://captcha.png')
                 .setColor("Random")
             ],
-            files: [attachment]
+            files: [
+                new AttachmentBuilder(captcha.image, { name: "captcha.png" })
+            ]
         })
 
         const filter = m => m.author.id == member.id;
@@ -29,7 +29,8 @@ module.exports = async(member) => {
         msg.channel.awaitMessages({
                 filter,
                 max: 1,
-                time: 10000
+                time: 10000,
+                errors: ['time']
             })
             .then(collected => {
                 if (collected.first().content == captcha.text) return msg.channel.send("Congrats, you have answered the captcha.");

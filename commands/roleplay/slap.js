@@ -1,4 +1,4 @@
-const { EmbedBuilder, Message, Client, AttachmentBuilder } = require('discord.js');
+const { Message, Client, AttachmentBuilder } = require('discord.js');
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const path = require("path");
 

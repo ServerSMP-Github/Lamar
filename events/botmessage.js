@@ -1,10 +1,10 @@
 const { createUser, setLevel } = require("../assets/api/xp");
+const { EmbedBuilder, Events } = require('discord.js');
 const getLeaderboard = require("../assets/api/mee6");
 const xpSchema = require('../models/server/xp');
-const { EmbedBuilder } = require('discord.js');
 const client = require('../index');
 
-client.on("guildCreate", async(guild) => {
+client.on(Events.GuildCreate, async(guild) => {
   let channelToSend;
   guild.channels.cache.forEach((channel) => channel.type === "GUILD_TEXT" && !channelToSend && channel.permissionsFor(guild.me).has("SEND_MESSAGES") ? channelToSend = channel : null);
   if (!channelToSend) return;

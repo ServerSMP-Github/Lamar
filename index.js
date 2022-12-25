@@ -15,7 +15,8 @@ const client = new Client({
     GatewayIntentBits.GuildPresences,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMessageReactions
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.DirectMessages
   ],
   partials: [
     Partials.User,
@@ -24,8 +25,7 @@ const client = new Client({
     Partials.Message,
     Partials.Reaction,
     Partials.GuildScheduledEvent,
-    Partials.ThreadMember,
-    Partials.Reaction
+    Partials.ThreadMember
   ],
   presence: {
     activities: [{

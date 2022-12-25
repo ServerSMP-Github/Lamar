@@ -1,10 +1,11 @@
 const { YYYY, YYYY_MM } = require("../assets/api/time");
 const Schema = require('../models/logs/logsData');
+const { Events } = require("discord.js");
 const client = require("../index");
 
 const formatData = YYYY_MM(Date.now());
 
-client.on("channelCreate", async (channel) => {
+client.on(Events.ChannelCreate, async (channel) => {
     const data = await Schema.findOne({ Guild: channel.guild.id }).exec();
     if (!data) return;
 
@@ -28,7 +29,7 @@ client.on("channelCreate", async (channel) => {
     }
 });
 
-client.on("channelDelete", async (channel) => {
+client.on(Events.ChannelDelete, async (channel) => {
     const data = await Schema.findOne({ Guild: channel.guild.id }).exec();
     if (!data) return;
 
@@ -52,7 +53,7 @@ client.on("channelDelete", async (channel) => {
     }
 });
 
-client.on("channelPinsUpdate", async (channel, time) => {
+client.on(Events.ChannelPinsUpdate, async (channel, time) => {
     const data = await Schema.findOne({ Guild: channel.guild.id }).exec();
     if (!data) return;
 
@@ -76,7 +77,7 @@ client.on("channelPinsUpdate", async (channel, time) => {
     }
 });
 
-client.on("channelUpdate", async (oldChannel, newChannel) => {
+client.on(Events.ChannelUpdate, async (oldChannel, newChannel) => {
     const data = await Schema.findOne({ Guild: oldChannel.guild.id }).exec();
     if (!data) return;
 
@@ -100,7 +101,7 @@ client.on("channelUpdate", async (oldChannel, newChannel) => {
     }
 });
 
-client.on("emojiCreate", async (emoji) => {
+client.on(Events.GuildEmojiCreate, async (emoji) => {
     const data = await Schema.findOne({ Guild: emoji.guild.id }).exec();
     if (!data) return;
 
@@ -124,7 +125,7 @@ client.on("emojiCreate", async (emoji) => {
     }
 });
 
-client.on("emojiDelete", async (emoji) => {
+client.on(Events.GuildEmojiDelete, async (emoji) => {
     const data = await Schema.findOne({ Guild: emoji.guild.id }).exec();
     if (!data) return;
 
@@ -148,7 +149,7 @@ client.on("emojiDelete", async (emoji) => {
     }
 });
 
-client.on("emojiUpdate", async (olEemoji, newEmoji) => {
+client.on(Events.GuildEmojiUpdate, async (olEemoji, newEmoji) => {
     const data = await Schema.findOne({ Guild: olEemoji.guild.id }).exec();
     if (!data) return;
 
@@ -172,7 +173,7 @@ client.on("emojiUpdate", async (olEemoji, newEmoji) => {
     }
 });
 
-client.on("guildBanAdd", async (ban) => {
+client.on(Events.GuildBanAdd, async (ban) => {
     const data = await Schema.findOne({ Guild: ban.guild.id }).exec();
     if (!data) return;
 
@@ -196,7 +197,7 @@ client.on("guildBanAdd", async (ban) => {
     }
 });
 
-client.on("guildBanRemove", async (ban) => {
+client.on(Events.GuildBanRemove, async (ban) => {
     const data = await Schema.findOne({ Guild: ban.guild.id }).exec();
     if (!data) return;
 
@@ -220,7 +221,7 @@ client.on("guildBanRemove", async (ban) => {
     }
 });
 
-client.on("guildMemberUpdate", async (oldMember, newMember) => {
+client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
     const data = await Schema.findOne({ Guild: oldMember.guild.id }).exec();
     if (!data) return;
 
@@ -244,7 +245,7 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
     }
 });
 
-client.on("messageDelete", async (message) => {
+client.on(Events.MessageDelete, async (message) => {
     if(!message.guild) return;
 
     const data = await Schema.findOne({ Guild: message.guild.id }).exec();
@@ -254,22 +255,12 @@ client.on("messageDelete", async (message) => {
     await data.save();
 });
 
-client.on("messageUpdate", async (oldMessage, newMessage) => {
+client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
     if(!oldMessage.guild) return;
 
     const data = await Schema.findOne({ Guild: oldMessage.guild.id }).exec();
     if (!data) return;
 
     data.MessagesEdit = Number(data.MessagesDelete) + 1;
-    await data.save();
-});
-
-client.on("messageUpdate", async (message) => {
-    if (!message.guild) return;
-
-    const data = await Schema.findOne({ Guild: message.guild.id }).exec();
-    if (!data) return;
-
-    data.Messages = Number(data.Messages) + 1;
     await data.save();
 });

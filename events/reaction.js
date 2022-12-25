@@ -1,7 +1,8 @@
 const reactionSchema = require("../models/logs/reaction-roles");
+const { Events } = require("discord.js");
 const client = require("../index");
 
-client.on("messageReactionAdd", async(reaction, user) => {
+client.on(Events.MessageReactionAdd, async(reaction, user) => {
     if (reaction.partial) await reaction.fetch();
 
     const reactionData = await reactionSchema.findOne({ Message: reaction.message.id });

@@ -1,5 +1,5 @@
-const Schema = require('../models/logs/invites');
 const { EmbedBuilder } = require("discord.js");
+const Schema = require('../models/logs/invites');
 const client = require('../index');
 
 const InvitesTracker = require("@androz2091/discord-invites-tracker");

@@ -1,9 +1,9 @@
-const { WebhookClient, EmbedBuilder } = require('discord.js');
+const { WebhookClient, EmbedBuilder, Events } = require('discord.js');
 const client = require('../index');
 
 const hook = new WebhookClient({ url: client.config.channel.webhooks.guildlogs });
 
-client.on('guildCreate', async(guild) => {
+client.on(Events.GuildCreate, async(guild) => {
 
     const owner = await guild.fetchOwner();
 
@@ -24,7 +24,7 @@ client.on('guildCreate', async(guild) => {
 
 })
 
-client.on('guildDelete', async(guild) => {
+client.on(Events.GuildDelete, async(guild) => {
 
     const owner = await guild.fetchOwner();
 

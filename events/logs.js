@@ -1,8 +1,8 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, Events } = require('discord.js');
 const Schema = require('../models/logs/modlogs');
 const client = require("../index");
 
-client.on("channelCreate", async (channel) => {
+client.on(Events.ChannelCreate, async (channel) => {
   const data = await Schema.findOne({
     Guild: channel.guild.id
   }).exec();
@@ -19,7 +19,7 @@ client.on("channelCreate", async (channel) => {
   });
 });
 
-client.on("channelDelete", async (channel) => {
+client.on(Events.ChannelDelete, async (channel) => {
   const data = await Schema.findOne({
     Guild: channel.guild.id
   }).exec();
@@ -37,7 +37,7 @@ client.on("channelDelete", async (channel) => {
   });
 });
 
-client.on("channelPinsUpdate", async (channel, time) => {
+client.on(Events.ChannelPinsUpdate, async (channel, time) => {
   const data = await Schema.findOne({
     Guild: channel.guild.id
   }).exec();
@@ -55,7 +55,7 @@ client.on("channelPinsUpdate", async (channel, time) => {
   });
 });
 
-client.on("channelUpdate", async (oldChannel, newChannel) => {
+client.on(Events.ChannelUpdate, async (oldChannel, newChannel) => {
   const data = await Schema.findOne({
     Guild: oldChannel.guild.id
   }).exec();
@@ -136,7 +136,7 @@ client.on("channelUpdate", async (oldChannel, newChannel) => {
   }
 });
 
-client.on("emojiDelete", async (emoji) => {
+client.on(Events.GuildEmojiDelete, async (emoji) => {
   const data = await Schema.findOne({
     Guild: emoji.guild.id
   }).exec();
@@ -154,7 +154,7 @@ client.on("emojiDelete", async (emoji) => {
   });
 });
 
-client.on("emojiCreate", async (emoji) => {
+client.on(Events.GuildEmojiCreate, async (emoji) => {
   const data = await Schema.findOne({
     Guild: emoji.guild.id
   }).exec();
@@ -171,7 +171,7 @@ client.on("emojiCreate", async (emoji) => {
   });
 });
 
-client.on("emojiUpdate", async (olEemoji, newEmoji) => {
+client.on(Events.GuildEmojiUpdate, async (olEemoji, newEmoji) => {
   const data = await Schema.findOne({
     Guild: olEemoji.guild.id
   }).exec();
@@ -225,7 +225,7 @@ client.on("emojiUpdate", async (olEemoji, newEmoji) => {
 //   });
 // });
 
-client.on("guildBanAdd", async (ban) => {
+client.on(Events.GuildBanAdd, async (ban) => {
   const data = await Schema.findOne({
     Guild: ban.guild.id
   }).exec();
@@ -246,7 +246,7 @@ client.on("guildBanAdd", async (ban) => {
   });
 });
 
-client.on("guildBanRemove", async (ban) => {
+client.on(Events.GuildBanRemove, async (ban) => {
   const data = await Schema.findOne({
     Guild: ban.guild.id
   }).exec();
@@ -267,7 +267,7 @@ client.on("guildBanRemove", async (ban) => {
   });
 });
 
-client.on("guildMemberChunk", async (members, guild) => {
+client.on(Events.GuildMembersChunk, async (members, guild) => {
   const data = await Schema.findOne({
     Guild: members.guild.id
   }).exec();
@@ -285,7 +285,7 @@ client.on("guildMemberChunk", async (members, guild) => {
   });
 });
 
-client.on("guildMemberUpdate", async (oldMember, newMember) => {
+client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
   const data = await Schema.findOne({
     Guild: oldMember.guild.id
   }).exec();
@@ -305,7 +305,7 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
   });
 });
 
-client.on("roleCreate", async (role) => {
+client.on(Events.GuildRoleCreate, async (role) => {
   const data = await Schema.findOne({
     Guild: role.guild.id
   }).exec();
@@ -324,7 +324,7 @@ client.on("roleCreate", async (role) => {
   });
 });
 
-client.on("roleDelete", async (role) => {
+client.on(Events.GuildRoleDelete, async (role) => {
   const data = await Schema.findOne({
     Guild: role.guild.id
   }).exec();
@@ -343,7 +343,7 @@ client.on("roleDelete", async (role) => {
   });
 });
 
-client.on("roleUpdate", async (oldRole, newRole) => {
+client.on(Events.GuildRoleUpdate, async (oldRole, newRole) => {
   const data = await Schema.findOne({
     Guild: oldRole.guild.id
   }).exec();
@@ -362,7 +362,7 @@ client.on("roleUpdate", async (oldRole, newRole) => {
   });
 });
 
-client.on("inviteCreate", async (invite) => {
+client.on(Events.InviteCreate, async (invite) => {
   const data = await Schema.findOne({
     Guild: invite.guild.id
   }).exec();
@@ -379,7 +379,7 @@ client.on("inviteCreate", async (invite) => {
   });
 });
 
-client.on("inviteDelete", async (invite) => {
+client.on(Events.InviteDelete, async (invite) => {
   const data = await Schema.findOne({
     Guild: invite.guild.id
   }).exec();
@@ -396,7 +396,7 @@ client.on("inviteDelete", async (invite) => {
   });
 });
 
-client.on("messageDelete", async (message) => {
+client.on(Events.MessageDelete, async (message) => {
   const data = await Schema.findOne({
     Guild: message.guild.id
   }).exec();
@@ -434,7 +434,7 @@ client.on("messageDelete", async (message) => {
 //   });
 // }
 
-client.on("messageUpdate", async (oldMessage, newMessage) => {
+client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
   const data = await Schema.findOne({
     Guild: oldMessage.guild.id
   }).exec();

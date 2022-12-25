@@ -2,15 +2,9 @@ const client = require("../../index");
 
 const Schema = require('../../models/logs/welcome');
 
-const { Swiftcord } = require("swiftcord");
 const { AttachmentBuilder } = require('discord.js');
 const { drawCard } = require('discord-welcome-card');
-const { createCanvas, loadImage, registerFont } = require('canvas');
-// const { createCanvas, loadImage, registerFont } = require('@napi-rs/canvas');
-
-const cord = new Swiftcord();
-
-const jimp = require("jimp");
+const { createCanvas, loadImage } = require('@napi-rs/canvas');
 
 let attachment = null;
 let text = null
@@ -25,8 +19,6 @@ module.exports = async(member) => {
     const channel = member.guild.channels.cache.get(welcomeData.Channel);
 
     if (welcomeType === "popcat") {
-
-        registerFont('assets/image/welcome/popcat/font.ttf', { family: 'Fredoka One' });
 
         const canvas = createCanvas(1024, 500);
         const ctx = canvas.getContext('2d');
@@ -73,7 +65,7 @@ module.exports = async(member) => {
         const avatar = await loadImage(member.user.displayAvatarURL({ format: "png", size: 2048 }));
         ctx.drawImage(avatar, 415, 75, 200, 200);
 
-        attachment = new AttachmentBuilder(canvas.toBuffer(), { name: `welcome-${member.id}.png` });
+        attachment = new AttachmentBuilder(canvas.toBuffer("image/png"), { name: `welcome-${member.id}.png` });
 
     } else if (welcomeType === "discord-welcome-card") {
         attachment = new AttachmentBuilder(
@@ -96,11 +88,7 @@ module.exports = async(member) => {
 
     } else if (welcomeType === "ultrax") {
 
-        let fontName = null;
-        if (welcomeData.FontPath?.toLowerCase() !== "San Serif") {
-            registerFont(welcomeData.FontPath, { family: welcomeData.FontName });
-            fontName = welcomeData.FontName;
-        }
+        const fontName = welcomeData.FontName;
 
         const canvas = createCanvas(1024, 500);
         const ctx = canvas.getContext('2d');
@@ -153,22 +141,75 @@ module.exports = async(member) => {
         const avatar = await loadImage(member.user.displayAvatarURL({ format: "png", size: 2048 }));
         ctx.drawImage(avatar, 415, 75, 200, 200);
 
-        attachment = new AttachmentBuilder(canvas.toBuffer(), { name: `welcome-${member.id}.png` });
+        attachment = new AttachmentBuilder(canvas.toBuffer("image/png"), { name: `welcome-${member.id}.png` });
 
     } else if (welcomeType === "swiftcord") {
         let background = welcomeData.Background;
-        if (welcomeData.Background?.toLowerCase() === "default") background = "https://api.serversmp.xyz/upload/ocHlRwuhEI.png";
+        if (welcomeData.Background?.toLowerCase() === "default") background = path.join(__dirname, "..", "..", "assets", "image", "welcome", "popcat", "background.png");
 
-        const image = await cord.Welcome()
-            .setUsername(member.user.username)
-            .setDiscriminator(member.user.discriminator)
-            .setMemberCount(member.guild.memberCount)
-            .setGuildName(member.guild.name)
-            .setGuildIcon(member.guild.iconURL({ format: "png" }))
-            .setAvatar(member.user.displayAvatarURL({ format: "png", size: 2048 }))
-            .setBackground(background)
-            .toAttachment();
-        attachment = new AttachmentBuilder(image, { name: `welcome-${member.id}.png` })
+        const username = member.user.username;
+        const server = member.guild.name;
+
+        const base = await loadImage(path.join(__dirname, "..", "..", "assets", "image", "welcome", "swiftcord", "base.png"));
+
+        const canvas = createCanvas(base.width, base.height);
+        const ctx = canvas.getContext("2d");
+
+        const bg = await loadImage(background);
+
+        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+
+        ctx.drawImage(base, 0, 0);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "22px Manrope bold";
+        ctx.fillText(`- ${member.guild.memberCount}th member!`, 5, 435);
+
+        ctx.globalAlpha = 1;
+        ctx.font = "45px Manrope bold";
+        ctx.textAlign = 'center';
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(username, 134, 390);
+        const tagLength = ctx.measureText(username).width;
+
+        ctx.globalAlpha = 1;
+        ctx.font = "45px Manrope bold";
+        ctx.textAlign = 'center';
+        ctx.fillStyle = "#7289DA";
+        ctx.fillText(`#${member.user.discriminator}`, tagLength + 100, 390);
+
+        ctx.globalAlpha = 1;
+        ctx.font = "45px Manrope bold";
+        ctx.textAlign = 'center';
+        ctx.fillStyle = "#ffffff";
+        const guildName = server.length > 13 ? server.substring(0, 10) + "..." : server;
+        ctx.fillText(guildName, 799, 406);
+
+        ctx.save()
+        ctx.beginPath();
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = "#23272a";
+        ctx.arc(874, 250, 80, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.clip();
+        const guildIco = await loadImage(member.guild.iconURL({ format: "png" }));
+        ctx.drawImage(guildIco, 794, 170, 160, 160);
+        ctx.restore();
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = "#23272a";
+        ctx.arc(180, 160, 110, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.clip();
+        const avatar = await loadImage(member.user.displayAvatarURL({ format: "png", size: 2048 }));
+        ctx.drawImage(avatar, 45, 40, 270, 270);
+        ctx.restore();
+
+        attachment = new AttachmentBuilder(canvas.toBuffer('image/png'), { name: `welcome-${member.id}.png` });
 
     } else if (welcomeType === "discord-welcomer") {
 
@@ -178,12 +219,6 @@ module.exports = async(member) => {
 
         const canvas = createCanvas(800, 270);
         const ctx = canvas.getContext("2d");
-
-        const backgroundBlur = await jimp.read(backgroundLink);
-        backgroundBlur.blur(5);
-
-        const backgroundData = await backgroundBlur.getBufferAsync("image/png");
-        const backgroundIMG = await loadImage(backgroundData);
 
         function round(x, y, w, h, r) {
             ctx.beginPath();
@@ -222,7 +257,16 @@ module.exports = async(member) => {
         }
 
         conner(20);
-        ctx.drawImage(backgroundIMG, 30, 30, 739, 209);
+
+        const bg = await loadImage(backgroundLink);
+
+        ctx.drawImage(bg, 30, 30, 739, 209);
+
+        ctx.filter = 'blur(5px)';
+
+        ctx.drawImage(bg, 30, 30, 739, 209);
+
+        ctx.filter = 'none';
 
         ctx.font = `bold 40px Life`;
         ctx.fillStyle = "#ffffff";
@@ -253,7 +297,7 @@ module.exports = async(member) => {
         const avatar = await loadImage(member.user.displayAvatarURL({ format: "png", dynamic: true }));
         ctx.drawImage(avatar, 40, 40, 185, 185);
 
-        attachment = new AttachmentBuilder(canvas.toBuffer(), { name: `welcome-${member.id}.png`});
+        attachment = new AttachmentBuilder(canvas.toBuffer("image/png"), { name: `welcome-${member.id}.png`});
 
     } else if (welcomeType === "text") text = `Welcome **${member.user.tag}** to **${member.guild.name}**!`;
 

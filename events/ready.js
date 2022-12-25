@@ -1,4 +1,4 @@
-const { EmbedBuilder, WebhookClient, PermissionsBitField, ActivityType } = require("discord.js");
+const { EmbedBuilder, WebhookClient, PermissionsBitField, Events } = require("discord.js");
 const { blacklistedwords } = require('../client/collection');
 const Schema = require('../models/moderator/blackwords');
 const botSchema = require("../models/logs/botStats");
@@ -6,7 +6,7 @@ const colors = require('../assets/api/console');
 const client = require("../index");
 const { table } = require('table');
 
-client.once("ready", async() => {
+client.once(Events.ClientReady, async() => {
 
   const cmdCount = client.commands.size + client.slashCommands.size;
 

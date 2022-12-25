@@ -17,9 +17,10 @@ const { deleteGuild } = require("../assets/api/xp");
 const LogData = require('../models/logs/logsData');
 const Schema = require('../models/logs/invites');
 const xpSchema = require('../models/server/xp');
+const { Events } = require("discord.js");
 const client = require('../index');
 
-client.on('guildDelete', async(guild) => {
+client.on(Events.GuildDelete, async(guild) => {
 
     // Invite
     Schema.findOne({ Guild: guild.id }, async(err, data) => {

@@ -146,6 +146,14 @@
         {
             "file": "noto-emoji.ttf",
             "name": "Noto"
+        },
+        {
+            "file": "fredoka-one.ttf",
+            "name": "Fredoka One"
+        },
+        {
+            "file": "manrope.ttf",
+            "name": "Manrope"
         }
     ]
 }
