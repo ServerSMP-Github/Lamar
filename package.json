@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@androz2091/discord-invites-tracker": "1.2.3",
-    "@discordjs/opus": "0.9.0",
     "@iamtraction/google-translate": "2.0.1",
     "@napi-rs/canvas": "0.1.30",
     "aki-api": "^6.0.8",

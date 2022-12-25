@@ -10,7 +10,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   const userStats = await userSchema.findOne({ User: interaction.member.user.id });
   if (userStats) {
-    userStats.CmdUsed = `${Number(data.CmdUsed) + 1}`;
+    userStats.CmdUsed = `${Number(userStats.CmdUsed) + 1}`;
 
     await userStats.save();
   } else await userStats.create({ User: interaction.member.user.id, CmdUsed: "1" });
