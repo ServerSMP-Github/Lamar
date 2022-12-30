@@ -1,23 +1,26 @@
 const { EmbedBuilder, WebhookClient } = require("discord.js");
+const { createLogger } = require("../assets/api/logging");
 const colors = require('../assets/api/console');
-const winston = require('winston');
 
-const logger = winston.createLogger({
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({
-      filename: 'antiCrashLog.log'
-    }),
-  ],
-  format: winston.format.printf(log => `[${log.level.toLowerCase()}] - ${log.message}`),
+const logger = createLogger({
+  filter: ['error'],
+  file: 'antiCrashLog.log'
 });
 
 module.exports = (client) => {
   const loggerHook = new WebhookClient({ url: client.config.channel.webhooks.error });
 
   process.on('unhandledRejection', (reason, p) => {
-    logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Unhandled rejection/crash detected.'));
-    logger.error(reason, p);
+    logger.log({
+      level: 'error',
+      message: `${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Unhandled rejection/crash detected.')}`,
+    });
+
+    logger.log({
+      level: 'error',
+      message: reason,
+      meta: p
+    });
 
     loggerHook.send({
       username: client.user.username,
@@ -38,8 +41,16 @@ module.exports = (client) => {
   });
 
   process.on("uncaughtException", (err, origin) => {
-    logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Uncaught exception/catch detected.'));
-    logger.error(err, origin);
+    logger.log({
+      level: 'error',
+      message: `${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Uncaught exception/catch detected.')}`
+    });
+
+    logger.log({
+      level: 'error',
+      message: err,
+      meta: origin
+    });
 
     loggerHook.send({
       username: client.user.username,
@@ -60,8 +71,16 @@ module.exports = (client) => {
   });
 
   process.on('uncaughtExceptionMonitor', (err, origin) => {
-    logger.error(colors.fgBlue('[antiCrash.js]') + colors.fgRed(' Uncaught exception/catch detected. (Monitor)'));
-    logger.error(err, origin);
+    logger.log({
+      level: 'error',
+      message: `${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Uncaught exception/catch detected. (Monitor)')}`
+    });
+
+    logger.log({
+      level: 'error',
+      message: err,
+      meta: origin
+    });
 
     loggerHook.send({
       username: client.user.username,

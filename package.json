@@ -8,9 +8,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "tunnel": "lt --port 3000"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,10 +20,6 @@
     "url": "https://github.com/ServerSMP-Github/BOT/issues"
   },
   "homepage": "https://github.com/ServerSMP-Github/BOT#readme",
-  "devDependencies": {
-    "localtunnel": "^2.0.2",
-    "nodemon": "^2.0.19"
-  },
   "dependencies": {
     "@androz2091/discord-invites-tracker": "1.2.3",
     "@iamtraction/google-translate": "2.0.1",
@@ -33,7 +27,6 @@
     "aki-api": "^6.0.8",
     "canvacord": "5.4.8",
     "canvas": "2.10.2",
-    "captcha-canvas": "3.2.1",
     "chart.js": "3.9.1",
     "chartjs-node-canvas": "^4.1.6",
     "connect-mongo": "^4.6.0",
@@ -55,7 +48,6 @@
     "table": "6.8.1",
     "tinyld": "^1.3.2",
     "twemoji": "^14.0.2",
-    "winston": "3.8.2",
     "ytdl-core": "4.11.2"
   }
 }

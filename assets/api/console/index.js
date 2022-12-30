@@ -1,5 +1,14 @@
 const { hexToRGB } = require("../color");
 
+function removeColorCodes(string) {
+    return string.replace(/\x1b\[[0-9;]*m/g, '');
+}
+
+function fgMagenta(string) {
+    if (process.stdout.hasColors) return `\x1b[35m${string}\x1b[0m`;
+    else return string
+}
+
 function fgYellow(string) {
     if (process.stdout.hasColors) return `\x1b[33m${string}\x1b[0m`;
     else return string;
@@ -98,7 +107,9 @@ function createSpinner(text) {
 }
 
 module.exports = {
+    removeColorCodes,
     createSpinner,
+    fgMagenta,
     fgYellow,
     gradient,
     fgGreen,

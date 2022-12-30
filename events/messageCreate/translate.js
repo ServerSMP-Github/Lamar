@@ -46,7 +46,8 @@ module.exports = async(message) => {
             body: JSON.stringify({
                 q: stringContent,
                 source: "auto",
-                target: translateData.Language
+                target: translateData.Language,
+                api_key: client.config.translate.key
             })
         })).json();
 
