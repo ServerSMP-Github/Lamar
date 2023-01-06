@@ -1,15 +1,7 @@
 const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
+const { getRandomInt } = require("../../assets/api/crypto");
 const Schema = require("../../models/user/simplevel");
-
-function mathRandomInt(a, b) {
-    if (a > b) {
-        var c = a;
-        a = b;
-        b = c;
-    }
-    return Math.floor(Math.random() * (b - a + 1) + a);
-};
 
 module.exports = {
     name: 'simp',
@@ -35,7 +27,7 @@ module.exports = {
             const youre = mention ? "that user is" : "you're"
             const Youre = mention ? "That user is" : "You're";
 
-            const number = mathRandomInt(0, 1000) === 500 ? 9999 : mathRandomInt(0, 100);
+            const number = getRandomInt(0, 1000) === 500 ? 9999 : getRandomInt(0, 100);
 
             const text = (number === 9999)
                 ? `${your} simp level is... 9999%!\nITS OVER 9 THOUSAND!`
@@ -84,7 +76,7 @@ module.exports = {
             let simpData = await Schema.findOne({ User: member.user.id });
 
             if (!simpData) {
-                const number = mathRandomInt(0, 100);
+                const number = getRandomInt(0, 100);
                 simpData = await Schema.create({
                     User: member.user.id,
                     Lowest: number,
@@ -113,7 +105,7 @@ module.exports = {
             message.channel.send({
                 content: "If your username contains any non-alphabetical characters, it won't show the username.",
                 files: [
-                    new AttachmentBuilder(canvas.toBuffer(), { name: "simpcard.jpg" })
+                    new AttachmentBuilder(canvas.toBuffer("image/png"), { name: "simpcard.jpg" })
                 ]
             });
         }

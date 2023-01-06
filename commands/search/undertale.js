@@ -1,5 +1,6 @@
 const { AttachmentBuilder, EmbedBuilder, Message, Client } = require('discord.js');
 const data = require('../../assets/api/undertalemp3/undertalemp3.json');
+const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
   name: "undertale",
@@ -11,7 +12,7 @@ module.exports = {
   * @param {String[]} args
   */
   run: async (client, message, args) => {
-    const random = Math.floor(Math.random() * 101);
+    const random = getRandomInt(1, 101);
 
     message.reply({
       embeds: [

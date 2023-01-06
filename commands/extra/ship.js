@@ -1,11 +1,12 @@
 const { Client, Message, EmbedBuilder, AttachmentBuilder } = require("discord.js");
-const progress = require("../../assets/api/progressbar");
 const { createCanvas, loadImage } = require('@napi-rs/canvas');
+const progress = require("../../assets/api/progressbar");
+const { getRandom } = require("../../assets/api/crypto");
 
 module.exports = {
     name: "ship",
     description: "Find out how much 2 people love each other!",
-    usage: "@user @user",
+    usage: "[ @user ] [ @user ]",
 
     /**
      *
@@ -19,7 +20,7 @@ module.exports = {
 
         if (!user1 || !user2) return message.reply("Please specify 2 members.") ;
 
-        const percent = Math.floor(Math.random() * 101);
+        const percent = Math.floor(getRandom() * 101);
 
         const canvas = createCanvas(384, 128);
         const ctx = canvas.getContext('2d');
@@ -48,7 +49,7 @@ module.exports = {
                 files: [
                     new AttachmentBuilder(canvas.toBuffer(), { name: 'ship.png' })
                 ]
-            })
+            });
         } catch (error) {
             console.log(error)
             return message.reply({ content: "An error occurred" });

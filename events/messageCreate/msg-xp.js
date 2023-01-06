@@ -1,4 +1,5 @@
 const { fetchUser, appendXp } = require("../../assets/api/xp");
+const { getRandom } = require("../../assets/api/crypto");
 const xpSchema = require("../../models/server/xp");
 const client = require("../../index");
 
@@ -9,7 +10,7 @@ module.exports = async(message) => {
 
     if (!xpData) return;
 
-    const randomXp = Math.floor(Math.random() * Number(xpData.Rate)) + 1;
+    const randomXp = Math.floor(getRandom() * Number(xpData.Rate)) + 1;
     const hasLeveledUp = await appendXp(message.author.id, message.guild.id, randomXp);
 
     if (!hasLeveledUp) return;

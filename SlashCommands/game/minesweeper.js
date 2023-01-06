@@ -1,4 +1,5 @@
 const { CommandInteraction, Client, ActionRowBuilder, EmbedBuilder, ApplicationCommandType, ButtonStyle } = require("discord.js");
+const { getRandom } = require("../../assets/api/crypto");
 
 module.exports = {
     name: 'minesweeper',
@@ -26,7 +27,7 @@ module.exports = {
                     randomIndex;
                 while (currentIndex != 0) {
 
-                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    randomIndex = Math.floor(getRandom() * currentIndex);
                     currentIndex--;
 
                     [array[row][currentIndex], array[row][randomIndex]] = [

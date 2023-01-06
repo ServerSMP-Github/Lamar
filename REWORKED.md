@@ -7,12 +7,13 @@
 
 ## Message Commands
 
-- -backupcreate
-- -backupdelete
-- -backupinfos
-- -backupload
+- -backupcreate*
+- -backupdelete*
+- -backupinfos*
+- -backupload*
 - -cc-create
 - -cc-delete
+<!-- - Add to -options -->
 - -cc-list
 - -8ball
 - -afk
@@ -21,7 +22,7 @@
 - -dice
 - -echo
 - -emoji-img
-- -password*
+- -password
 - -polls
 - -qrcode*
 - -ship
@@ -30,7 +31,7 @@
 <!-- - -chess* -->
 - -connectfour*
 <!-- - -fortnite-stats -->
-- -mc-server*
+- -mc-server
 - -osu
 - -pokedex
 - -pokemon*
@@ -104,18 +105,21 @@
 - -reddit
 - -screenshot
 - -stackoverflow
-- -steam*
+- -steam
 - -undertale
 - -weather
 - -wikipedia
-- -ytdownload*
-- -announce*
+- -ytdownload
+- -announce
 - -button-roles
 - -nqn
 - -options*
 - -reaction-roles
 - -report
-- -setup-ticket*
+- -setup-ticket
 - -xp-import
 - -cmd-stats*
+- -leaderboard
 - -rank
+- -rankcard
+- -web-leaderboard

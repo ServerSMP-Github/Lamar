@@ -23,21 +23,18 @@ module.exports = {
         if (!args[1]) return message.reply('Please specify a message to announce');
 
         if (args.some((val) => val.toLowerCase() === '-ping')) {
-            for (let i = 0; i < args.length; i++ ) {
-                if(args[i].toLowerCase() === '-ping') args.splice(i, 1);
-            }
+            for (let i = 0; i < args.length; i++ ) args[i].toLowerCase() === '-ping' ? args.splice(i, 1) : null;
             mention = true;
         } else mention = false;
 
-        if (mention === true) channel.send('@everyone');
-
         channel.send({
+            content: mention === true ? '@everyone' : null,
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setDescription(args.slice(1).join(" "))
-                .setTimestamp()
                 .setColor('Random')
+                .setTimestamp()
             ]
         });
 

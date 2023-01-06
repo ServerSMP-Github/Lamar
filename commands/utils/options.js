@@ -7,7 +7,6 @@ const blacklistSchema = require("../../models/moderator/blackwords");
 const logDataSchema = require("../../models/logs/logsData");
 const goodbyeSchema = require("../../models/logs/goodbye");
 const welcomeSchema = require("../../models/logs/welcome");
-const prefixSchema = require("../../models/server/prefix");
 const cmdSchema = require("../../models/server/command");
 const pollSchema = require("../../models/server/poll");
 const nqnSchema = require("../../models/server/nqn");
@@ -36,46 +35,7 @@ module.exports = {
       query === file.name ? file.run(client, message, args) : !file.name && !query ? file.run(client, message, args) : null
     });
 
-    if (query === "prefix") {
-      if (options === "set") {
-        const res = args[2]
-        if (!res) return message.channel.send("Please specify a prefix to change to.")
-        if (res.match(/^(?:<@!?)?(\d{16,22})>/gi) || res.match(/^(?:<#?)?(\d{16,22})>$/gi) || res.match(/^(?:<:(?![\n])[()#$@-\w]+:?)?(\d{16,22})>$/gi)) return message.reply({
-          content: `if u break me i will kill you`
-        });
-        if (res.length > 10) return message.reply("No prefix longer then 10.")
-        prefixSchema.findOne({
-          Guild: message.guild.id
-        }, async (err, data) => {
-          if (err) throw err;
-          if (data) {
-            await data.delete()
-            data = new prefixSchema({
-              Guild: message.guild.id,
-              Prefix: res
-            })
-            data.save()
-            message.channel.send(`Your prefix has been updated to **${res}**`)
-          } else {
-            data = new prefixSchema({
-              Guild: message.guild.id,
-              Prefix: res
-            })
-            data.save()
-            message.channel.send(`Custom prefix in this server is now set to **${res}**`)
-          }
-        })
-      } else if (options === "reset") {
-        prefixSchema.findOne({
-          Guild: message.guild.id
-        }, async (err, data) => {
-          if (!data) return message.channel.send("You dont have a custom prefix!");
-          data.delete()
-          message.channel.send(`The prefix has been reset to ${process.env.PREFIX}`)
-        })
-      } else return message.reply("Option is not correct!")
-
-    } else if (query === "blacklist") {
+    if (query === "blacklist") {
       const guild = {
         Guild: message.guild.id
       }

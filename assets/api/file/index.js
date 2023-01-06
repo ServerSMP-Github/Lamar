@@ -18,4 +18,4 @@ async function getFileList(dirName, filter) {
 
 module.exports = {
     getFileList
-};
+}

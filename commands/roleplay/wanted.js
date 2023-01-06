@@ -1,6 +1,7 @@
 const { Message, Client, AttachmentBuilder } = require('discord.js');
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const { applyText } = require("../../assets/api/canvas");
+const { getRandom } = require("../../assets/api/crypto");
 const path = require("path");
 
 module.exports = {
@@ -16,7 +17,7 @@ module.exports = {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         if (!user) user = message.member;
 
-        const price = Math.floor(Math.random() * 188708) + 329889;
+        const price = Math.floor(getRandom() * 188708) + 329889;
 
         const canvas = createCanvas(257, 383);
         const ctx = canvas.getContext("2d");

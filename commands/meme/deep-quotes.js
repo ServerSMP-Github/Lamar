@@ -1,4 +1,5 @@
 const quotes = require("../../assets/api/quotes/index.json");
+const { getRandomInt } = require("../../assets/api/crypto");
 const { Message, Client } = require("discord.js");
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const index = Math.floor(Math.random() * (quotes.length));
+        const index = getRandomInt(0, quotes.length);
 
         message.channel.send(quotes[index]);
     },

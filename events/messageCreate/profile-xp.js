@@ -1,4 +1,5 @@
 const profileSchema = require("../../models/user/profile");
+const { getRandom } = require("../../assets/api/crypto");
 const client = require("../../index");
 
 module.exports = async(message) => {
@@ -20,7 +21,7 @@ module.exports = async(message) => {
         MaxXP: 0,
     });
 
-    const randomXp = Math.floor(Math.random() * 5) + 1;
+    const randomXp = Math.floor(getRandom() * 5) + 1;
 
     if (profileData.Level === 0 && profileData.XP === 0) profileData.XP = Number(profileData.XP) + 10;
     else profileData.XP = Number(profileData.XP) + randomXp;

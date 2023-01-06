@@ -1,5 +1,6 @@
-const { Client, Message, EmbedBuilder } = require("discord.js");
 const _8ball = require("../../assets/api/serversmp-api/8ball.json");
+const { Client, Message, EmbedBuilder } = require("discord.js");
+const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
     name: "8ball",
@@ -19,8 +20,7 @@ module.exports = {
 
       if (text.length > 1000) return message.reply("Question can't be more then 1000 length.");
 
-      const randomNumber = Math.floor(Math.random() * _8ball.length);
-      const responseText = _8ball[randomNumber];
+      const responseText = _8ball[getRandomInt(0, _8ball.length)];
 
       message.reply({ embeds: [
         new EmbedBuilder()

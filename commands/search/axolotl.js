@@ -1,5 +1,6 @@
 const { AttachmentBuilder, EmbedBuilder, Message, Client } = require('discord.js');
 const api = require('../../assets/api/axolotl/axolotl.json');
+const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
   name: 'axolotl',
@@ -12,7 +13,7 @@ module.exports = {
   * @param {String[]} args
   */
   run: async (client, message, args) => {
-    const { description, author } = api.facts[Math.floor(Math.random() * api.facts.length)];
+    const { description, author } = api.facts[getRandomInt(0, api.facts.length)];
 
     message.channel.send({
       embeds: [
@@ -26,7 +27,7 @@ module.exports = {
         .setColor("Random")
       ],
       files: [
-        new AttachmentBuilder(`./assets/api/axolotl/${api.images[Math.floor(Math.random() * api.images.length)]}`, { name: 'image.jpg' })
+        new AttachmentBuilder(`./assets/api/axolotl/${api.images[getRandomInt(0, api.images.length)]}`, { name: 'image.jpg' })
       ]
     })
   }

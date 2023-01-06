@@ -22,6 +22,6 @@ function capitalizeFirstLetter(string) {
 }
 
 module.exports = {
-    boostLevel,
-    capitalizeFirstLetter
+    capitalizeFirstLetter,
+    boostLevel
 }

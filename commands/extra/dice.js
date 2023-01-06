@@ -1,4 +1,5 @@
 const { AttachmentBuilder, EmbedBuilder, Message, Client } = require('discord.js');
+const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
     name: 'dice',
@@ -12,7 +13,7 @@ module.exports = {
      */
     run: async (client, message, args) => {
 
-        const dice = Math.floor(Math.random() * (6 - 1)) + 1;
+        const dice = getRandomInt(1, 6);
 
         message.reply({
             embeds: [

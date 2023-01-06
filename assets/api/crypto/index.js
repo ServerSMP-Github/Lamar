@@ -16,8 +16,17 @@ function getRandomInt(min, max) {
     return Math.floor(num / 4294967295 * (max - min + 1) + min);
 }
 
+function getRandom() {
+    const buf = crypto.randomBytes(4);
+
+    const num = buf.readUInt32BE();
+
+    return num / 4294967295;
+}
+
 module.exports = {
     generateRandomNumber,
     generatePassword,
-    getRandomInt
+    getRandomInt,
+    getRandom
 }

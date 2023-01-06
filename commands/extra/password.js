@@ -4,7 +4,7 @@ const { Message, Client } = require('discord.js');
 module.exports = {
     name: 'password',
     category : 'extra',
-    usage: '[1-100]',
+    usage: '[ 1-100 ]',
     description : "Generate random password from 1 - 100 and sends it in DMs.",
     /**
      * @param {Client} client

@@ -1,4 +1,5 @@
 const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
+const { getRandom } = require("../assets/api/crypto");
 const snakeSchema = require("../models/user/snake");
 const apple = { x: 1, y: 1 };
 const gameBoard = [];
@@ -64,7 +65,7 @@ async function newGame(message) {
     function appleLocation() {
         let newApplePos = { x: 0, y: 0 };
 
-        do newApplePos = { x: parseInt(Math.random() * WIDTH), y: parseInt(Math.random() * HEIGHT) };
+        do newApplePos = { x: parseInt(getRandom() * WIDTH), y: parseInt(getRandom() * HEIGHT) };
         while(snakePosition(newApplePos));
 
         apple.x = newApplePos.x;

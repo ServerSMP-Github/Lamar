@@ -1,4 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+const { getRandom } = require("../assets/api/crypto");
 
 async function newGame(message) {
 
@@ -15,7 +16,7 @@ async function newGame(message) {
         let j, x, i;
 
         for (i = a.length - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * (i + 1));
+            j = Math.floor(getRandom() * (i + 1));
             x = a[i];
             a[i] = a[j];
             a[j] = x;

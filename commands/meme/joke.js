@@ -1,5 +1,6 @@
-const { Message, Client, EmbedBuilder } = require("discord.js");
 const jokes = require("../../assets/api/serversmp-api/joke.json");
+const { Message, Client, EmbedBuilder } = require("discord.js");
+const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
     name: "joke",
@@ -11,7 +12,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const randomNumber = Math.floor(Math.random() * jokes.length);
+        const randomNumber = getRandomInt(0, jokes.length);
 
         message.channel.send({
             embeds: [
