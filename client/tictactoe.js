@@ -59,7 +59,7 @@ async function newGame(message, opponent) {
         if (userOpponent.id === userChallenger.id) return message.reply("You cannot play with yourself!");
 
         const tttData = await tttSchema.findOne({ User: userChallenger.id });
-        if (tttData) return message.reply({ content: "You are already playing rock paper scissors." });
+        if (tttData) return message.reply({ content: "You are already playing tictactoe." });
 
         await tttSchema.create({ Guild: message.guild.id, User: userChallenger.id });
         await tttSchema.create({ Guild: message.guild.id, User: userOpponent.id });

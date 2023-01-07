@@ -33,7 +33,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please use \`youtube\``
+                    name: `${client.user.username} will not be doing music anymore, please use \`youtube together\``
                 })
                 .setColor("Blue")
             ]

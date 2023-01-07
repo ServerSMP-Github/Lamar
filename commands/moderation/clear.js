@@ -3,7 +3,7 @@ const { Message, Client, PermissionsBitField } = require('discord.js');
 module.exports = {
     name: 'clear',
     aliases : ['purge'],
-    usage: '[1-100]',
+    usage: '[ 1-99 ]',
     description : "Remove messages.",
     userPermission: [PermissionsBitField.Flags.ManageMessages],
     botPermission: [PermissionsBitField.Flags.ManageMessages],
@@ -17,7 +17,7 @@ module.exports = {
 
         if (!int) return message.reply({ content: "Please specify the number of messages to delete" });
         if (!Number.isInteger(Number(int))) return message.reply({ content: "The number of message must be a number" });
-        if (int > 100) return message.reply({ content: "The maximum amount of messages you can delete is 100 messages" });
+        if (int > 99) return message.reply({ content: "The maximum amount of messages you can delete is 100 messages (including your msg)" });
 
         try {
             const deletedMessages = await message.channel.bulkDelete(int + 1, true);
