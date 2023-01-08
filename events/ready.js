@@ -63,7 +63,7 @@ client.once(Events.ClientReady, async() => {
     }
   }
 
-  client.poru.init(client);
+  if (client.config.music.enabled) client.poru.init(client);
 
   global.startSpinner.succeed();
 
