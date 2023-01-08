@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType } = require("discord.js");
-const translate = require("@iamtraction/google-translate")
+const translate = require("../../assets/api/translate");
 
 module.exports = {
     name: "Translate",
@@ -14,19 +14,22 @@ module.exports = {
     run: async (client, interaction, args) => {
         const msg = await interaction.channel.messages.fetch(interaction.targetId);
 
-        const translated = await translate(msg.content, {
-            to: 'en'
+        const translated = await translate({
+            client: client,
+            message: msg.content
         });
 
-        const embed = new EmbedBuilder()
-            .setFooter({ text: `${interaction.user.tag}` })
-            .setTimestamp()
-            .addField("Text To Translate:", `\`\`\`${msg.content.slice(0, 950)}\`\`\``)
-            .addField("Translateted Text:", `\`\`\`${translated.text.slice(0, 950)}\`\`\``)
-            .setColor('Blue')
-
         interaction.followUp({
-            embeds: [embed]
+            embeds: [
+                new EmbedBuilder()
+                .setFooter({ text: `${interaction.user.tag}` })
+                .setTimestamp()
+                .addFields(
+                    { name: "Text To Translate:", value: `\`\`\`${msg.content.slice(0, 950)}\`\`\`` },
+                    { name: "Translateted Text:", value: `\`\`\`${translated.slice(0, 950)}\`\`\`` }
+                )
+                .setColor('Blue')
+            ]
         });
 
     },
