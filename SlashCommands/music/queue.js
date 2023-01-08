@@ -16,7 +16,7 @@ module.exports = {
     }],
     run: async (client, interaction, args) => {
 
-        if (client.music === false) return interaction.followUp({
+        if (client.config.music.enabled === false) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                 .setAuthor({

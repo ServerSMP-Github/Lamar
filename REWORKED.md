@@ -2,6 +2,7 @@
 
 ## SlashCommands
 
+- /translate
 - /suggest
 - /role-color
 
