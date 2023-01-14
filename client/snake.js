@@ -86,7 +86,7 @@ async function newGame(message) {
     }
 
     async function endGame() {
-        const snakeData = await snakeSchema.findOne({ User: message.author.id });
+        const snakeData = await snakeSchema.findOne({ Guild: message.guild.id, User: message.author.id });
         if (snakeData) await snakeData.delete();
 
         embed.setDescription(`**Game Over**\n**Score:** ${score}\n\n${makeGameBoard({ skull: true })}`);
@@ -194,10 +194,10 @@ async function newGame(message) {
     }
 
     async function run() {
-        const snakeData = await snakeSchema.findOne({ User: message.author.id });
+        const snakeData = await snakeSchema.findOne({ Guild: message.guild.id, User: message.author.id });
         if (snakeData) return message.reply({ content: "You are already playing snake." });
 
-        await snakeSchema.create({ User: message.author.id });
+        await snakeSchema.create({ Guild: message.guild.id, User: message.author.id });
 
         score = 0;
         snakeLength = 1;

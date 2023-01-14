@@ -1,4 +1,4 @@
-const { EmbedBuilder, WebhookClient, PermissionsBitField, Events } = require("discord.js");
+const { EmbedBuilder, WebhookClient, PermissionsBitField, Events, Collection } = require("discord.js");
 const { blacklistedwords } = require('../client/collection');
 const Schema = require('../models/moderator/blackwords');
 const botSchema = require("../models/logs/botStats");
@@ -37,10 +37,6 @@ client.once(Events.ClientReady, async() => {
         blacklistedwords.set(val.Guild, val.Words);
     });
   });
-
-  client.guilds.cache
-    .filter((g) => g.members.me.permissions.has(PermissionsBitField.Flags.ManageGuild))
-    .forEach((g) => g.invites.fetch({ cache: true }));
 
   if (client.config.bot.database.mongo_extra) {
     const botStats = await botSchema.findOne({ Account: client.user.id });
@@ -99,7 +95,7 @@ client.once(Events.ClientReady, async() => {
 
   global.mongoStatus = true;
 
-  if (client.config.music.server.enabled) console.log(global.lavalinkServer.success ? global.lavalinkServer.success : global.lavalinkServer.error);
+  if (client.config.music.enabled && client.config.music.server.enabled) console.log(global.lavalinkServer.success ? global.lavalinkServer.success : global.lavalinkServer.error);
   global.lavalinkServer.check = true;
 
   require("../website/dashboard")(client);

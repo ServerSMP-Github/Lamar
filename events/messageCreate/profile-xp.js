@@ -5,9 +5,9 @@ const client = require("../../index");
 module.exports = async(message) => {
     if (!message.guild || message.author.bot) return;
 
-    let profileData = await profileSchema.findOne({ Guild: message.guild.id });
+    let profileData = await profileSchema.findOne({ User: message.author.id });
 
-    if (!profileData) profileData = profileSchema.create({
+    if (!profileData) profileData = await profileSchema.create({
         User: message.author.id,
         Name: message.author.username,
         Description: "",

@@ -38,7 +38,6 @@ const client = new Client({
 
 module.exports = client;
 
-// client.invites = new Collection(); // Where is this used.
 client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = config;
@@ -48,6 +47,8 @@ require("./client/anticrash")(client);
 require("./client/lavalink")(client);
 
 const mongoose = require("mongoose");
+
+mongoose.set('strictQuery', false);
 
 mongoose.connect(config.bot.database.mongo_main);
 

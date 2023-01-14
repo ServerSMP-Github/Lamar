@@ -3,7 +3,7 @@ const SchemaModLogs = require('../models/logs/modlogs');
 const SchemaGoodbye = require('../models/logs/goodbye');
 const SchemaWelcome = require('../models/logs/welcome');
 const SchemaGlobal = require('../models/server/global');
-const Schema = require('../models/logs/invites');
+// const Schema = require('../models/logs/invites');
 const { Events } = require("discord.js");
 const client = require('../index');
 
@@ -46,9 +46,9 @@ client.on(Events.ChannelDelete, async(channel) => {
     })
 
     // Invite
-    Schema.findOne({ Guild: channel.guild.id, Channel: channel.id }, async(err, data) => {
-        if(data) data.delete();
-    })
+    // Schema.findOne({ Guild: channel.guild.id, Channel: channel.id }, async(err, data) => {
+        // if(data) data.delete();
+    // })
 
     // XP
 

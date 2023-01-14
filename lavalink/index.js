@@ -2,7 +2,7 @@ const config = require("../settings/settings.json");
 const colors = require("../assets/api/console");
 const { spawn } = require('child_process');
 
-if (config.music.server.enabled === false) return;
+if (config.music.enabled === false || config.music.server.enabled === false) return;
 
 const child = spawn("java", ["-jar", `${process.cwd()}/lavalink/app/Lavalink.jar`], { cwd: `${process.cwd()}/lavalink/app` });
 
