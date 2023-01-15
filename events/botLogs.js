@@ -12,11 +12,13 @@ client.on(Events.GuildCreate, async(guild) => {
         new EmbedBuilder()
           .setColor("#39ff14")
           .setTitle('New Server')
-          .addField('Name', `${guild.name}`, true)
-          .addField('Guild ID', `${guild.id}`, true)
-          .addField('Owner', `${owner.user.tag}`, true)
-          .addField('Owner ID', `${owner.user.id}`, true)
-          .addField('Users', `${guild.members.cache.size}`, true)
+          .addFields(
+            { name: 'Name', value: guild.name, inline: true },
+            { name: 'Guild ID', value: guild.id, inline: true },
+            { name: 'Owner', value: owner.user.tag, inline: true },
+            { name: 'Owner ID', value: owner.user.id, inline: true },
+            { name: 'Users', value: guild.members.cache.size, inline: true },
+          )
           .setFooter({ text: `Guilds: ${client.guilds.cache.size}` })
           .setThumbnail(guild.iconURL())
       ]
@@ -33,11 +35,13 @@ client.on(Events.GuildDelete, async(guild) => {
         new EmbedBuilder()
           .setColor("#F72119")
           .setTitle('Server Left')
-          .addField('Name', `${guild.name}`, true)
-          .addField('Guild ID', `${guild.id}`, true)
-          .addField('Owner', `${owner.user.tag}`, true)
-          .addField('Owner ID', `${owner.user.id}`, true)
-          .addField('Users', `${guild.members.cache.size}`, true)
+          .addFields(
+            { name: 'Name', value: guild.name, inline: true },
+            { name: 'Guild ID', value: guild.id, inline: true },
+            { name: 'Owner', value: owner.user.tag, inline: true },
+            { name: 'Owner ID', value: owner.user.id, inline: true },
+            { name: 'Users', value: guild.members.cache.size, inline: true },
+          )
           .setFooter({ text: `Guilds: ${client.guilds.cache.size}` })
           .setThumbnail(guild.iconURL())
       ]
