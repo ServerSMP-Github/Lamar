@@ -49,6 +49,7 @@ module.exports = (client) => {
             ]
         });
         return player.disconnect();
+        // return player.destroy();
     });
 
 }
