@@ -17,7 +17,7 @@ module.exports = (client) => {
         config.music.lavalink,
         {
             library: "discord.js",
-            defaultPlatform: "ytsearch",
+            defaultPlatform: "scsearch"
         }
     )
     .on("nodeConnect", (node) => console.log(`${colors.fgWhite(`Lavalink:`)} ${colors.fgGreen("√")} ${colors.fgWhite("||")} ${colors.fgWhite(`Host:`)} ${colors.fgRed(node.options.host)}`))
@@ -48,7 +48,7 @@ module.exports = (client) => {
                 .setColor("Blue")
             ]
         });
-        return player.destroy();
+        return player.disconnect();
     });
 
 }
