@@ -8,7 +8,6 @@ const logDataSchema = require("../../models/logs/logsData");
 const goodbyeSchema = require("../../models/logs/goodbye");
 const welcomeSchema = require("../../models/logs/welcome");
 const cmdSchema = require("../../models/server/command");
-const pollSchema = require("../../models/server/poll");
 const nqnSchema = require("../../models/server/nqn");
 
 const { randomHexColor } = require("../../assets/api/color");
@@ -1670,51 +1669,6 @@ module.exports = {
         });
 
       } else return message.reply("Option is not correct!")
-
-    } else if (query === "advanced-poll") {
-      if (options === "on" || options === "add") {
-        const channel = message.mentions.channels.last();
-        if (!channel) return message.reply("Please mention a channel!");
-
-        SchemaPoll.findOne({ Guild: message.guild.id }, async(err, data) => {
-          if (!data) {
-            new SchemaPoll({
-              Guild: message.guild.id,
-              Channels: [`${channel.id}`],
-            }).save();
-            message.reply("Advanced Poll has been enabled!");
-          } else {
-            data.Channels.push(channel.id);
-            data.save();
-            message.reply(`Added channel ${channel} to the list!`);
-          }
-        });
-
-      } else if (options === "rmv") {
-        SchemaPoll.findOne({ Guild: message.guild.id }, async(err, data) => {
-          if (!data) return message.reply("This server does not have any advanced poll!");
-          if (data) {
-            const channel = message.mentions.channels.last();
-            if (!channel) return message.reply("Please mention a channel!");
-            const index = data.Channels.indexOf(channel.id);
-            if (index > -1) {
-              data.Channels.splice(index, 1);
-              data.save();
-              message.reply(`Removed channel ${channel} from the list!`);
-            } else return message.reply("This channel is not in the list!");
-          }
-        });
-
-      } else if (options === "off") {
-        SchemaPoll.findOne({ Guild: message.guild.id }, async(err, data) => {
-          if (!data) return message.reply("Advanced Poll is allready off!");
-          if (data) {
-            data.delete();
-            return message.reply("Advanced Poll is turned off!");
-          }
-        });
-
-      } else return message.reply("Option is not correct!");
 
     } else return message.reply("Query is not correct!")
   }
