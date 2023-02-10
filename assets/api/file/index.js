@@ -8,6 +8,7 @@ async function getFileList(dirName, filter) {
     for (const item of items) {
         if (item.isDirectory() && filter.recursively === true) {
             if (number++ >= filter.maxRecursion) break;
+            if (filter.folder && filter.folder.includes(item?.name)) break;
             files = [
                 ...files,
                 ...(await getFileList(`${dirName}/${item.name}`, filter)),
