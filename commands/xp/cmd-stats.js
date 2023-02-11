@@ -15,16 +15,19 @@ module.exports = {
     const cmdStats = [];
   
     const stats = await userStats.find().sort({ "CmdUsed": -1 });
-    stats.map(async (val, i) => {
-      const userParsed = await client.users.fetch(val.User);
-      cmdStats.push(`**${i + 1}**. - *${userParsed.username}#${userParsed.discriminator}*\nCMDs: \`${val.CmdUsed}\``);
-    });
-  
+
+    for (let index = 0; index < stats.length; index++) {
+      const element = stats[index];
+
+      const userParsed = await client.users.fetch(element.User);
+      cmdStats.push(`**${index + 1}**. - *${userParsed.username}#${userParsed.discriminator}*\nCMDs: \`${element.CmdUsed}\``);
+    }
+
     message.channel.send({
       embeds: [
         new EmbedBuilder()
         .setTitle("CMD stats")
-        .setDescription(`${cmd.splice(0, 10).join("\n\n")}`)
+        .setDescription(`${cmdStats.splice(0, 10).join("\n\n")}`)
         .setColor("Random")
       ]
     });
