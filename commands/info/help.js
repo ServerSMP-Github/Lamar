@@ -1,4 +1,5 @@
 const { Message, Client, EmbedBuilder } = require("discord.js");
+const { getFileList } = require("../../assets/api/file");
 const SchemaNSFW = require("../../models/server/nsfw");
 const { readdirSync } = require("fs");
 
@@ -19,29 +20,17 @@ module.exports = {
       const arg = args[0]?.toLowerCase();
 
       if (!arg) {
-        const categories = [];
-
         const ignored = ["nsfw"];
-
         const nsfwData = await SchemaNSFW.findOne({ Guild: message.guild.id }).exec();
-
         if (nsfwData) nsfwData.Channels !== undefined ? nsfwData.Channels.includes(message.channel.id) ? ignored.splice(ignored.indexOf("nsfw"), 1) : null : ignored.splice(ignored.indexOf("nsfw"), 1);
         else message.channel.nsfw === true ? ignored.splice(ignored.indexOf("nsfw"), 1) : null;
 
-        readdirSync("./commands/").forEach((dir) => {
-          if (ignored.includes(dir.toLowerCase())) return;
-
-          const name = `${[dir.toLowerCase()]}`;
-          let cats = new Object();
-
-          cats = {
-            name: name,
+        const categories = readdirSync("./commands/").filter((dir) => !ignored.includes(dir.toLowerCase()))
+          .map((dir) => ({
+            name: `${[dir.toLowerCase()]}`,
             value: `\`${prefix}help ${dir.toLowerCase()}\``,
             inline: true,
-          };
-
-          categories.push(cats);
-        });
+          }));
 
         return message.channel.send({
           embeds: [
@@ -60,86 +49,64 @@ module.exports = {
             .setColor(color)
           ]
         });
-      } else {
-        const cots = [];
-        const catts = [];
+      }
 
-        readdirSync("./commands/").forEach((dir) => {
-          if (dir.toLowerCase() !== arg) return;
-          const commands = readdirSync(`./commands/${dir}/`).filter((file) => file.endsWith(".js"));
+      const dirs = await readdirSync(`${process.cwd()}/commands`);
+      if (dirs.includes(arg)) {
+        const commands = await getFileList(`${process.cwd()}/commands/${arg}`, { type: ".js", recursively: false });
 
-          const cmds = commands.map((command) => {
-            const file = require(`../../commands/${dir}/${command}`);
+        const cmds = commands.map((command) => {
+          const file = require(command);
 
-            if (!file.name) return "No command name.";
+          const name = file?.name?.replace?.(".js", "");
+          const description = file?.description;
 
-            const name = file.name.replace(".js", "");
-
-            const des = client.commands.get(name).description;
-
-            const obj = {
-              cname: `\`${name}\``,
-              des,
-            };
-
-            return obj;
-          });
-
-          let dota = new Object();
-
-          cmds.map((co) => {
-            dota = {
-              name: `${cmds.length === 0 ? "In progress." : co.cname}`,
-              value: co.des ? co.des : "No Description",
-              inline: true,
-            };
-
-            catts.push(dota);
-          });
-
-          cots.push(dir.toLowerCase());
-        });
-
-        const command = client.commands.get(arg) || client.commands.find((c) => c.aliases && c.aliases.includes(arg));
-
-        if (cots.includes(arg)) return message.channel.send({
-          embeds: [
-            new EmbedBuilder()
-            .setTitle(`__${args[0].charAt(0).toUpperCase() + args[0].slice(1)} Commands!__`)
-            .setDescription(`Use \`${prefix}help\` followed by a command name to get more information on a command.\nFor example: \`${prefix}help ban\`.\n\n`)
-            .addFields(catts)
-            .setColor(color)
-          ]
-        });
-
-        if (!command) return message.channel.send({
-          embeds: [
-            new EmbedBuilder()
-            .setTitle(`Invalid command! Use \`${prefix}help\` for all of my commands!`)
-            .setColor("Red")
-          ]
+          return {
+            name: `${commands.length === 0 ? "In progress." : name}`,
+            value: description ? description : "No Description",
+            inline: true,
+          };
         });
 
         return message.channel.send({
           embeds: [
             new EmbedBuilder()
-            .setTitle("Command Details:")
-            .addFields([
-              { name: "Command", value: command.name ? `\`${command.name}\`` : "No name for this command." },
-              { name: "Aliases", value: command.aliases ? `\`${command.aliases.join("` `")}\`` : "No aliases for this command." },
-              { name: "Usage", value: command.usage ? `\`${prefix}${command.name} ${command.usage}\`` : `\`${prefix}${command.name}\`` },
-              { name: "Command Description:", value: command.description ? command.description : "No description for this command." }
-            ])
-            .setFooter({
-              text: `Requested by ${message.author.tag}`,
-              iconURL: message.author.displayAvatarURL({
-                dynamic: true,
-              })
-            })
-            .setTimestamp()
+            .setTitle(`__${args[0].charAt(0).toUpperCase() + args[0].slice(1)} Commands!__`)
+            .setDescription(`Use \`${prefix}help\` followed by a command name to get more information on a command.\nFor example: \`${prefix}help ban\`.\n\n`)
+            .addFields(cmds)
             .setColor(color)
           ]
         });
       }
+
+      const command = client.commands.get(arg) || client.commands.find((c) => c.aliases && c.aliases.includes(arg));
+      if (command) return message.channel.send({
+        embeds: [
+          new EmbedBuilder()
+          .setTitle("Command Details:")
+          .addFields([
+            { name: "Command", value: command.name ? `\`${command.name}\`` : "No name for this command." },
+            { name: "Aliases", value: command.aliases ? `\`${command.aliases.join("` `")}\`` : "No aliases for this command." },
+            { name: "Usage", value: command.usage ? `\`${prefix}${command.name} ${command.usage}\`` : `\`${prefix}${command.name}\`` },
+            { name: "Command Description:", value: command.description ? command.description : "No description for this command." }
+          ])
+          .setFooter({
+            text: `Requested by ${message.author.tag}`,
+            iconURL: message.author.displayAvatarURL({
+              dynamic: true,
+            })
+          })
+          .setTimestamp()
+          .setColor(color)
+        ]
+      });
+
+      return message.channel.send({
+        embeds: [
+          new EmbedBuilder()
+          .setTitle(`Invalid command! Use \`${prefix}help\` for all of my commands!`)
+          .setColor("Red")
+        ]
+      });
     },
 };

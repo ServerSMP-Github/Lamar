@@ -19,13 +19,13 @@ module.exports = {
 
         const user = args[1];
         const guild = args[2];
-        const amount = args[3]
+        const amount = Number(args[3]);
 
         if (!user || !guild || !amount) return message.reply("Please specify a user, guild and amount!");
 
         if (query === "level") setLevel(user, guild, amount);
         else if (query === "xp") setXp(user, guild, amount);
 
-        message.reply(`Changed ${query} of ${user} on ${guild}`);
+        message.reply(`Changed **${query}** of **${user}** on **${guild}**`);
     }
 }
