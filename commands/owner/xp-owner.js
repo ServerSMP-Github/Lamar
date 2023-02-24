@@ -21,7 +21,7 @@ module.exports = {
         const guild = args[2];
         const amount = Number(args[3]);
 
-        if (!user || !guild || !amount) return message.reply("Please specify a user, guild and amount!");
+        if (!user || !guild || !amount < 0) return message.reply("Please specify a user, guild and amount!");
 
         if (query === "level") setLevel(user, guild, amount);
         else if (query === "xp") setXp(user, guild, amount);

@@ -7,7 +7,7 @@ const { getFileList } = require("../assets/api/file");
  */
 module.exports = async (client) => {
     // Commands
-    const commandFiles = await getFileList(`${process.cwd()}/commands`, { type: ".js", recursively: true, folder: ["flagGuesser", "options"] });
+    const commandFiles = await getFileList(`${process.cwd()}/commands`, { type: ".js", recursively: true, maxDepth: 1 });
     commandFiles.map((value) => {
         const file = require(value);
         const splitted = value.split("/");

@@ -1,19 +1,20 @@
 const { readdir } = require('fs').promises;
+const path = require('path');
 
-async function getFileList(dirName, filter) {
-    let number = 0;
+async function getFileList(dirName, filter, depth = 0) {
     let files = [];
     const items = await readdir(dirName, { withFileTypes: true });
 
     for (const item of items) {
-        if (item.isDirectory() && filter.recursively === true) {
-            if (number++ >= filter.maxRecursion) break;
-            if (filter.folder && filter.folder.includes(item?.name)) break;
-            files = [
-                ...files,
-                ...(await getFileList(`${dirName}/${item.name}`, filter)),
-            ];
-        } else if (item.name.endsWith(filter.type)) files.push(`${dirName}/${item.name}`);
+        const itemPath = path.join(dirName, item.name);
+
+        if (item.isDirectory()) {
+            if (depth >= filter.maxDepth) continue;
+            if (filter.exclusion && filter.exclusion.includes(item.name)) continue;
+
+            const subFiles = await getFileList(itemPath, filter, depth + 1);
+            files = [...files, ...subFiles];
+        } else if (item.name.endsWith(filter.type)) files.push(itemPath);
     }
 
     return files;
