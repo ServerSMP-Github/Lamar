@@ -29,12 +29,10 @@ module.exports = {
     }],
     run: async (client, interaction) => {
 
-        if (client.config.music.enabled === false) return interaction.followUp({
+        if (client.config.music.enabled === false || (client.config.music.whitelist && client.config.music.whitelist.includes(interaction.guild.id) === false)) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please use \`youtube together\``
-                })
+                .setAuthor({ name: `${client.user.username} will not be doing music anymore, please use \`youtube together\`` })
                 .setColor("Blue")
             ]
         });
@@ -69,14 +67,14 @@ module.exports = {
         const mode = interaction.options.get("mode").value;
 
         if (mode === 1) {
-            if (player.queueRepeat === false && player.trackRepeat === false) return interaction.followUp({
+            if (player.loop === "NONE") return interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("▶ **|** The repeat mode is already set to **\`OFF\`**")
                     .setColor("Yellow")
                 ]
             });
-            player.DisableRepeat();
+            player.setLoop("NONE");
             interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
@@ -85,14 +83,14 @@ module.exports = {
                 ]
             });
         } else if (mode === 3) {
-            if (player.queueRepeat === true) return interaction.followUp({
+            if (player.loop === "QUEUE") return interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("🔁 **|** The repeat mode is already set to **\`ALL\`**")
                     .setColor("Yellow")
                 ]
             });
-            player.QueueRepeat();
+            player.setLoop("QUEUE");
             interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
@@ -101,14 +99,14 @@ module.exports = {
                 ]
             });
         } else if (mode === 2) {
-            if (player.trackRepeat === true) return interaction.followUp({
+            if (player.loop === "TRACK") return interaction.followUp({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription("🔂 **|** The repeat mode is already set to **\`ONE\`**")
                     .setColor("Yellow")
                 ]
             });
-            player.TrackRepeat();
+            player.setLoop("TRACK");
             interaction.followUp({
                 embeds: [
                     new EmbedBuilder()

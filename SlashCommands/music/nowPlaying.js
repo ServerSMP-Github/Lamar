@@ -10,12 +10,10 @@ module.exports = {
     type: ApplicationCommandType.ChatInput,
     run: async (client, interaction) => {
 
-        if (client.config.music.enabled === false) return interaction.followUp({
+        if (client.config.music.enabled === false || (client.config.music.whitelist && client.config.music.whitelist.includes(interaction.guild.id) === false)) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                .setAuthor({
-                    name: `${client.user.username} will not be doing music anymore, please use \`youtube together\``
-                })
+                .setAuthor({ name: `${client.user.username} will not be doing music anymore, please use \`youtube together\`` })
                 .setColor("Blue")
             ]
         });
