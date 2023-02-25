@@ -93,13 +93,12 @@ async function newGame(message) {
 
         msgEdit.edit({
             embeds: [embed],
-            // change this
             components: [
                 new ActionRowBuilder()
                 .addComponents(
                     new ButtonBuilder()
                     .setCustomId('snake-disabled-1')
-                    .setLabel(' ')
+                    .setLabel('\u200b')
                     .setDisabled(true)
                     .setStyle(ButtonStyle.Secondary),
 
@@ -111,7 +110,7 @@ async function newGame(message) {
 
                     new ButtonBuilder()
                     .setCustomId('snake-disabled-2')
-                    .setLabel(' ')
+                    .setLabel('\u200b')
                     .setDisabled(true)
                     .setStyle(ButtonStyle.Secondary),
 
@@ -148,7 +147,7 @@ async function newGame(message) {
     function button() {
         const filter = button => button.customId.startsWith('snake') && button.user.id === message.author.id;
 
-        const collector = message.channel.createMessageComponentCollector({ filter, time: 60000 });
+        const collector = message.channel.createMessageComponentCollector({ filter, idle: 60000 });
 
         collector.on('collect', async (button) => {
             const snakeHead = snake[0];
@@ -189,7 +188,7 @@ async function newGame(message) {
         });
 
         collector.on('end', async (collect, reason) => {
-            if (reason == 'time') return endGame();
+            if (reason == 'idle') return endGame();
         });
     }
 
@@ -214,7 +213,7 @@ async function newGame(message) {
                 .addComponents(
                     new ButtonBuilder()
                     .setCustomId('snake-disabled-1')
-                    .setLabel(' ')
+                    .setLabel('\u200b')
                     .setDisabled(true)
                     .setStyle(ButtonStyle.Secondary),
 
@@ -225,7 +224,7 @@ async function newGame(message) {
 
                     new ButtonBuilder()
                     .setCustomId('snake-disabled-2')
-                    .setLabel(' ')
+                    .setLabel('\u200b')
                     .setDisabled(true)
                     .setStyle(ButtonStyle.Secondary),
 

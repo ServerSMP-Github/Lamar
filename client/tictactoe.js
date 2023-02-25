@@ -13,11 +13,18 @@ async function newGame(message, opponent) {
         [0, 0, 0]
     ];
     let turn = userChallenger.id;
+    let finished = false;
     let msg = null;
 
     const embed = new EmbedBuilder()
         .setTitle(`${userChallenger.username} vs. ${userOpponent.username}`)
         .setColor("#5865F2")
+        .addFields([
+            {
+                name: "Status",
+                value: `❌ | Its now **${userChallenger.tag}** turn!`
+            }
+        ])
 
     async function getWinner(player) {
         if (gameBoard[0][0] == gameBoard[1][1] && gameBoard[0][0] == gameBoard[2][2] && gameBoard[0][0] == player) return true;
@@ -33,22 +40,86 @@ async function newGame(message, opponent) {
         return false;
     }
 
+    async function endGame(player) {
+        const tag = player === 1 ? userChallenger.tag : `${userOpponent.username}#${userOpponent.discriminator}`;
+        const emoji = player === 1 ? "❌" : "🔵";
+
+        const value = player === null ? "The game went unfinished :(" : `${emoji} | **${tag}** won the game!`;
+
+        embed.setFields([]);
+        embed.addFields([
+            {
+                name: "Game Over",
+                value: value
+            }
+        ]);
+
+        msg.edit({ embeds: [embed], components: msg.components });
+
+        if (!finished) {
+            await (await tttSchema.findOne({ Guild: message.guild.id, User: userChallenger.id })).delete();
+            await (await tttSchema.findOne({ Guild: message.guild.id, User: userOpponent.id })).delete();
+        }
+
+        turn = null;
+    }
+
     async function event() {
         const filter = button => button.customId.startsWith('ttt');
 
-        const collector = message.channel.createMessageComponentCollector({ filter, time: 60000 });
+        const collector = message.channel.createMessageComponentCollector({ filter, idle: 60000 });
 
         collector.on('collect', async (button) => {
             if (button.user.id !== userChallenger.id && button.user.id !== userOpponent.id) return button.reply({ content: "You are not allowed to use buttons for this message!",  ephemeral: true });
 
             if (turn !== button.user.id) return button.reply({ content: "It is not your turn.",  ephemeral: true });
 
-			await btn.deferUpdate();
+			if (turn === button.user.id) await button.deferUpdate();
 
-			const index = choice[btn.customId.split('-')[1]] - 1;
+			const index = choice[button.customId.split('-')[1]] - 1;
 
             const x = index % 3;
             const y = Math.floor(index / 3);
+
+
+            const style = turn === userChallenger.id ? ButtonStyle.Danger : ButtonStyle.Primary;
+            let emoji = turn === userChallenger.id ? "❌" : "🔵";
+
+            const new_btn = new ButtonBuilder()
+                .setStyle(style)
+                .setCustomId(button.customId)
+                .setDisabled(true)
+                .setEmoji(emoji)
+
+            turn = turn === userChallenger.id ? userOpponent.id : userChallenger.id;
+
+            const tag = turn === userChallenger.id ? userChallenger.tag : `${userOpponent.username}#${userOpponent.discriminator}`;
+            emoji = turn === userChallenger.id ? "❌" : "🔵";
+
+            const player = turn === userChallenger.id ? 2 : 1;
+
+            gameBoard[x][y] = player;
+
+			msg.components[y].components[x] = new_btn;
+
+            embed.setFields([]);
+            embed.addFields([
+                {
+                    name: "Status",
+                    value: `${emoji} | Its now **${tag}** turn!`
+                }
+            ]);
+
+            msg.edit({ embeds: [embed], components: msg.components });
+
+            if (await getWinner(player)) {
+                finished = true
+                return endGame(player);
+            }
+        });
+
+        collector.on('end', async (collect, reason) => {
+            if (reason == 'idle') return endGame(null);
         });
     }
 

@@ -29,7 +29,6 @@
     "chart.js": "3.9.1",
     "chartjs-node-canvas": "^4.1.6",
     "connect-mongo": "^4.6.0",
-    "discord-backup": "^3.3.2",
     "discord-gamecord": "2.1.0",
     "discord-welcome-card": "^4.8.1",
     "discord.js": "14.7.1",

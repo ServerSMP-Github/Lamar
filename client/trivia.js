@@ -47,7 +47,7 @@ async function newGame(message) {
     async function event() {
         const filter = button => button.customId.endsWith('trivia') && button.user.id === message.author.id;
 
-        const collector = message.channel.createMessageComponentCollector({ filter, time: 60000 });
+        const collector = message.channel.createMessageComponentCollector({ filter, idle: 60000 });
 
         collector.on('collect', async (button) => {
             collector.stop();
@@ -57,7 +57,7 @@ async function newGame(message) {
         });
 
         collector.on('end', async (collect, reason) => {
-            if (reason == 'time') return endGame();
+            if (reason == 'idle') return endGame();
         });
     }
 

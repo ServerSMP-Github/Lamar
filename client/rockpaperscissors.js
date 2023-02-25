@@ -23,7 +23,7 @@ async function newGame(message, opponent) {
     async function event() {
         const filter = button => button.customId.startsWith('rps');
 
-        const collector = message.channel.createMessageComponentCollector({ filter, time: 60000 });
+        const collector = message.channel.createMessageComponentCollector({ filter, idle: 60000 });
 
         collector.on('collect', async (button) => {
             if (button.user.id !== userChallenger.id && button.user.id !== userOpponent.id) return button.reply({ content: "You are not allowed to use buttons for this message!",  ephemeral: true });
@@ -73,8 +73,8 @@ async function newGame(message, opponent) {
             }
 
             if (winner) {
-                await (await rpsSchema.findOne({ User: userChallenger.id })).delete();
-                await (await rpsSchema.findOne({ User: userOpponent.id })).delete();
+                await (await rpsSchema.findOne({ Guild: message.guild.id, User: userChallenger.id })).delete();
+                await (await rpsSchema.findOne({ Guild: message.guild.id, User: userOpponent.id })).delete();
 
                 const winText = winner == "draw" ? "It was a draw!" : `${winner} won the game!`;
 
