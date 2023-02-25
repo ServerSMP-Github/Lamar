@@ -8,7 +8,7 @@ async function getFileList(dirName, filter, depth = 0) {
     for (const item of items) {
         const itemPath = path.join(dirName, item.name);
 
-        if (item.isDirectory()) {
+        if (item.isDirectory() && filter.recursively) {
             if (depth >= filter.maxDepth) continue;
             if (filter.exclusion && filter.exclusion.includes(item.name)) continue;
 

@@ -29,7 +29,7 @@ module.exports = {
           .map((dir) => ({
             name: `${[dir.toLowerCase()]}`,
             value: `\`${prefix}help ${dir.toLowerCase()}\``,
-            inline: true,
+            inline: true
           }));
 
         return message.channel.send({
@@ -40,9 +40,7 @@ module.exports = {
             .addFields(categories)
             .setFooter({
               text: `Requested by ${message.author.tag}`,
-              iconURL: message.author.displayAvatarURL({
-                dynamic: true,
-              })
+              iconURL: message.author.displayAvatarURL({ dynamic: true })
             })
             .setTimestamp()
             .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
@@ -62,7 +60,7 @@ module.exports = {
           const description = file?.description;
 
           return {
-            name: `${commands.length === 0 ? "In progress." : name}`,
+            name: `\`${commands.length === 0 ? "In progress." : name}\``,
             value: description ? description : "No Description",
             inline: true,
           };
