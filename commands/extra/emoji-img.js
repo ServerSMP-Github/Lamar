@@ -1,5 +1,6 @@
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const { nearestColor } = require("../../assets/api/color");
+const { isImageUrl } = require("../../assets/api/url");
 const { Message, Client } = require("discord.js");
 const twemoji = require('twemoji');
 
@@ -82,15 +83,17 @@ module.exports = {
             }
         ];
 
-        const getUrl = (client, args) => {
+        const getUrl = async(client, args) => {
             const emojiName = (args[0]?.split(":")[2])?.split(">")[0];
             const emoji = message.guild.emojis.resolve(emojiName);
 
             if (emoji) return emoji.url;
-            else if (args[0].startsWith("https://") || args[0].startsWith("http://") && args[0].endsWith(".png") || args[0].endsWith(".jpg")) return args[0];
-            else {
+            else if (args[0].startsWith("https://") || args[0].startsWith("http://") && args[0].endsWith(".png") || args[0].endsWith(".jpg")) {
+                if (!await isImageUrl(args[0])) return;
 
-                const text = twemoji.parse(args[0]);
+                return args[0];
+            } else {
+                const text = await twemoji.parse(args[0]);
                 if (text.startsWith("<img")) {
                     const pos = text.indexOf("src");
                     return text.substring(pos + 5, text.length - 3);
@@ -122,7 +125,7 @@ module.exports = {
         }
 
         try {
-            const url = getUrl(client, args);
+            const url = await getUrl(client, args);
             if (!url) return message.reply("Error. Only works with custom emojis from this guild / default emojis / png or jpg urls.");
 
             message.channel.send("Generating..");
