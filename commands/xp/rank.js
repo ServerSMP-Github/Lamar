@@ -1,11 +1,11 @@
 const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { createRankCard } = require("../../assets/api/canvas/rankcard");
 const guildRankcard = require("../../models/server/guild-rankcard");
 const userRankcard = require("../../models/user/user-rankcard");
 const progressbar = require('../../assets/api/progressbar');
 const { fetchUser, xpFor } = require("../../assets/api/xp");
 const { cleanText } = require('../../assets/api/text');
 const xpSchema = require("../../models/server/xp");
-const canvacord = require("canvacord");
 
 module.exports = {
   name: "rank",
@@ -42,8 +42,6 @@ module.exports = {
       ]
     });
 
-    const status = checkUser.presence?.status ? checkUser.presence.status : "offline";
-
     const userCardData = await userRankcard.findOne({ User: checkUser.user.id });
     const guildCardData = await guildRankcard.findOne({ Guild: message.guild.id });
 
@@ -55,30 +53,29 @@ module.exports = {
     const progressColor = userCardData?.ProgressBar ? userCardData.ProgressBar : guildCardData?.ProgressBar ? guildCardData.ProgressBar : "#ffffff";
     const backgroundUrl = userBackground ? userCardData.Background : guildBackground ? guildCardData.Background : null;
     const statusStyle = userCardData?.StatusStyle ? userCardData.StatusStyle : guildCardData?.StatusStyle ? guildCardData.StatusStyle : false;
+    const status = userCardData?.StatusType ? userCardData?.StatusType : checkUser.presence?.status ? checkUser.presence.status : "offline";
 
     const username = cleanText(checkUser.user.username);
 
-    const rankcard = new canvacord.Rank()
-      .setAvatar(checkUser.user.displayAvatarURL({format: 'png', size: 512}))
-      .setCurrentXP(currentXp)
-      .setRequiredXP(totalXp)
-      .setRank(positionXp)
-      .setLevel(levelXp)
-      .setStatus(status, statusStyle)
-      .setProgressBar(progressColor)
-      .renderEmojis(true)
-      .setUsername(username)
-      .setDiscriminator(checkUser.user.discriminator);
-
-    if (backgroundUrl !== "default" && backgroundUrl !== null) rankcard
-      .setBackground("IMAGE", backgroundUrl)
-      .setOverlay("#ffffff", 0, false);
-
-    const rankImg = await rankcard.build();
+    const rankCard = await createRankCard({
+      background: backgroundUrl ? backgroundUrl : null,
+      avatar: checkUser.user.displayAvatarURL({ extension: 'png', size: 512 }),
+      username: username,
+      discriminator: checkUser.user.discriminator,
+      status: {
+        style: status,
+        type: statusStyle
+      },
+      level: levelXp,
+      rank: positionXp,
+      currentXP: currentXp,
+      requiredXP: totalXp,
+      progressBar: progressColor ? progressColor : null
+    });
 
     message.channel.send({
       files: [
-        new AttachmentBuilder(rankImg, { name: "RankCard.png" })
+        new AttachmentBuilder(rankCard, { name: "RankCard.png" })
       ]
     });
 

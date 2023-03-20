@@ -60,7 +60,7 @@ mongoose.connection.on("error", (err) => console.log(err));
 
 if (config.bot.database.mongo_extra) client.apiConnection = mongoose.createConnection(client.config.bot.database.mongo_extra);
 
-client.ffmpeg = require("fluent-ffmpeg");
+// client.ffmpeg = require("fluent-ffmpeg");
 
 client.prefix = async function(message) {
   let custom;

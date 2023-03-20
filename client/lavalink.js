@@ -40,7 +40,7 @@ module.exports = (client) => {
             .setColor("Blue")
         ]
     }))
-    .on("playerDisconnect", (player, track) => {
+    .on("queueEnd", (player, track) => {
         client.channels.cache.get(player.textChannel).send({
             embeds: [
                 new EmbedBuilder()
@@ -49,7 +49,6 @@ module.exports = (client) => {
             ]
         });
         return player.disconnect();
-        // return player.destroy();
     });
 
 }

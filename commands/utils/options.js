@@ -1,7 +1,6 @@
 const { EmbedBuilder, Message, Client, AttachmentBuilder, PermissionsBitField } = require("discord.js");
 const { blacklistedwords } = require("../../client/collection");
 const { ChartJSNodeCanvas } = require("chartjs-node-canvas");
-const { drawCard } = require("discord-welcome-card");
 
 const blacklistSchema = require("../../models/moderator/blackwords");
 const logDataSchema = require("../../models/logs/logsData");

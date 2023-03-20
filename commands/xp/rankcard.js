@@ -2,6 +2,7 @@ const { Message, Client, ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonSt
 const rankCardRequest = require('../../models/management/rankcard-request');
 const userRankcard = require('../../models/user/user-rankcard');
 const { isValidHexCode } = require("../../assets/api/color");
+const { isImageUrl } = require("../../assets/api/url");
 const xpSchema = require("../../models/server/xp");
 
 module.exports = {
@@ -62,6 +63,7 @@ module.exports = {
 
     if (client.config.channel.ids.rankcard && image) {
       if (!image.startsWith("http") && !(image.endsWith(".png") || image.endsWith(".jpeg") || image.endsWith(".jpg"))) return message.reply("If you want a image it has to start with `http` and end with `.png` or `.jpeg` or `.jpg`");
+      if (!await isImageUrl(image)) return message.reply("The url you have provided is not a valid image");
 
       const row = new ActionRowBuilder()
         .addComponents(
@@ -100,7 +102,7 @@ module.exports = {
       if (!rankCardData) {
         const msg = await channel.send({ embeds: [embed], components: [row] });
 
-        await rankCardRequest.create({ Mesaage: msg.id, User: message.author.id, Background: image });
+        await rankCardRequest.create({ Message: msg.id, User: message.author.id, Background: image });
 
       } else {
         await channel.messages.fetch(rankCardData.Message).then((msg) => msg.delete());
@@ -109,21 +111,21 @@ module.exports = {
 
         const msg = await channel.send({ embeds: [embed], components: [row] });
 
-        await rankCardRequest.create({ Mesaage: msg.id, User: message.author.id, Background: image });
+        await rankCardRequest.create({ Message: msg.id, User: message.author.id, Background: image });
       }
     }
 
     const userData = await userRankcard.findOne({ User: message.author.id });
-    if (!userData) await userRankcard.create({ User: message.author.id, ProgressBar: color, StatusStyle: style, StatusType: status, Background: "default" });
+    if (!userData) await userRankcard.create({ User: message.author.id, ProgressBar: color, StatusStyle: style, StatusType: status, Background: "" });
     else {
       userData.ProgressBar = color;
       userData.StatusStyle = style;
       userData.StatusType = status;
-      userData.Background = "default";
+      userData.Background = "";
 
       await userData.save();
     }
 
-    return message.reply("Data Saved!");
+    return message.reply("Data Saved! *(note: background images need to be approved)*");
   }
 }

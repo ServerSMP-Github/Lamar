@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 const client = require("../../index");
 
 module.exports = async(message) => {
-    if(message.author.bot) return;
+    if(message.author.bot || !message.guild) return;
 
     const guildData = await globalSchema.findOne({ Channel: message.channel.id, Activated: true });
 

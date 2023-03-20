@@ -6,7 +6,7 @@ const lb = require("../../models/user/fg-leaderboard");
 const client = require("../../index");
 
 module.exports = async(message) => {
-    if (message.author.bot || !message.content || !message.author) return;
+    if (message.author.bot || !message.content || !message.author || !message.guild) return;
 
     const getInstance = await instance.findOne({ guild: message.guild.id, user: message.author.id });
     if (!getInstance) return;

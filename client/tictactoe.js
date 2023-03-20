@@ -13,7 +13,6 @@ async function newGame(message, opponent) {
         [0, 0, 0]
     ];
     let turn = userChallenger.id;
-    let finished = false;
     let msg = null;
 
     const embed = new EmbedBuilder()
@@ -56,10 +55,11 @@ async function newGame(message, opponent) {
 
         msg.edit({ embeds: [embed], components: msg.components });
 
-        if (!finished) {
-            await (await tttSchema.findOne({ Guild: message.guild.id, User: userChallenger.id })).delete();
-            await (await tttSchema.findOne({ Guild: message.guild.id, User: userOpponent.id })).delete();
-        }
+        const challengerData = await tttSchema.findOne({ Guild: message.guild.id, User: userChallenger.id });
+        if (challengerData) await challengerData.delete();
+
+        const opponentData = await tttSchema.findOne({ Guild: message.guild.id, User: userOpponent.id })
+        if (opponentData) await opponentData.delete();
 
         turn = null;
     }
@@ -112,10 +112,7 @@ async function newGame(message, opponent) {
 
             msg.edit({ embeds: [embed], components: msg.components });
 
-            if (await getWinner(player)) {
-                finished = true
-                return endGame(player);
-            }
+            if (await getWinner(player)) return endGame(player);
         });
 
         collector.on('end', async (collect, reason) => {

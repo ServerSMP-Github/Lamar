@@ -8,9 +8,9 @@ module.exports = async(interaction) => {
 
     if (interaction.channel.id !== client.config.channel.ids.rankcard) return;
 
-    const rankData = await rankCardRequest.findOne({ Mesaage: interaction.message.id });
+    const rankData = await rankCardRequest.findOne({ Message: interaction.message.id });
     if (rankData) await rankData.delete();
 
-    const msg = await interaction.channel.fetchMessage(interaction.message.id);
+    const msg = await interaction.channel.messages.fetch(interaction.message.id);
     await msg.delete();
 }

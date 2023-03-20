@@ -1,8 +1,9 @@
 const { Client, CommandInteraction, EmbedBuilder, AttachmentBuilder, ApplicationCommandType } = require("discord.js");
+const { createRankCard } = require("../../assets/api/canvas/rankcard");
 const progressbar = require('../../assets/api/progressbar');
 const { fetchUser, xpFor } = require("../../assets/api/xp");
 const xpSchema = require("../../models/server/xp");
-const canvacord = require("canvacord");
+// const canvacord = require("canvacord");
 
 module.exports = {
     name: "user rank",
@@ -23,7 +24,9 @@ module.exports = {
             ephemeral: true
         });
 
-        const xpUser = await fetchUser(user.id, interaction.guild.id, true);
+        const realUser = user.id === client.user.id ? interaction.member.user : user;
+
+        const xpUser = await fetchUser(realUser.id, interaction.guild.id, true);
         if (!xpUser) return interaction.followUp({
             content: "You dont have xp. try to send some messages.",
             ephemeral: true
@@ -35,12 +38,9 @@ module.exports = {
         if (user.id === client.user.id) return interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                .setTitle(`${interaction.member.user.username}'s Rank`)
+                .setTitle(`${realUser.username}'s Rank`)
                 .setDescription(`**Rank**: \`${xpUser.position}\`\n**Level**: \`${xpUser.level}\`\n**XP**: \`${progressbar(client, current, total, 40, "□", "■")} ${current}/${total}\``)
-                .setThumbnail(user.displayAvatarURL({
-                    format: 'png',
-                    size: 512
-                }))
+                .setThumbnail(realUser.displayAvatarURL({ extension: 'png', size: 512 }))
                 .setColor("Random")
             ]
         });
@@ -54,24 +54,23 @@ module.exports = {
             status = "offline";
         }
 
-        const rank = new canvacord.Rank()
-            .setAvatar(user.displayAvatarURL({
-                format: 'png',
-                size: 512
-            }))
-            .setCurrentXP(current)
-            .setRequiredXP(total)
-            .setRank(xpUser.position)
-            .setLevel(xpUser.level)
-            .setStatus(status)
-            .setProgressBar("#FFFFFF")
-            .setUsername(user.username)
-            .setDiscriminator(user.discriminator);
-
-        const file = await rank.build();
+        const rankCard = await createRankCard({
+            avatar: user.displayAvatarURL({ extension: 'png', size: 512 }),
+            username: user.username,
+            discriminator: user.discriminator,
+            status: {
+                style: status,
+                type: false
+            },
+            level: xpUser.level,
+            rank: xpUser.position,
+            currentXP: current,
+            requiredXP: total,
+            progressBar: null
+        });
 
         return interaction.followUp({
-            files: [new AttachmentBuilder(file, { name: "RankCard.png" })]
+            files: [new AttachmentBuilder(rankCard, { name: "RankCard.png" })]
         });
     },
 };

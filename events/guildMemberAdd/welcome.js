@@ -2,9 +2,9 @@ const client = require("../../index");
 
 const Schema = require('../../models/logs/welcome');
 
-const { AttachmentBuilder } = require('discord.js');
-const { drawCard } = require('discord-welcome-card');
+const { createWelcome } = require('../../assets/api/canvas/welcome');
 const { createCanvas, loadImage } = require('@napi-rs/canvas');
+const { AttachmentBuilder } = require('discord.js');
 
 let attachment = null;
 let text = null
@@ -69,19 +69,17 @@ module.exports = async(member) => {
 
     } else if (welcomeType === "discord-welcome-card") {
         attachment = new AttachmentBuilder(
-            await drawCard({
+            await createWelcome({
                 theme: welcomeData.Theme,
                 text: {
                     title: welcomeData.Title,
-                    text: member.user.tag,
+                    user: member.user.tag,
                     subtitle: `MemberCount: ${member.guild.memberCount}`
                 },
-                avatar: {
-                    image: member.user.avatarURL({ format: 'png' })
-                },
+                avatar: member.user.avatarURL({ extension: 'png' }),
                 blur: welcomeData.Blur,
                 border: welcomeData.Border,
-                rounded: welcomeData.Rounded                
+                rounded: welcomeData.Rounded
             }),
             { name: `welcome-${member.id}.png` }
         )

@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 module.exports = model('rankcard-request', new Schema({
-    Mesaage: String,
+    Message: String,
     User: String,
     Background: String,
 }));
