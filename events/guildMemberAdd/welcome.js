@@ -2,7 +2,7 @@ const client = require("../../index");
 
 const Schema = require('../../models/logs/welcome');
 
-const { createWelcome } = require('../../assets/api/canvas/welcome');
+const { createCard } = require('../../assets/api/canvas/discordCard');
 const { createCanvas, loadImage } = require('@napi-rs/canvas');
 const { AttachmentBuilder } = require('discord.js');
 
@@ -69,7 +69,7 @@ module.exports = async(member) => {
 
     } else if (welcomeType === "discord-welcome-card") {
         attachment = new AttachmentBuilder(
-            await createWelcome({
+            await createCard({
                 theme: welcomeData.Theme,
                 text: {
                     title: welcomeData.Title,

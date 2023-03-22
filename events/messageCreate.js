@@ -65,7 +65,7 @@ client.on(Events.MessageCreate, async (message) => {
       embeds: [
         new EmbedBuilder()
           .setColor("Red")
-          .setDescription( "This command can only be used by the owners!" )
+          .setDescription("This command can only be used by the owners!")
       ]
     });
 

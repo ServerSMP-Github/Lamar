@@ -1,8 +1,7 @@
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const { shortenText, drawRoundedImage } = require("./index");
-const fs = require('fs');
 
-async function createWelcome(options) {
+async function createCard(options) {
     const canvas = createCanvas(700, 250);
     const ctx = canvas.getContext("2d");
 
@@ -95,5 +94,5 @@ async function createWelcome(options) {
 }
 
 module.exports = {
-    createWelcome
+    createCard
 }
