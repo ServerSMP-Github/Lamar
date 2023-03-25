@@ -17,7 +17,7 @@ module.exports = () => {
 
         const letter = generatePassword(1);
 
-        ctx.font = '24px sans-serif';
+        ctx.font = '24px Arial';
         ctx.fillStyle = '#545556';
 
         ctx.fillText(letter, x, y);
@@ -32,7 +32,7 @@ module.exports = () => {
         const x = width[i];
         const y = getRandomInt(25, 75);
 
-        ctx.font = '34px sans-serif';
+        ctx.font = '34px Arial';
         ctx.fillStyle = '#2fae6e';
 
         ctx.fillText(letter, x, y);

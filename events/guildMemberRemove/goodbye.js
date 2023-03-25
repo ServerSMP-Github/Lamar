@@ -1,27 +1,21 @@
-const { createCard } = require('../../assets/api/canvas/discordCard');
-const Schema = require('../../models/logs/goodbye');
 const client = require("../../index");
 
+const { getFileList } = require("../../assets/api/file");
+
+const Schema = require('../../models/logs/goodbye');
+
 module.exports = async(member) => {
-    const welcomeData = await Schema.findOne({ Guild: member.guild.id });
-    if (!welcomeData) return;
+    const data = await Schema.findOne({ Guild: member.guild.id });
+    if (!data) return;
 
-    const channel = member.guild.channels.cache.get(welcomeData.Channel);
+    const type = data.Type?.toLowerCase();
 
-    channel.send({
-        files: [
-            await createCard({
-                theme: 'dark',
-                text: {
-                    title: "Goodbye,",
-                    user: member.user.tag,
-                    subtitle: " "
-                },
-                avatar: member.user.avatarURL({ extension: 'png' }),
-                blur: true,
-                border: true,
-                rounded: true
-            })
-        ]
+    const channel = member.guild.channels.cache.get(data.Channel);
+
+    const goodbyeFiles = await getFileList(`${process.cwd()}/events/guildMemberRemove/goodbye`, { type: ".js", recursively: false });
+    return goodbyeFiles.map((value) => {
+        const file = require(value);
+
+        type === file.name ? file.run(data, client, channel, member) : !file.name && !type ? channel.send({ content: `Goodbye **${member.user.tag}**! ||An error has occurred||` }) : null
     });
 }
