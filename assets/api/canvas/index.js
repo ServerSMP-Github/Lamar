@@ -1,4 +1,4 @@
-const { createCanvas } = require("@napi-rs/canvas");
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
 
 function applyText(canvas, text, defaultFontSize, width, font) {
     const ctx = canvas.getContext(`2d`);
@@ -56,9 +56,24 @@ async function drawRoundedImage(image, cornerRadius, rounded) {
     return canvas;
 }
 
+async function circleImage(url) {
+    const image = await loadImage(url);
+    const canvas = createCanvas(image.width, image.height);
+    const ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.arc(image.width / 2, image.height / 2, Math.min(image.width, image.height) / 2, 0, 2 * Math.PI);
+    ctx.clip();
+
+    ctx.drawImage(image, 0, 0);
+
+    return canvas;
+}
+
 module.exports = {
     drawRoundedImage,
     abbreviateNumber,
+    circleImage,
     shortenText,
     applyText,
     wrapText

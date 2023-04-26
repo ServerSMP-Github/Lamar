@@ -1,5 +1,6 @@
 const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const { createRankCard } = require("../../assets/api/canvas/rankcard");
+const { createProfile } = require("../../assets/api/canvas/profile");
 const guildRankcard = require("../../models/server/guild-rankcard");
 const userRankcard = require("../../models/user/user-rankcard");
 const progressbar = require('../../assets/api/progressbar');
@@ -56,6 +57,31 @@ module.exports = {
     const status = userCardData?.StatusType ? userCardData?.StatusType : checkUser.presence?.status ? checkUser.presence.status : "offline";
 
     const username = cleanText(checkUser.user.username);
+
+    if (args[0] === "profile") {
+      const profile = await createProfile({
+        avatar: checkUser.user.displayAvatarURL({ extension: 'png', size: 512 }),
+        id: "364105797162237952",
+        username: username,
+        discriminator: checkUser.user.discriminator,
+        status: status,
+        guildOwner: (await message.guild.fetchOwner()).id,
+        bot: {
+            owners: client.config.bot.owner,
+            avatar: client.user.displayAvatarURL({ extension: 'png', size: 512 })
+        },
+        level: levelXp,
+        currentXP: currentXp,
+        requiredXP: totalXp,
+        progressBar: progressColor ? progressColor : "#00ff00"
+      });
+
+      return message.channel.send({
+        files: [
+          new AttachmentBuilder(profile, { name: "profile.png" })
+        ]
+      })
+    }
 
     const rankCard = await createRankCard({
       background: backgroundUrl ? backgroundUrl : null,
