@@ -1,6 +1,6 @@
 const { Client, AttachmentBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const { createCanvas, loadImage } = require('@napi-rs/canvas');
 const { DMY } = require("../../assets/api/time/index");
-const { createCanvas, loadImage } = require('canvas');
 const Schema = require("../../models/user/profile");
 
 module.exports = {
@@ -155,7 +155,7 @@ module.exports = {
             ctx.drawImage(shadow, 0, 0, 512, 512)
 
             // Avatar
-            const userdisplay = await loadImage(canvasCircle.toBuffer());
+            const userdisplay = await loadImage(canvasCircle.toBuffer("image/png"));
             ctx.drawImage(userdisplay, 13, 15, 150, 150)
 
             // Status
@@ -182,7 +182,7 @@ module.exports = {
 
             // Owner Avatar
             if (client.config.bot.owner.includes(user.user.id)) {
-                const botdisplay = await loadImage(canvasCircleBot.toBuffer());
+                const botdisplay = await loadImage(canvasCircleBot.toBuffer("image/png"));
                 ctx.drawImage(botdisplay, 120, 120, 40, 40)
             }
 
