@@ -276,7 +276,7 @@ module.exports = {
             ctx.textAlign = "left";
             ctx.fillText(DMY(), 15, 490);
 
-            const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: "profile.jpg" });
+            const attachment = new AttachmentBuilder(canvas.toBuffer("image/png"), { name: "profile.jpg" });
             interaction.followUp({
                 files: [attachment]
             });
