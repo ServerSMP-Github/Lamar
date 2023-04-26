@@ -137,15 +137,15 @@ module.exports = {
             const canvas = createCanvas(512, 512)
             const ctx = canvas.getContext('2d')
 
-            const data = await Schema.findOne({ User: user.user.id }).exec();
+            const data = await Schema.findOne({ User: user.user.id });
             if (!data) return interaction.followUp("You don't have a profile yet!");
 
             // Background
             let backgroundURL = data.Background;
-            if (data.Background === "minecraft") backgroundURL = "./assets/profile/background/minecraft.jpg";
-            if (data.Background === "sky") backgroundURL = "./assets/profile/background/sky.jpg";
-            if (data.Background === "ocean") backgroundURL = "./assets/profile/background/ocean.jpg";
-            if (data.Background === "space") backgroundURL = "./assets/profile/background/space.jpg";
+            if (data.Background === "minecraft") backgroundURL = "assets/profile/background/minecraft.jpg";
+            if (data.Background === "sky") backgroundURL = "assets/profile/background/sky.jpg";
+            if (data.Background === "ocean") backgroundURL = "assets/profile/background/ocean.jpg";
+            if (data.Background === "space") backgroundURL = "assets/profile/background/space.jpg";
 
             const background = await loadImage(backgroundURL)
             ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
@@ -276,7 +276,7 @@ module.exports = {
             ctx.textAlign = "left";
             ctx.fillText(DMY(), 15, 490);
 
-            const attachment = new AttachmentBuilder(canvas.toBuffer("image/png"), { name: "profile.jpg" });
+            const attachment = new AttachmentBuilder(canvas.toBuffer("image/png"), { name: "profile.png" });
             interaction.followUp({
                 files: [attachment]
             });
