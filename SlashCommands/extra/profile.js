@@ -120,7 +120,7 @@ module.exports = {
             ctxCircle.arc(256, 256, 256, 0, Math.PI * 2, true);
             ctxCircle.closePath();
             ctxCircle.clip();
-            const circleUser = await loadImage(user.user.displayAvatarURL({ format: "png", size: 256 }));
+            const circleUser = await loadImage(user.user.displayAvatarURL({ extension: "png", size: 256 }));
             ctxCircle.drawImage(circleUser, 0, 0, 512, 512)
 
             // cirlce bot avatar
@@ -131,7 +131,7 @@ module.exports = {
             ctxCircleBot.arc(256, 256, 256, 0, Math.PI * 2, true);
             ctxCircleBot.closePath();
             ctxCircleBot.clip();
-            const circleBot = await loadImage(client.user.displayAvatarURL({ format: "png", size: 256 }));
+            const circleBot = await loadImage(client.user.displayAvatarURL({ extension: "png", size: 256 }));
             ctxCircleBot.drawImage(circleBot, 0, 0, 512, 512)
 
             const canvas = createCanvas(512, 512)
