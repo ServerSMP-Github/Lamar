@@ -151,7 +151,7 @@ module.exports = {
             ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
             // Shadow
-            const shadow = await loadImage("./assets/profile/shadow/shadow.png");
+            const shadow = await loadImage("assets/profile/shadow/shadow.png");
             ctx.drawImage(shadow, 0, 0, 512, 512)
 
             // Avatar
@@ -159,21 +159,21 @@ module.exports = {
             ctx.drawImage(userdisplay, 13, 15, 150, 150)
 
             // Status
-            let statusImg = "./assets/profile/status/online.png";
-            if (data.Statustype === "online") statusImg = "./assets/profile/status/online.png";
-            if (data.Statustype === "idle") statusImg = "./assets/profile/status/idle.png";
-            if (data.Statustype === "dnd") statusImg = "./assets/profile/status/dnd.png";
-            if (data.Statustype === "streaming") statusImg = "./assets/profile/status/streaming.png";
-            if (data.Statustype === "offline") statusImg = "./assets/profile/status/offline.png";
+            let statusImg = "assets/profile/status/online.png";
+            if (data.Statustype === "online") statusImg = "assets/profile/status/online.png";
+            if (data.Statustype === "idle") statusImg = "assets/profile/status/idle.png";
+            if (data.Statustype === "dnd") statusImg = "assets/profile/status/dnd.png";
+            if (data.Statustype === "streaming") statusImg = "assets/profile/status/streaming.png";
+            if (data.Statustype === "offline") statusImg = "assets/profile/status/offline.png";
 
             if (data.Statustype === "auto") {
                 try {
-                    if (user.presence.status === "online") statusImg = "./assets/profile/status/online.png";
-                    if (user.presence.status === "idle") statusImg = "./assets/profile/status/idle.png";
-                    if (user.presence.status === "dnd") statusImg = "./assets/profile/status/dnd.png";
-                    if (user.presence.status === "streaming") statusImg = "./assets/profile/status/streaming.png";
+                    if (user.presence.status === "online") statusImg = "assets/profile/status/online.png";
+                    if (user.presence.status === "idle") statusImg = "assets/profile/status/idle.png";
+                    if (user.presence.status === "dnd") statusImg = "assets/profile/status/dnd.png";
+                    if (user.presence.status === "streaming") statusImg = "assets/profile/status/streaming.png";
                 } catch (err) {
-                    statusImg = "./assets/profile/status/offline.png";
+                    statusImg = "assets/profile/status/offline.png";
                 }
             }
 
@@ -189,7 +189,7 @@ module.exports = {
             // server owner
             const serverOwner = await interaction.guild.fetchOwner();
             if (serverOwner.id === user.user.id) {
-                const owner = await loadImage("./assets/profile/extra/crown.png");
+                const owner = await loadImage("assets/profile/extra/crown.png");
                 ctx.drawImage(owner, 13, 120, 40, 40)
             }
 
