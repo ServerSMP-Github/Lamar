@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/icon.png">
+    <link rel="stylesheet" href="/css/api/lb.css">
+    <title>Leaderboard - <%- guild.name %></title>
+</head>
+<body>
+
+    <div class="box">
+        <div class="box bg-secondary align-objects center-objects">
+            <img src="<%- guild.icon %>" alt="<%- guild.id %>-icon" class="icon inline">
+            <h1 class="text-gap inline" id="name"><%- guild.name %></h1>
+        </div>
+
+        <% for (let index = 0; index < lb.length; index++) { %>
+            <% const user = lb[index]; %>
+            <div class="box bg-secondary">
+                <img src="<%- user.avatar ? user.avatar : "/img/unknown.jpg" %>" alt="<%- user.userID %>-avatar" class="icon inline-bloc">
+                <h1 class="inline-bloc" id="username"><%- user.username %><span class="text-secondary">#<%- user.discriminator %></span></h1>
+                <h2 class="text-right padding bg-dark">#<%- user.position %></h2>
+                <h2 class="text-right padding bg-dark margin-right" id="level"><%- user.level %> <span class="text-secondary text-italic">(<%- user.xp %>)</span></h2>
+            </div>
+        <% } %>
+    </div>
+
+</body>
+</html>

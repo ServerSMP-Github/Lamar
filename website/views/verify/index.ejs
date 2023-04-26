@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <link rel="stylesheet" href="/css/verify/style.css">
+    <title>CAPTCHA</title>
+</head>
+<body>
+
+    <% if (error) { %>
+        <div class="alert warning">
+            <span class="closebtn">&times;</span> 
+            <strong><%- error %></strong>
+        </div>
+    <% } %>
+
+    <div class="center">
+        <div class="format">
+            <div class="background">
+                <div class="banner">
+                    <div class="top">
+                        <div class="color">
+                            <img class="avatar" src="/assets/img/avatar.jpg">
+                        </div>
+                    </div>
+                    <div class="body">
+                        <h3 class="name">
+                            Prince527
+                            <span class="num">
+                                #5270
+                            </span>
+                        </h3>
+                    </div>
+                    <form method="post" class="captcha">
+                        <hr class="section">
+                        <div class="padding">
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAEN7TwgqXWtjh6A" style="width: 100%"></div>
+                            <button type="submit" class="button">Verify</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

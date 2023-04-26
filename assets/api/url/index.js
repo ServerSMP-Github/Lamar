@@ -26,7 +26,29 @@ function isImageUrl(url) {
     });
 }
 
+function getWebsite(client) {
+    let domain;
+    let url;
+
+    try {
+        const domainUrl = new URL(client.config.dashboard.domain);
+        domain = {
+            host: domainUrl.hostname,
+            protocol: domainUrl.protocol,
+        };
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+
+    if (client.config.dashboard.customDomain) url = `${domain.protocol}//${domain.host}`;
+    else url = `${domain.protocol}//${domain.host}${client.config.dashboard.port == 80 ? "" : `:${client.config.dashboard.port}`}`;
+
+    return url;
+}
+
 module.exports = {
     isValidHttpUrl,
-    isImageUrl
+    isImageUrl,
+    getWebsite
 }

@@ -6,7 +6,7 @@
       if (!permsOnGuild.has(perms.Flags.ManageGuild)) return;
   %>
 
-    <div class="card" style="max-width: 18rem; margin: 2rem; min-width: 10em;">
+    <div class="card text-white bg-custom" style="max-width: 18rem; margin: 2rem; min-width: 10em;">
     <%- guild.icon ? `<img src="https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=512" class="card-img-top" style="max-width: 18rem;">` : `<img src="/img/unknown.jpg" class="card-img-top" style="max-width: 18rem;">` %>
       <div class="card-body">
         <h5 class="card-title"><%= guild.name %></h5>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/api/logs.css">
+    <link rel="shortcut icon" href="/img/icon.png">
+    <script src="/js/chart.min.js"></script>
+    <title>Logs - <%- guild.name %></title>
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="box bg-secondary center-objects">
+            <img src="<%- guild.icon %>" alt="<%- guild.id %>-icon" class="icon inline">
+            <h1 class="text-gap inline"><%- guild.name %></h1>
+        </div>
+
+        <div class="grid">
+            <div class="box bg-secondary">
+                <h3 class="text-center">Messages</h3>
+                <h1 class="text-center" id="total"><%- messages.total %></h1>
+            </div>
+            <div class="box bg-secondary">
+                <h3 class="text-center">Edited Messages</h3>
+                <h1 class="text-center" id="edited"><%- messages.edited %></h1>
+            </div>
+            <div class="box bg-secondary">
+                <h3 class="text-center">Deleted Messages</h3>
+                <h1 class="text-center" id="deleted"><%- messages.deleted %></h1>
+            </div>
+        </div>
+    </div>
+
+    <canvas class="box" id="ChannelCreate"></canvas>
+    <canvas class="box" id="ChannelDelete"></canvas>
+    <canvas class="box" id="ChannelPinUpdate"></canvas>
+    <canvas class="box" id="ChannelUpdate"></canvas>
+    <canvas class="box" id="EmojiCreate"></canvas>
+    <canvas class="box" id="EmojiDelete"></canvas>
+    <canvas class="box" id="EmojiUpdate"></canvas>
+    <canvas class="box" id="BanAdd"></canvas>
+    <canvas class="box" id="BanRemove"></canvas>
+    <canvas class="box" id="MemberAdd"></canvas>
+    <canvas class="box" id="MemberRemove"></canvas>
+    <canvas class="box" id="MemberUpdate"></canvas>
+
+    <script>
+        function generateRGB() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+
+            return { r, g, b }
+        }
+
+        function generateRGBColors(numColors) {
+            const colors = {
+                backgroundColor: [],
+                borderColor: []
+            };
+
+            for (let i = 0; i < numColors; i++) {
+                const { r, g, b } = generateRGB();
+
+                colors.backgroundColor.push(`rgba(${r}, ${g}, ${b}, 0.2)`)
+                colors.borderColor.push(`rgb(${r}, ${g}, ${b})`)
+            }
+
+            return colors;
+        }
+
+        function randomColorHTML(id) {
+            const { r, g, b } = generateRGB();
+
+            document.getElementById(id).style.color = `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function generateCharts(logTypes, logData) {
+            const colors = generateRGBColors(12);
+
+            logTypes.forEach(logType => {
+                new Chart(`${logType}`, {
+                    type: "bar",
+                    data: {
+                        labels: [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                        ],
+                        datasets: [{
+                            data: logData[logType],
+                            backgroundColor: colors.backgroundColor,
+                            borderColor: colors.borderColor,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: logType,
+                                color: "#fff"
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    color: "#ccc2"
+                                },
+                                ticks: {
+                                    color: "#ccc"
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    color: "#ccc2"
+                                },
+                                ticks: {
+                                    color: "#ccc"
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        generateCharts(
+            [
+                "ChannelCreate",
+                "ChannelDelete",
+                "ChannelPinUpdate",
+                "ChannelUpdate",
+                "EmojiCreate",
+                "EmojiDelete",
+                "EmojiUpdate",
+                "BanAdd",
+                "BanRemove",
+                "MemberAdd",
+                "MemberRemove",
+                "MemberUpdate"
+            ],
+            {
+                "ChannelCreate": [<%= logs.cc %>],
+                "ChannelDelete": [<%= logs.cd %>],
+                "ChannelPinUpdate": [<%= logs.cpu %>],
+                "ChannelUpdate": [<%= logs.cu %>],
+                "EmojiCreate": [<%= logs.ec %>],
+                "EmojiDelete": [<%= logs.ed %>],
+                "EmojiUpdate": [<%= logs.eu %>],
+                "BanAdd": [<%= logs.ba %>],
+                "BanRemove": [<%= logs.br %>],
+                "MemberAdd": [<%= logs.ma %>],
+                "MemberRemove": [<%= logs.mr %>],
+                "MemberUpdate": [<%= logs.mu %>]
+            }
+        )
+
+        randomColorHTML("total");
+        randomColorHTML("edited");
+        randomColorHTML("deleted");
+    </script>
+
+</body>
+
+</html>

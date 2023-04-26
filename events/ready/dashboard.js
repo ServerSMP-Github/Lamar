@@ -1,3 +1,3 @@
 module.exports = async (client) => {
-    require("../../website/dashboard")(client);
+    require("../../website/index")(client);
 }
