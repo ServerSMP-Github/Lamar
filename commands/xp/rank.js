@@ -61,7 +61,7 @@ module.exports = {
     if (args[0] === "profile") {
       const profile = await createProfile({
         avatar: checkUser.user.displayAvatarURL({ extension: 'png', size: 512 }),
-        id: "364105797162237952",
+        id: message.author.id,
         username: username,
         discriminator: checkUser.user.discriminator,
         status: status,
