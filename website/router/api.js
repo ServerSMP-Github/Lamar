@@ -136,18 +136,21 @@ router.get("/music/:guild", checkAuth, async (req, res) => {
     const player = client.poru.players.get(guild);
     if (!player) return res.render("404.ejs");
 
-    const queue = player.queue;
-
-    for (let index = 0; index < queue.length; index++) {
-        const track = queue[index];
-        track.info.length = msToS(track.info.length);
-        track.user = {
-            avatar: track.info.requester.displayAvatarURL(),
-            discriminator: track.info.requester.user.discriminator,
-            username: track.info.requester.user.username,
-            id: track.info.requester.user.id
-        }
-    }
+    const queue = player.queue.map(track => {
+        return {
+            ...track,
+            info: {
+                ...track.info,
+                length: msToS(track.info.length),
+            },
+            user: {
+                avatar: track.info.requester.displayAvatarURL(),
+                discriminator: track.info.requester.user.discriminator,
+                username: track.info.requester.user.username,
+                id: track.info.requester.user.id,
+            },
+        };
+    });
 
     res.render("api/music.ejs", {
         guild: {
@@ -166,10 +169,9 @@ router.get("/music/:guild", checkAuth, async (req, res) => {
 
 router.post("/music/:guild", checkAuth, async (req, res) => {
     const query = req.body.song;
-    if (!query) return res.json({ error: "No guild specified" });
-
     const guild = req.params.guild;
-    if (!guild) return res.json({ error: "No guild specified" });
+
+    if (!query || !guild) return res.json({ error: "No guild or query specified" });
 
     const fetchGuild = client.guilds.cache.get(guild);
 
@@ -182,19 +184,14 @@ router.post("/music/:guild", checkAuth, async (req, res) => {
     const { loadType, tracks } = await client.poru.resolve({ query: query, source: "ytsearch" });
 
     if (loadType === "PLAYLIST_LOADED") {
-
         for (const track of resolve.tracks) {
             track.info.requester = member;
             player.queue.add(track);
         }
-
     } else if (loadType === "SEARCH_RESULT" || loadType === "TRACK_LOADED") {
-
         const track = tracks.shift();
         track.info.requester = member;
-
         player.queue.add(track);
-
     } else return res.json({ error: "Failed to find your song" });
 
     if (!player.isPlaying && !player.isPaused) {
