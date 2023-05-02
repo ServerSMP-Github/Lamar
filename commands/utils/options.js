@@ -26,7 +26,7 @@ module.exports = {
     return optionsFiles.map((value) => {
       const file = require(value);
 
-      query === file.name ? file.run(client, message, args) : !file.name && !query ? file.run(client, message, args) : null
+      query === file.name ? file.run(client, message, args) : !file.name && !query ? file.run(client, message, args) : null;
     });
 
     if (query === "cmd") {

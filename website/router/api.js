@@ -5,6 +5,7 @@ const { fetchLeaderboard, computeLeaderboard } = require("../../assets/api/xp");
 const logSchema = require("../../models/logs/logsData");
 const { PermissionsBitField } = require("discord.js");
 const xpSchema = require("../../models/server/xp");
+const { msToS } = require("../../assets/api/time");
 const client = require("../../index");
 
 const checkAuth = (req, res, next) => {
@@ -120,6 +121,88 @@ router.get("/logs/:guild", checkAuth, async (req, res) => {
         },
         logs: result
     });
+
+});
+
+router.get("/music/:guild", checkAuth, async (req, res) => {
+    const guild = req.params.guild;
+    if (!guild) return res.render("404.ejs");
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(req.user.id);
+    if (!member) return res.render("404.ejs");
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.render("404.ejs");
+
+    const queue = player.queue;
+
+    for (let index = 0; index < queue.length; index++) {
+        const track = queue[index];
+        track.info.length = msToS(track.info.length);
+        track.user = {
+            avatar: track.info.requester.displayAvatarURL(),
+            discriminator: track.info.requester.user.discriminator,
+            username: track.info.requester.user.username,
+            id: track.info.requester.user.id
+        }
+    }
+
+    res.render("api/music.ejs", {
+        guild: {
+            id: guild,
+            name: fetchGuild.name,
+            icon: fetchGuild.iconURL()
+        },
+        music: {
+            queue: queue,
+            current: player.currentTrack ? player.currentTrack.info : null
+        },
+        member: member
+    });
+
+});
+
+router.post("/music/:guild", checkAuth, async (req, res) => {
+    const query = req.body.song;
+    if (!query) return res.json({ error: "No guild specified" });
+
+    const guild = req.params.guild;
+    if (!guild) return res.json({ error: "No guild specified" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(req.user.id);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.json({ error: "Server does not music player" });
+
+    const { loadType, tracks } = await client.poru.resolve({ query: query, source: "ytsearch" });
+
+    if (loadType === "PLAYLIST_LOADED") {
+
+        for (const track of resolve.tracks) {
+            track.info.requester = member;
+            player.queue.add(track);
+        }
+
+    } else if (loadType === "SEARCH_RESULT" || loadType === "TRACK_LOADED") {
+
+        const track = tracks.shift();
+        track.info.requester = member;
+
+        player.queue.add(track);
+
+    } else return res.json({ error: "Failed to find your song" });
+
+    if (!player.isPlaying && !player.isPaused) {
+        player.setVolume(50);
+        player.play();
+    }
+
+    return res.json({ success: "Added song" });
 
 });
 

@@ -22,7 +22,7 @@ module.exports = {
         if (!id) return message.reply('Please specify a guild id!');
 
         const blacklistData = await Schema.findOne({ Server: id });
-        if (!blacklistData) return message.reply(query == "add" ? "This server has already been blacklisted before!" : "That guild id does not exist in the database!");
+        if (blacklistData) return message.reply(query == "add" ? "This server has already been blacklisted before!" : "That guild id does not exist in the database!");
 
         if (query === "add") await Schema.create({ Server: id });
         else await blacklistData.delete();

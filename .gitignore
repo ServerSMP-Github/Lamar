@@ -9,6 +9,7 @@
 **/**.disabled
 **/install.sh
 **/.vscode
+**/papers
 **/build
 **/temp
 **/beta

@@ -88,6 +88,13 @@ function msToDurationString(milliseconds, { d = true, h = true, m = true, s = tr
     return durationString;
 }
 
+function msToS(ms) {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
+
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+
 module.exports = {
     msToDurationString,
     parseDuration,
@@ -95,6 +102,7 @@ module.exports = {
     serverDate,
     fromNow,
     YYYY_MM,
+    msToS,
     YYYY,
     DMY,
     HMS,

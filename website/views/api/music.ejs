@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/icon.png">
+    <link rel="stylesheet" href="/css/api/music.css">
+    <title>Music - <%- guild.name %></title>
+</head>
+<body>
+
+    <div class="box">
+        <div class="box bg-secondary center-objects">
+            <img src="<%- guild.icon %>" alt="<%- guild.id %>-icon" class="icon inline">
+            <h1 class="text-gap inline"><%- guild.name %></h1>
+        </div>
+
+        <div class="box bg-secondary">
+            <h2 class="text-center">Add Song!</h2>
+            <input type="text" name="song" id="song" class="inputText">
+            <button class="btn" id="submit" onclick="sendSong()">Add</button>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="box bg-secondary">
+            <h2 class="text-center">Queue</h2>
+            <h3 class="text-center" id="total"><%- music.queue.length %> songs in queue</h3>
+        </div>
+
+        <% for (let index = 0; index < music.queue.length; index++) { %>
+            <% const track = music.queue[index]; %>
+            <div class="track <% if (index === 0) { %>
+                first
+            <% } %>">
+                <img src="<%- track.info.image %>" alt="<%- track.info.identifier %>-thumbnail" class="thumbnail inline-bloc">
+                <div class="text">
+                    <h3 class="inline-bloc"><%- track.info.title %> <span class="dot">•</span> <span class="text-secondary"><%- track.info.length %>s</span></h3>
+                    <br>
+                    <img src="<%- track.user.avatar %>" alt="<%- track.user.id %>-avatar" class="avatar inline-bloc">
+                    <h3 class="inline-bloc text-secondary"><%- track.user.username %>#<%- track.user.discriminator %></h3>
+                </div>
+            </div>
+            <hr class="opacity">
+        <% } %>
+    </div>
+
+    <script>
+        function generateRGB() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+
+            return { r, g, b }
+        }
+
+        function randomColorHTML() {
+            const { r, g, b } = generateRGB();
+
+            document.getElementById("total").style.color = `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function randomColorClass() {
+            const { r, g, b } = generateRGB();
+
+            document.getElementsByClassName("first")[0].style.border = `3px solid rgb(${r}, ${g}, ${b})`
+        }
+
+        randomColorClass();
+        randomColorHTML();
+
+        async function sendSong() {
+            const songTitle = document.getElementById("song").value;
+            const submitButton = document.getElementById("submit");
+
+            submitButton.disabled = true;
+
+            if  (!songTitle) {
+                submitButton.disabled = false;
+
+                return alert("Please specify a song");
+            }
+
+            const res = await (await fetch("/api/music/<%- guild.id %>", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/x-www-form-urlencoded"
+                },
+                body: `song=${songTitle}`
+            })).json();
+
+            submitButton.disabled = false;
+
+            if (!res.success) return alert("An error has occurred.");
+
+            alert("Song was successfully added!");
+
+            return window.location.reload();
+        }
+    </script>
+
+</body>
+</html>

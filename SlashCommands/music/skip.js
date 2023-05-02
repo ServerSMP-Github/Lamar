@@ -43,7 +43,15 @@ module.exports = {
                 .setDescription("You are not in my voice channel")
                 .setColor("Yellow")
             ]
-        });        
+        });
+
+        // const members = channel.members;
+
+        // members.forEach(member => {
+        //     if (member.user.bot) return;
+
+        //     console.log(member.user.username);
+        // });
 
         // if (player.playing) return skip();
         // else if (player.paused) return skip();
