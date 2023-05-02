@@ -73,7 +73,7 @@ module.exports = {
             });
         }
 
-        const commandType = (await musicSchema.findOne({ Guild: interaction.guild.id })).Skip === true ? true : false;
+        const commandType = (await musicSchema.findOne({ Guild: interaction.guild.id }))?.Skip === true ? true : false;
 
         if (commandType) {
             const members = channel.members;
