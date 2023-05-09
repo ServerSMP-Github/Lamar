@@ -18,7 +18,8 @@ function boostLevel(time, client) {
 }
 
 function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    if (string && string.length > 0) return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    else return string;
 }
 
 module.exports = {
