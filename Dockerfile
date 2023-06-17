@@ -19,6 +19,8 @@ RUN apk add giflib-dev
 
 RUN apk update
 
+RUN pip install imaginairy
+
 RUN mkdir /app && chown -R node:node /app
 
 WORKDIR /app
