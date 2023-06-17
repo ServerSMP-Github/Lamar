@@ -8,7 +8,6 @@ ENTRYPOINT ["/sbin/tini", "--"]
 
 RUN apk add openjdk11
 RUN apk add python3
-RUN apk add py3-pip
 RUN apk add ffmpeg
 
 RUN apk add build-base
@@ -19,8 +18,6 @@ RUN apk add pango-dev
 RUN apk add giflib-dev
 
 RUN apk update
-
-RUN pip3 install imaginairy
 
 RUN mkdir /app && chown -R node:node /app
 
