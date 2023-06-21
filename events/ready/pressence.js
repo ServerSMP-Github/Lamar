@@ -10,6 +10,8 @@ module.exports = async (client) => {
         .replace(/{botName}/g, client.user.username)
         .replace(/{botPrefix}/g, client.config.bot.info.prefix);
 
+    global.statusName = activityName;
+
     client.user.setPresence({
         activities: [{
             name: activityName,

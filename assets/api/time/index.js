@@ -103,6 +103,7 @@ module.exports = {
     fromNow,
     YYYY_MM,
     msToS,
+    month,
     YYYY,
     DMY,
     HMS,

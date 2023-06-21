@@ -70,9 +70,37 @@ async function circleImage(url) {
     return canvas;
 }
 
+async function combineImages(imageBuffers, { width = 1000, columns = 4, padding = 10 }) {
+    const imageWidth = (width - (padding * (columns + 1))) / columns;
+    const imageHeight = imageWidth;
+
+    const canvasRows = Math.ceil(imageBuffers.length / columns);
+    const canvasHeight = (imageHeight * canvasRows) + (padding * (canvasRows + 1));
+
+    const canvas = createCanvas(width, canvasHeight);
+    const ctx = canvas.getContext('2d');
+
+    let x = padding;
+    let y = padding;
+
+    for (let i = 0; i < imageBuffers.length; i++) {
+        const image = await loadImage(imageBuffers[i]);
+        ctx.drawImage(image, x, y, imageWidth, imageHeight);
+
+        x += imageWidth + padding;
+        if ((i + 1) % columns === 0) {
+            x = padding;
+            y += imageHeight + padding;
+        }
+    }
+
+    return canvas.toBuffer('image/png');
+}
+
 module.exports = {
     drawRoundedImage,
     abbreviateNumber,
+    combineImages,
     circleImage,
     shortenText,
     applyText,
