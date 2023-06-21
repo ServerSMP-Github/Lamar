@@ -15,13 +15,13 @@ module.exports = async (client) => {
   const callbackUrl = `${getWebsite(client)}/callback`;
 
   passport.use(new Strategy({
-          clientID: client.user.id,
-          clientSecret: client.config.bot.info.secret,
-          callbackURL: callbackUrl,
-          scope: ["identify", "guilds"],
-      }, (accessToken, refreshToken, profile, done) => {
-          process.nextTick(() => done(null, profile));
-      },
+      clientID: client.user.id,
+      clientSecret: client.config.bot.info.secret,
+      callbackURL: callbackUrl,
+      scope: ["identify", "guilds"],
+    }, (accessToken, refreshToken, profile, done) => {
+      process.nextTick(() => done(null, profile));
+    },
   ));
 
   app.use(session({

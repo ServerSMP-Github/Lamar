@@ -10,13 +10,6 @@ RUN apk add openjdk11
 RUN apk add python3
 RUN apk add ffmpeg
 
-RUN apk add build-base
-RUN apk add g++
-RUN apk add cairo-dev
-RUN apk add jpeg-dev
-RUN apk add pango-dev
-RUN apk add giflib-dev
-
 RUN apk update
 
 RUN mkdir /app && chown -R node:node /app

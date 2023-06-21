@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, ButtonBuilder, ActionRowBuilder, EmbedBuilder, ButtonStyle } = require("discord.js");
-const { doMath } = require("../../assets/api/member");
+const { doMath } = require("../../assets/api/number");
 
 module.exports = {
     name: 'calculator',
@@ -12,194 +12,88 @@ module.exports = {
      */
     run: async (client, interaction, args) => {
 
-        let buttons = [
-            new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                .setCustomId('6')
-                .setLabel('6')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('7')
-                .setLabel('7')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('8')
-                .setLabel('8')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('9')
-                .setLabel('9')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('/')
-                .setLabel('÷')
-                .setStyle(ButtonStyle.Success),
-            ),
-            new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                .setCustomId('2')
-                .setLabel('2')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('3')
-                .setLabel('3')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('4')
-                .setLabel('4')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('5')
-                .setLabel('5')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('*')
-                .setLabel('×')
-                .setStyle(ButtonStyle.Success),
-            ),
-            new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                .setCustomId('%')
-                .setLabel('%')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('.')
-                .setLabel('.')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('0')
-                .setLabel('0')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('1')
-                .setLabel('1')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('-')
-                .setLabel('-')
-                .setStyle(ButtonStyle.Success),
-            ),
-            new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                .setCustomId('(')
-                .setLabel('(')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId(')')
-                .setLabel(')')
-                .setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder()
-                .setCustomId('+')
-                .setLabel('+')
-                .setStyle(ButtonStyle.Success),
-                new ButtonBuilder()
-                .setCustomId('=')
-                .setLabel('=')
-                .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                .setCustomId('reset')
-                .setEmoji('🔄')
-                .setStyle(ButtonStyle.Primary),
-            ),
-            new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                .setCustomId('end')
-                .setLabel('End Interaction')
-                .setStyle(ButtonStyle.Danger),
-            )
+        const createButton = (customId, label, style) => new ButtonBuilder()
+            .setCustomId(customId)
+            .setLabel(label)
+            .setStyle(style);
+
+        const createButtonGroup = (buttons) => new ActionRowBuilder().addComponents(...buttons);
+        const editInteractionReply = (Interaction, content) => Interaction.editReply(content).catch(e => {});
+
+        const buttonGroups = [
+            createButtonGroup([
+                createButton('6', '6', ButtonStyle.Secondary),
+                createButton('7', '7', ButtonStyle.Secondary),
+                createButton('8', '8', ButtonStyle.Secondary),
+                createButton('9', '9', ButtonStyle.Secondary),
+                createButton('/', '÷', ButtonStyle.Success),
+            ]),
+            createButtonGroup([
+                createButton('2', '2', ButtonStyle.Secondary),
+                createButton('3', '3', ButtonStyle.Secondary),
+                createButton('4', '4', ButtonStyle.Secondary),
+                createButton('5', '5', ButtonStyle.Secondary),
+                createButton('*', '×', ButtonStyle.Success),
+            ]),
+            createButtonGroup([
+                createButton('%', '%', ButtonStyle.Secondary),
+                createButton('.', '.', ButtonStyle.Secondary),
+                createButton('0', '0', ButtonStyle.Secondary),
+                createButton('1', '1', ButtonStyle.Secondary),
+                createButton('-', '-', ButtonStyle.Success),
+            ]),
+            createButtonGroup([
+                createButton('(', '(', ButtonStyle.Secondary),
+                createButton(')', ')', ButtonStyle.Secondary),
+                createButton('+', '+', ButtonStyle.Success),
+                createButton('=', '=', ButtonStyle.Primary),
+                createButton('reset', '🔄', ButtonStyle.Primary),
+            ]),
+            createButtonGroup([
+                createButton('end', 'End Interaction', ButtonStyle.Danger),
+            ]),
         ];
 
-        let embed = new EmbedBuilder()
-            .setDescription(`\`\`\`css\nPlaceholder\n\`\`\``)
+        const buttons = buttonGroups.map(group => group.toJSON());
 
-        interaction.followUp({
-            embeds: [embed],
-            components: buttons
-        });
+        const embed = new EmbedBuilder().setDescription(`\`\`\`css\nPlaceholder\n\`\`\``);
 
-        let user = interaction.user.id;
+        interaction.followUp({ embeds: [embed], components: buttons });
 
-        let ids = [];
-        let nums = [];
+        const ids = buttonGroups.flatMap(group => group.components.map(button => button.data.custom_id));
+        const nums = buttonGroups.flatMap(group => group.components.filter(button => button.data.style === ButtonStyle.Secondary || button.data.style === ButtonStyle.Success).map(button => button.data.custom_id));
 
-        for (let i = 0; i < buttons.length; i++) {
-            for (let v = 0; v < buttons[i].components.length; v++) {
-                ids.push(buttons[i].components[v].customId);
+        const user = interaction.user.id;
+        const filter = interaction => ids.includes(interaction.customId) && interaction.user.id === user;
 
-                if (buttons[i].components[v].style === "SECONDARY" || buttons[i].components[v].style === "SUCCESS") nums.push(buttons[i].components[v].customId)
-                else continue;
-            }
-        }
-        const filter = (interaction) => ids.includes(interaction.customId) && interaction.user.id === user;
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 120000 });
 
-        const collector = interaction.channel.createMessageComponentCollector({
-            filter,
-            time: 120000
-        });
+        let equation = '';
 
-        var equation = '';
+        collector.on('collect', async(i) => {
+            if (i.user.id !== user) return i.reply({ content: "These buttons aren't for you", ephemeral: true });
 
-        collector.on('collect', async i => {
-            if (i.user.id !== user) {
-                return i.reply({
-                    content: `These buttons aren't for you`,
-                    ephemeral: true
-                })
-            }
+            await i.deferUpdate();
 
             if (nums.includes(i.customId)) {
-                await i.deferUpdate();
-                equation += `${i.customId}`
-                await i.editReply({
-                    embeds: [embed.setDescription(`\`\`\`css\n${equation}\n\`\`\``)],
-                }).catch(e => {})
+                equation += i.customId;
+                await editInteractionReply(i, { embeds: [embed.setDescription(`\`\`\`css\n${equation}\n\`\`\``)] });
             }
-            if (i.customId === '=') {
-                await i.deferUpdate();
-                let answer = doMath(equation)
-                await i.editReply({
-                    embeds: [embed.setDescription(`\`\`\`css\n ${equation + ` = ${answer}`}\n\`\`\``)],
-                }).catch(e => {})
-                await i.followUp({
-                    embeds: [embed.setDescription(`\`\`\`css\n${equation + ` = ${answer}`}\n\`\`\``)],
-                    ephemeral: true
-                }).catch(e => {})
-            }
+
+            if (i.customId === '=') await editInteractionReply(i, { embeds: [embed.setDescription(`\`\`\`css\n ${equation + ` = ${doMath(equation)}`}\n\`\`\``)] });
+
             if (i.customId === 'reset') {
-                await i.deferUpdate();
-                equation = ''
-                await i.editReply({
-                    embeds: [embed.setDescription(`\`\`\`css\nPlaceholder\n\`\`\``)],
-                }).catch(e => {})
+                equation = '';
+                await editInteractionReply(i, { embeds: [embed.setDescription(`\`\`\`css\nPlaceholder\n\`\`\``)] });
             }
-            if (i.customId === 'end') {
-                await i.deferUpdate();
-                collector.stop()
-            }
+
+            if (i.customId === 'end') collector.stop();
         });
 
-        collector.on('end', async (i, reason) => {
+        collector.on('end', async(i, reason) => {
+            buttonGroups.forEach(group => group.components.forEach(button => button.setDisabled(true)));
 
-            for (let i = 0; i < buttons.length; i++) {
-                for (let v = 0; v < buttons[i].components.length; v++) {
-                    buttons[i].components[v].setDisabled(true)
-                }
-            }
-
-            if (reason == "time") {
-                await interaction.editReply({
-                    components: buttons
-                }).catch(e => {})
-            } else {
-                await interaction.editReply({
-                    components: buttons
-                }).catch(e => {})
-            }
+            await editInteractionReply(interaction, { components: buttonGroups });
         });
 
     }
