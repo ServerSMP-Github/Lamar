@@ -1,4 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+const { isStringAccurate } = require("../../assets/api/text");
 const { getRandomInt } = require("../../assets/api/crypto");
 const gameData = require("../../assets/api/fg/game.json");
 const instance = require("../../models/user/fg-instance");
@@ -11,7 +12,7 @@ module.exports = async(message) => {
     const getInstance = await instance.findOne({ guild: message.guild.id, user: message.author.id });
     if (!getInstance) return;
 
-    if (message.content.toLowerCase() !== gameData.name[getInstance.country].toLowerCase()) return;
+    if (!isStringAccurate(message.content.toLowerCase(), gameData.name[getInstance.country].toLowerCase(), 75)) return;
 
     const array = gameData.list;
     const country = array[getRandomInt(0, array.length)];

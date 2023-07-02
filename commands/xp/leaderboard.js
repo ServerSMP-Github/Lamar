@@ -20,7 +20,7 @@ module.exports = {
         if (lb.length < 1) return reply("Nobody's in leaderboard yet.");
 
         lb = await computeLeaderboard(client, lb, true);
-        lb = lb.map(e => `**${e.position}**. *${e.username}#${e.discriminator}*\nLevel: \`${e.level}\`\nXP: \`${e.xp.toLocaleString()}\``);
+        lb = lb.map(e => `**${e.position}**. *${e.username}*\nLevel: \`${e.level}\`\nXP: \`${e.xp.toLocaleString()}\``);
 
         message.channel.send({
             embeds: [

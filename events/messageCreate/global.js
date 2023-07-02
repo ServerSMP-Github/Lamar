@@ -9,14 +9,14 @@ module.exports = async(message) => {
 
     if (!guildData) return;
 
-    const globalData = await globalSchema.find({ Activated: true });
+    const globalData = await globalSchema.find();
 
     globalData.map(({ Channel }) => {
         if (Channel === message.channel.id) return;
 
         client.channels.cache.get(Channel).send({ embeds: [
             new EmbedBuilder()
-                .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setDescription(message.content)
                 .setFooter({ text: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
                 .setColor("Random")

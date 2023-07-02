@@ -10,7 +10,7 @@ module.exports = {
                     theme: data.Options.theme ? data.Options.theme : "dark",
                     text: {
                         title: "Welcome to this server,",
-                        user: member.user.tag,
+                        user: member.user.username,
                         subtitle: `MemberCount: ${member.guild.memberCount}`
                     },
                     avatar: member.user.avatarURL({ extension: 'png' }),

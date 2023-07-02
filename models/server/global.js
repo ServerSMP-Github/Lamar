@@ -1,7 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-module.exports = model('channels', new Schema({
+module.exports = model('global', new Schema({
     Guild: String,
-    Channel: String,
-    Activated: Boolean,
+    Channel: String
 }));

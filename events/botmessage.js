@@ -17,7 +17,7 @@ client.on(Events.GuildCreate, async(guild) => {
       .setDescription(`Thanks for inviting ${client.user.username} to your server!\nThe bot prefix is \`${client.config.bot.info.prefix}\` and for the list of commands do \`${client.config.bot.info.prefix}help\``)
       .addFields([
         { name: "TERMS OF SERVICE", value: "By inviting this bot you accept that I can log all data in your server and users." },
-        { name: "BETA", value: "This bot is in beta so stuff will change." },
+        { name: "ALPHA", value: "This bot is in alpha so stuff will change." },
       ])
       .setTimestamp()
     ]

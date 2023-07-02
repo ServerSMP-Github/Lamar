@@ -22,7 +22,7 @@ module.exports = {
         interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                .setFooter({ text: `${interaction.user.tag}` })
+                .setFooter({ text: `${interaction.user.username}` })
                 .setTimestamp()
                 .addFields(
                     { name: "Text To Translate:", value: `\`\`\`${msg.content.slice(0, 950)}\`\`\`` },

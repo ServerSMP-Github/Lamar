@@ -278,7 +278,7 @@ client.on(Events.GuildMembersChunk, async (members, guild) => {
       new EmbedBuilder()
       .setTitle(" :new: Member Chunk / Raid - " + members.length + "Members :new: ")
       .setColor("Red")
-      .setDescription(members.map((user, index) => `${index}) - ${user} - ${user.tag} - \`${user.id}\``))
+      .setDescription(members.map((user, index) => `${index}) - ${user} - ${user.username} - \`${user.id}\``))
       .setFooter({ text: "Sad this is a raid" })
       .setTimestamp()
     ]
@@ -406,7 +406,7 @@ client.on(Events.MessageDelete, async (message) => {
     embeds: [
       new EmbedBuilder()
       .setTitle("🗑️ Message Deleted 🗑️")
-      .setDescription(`Message Just got deleted in <#${message.channel.id}> | Message by **${message.author.tag}**\nAuthor ID: \`${message.author.id}\` | Message ID: \`${message.id}\` \n\n__Message__: *${message.content || "*Sorry, We cant fetch that message !*"}*`)
+      .setDescription(`Message Just got deleted in <#${message.channel.id}> | Message by **${message.author.username}**\nAuthor ID: \`${message.author.id}\` | Message ID: \`${message.id}\` \n\n__Message__: *${message.content || "*Sorry, We cant fetch that message !*"}*`)
       .setColor("Red")
       .setThumbnail(message.author.displayAvatarURL({ size: 2048, dynamic: true }))
       .setFooter({ text: "Stop hiding da truth !!" })
@@ -425,7 +425,7 @@ client.on(Events.MessageDelete, async (message) => {
 //     embeds: [
 //       new EmbedBuilder()
 //       .setTitle("🗑️ Bulk Messages Deleted 🗑️")
-//       .setDescription(`Messages Just got deleted in <#${messages.channel.id}> | Messages by **${messages.map((message) => message.author.tag).join(" , ")}**\nAuthor ID: \`${messages.map((message) => message.author.id).join(" , ")}\` | Message ID: \`${messages.map((message) => message.id).join(" , ")}\` \n\n__Message__: *${messages.map((message) => message.content || "*Sorry, We cant fetch that message !*").join(" , ")}*`)
+//       .setDescription(`Messages Just got deleted in <#${messages.channel.id}> | Messages by **${messages.map((message) => message.author.username).join(" , ")}**\nAuthor ID: \`${messages.map((message) => message.author.id).join(" , ")}\` | Message ID: \`${messages.map((message) => message.id).join(" , ")}\` \n\n__Message__: *${messages.map((message) => message.content || "*Sorry, We cant fetch that message !*").join(" , ")}*`)
 //       .setColor("Red")
 //       .setThumbnail(messages.author.displayAvatarURL({ size: 2048, dynamic: true }))
 //       .setFooter({ text: "Stop removing history !!" })
@@ -466,7 +466,7 @@ client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
 //       new EmbedBuilder()
 //       .setTitle("🎤 Voice Channel Join 🎤")
 //       .setColor("Green")
-//       .addField("Member", `${member.user.tag}`)
+//       .addField("Member", `${member.user.username}`)
 //       .addField("Channel", `${channel.name}`)
 //       .setTimestamp()
 //     ]
@@ -484,7 +484,7 @@ client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
 //       new EmbedBuilder()
 //       .setTitle("🎤 Voice Channel Leave 🎤")
 //       .setColor("Red")
-//       .addField("Member", `${member.user.tag}`)
+//       .addField("Member", `${member.user.username}`)
 //       .addField("Channel", `${channel.name}`)
 //       .setTimestamp()
 //     ]
@@ -502,7 +502,7 @@ client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
 //         new EmbedBuilder()
 //         .setTitle("🎤 Voice Channel Switch 🎤")
 //         .setColor("Green")
-//         .addField("Member", `${member.user.tag}`)
+//         .addField("Member", `${member.user.username}`)
 //         .addField("Old Channel", `${oldChannel.name}`)
 //         .addField("New Channel", `${newChannel.name}`)
 //         .setTimestamp()
@@ -523,7 +523,7 @@ client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
 //         new EmbedBuilder()
 //         .setTitle("🎤 Voice Channel Join 🎤")
 //         .setColor("Green")
-//         .addField("Member", `${newMember.user.tag}`)
+//         .addField("Member", `${newMember.user.username}`)
 //         .addField("Channel", `${newMember.voice.channel.name}`)
 //         .setTimestamp()
 //       ]
@@ -534,7 +534,7 @@ client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
 //         new EmbedBuilder()
 //         .setTitle("🎤 Voice Channel Leave 🎤")
 //         .setColor("Red")
-//         .addField("Member", `${oldMember.user.tag}`)
+//         .addField("Member", `${oldMember.user.username}`)
 //         .addField("Channel", `${oldMember.voice.channel.name}`)
 //         .setTimestamp()
 //       ]
@@ -545,7 +545,7 @@ client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
 //         new EmbedBuilder()
 //         .setTitle("🎤 Voice Channel Switch 🎤")
 //         .setColor("Green")
-//         .addField("Member", `${newMember.user.tag}`)
+//         .addField("Member", `${newMember.user.username}`)
 //         .addField("Old Channel", `${oldMember.voice.channel.name}`)
 //         .addField("New Channel", `${newMember.voice.channel.name}`)
 //         .setTimestamp()

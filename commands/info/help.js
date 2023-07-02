@@ -39,7 +39,7 @@ module.exports = {
             .setDescription(`\`\`\`js\nPrefix: ${prefix}\nExtra information: If you seen error or bugs please use ${prefix}report to report it! 'If commands don't work the bot may need more perms!'\`\`\`\n> To check out a category, use command \`${prefix}help [category-name]\``)
             .addFields(categories)
             .setFooter({
-              text: `Requested by ${message.author.tag}`,
+              text: `Requested by ${message.author.username}`,
               iconURL: message.author.displayAvatarURL({ dynamic: true })
             })
             .setTimestamp()
@@ -89,7 +89,7 @@ module.exports = {
             { name: "Command Description:", value: command.description ? command.description : "No description for this command." }
           ])
           .setFooter({
-            text: `Requested by ${message.author.tag}`,
+            text: `Requested by ${message.author.username}`,
             iconURL: message.author.displayAvatarURL({
               dynamic: true,
             })

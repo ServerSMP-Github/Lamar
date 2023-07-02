@@ -12,7 +12,7 @@ module.exports = {
             const channel = message.mentions.channels.last();
             if (!channel) return message.reply("Please mention a channel!");
 
-            if (!globalData) await globalSchema.create({ Guild: message.guild.id, Channel: channel.id, Activated: true });
+            if (!globalData) await globalSchema.create({ Guild: message.guild.id, Channel: channel.id });
             else {
                 globalData.Channel = channel.id;
                 await globalData.save();

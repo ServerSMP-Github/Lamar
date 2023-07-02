@@ -25,7 +25,7 @@ module.exports = {
                   size: 4096,
                   dynamic: true
                }))
-               .setFooter({ text: `${user.tag}'s avatar` })
+               .setFooter({ text: `${user.username}'s avatar` })
             ]
          })
       }

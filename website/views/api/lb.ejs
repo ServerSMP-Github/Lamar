@@ -20,7 +20,7 @@
             <% const user = lb[index]; %>
             <div class="box bg-secondary">
                 <img src="<%- user.avatar ? user.avatar : "/img/unknown.jpg" %>" alt="<%- user.userID %>-avatar" class="icon inline-bloc">
-                <h1 class="inline-bloc" id="username"><%- user.username %><span class="text-secondary">#<%- user.discriminator %></span></h1>
+                <h1 class="inline-bloc" id="username"><%- user.username %></h1>
                 <h2 class="text-right padding bg-dark">#<%- user.position %></h2>
                 <h2 class="text-right padding bg-dark margin-right" id="level"><%- user.level %> <span class="text-secondary text-italic">(<%- user.xp %>)</span></h2>
             </div>

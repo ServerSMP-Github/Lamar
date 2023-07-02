@@ -21,8 +21,8 @@ module.exports = {
         message.channel.send({ 
             embeds: [
                 new EmbedBuilder()
-                .setTitle(`${user.user.tag}'s warns`)
-                .setDescription(String(warnData.content.map((w, i) => `\`${i + 1}\` | Moderator : ${message.guild.members.cache.get(w.moderator).user.tag}\nReason : ${w.reason}`)))
+                .setTitle(`${user.user.username}'s warns`)
+                .setDescription(String(warnData.content.map((w, i) => `\`${i + 1}\` | Moderator : ${message.guild.members.cache.get(w.moderator).user.username}\nReason : ${w.reason}`)))
                 .setColor("Blue")
             ]
         });

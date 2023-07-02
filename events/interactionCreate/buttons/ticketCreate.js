@@ -39,7 +39,7 @@ module.exports = async(interaction) => {
         embeds: [
             new EmbedBuilder()
             .setTitle("Ticket Created")
-            .setDescription(`Ticket has been raised by ${interaction.user}. The support will reach you shortly.\n\n\**User ID:** \`${interaction.user.id}\` | **User Tag:** \`${interaction.user.tag}\``)
+            .setDescription(`Ticket has been raised by ${interaction.user}. The support will reach you shortly.\n\n\**User ID:** \`${interaction.user.id}\` | **User Tag:** \`${interaction.user.username}\``)
             .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
             .setColor("Random")
             .setTimestamp()

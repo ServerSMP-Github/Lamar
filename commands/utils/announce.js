@@ -31,7 +31,7 @@ module.exports = {
             content: mention === true ? '@everyone' : null,
             embeds: [
                 new EmbedBuilder()
-                .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setDescription(args.slice(1).join(" "))
                 .setColor('Random')
                 .setTimestamp()

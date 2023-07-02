@@ -10,7 +10,7 @@ module.exports = {
                     theme: data.Options.theme ? data.Options.theme : "dark",
                     text: {
                         title: "Goodbye,",
-                        user: member.user.tag,
+                        user: member.user.username,
                         subtitle: " "
                     },
                     avatar: member.user.avatarURL({ extension: 'png' }),

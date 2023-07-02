@@ -11,7 +11,7 @@ module.exports = async(member) => {
             new EmbedBuilder()
             .setTitle(":new: Member Joined :new: ")
             .setColor("Green")
-            .setDescription(`**Member:** ${member.user} (\`${member.user.id}\`)\n\`${member.user.tag}\``)
+            .setDescription(`**Member:** ${member.user} (\`${member.user.id}\`)\n\`${member.user.username}\``)
             .setFooter({ text: "new member op" })
             .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
             .setTimestamp()

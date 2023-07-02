@@ -74,7 +74,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.members.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.members.me.displayHexColor)
-            .setTitle(`${member.user.tag}`)
+            .setTitle(`${member.user.username}`)
             .addFields([
                 {
                     name: "User Identity: ",

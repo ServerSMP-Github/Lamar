@@ -16,6 +16,6 @@ module.exports = async(member) => {
     return goodbyeFiles.map((value) => {
         const file = require(value);
 
-        type === file.name ? file.run(data, client, channel, member) : !file.name && !type ? channel.send({ content: `Goodbye **${member.user.tag}**! ||An error has occurred||` }) : null
+        type === file.name ? file.run(data, client, channel, member) : !file.name && !type ? channel.send({ content: `Goodbye **${member.user.username}**! ||An error has occurred||` }) : null
     });
 }

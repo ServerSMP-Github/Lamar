@@ -11,7 +11,7 @@ module.exports = async(member) => {
             new EmbedBuilder()
             .setTitle(":cry: Member Left :cry: ")
             .setColor("Red")
-            .setDescription(`**Member:** ${member.user} (\`${member.user.id}\`)\n\`${member.user.tag}\``)
+            .setDescription(`**Member:** ${member.user} (\`${member.user.id}\`)\n\`${member.user.username}\``)
             .setFooter({ text: "Noooooooooooo, a member left" })
             .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
             .setTimestamp()

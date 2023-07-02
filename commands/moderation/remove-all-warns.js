@@ -20,6 +20,6 @@ module.exports = {
         if (!warnData) return message.channel.send("This user does not have any warns in this server!");
 
         await Schema.findOneAndDelete({ guildid: message.guild.id, user: user.user.id });
-        message.channel.send(`Cleared ${user.user.tag}'s warns`);
+        message.channel.send(`Cleared ${user.user.username}'s warns`);
     }
 }

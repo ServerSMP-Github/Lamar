@@ -19,9 +19,9 @@ module.exports = {
                 .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ dynamic: true }) })
                 .setTitle("Please Wait")
                 .setThumbnail(client.user.displayAvatarURL())
-                .setDescription(`Starting a new game of Akinator for ${message.author.tag}!`)
+                .setDescription(`Starting a new game of Akinator for ${message.author.username}!`)
                 .setColor("Random")
-                .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                .setFooter({ text: `Akinator game requested by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
             ]
         });
 
@@ -83,7 +83,7 @@ module.exports = {
                     }
                 )
                 .setColor("Random")
-                .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                .setFooter({ text: `Akinator game requested by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
             ],
             components: [row1, row2]
         });
@@ -91,7 +91,7 @@ module.exports = {
         const filter = (interaction) => {
             if (interaction.user.id === message.author.id) return true;
             return interaction.reply({
-                content: `Only ${message.author.tag} can use this interaction!`,
+                content: `Only ${message.author.username} can use this interaction!`,
                 ephemeral: true,
             });
         };
@@ -150,7 +150,7 @@ module.exports = {
                         .setDescription(`**Name:** ${aki.answers[0].name}\n\n${aki.answers[0].description}`)
                         .setImage(aki.answers[0].absolute_picture_path)
                         .setColor("Random")
-                        .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                        .setFooter({ text: `Akinator game requested by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                     ],
                     components: [row3]
                 });
@@ -186,7 +186,7 @@ module.exports = {
                             .setColor("#39FF14")
                             .setThumbnail(client.user.displayAvatarURL())
                             .setImage(aki.answers[0].absolute_picture_path)
-                            .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                            .setFooter({ text: `Akinator game requested by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
 
                         row3.components[0].setDisabled(true);
                         row3.components[1].setDisabled(true);
@@ -200,7 +200,7 @@ module.exports = {
                             .setDescription(`You win this time, but I will definitely with the next time!\n\nWell Played!`)
                             .setColor("#FF0000")
                             .setThumbnail(client.user.displayAvatarURL())
-                            .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                            .setFooter({ text: `Akinator game requested by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
 
                         row3.components[0].setDisabled(true);
                         row3.components[1].setDisabled(true);
@@ -223,7 +223,7 @@ module.exports = {
                         }
                     )
                     .setColor("Random")
-                    .setFooter({ text: `Akinator game requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                    .setFooter({ text: `Akinator game requested by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
 
                 interaction.update({ embeds: [continueEmbed], components: [row1, row2] });
             }

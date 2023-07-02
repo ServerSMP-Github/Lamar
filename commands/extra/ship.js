@@ -40,7 +40,7 @@ module.exports = {
                     new EmbedBuilder()
                     .setColor('#dd2e44')
                     .setTitle('Shipping...')
-                    .setDescription(`Shipped ****${user1.user.tag}**** and ****${user2.user.tag}****!`)
+                    .setDescription(`Shipped ****${user1.user.username}**** and ****${user2.user.username}****!`)
                     .setImage("attachment://ship.png")
                     .addFields([
                         { name: "**Ship Meter**", value: `${progress(client, percent, 100, 10, "⬛", "🟥")} ${percent}%` }

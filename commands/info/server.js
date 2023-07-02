@@ -38,7 +38,7 @@ module.exports = {
                         value: [
                             `⚙️ ID: \`${message.guild.id}\``,
                             `🗂️ Name: \`${message.guild.name}\``,
-                            `🎩 Owner: \`${owner.user.tag}\``,
+                            `🎩 Owner: \`${owner.user.username}\``,
                             `🖼️ Icon: [link](${message.guild.iconURL()})`,
                         ].join('\n')
                     },

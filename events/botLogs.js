@@ -13,7 +13,7 @@ client.on(Events.GuildCreate, async(guild) => {
           .addFields(
             { name: 'Name', value: guild.name, inline: true },
             { name: 'Guild ID', value: guild.id, inline: true },
-            { name: 'Owner', value: owner.user.tag, inline: true },
+            { name: 'Owner', value: owner.user.username, inline: true },
             { name: 'Owner ID', value: owner.user.id, inline: true },
             { name: 'Users', value: guild.members.cache.size, inline: true },
           )

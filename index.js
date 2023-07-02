@@ -42,7 +42,7 @@ client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = config;
 
-// require("./client/anticrash")(client);
+if (!config.bot.info.debug) require("./client/anticrash")(client);
 
 require("./client/lavalink")(client);
 
@@ -59,8 +59,6 @@ mongoose.connection.on("disconnected", () => global.mongoStatus === true ? conso
 mongoose.connection.on("error", (err) => console.log(err));
 
 if (config.bot.database.mongo_extra) client.apiConnection = mongoose.createConnection(client.config.bot.database.mongo_extra);
-
-// client.ffmpeg = require("fluent-ffmpeg");
 
 client.prefix = async function(message) {
   let custom;

@@ -51,7 +51,7 @@ module.exports = {
         .addFields(categories)
         .setTitle("Who Wants my Help?")
         .setDescription(`Here are List of My Commands!\n`)
-        .setFooter({ text: `Requested By ${member.user.tag}` })
+        .setFooter({ text: `Requested By ${member.user.username}` })
     ]});
   },
 };

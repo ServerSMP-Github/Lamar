@@ -117,8 +117,7 @@ async function computeLeaderboard(client, leaderboard, fetchUsers = false) {
             xp: key.xp,
             level: key.level,
             position: leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1,
-            username: user.username,
-            discriminator: user.discriminator
+            username: user.username
         });
     }
 

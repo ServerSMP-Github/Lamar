@@ -14,7 +14,7 @@ module.exports = async (client) => {
                 name: client.user.username,
                 iconURL: client.user.displayAvatarURL()
             })
-            .setDescription(`:green_circle: Success!\n:robot: Connected To **${client.user.tag}**\n:eyes: Watching \`${client.users.cache.size}\` Users, \`${client.guilds.cache.size}\` Servers.\n:information_source: Prefix: \`${client.config.bot.info.prefix}\` || \`${cmdCount}\` Commands`)
+            .setDescription(`:green_circle: Success!\n:robot: Connected To **${client.user.username}**\n:eyes: Watching \`${client.users.cache.size}\` Users, \`${client.guilds.cache.size}\` Servers.\n:information_source: Prefix: \`${client.config.bot.info.prefix}\` || \`${cmdCount}\` Commands`)
             .setColor("Random")
             .setTimestamp()
         ]
@@ -23,7 +23,7 @@ module.exports = async (client) => {
     global.startSpinner.succeed();
 
     console.log(table([
-        [`${colors.fgGray("Connected To")} ${colors.fgYellow(`${client.user.tag}`)}`],
+        [`${colors.fgGray("Connected To")} ${colors.fgYellow(`${client.user.username}`)}`],
         [`${colors.fgWhite("Watching")} ${colors.fgRed(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}`)} ${colors.fgWhite(`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1 ? "Users + Bots," : "User,"}`)} ${colors.fgRed(`${client.guilds.cache.size}`)} ${colors.fgWhite(`${client.guilds.cache.size > 1 ? "Servers." : "Server."}`)}`],
         [`${colors.fgWhite(`MongoDB:`)} ${global.mongoStatus} ${colors.fgWhite("||")} ${colors.fgWhite(`Prefix:` + colors.fgRed(` ${client.config.bot.info.prefix}`))} ${colors.fgWhite("||")} ${colors.fgRed(cmdCount)} ${colors.fgWhite(`Commands`)}`],
     ], {
