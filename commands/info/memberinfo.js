@@ -18,7 +18,7 @@ module.exports = {
 
         const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
 
-        const status = member.presence.status ? emojiList.status[member.presence.status] : "⚫";
+        const status = member.presence?.status ? emojiList.status[member.presence.status] : "⚫";
 
         const badge = member.user.flags.toArray();
 
@@ -38,67 +38,56 @@ module.exports = {
             ActiveDeveloper: client.config.emoji.badges.active_developer
         };
 
-        const activities = [];
-        const activitiesArray = member?.presence?.activities;
+        const activities = member?.presence?.activities?.filter(element => element.id !== 'custom').map(element => {
+            if (element.name === 'Spotify') return ` - Listening to **${element.details}** by **${element.state}**`;
+            else return ` - ${capitalizeFirstLetter(element.type)} **${element.name}**`;
+        }) || [];
 
-        for (let index = 0; index < activitiesArray.length; index++) {
-            const element = activitiesArray[index];
+        let banner = (await (await fetch(`https://discord.com/api/users/${member.user.id}`, { headers: { Authorization: `Bot ${client.config.bot.info.token}` } })).json()).banner;
 
-            if (element.id === 'custom') return;
+        if (banner) {
+            const extension = banner.startsWith("a_") ? '.gif' : '.png';
 
-            if (element.name === 'Spotify') activities.push(` **•** Listening to **${element.details}** by **${element.state}**`);
-            else activities.push(` **•** ${capitalizeFirstLetter(element.type)} **${element.name}**`);
-        }
-
-        let bannerLink = null;
-        try {
-            const response = await (await fetch(`https://discord.com/api/users/${member.user.id}`, { headers: { Authorization: `Bot ${client.config.token}` } })).json();
-
-            const { banner } = response;
-
-            if (banner) {
-                const extension = banner.startsWith("a_") ? '.gif' : '.png';
-                const url = `https://cdn.discordapp.com/banners/${member.user.id}/${banner}${extension}?size=1024`;
-
-                bannerLink = url;
-            }
-        } catch (err) {
-            bannerLink = null;
+            banner = `https://cdn.discordapp.com/banners/${member.user.id}/${banner}${extension}?size=1024`;
         }
 
         const nitroEmoji = client.config.emoji.badges.discord_nitro;
-        const nitro = bannerLink !== null ? nitroEmoji : member.user.avatarURL({ dynamic: true }).includes('gif') ? nitroEmoji : "";
+        const isNitro = banner !== null || member.user.avatarURL({ dynamic: true }).includes('gif') || member.premiumSince;
+        const nitro = isNitro ? nitroEmoji : "";
+
+        const isLegacyUsername = new Date(member.user.createdAt).getTime() < 1677657600000;
+        const legacyUsername = isLegacyUsername ? client.config.emoji.badges.legacy_username : "";
 
         const roles = member.roles.cache.size > 50 ? "Too many roles" : member.roles.cache.size <= 1 ? "No roles." : `<@&${member._roles.join('> <@&')}>`;
 
         const embed = new EmbedBuilder()
             .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.members.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.members.me.displayHexColor)
-            .setTitle(`${member.user.username}`)
-            .addFields([
+            .setTitle(member.user.username)
+            .addFields(
                 {
                     name: "User Identity: ",
-                    value: `**⚙️ ID**: ${member.user.id}\n**🕐 Created At**: ${formatedDate(member.user.createdAt)}\n**📛 Badges**: ${badge.length ? badge.map(f => flagToEmoji[f]).join(" ") : ""}${nitro}${member.premiumSince ? (boostLevel(member.premiumSince, client)) : ""}\n**🖼️ Avatar**: [link](${member.user.displayAvatarURL({ type: "png" })})`,
+                    value: `- **⚙️ ID**: ${member.user.id}\n- **🕐 Created At**: ${formatedDate(member.user.createdAt)}\n- **📛 Badges**: ${badge.length ? badge.map(f => flagToEmoji[f]).join(" ") : ""}${nitro}${member.premiumSince ? (boostLevel(member.premiumSince, client)) : ""}${legacyUsername}\n- **🖼️ Avatar**: [link](${member.user.displayAvatarURL({ type: "png" })})`,
                     inline: false
                 },
                 {
                     name: "Presence: ",
-                    value: `**📃 Status**: ${status}\n**⚽ Activity**:\n${activities.join('\n') ? activities.slice(0, 5).join('\n') : " **•** Nothing"}`,
+                    value: `- **📃 Status**: ${status}\n- **⚽ Activity**:\n${activities.slice(0, 5).join('\n') || " - Nothing"}`,
                     inline: false
                 },
                 {
                     name: "Server Member Info: ",
-                    value: `**💰 Booster**: ${member.premiumSince ? `${formatedDate(member.premiumSince)}` : "Not booster"}\n**🙍‍♂️ Nickname**: ${member.nickname ? member.nickname : "No nickname set"}\n**🤖 Bot**: ${member.user.bot ? `${member.user.bot}` : "Not bot account"}\n**⌛ Joined At**: ${formatedDate(member.joinedAt)}, ${HMS(member.joinedAt)}\n> ${Math.floor(Number(Date.now() - message.guild.members.cache.get(member.id).joinedAt) / 86400000)} day(S) Ago`,
+                    value: `- **💰 Booster**: ${member.premiumSince ? `${formatedDate(member.premiumSince)}` : "Not booster"}\n- **🙍‍♂️ Nickname**: ${member.nickname ? member.nickname : "No nickname set"}\n- **🤖 Bot**: ${member.user.bot ? `${member.user.bot}` : "Not bot account"}\n- **⌛ Joined At**: ${formatedDate(member.joinedAt)}, ${HMS(member.joinedAt)}\n> ${Math.floor(Number(Date.now() - message.guild.members.cache.get(member.id).joinedAt) / 86400000)} day(S) Ago`,
                     inline: false
                 },
                 {
-                    name: `Roles: (${Number(member.roles.cache.size) - 1})`,
-                    value: `${roles}`,
+                    name: `Roles: (${member.roles.cache.size - 1})`,
+                    value: roles,
                     inline: false
                 }
-            ]);
+            );
 
-        if (bannerLink) embed.setImage(bannerLink);
+        if (banner) embed.setImage(banner);
 
         message.channel.send({ embeds: [embed] });
     },

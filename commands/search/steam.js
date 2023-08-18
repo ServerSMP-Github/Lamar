@@ -14,23 +14,14 @@ module.exports = {
         const query = args.join(" ");
         if (!query) return message.reply("You need to specify a game.");
 
-        const search = await (await fetch('https://store.steampowered.com/api/storesearch', {
-            params: {
-                cc: 'us',
-                l: 'en',
-                term: query
-            }
-        })).json();
+        const search = await (await fetch(`https://store.steampowered.com/api/storesearch/?term=${query}&l=english&cc=us`)).json();
 
         if (!search.items.length) return message.channel.send(`No search results found for **${query}**!`);
 
         const { id, tiny_image } = search.items[0];
+        console.log(search.items[0]);
 
-        const body = await (await fetch('https://store.steampowered.com/api/appdetails', {
-            params: {
-                appids: id
-            }
-        })).json();
+        const body = await (await fetch(`https://store.steampowered.com/api/appdetails/?appids=${id}`)).json();
 
         const { data } = body[id.toString()];
         const current = data.price_overview ? `$${data.price_overview.final / 100}` : 'Free';

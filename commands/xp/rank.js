@@ -11,6 +11,7 @@ const xpSchema = require("../../models/server/xp");
 module.exports = {
   name: "rank",
   usage: "[ @user? ]",
+  aliases: ['level'],
   description: "Show's you're rank card (xp/level).",
   /**
    *
@@ -63,7 +64,6 @@ module.exports = {
         avatar: checkUser.user.displayAvatarURL({ extension: 'png', size: 512 }),
         id: message.author.id,
         username: username,
-        discriminator: checkUser.user.discriminator,
         status: status,
         guildOwner: (await message.guild.fetchOwner()).id,
         bot: {
@@ -87,7 +87,6 @@ module.exports = {
       background: backgroundUrl ? backgroundUrl : null,
       avatar: checkUser.user.displayAvatarURL({ extension: 'png', size: 512 }),
       username: username,
-      discriminator: checkUser.user.discriminator,
       status: {
         style: status,
         type: statusStyle

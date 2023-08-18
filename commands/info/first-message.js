@@ -14,10 +14,7 @@ module.exports = {
     run: async (client, message, args) => {
         const channel = message.mentions.channels.first() || message.channel;
 
-        const fetchMessages = await channel.messages.fetch({
-            limit: 1,
-            after: 1
-        });
+        const fetchMessages = await channel.messages.fetch({ limit: 1, after: 1 });
 
         const msg = fetchMessages.first();
 
@@ -30,9 +27,7 @@ module.exports = {
                     **Date sent:** <t:${parseInt(msg.createdTimestamp / 1000)}:R>
                     **URL:** [Click Me](${msg.url})
                 `)
-                .setThumbnail(message.guild.iconURL({
-                    dynamic: true
-                }))
+                .setThumbnail(message.guild.iconURL({ dynamic: true }))
                 .setColor("Random")
                 .setTimestamp()
             ]

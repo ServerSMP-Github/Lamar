@@ -21,9 +21,6 @@ module.exports = {
         .setTitle("Axolotl")
         .setDescription(`${description} - ${author}`)
         .setImage("attachment://image.jpg")
-        .setFooter({
-          text: "Github: https://github.com/AxolotlAPI"
-        })
         .setColor("Random")
       ],
       files: [

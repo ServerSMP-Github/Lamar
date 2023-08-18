@@ -36,7 +36,7 @@ module.exports = {
           embeds: [
             new EmbedBuilder()
             .setTitle("📬 Need help?")
-            .setDescription(`\`\`\`js\nPrefix: ${prefix}\nExtra information: If you seen error or bugs please use ${prefix}report to report it! 'If commands don't work the bot may need more perms!'\`\`\`\n> To check out a category, use command \`${prefix}help [category-name]\``)
+            .setDescription(`\`\`\`js\nPrefix: ${prefix}\`\`\`\n> To check out a category, use command \`${prefix}help [category-name]\``)
             .addFields(categories)
             .setFooter({
               text: `Requested by ${message.author.username}`,

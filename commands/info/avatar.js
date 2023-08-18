@@ -14,33 +14,14 @@ module.exports = {
    run: async (client, message, args) => {
 
       const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
-
-      if (args[0]?.toLowerCase() === "random") {
-         const user = client.users.cache.random();
-         return message.channel.send({
-            embeds: [
-               new EmbedBuilder()
-               .setColor("Random")
-               .setImage(user.displayAvatarURL({
-                  size: 4096,
-                  dynamic: true
-               }))
-               .setFooter({ text: `${user.username}'s avatar` })
-            ]
-         })
-      }
+      const user = args[0]?.toLowerCase() === "random" ? client.users.cache.random() : member.user;
 
       message.channel.send({
          embeds: [
             new EmbedBuilder()
             .setColor("Random")
-            .setImage(member.user.displayAvatarURL({
-               size: 4096,
-               dynamic: true
-            }))
-            .setAuthor({
-               name: member.user.username
-            })
+            .setImage(user.displayAvatarURL({ size: 4096, dynamic: true }))
+            .setAuthor({ name: user.username })
          ]
       });
 

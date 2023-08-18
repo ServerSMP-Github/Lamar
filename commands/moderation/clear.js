@@ -24,7 +24,7 @@ module.exports = {
 
             const results = {};
             for (const [, deleted] of deletedMessages) {
-                const user = `${deleted.author.username}#${deleted.author.discriminator}`;
+                const user = deleted.author.username;
                 if (!results[user]) results[user] = 0;
                 results[user]++;
             }

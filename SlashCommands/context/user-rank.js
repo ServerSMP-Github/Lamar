@@ -3,7 +3,6 @@ const { createRankCard } = require("../../assets/api/canvas/rankcard");
 const progressbar = require('../../assets/api/progressbar');
 const { fetchUser, xpFor } = require("../../assets/api/xp");
 const xpSchema = require("../../models/server/xp");
-// const canvacord = require("canvacord");
 
 module.exports = {
     name: "user rank",
@@ -19,18 +18,12 @@ module.exports = {
         const { user } = interaction.guild.members.cache.get(interaction.targetId);
 
         const xpData = await xpSchema.findOne({ Guild: interaction.guild.id });
-        if (!xpData) return interaction.followUp({
-            content: "XP system is disabled on this server!",
-            ephemeral: true
-        });
+        if (!xpData) return interaction.followUp({ content: "XP system is disabled on this server!", ephemeral: true });
 
         const realUser = user.id === client.user.id ? interaction.member.user : user;
 
         const xpUser = await fetchUser(realUser.id, interaction.guild.id, true);
-        if (!xpUser) return interaction.followUp({
-            content: "You dont have xp. try to send some messages.",
-            ephemeral: true
-        });
+        if (!xpUser) return interaction.followUp({ content: "You dont have xp. try to send some messages.", ephemeral: true });
 
         const total = xpFor(xpUser.level + 1);
         const current = xpUser.xp;
@@ -57,7 +50,6 @@ module.exports = {
         const rankCard = await createRankCard({
             avatar: user.displayAvatarURL({ extension: 'png', size: 512 }),
             username: user.username,
-            discriminator: user.discriminator,
             status: {
                 style: status,
                 type: false

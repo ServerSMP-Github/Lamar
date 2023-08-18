@@ -15,15 +15,16 @@ module.exports = {
     * @param {String[]} args 
     */
     run: async(client, message, args) => {
+        const file = `${args[1]}.mp4`;
+        const path = pathMaker.join(__dirname, '..', '..', 'temp', file);
+
         try {
-            const file = `${args[1]}.mp4`;
             const url = args[0];
 
             if (!isValidHttpUrl(url)) return message.reply("Invalid url");
 
             if (!args[1]) return message.reply('Please provide a file name.');
 
-            const path = pathMaker.join(__dirname, '..', '..', 'temp', file);
             if (fs.existsSync(path)) return message.reply('Someone is already downloading a video with the same file name.');
 
             const stream = fs.createWriteStream(path);
@@ -64,6 +65,7 @@ module.exports = {
                 message.reply('An error occured while downloading.');
             });
         } catch (error) {
+            if (fs.existsSync(path)) fs.unlink(path, (err) => { if (err) console.log(err); });
             message.reply("An error occured while downloading.");
         }
     }

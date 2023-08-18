@@ -20,10 +20,7 @@ module.exports = {
         .setColor('#0099ff')
         .setTitle(data.tracks[random])
         .setThumbnail(`attachment://${data.art}`)
-        .setFooter({
-          text: data.author.name,
-          iconURL: `attachment://author.jpg`
-        })
+        .setFooter({ text: data.author.name, iconURL: `attachment://author.jpg` })
       ],
       files: [
         new AttachmentBuilder(`./assets/api/undertalemp3/${random}.mp3`, { name: `${data.tracks[random]}.mp3` }),

@@ -100,5 +100,4 @@ module.exports = (client) => {
     });
   });
 
-  // process.on('multipleResolves', (type, promise, reason) => { return });
 };

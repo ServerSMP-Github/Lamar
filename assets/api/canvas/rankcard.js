@@ -23,11 +23,11 @@ async function createRankCard(user) {
     ctx.textAlign = "start";
     ctx.fillText(`${name}`, 257 + 18.5, 164);
 
-    const discriminator = user.discriminator.substr(0, 4);
-    ctx.font = `36px Arial`;
-    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
-    ctx.textAlign = "center";
-    ctx.fillText(`#${discriminator}`, ctx.measureText(name).width + 20 + 335, 164);
+    // const discriminator = user.discriminator.substr(0, 4);
+    // ctx.font = `36px Arial`;
+    // ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+    // ctx.textAlign = "center";
+    // ctx.fillText(`#${discriminator}`, ctx.measureText(name).width + 20 + 335, 164);
 
     ctx.fillStyle = "#ffffff";
     ctx.font = "bold 36px Arial";

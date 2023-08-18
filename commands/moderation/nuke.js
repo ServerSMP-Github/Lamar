@@ -3,8 +3,7 @@ const { PermissionsBitField, Message, Client } = require('discord.js');
 module.exports = {
     name: "nuke",
     aliases: ["nukechannel", "channelnuke", "channelclear", "clearchannel"],
-    cooldown: 1000 * 120,
-    description: "This command deletes all messages in the channel it was ran in.",
+    description: "Clones a channel and deletes the old one.",
     userPermission: [PermissionsBitField.Flags.Administrator],
     /**
      * @param {Client} client

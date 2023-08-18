@@ -29,8 +29,8 @@ const client = new Client({
   ],
   presence: {
     activities: [{
-        name: global.statusName ? global.statusName : "Starting!",
-        type: global.statusType,
+      name: global.statusName ? global.statusName : "Starting!",
+      type: global.statusType,
     }],
     status: config.bot.status.status
   }

@@ -11,7 +11,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        message.channel.permissionOverwrites.edit(message.guild.id, { VIEW_CHANNEL: false });
+        message.channel.permissionOverwrites.edit(message.guild.id, { ViewChannel: false });
 
         await message.channel.send({ 
             embeds: [

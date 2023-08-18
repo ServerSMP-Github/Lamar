@@ -27,7 +27,7 @@ async function createProfile(user) {
     ctx.font = '45px Arial';
     ctx.fillStyle = "#ffffff";
     ctx.textAlign = "left";
-    ctx.fillText(shortenText(`${user.username}#${user.discriminator}`, 12), 167, 110);
+    ctx.fillText(shortenText(user.username, 12), 167, 110);
 
     ctx.font = '20px Arial'
     ctx.rotate(0)

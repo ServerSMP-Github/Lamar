@@ -36,34 +36,34 @@ module.exports = {
                     {
                         name: "General Info",
                         value: [
-                            `⚙️ ID: \`${message.guild.id}\``,
-                            `🗂️ Name: \`${message.guild.name}\``,
-                            `🎩 Owner: \`${owner.user.username}\``,
-                            `🖼️ Icon: [link](${message.guild.iconURL()})`,
+                            `- ⚙️ ID: \`${message.guild.id}\``,
+                            `- 🗂️ Name: \`${message.guild.name}\``,
+                            `- 🎩 Owner: \`${owner.user.username}\``,
+                            `- 🖼️ Icon: [link](${message.guild.iconURL()})`,
                         ].join('\n')
                     },
                     {
                         name: "Counts",
                         value: [
-                            `👋 Members: \`${message.guild.memberCount}\` (🤖 Bots: \`${members.filter(member => member.user.bot).size}\` | 👨 Humans: \`${members.filter(member => !member.user.bot).size}\`)`,
-                            `✨ Roles: \`${message.guild.roles.cache.size} roles\``,
-                            `📝 Channels: \`${message.guild.channels.cache.size} total\` (💬 Text: \`${message.guild.channels.cache.filter(ch => ch.type === 'GUILD_TEXT').size}\` | 🎤 Voice: \`${message.guild.channels.cache.filter(ch => ch.type === 'GUILD_VOICE').size}\`)`,
-                            `😑 Emojis: \`${message.guild.emojis.cache.size} total\` (😊 Standard: \`${message.guild.emojis.cache.filter(emoji => !emoji.animated).size}\` | 🥰 Animated: \`${message.guild.emojis.cache.filter(emoji => emoji.animated).size}\`)`,
+                            `- 👋 Members: \`${message.guild.memberCount}\` (🤖 Bots: \`${members.filter(member => member.user.bot).size}\` | 👨 Humans: \`${members.filter(member => !member.user.bot).size}\`)`,
+                            `- ✨ Roles: \`${message.guild.roles.cache.size} roles\``,
+                            `- 📝 Channels: \`${message.guild.channels.cache.size} total\` (💬 Text: \`${message.guild.channels.cache.filter(ch => ch.type === 'GUILD_TEXT').size}\` | 🎤 Voice: \`${message.guild.channels.cache.filter(ch => ch.type === 'GUILD_VOICE').size}\`)`,
+                            `- 😑 Emojis: \`${message.guild.emojis.cache.size} total\` (😊 Standard: \`${message.guild.emojis.cache.filter(emoji => !emoji.animated).size}\` | 🥰 Animated: \`${message.guild.emojis.cache.filter(emoji => emoji.animated).size}\`)`,
                         ].join('\n')
                     },
                     {
                         name: "Additional Info",
                         value: [
-                            `🕐 Time Created: \`${serverDate(message.guild.createdTimestamp)} [${fromNow(message.guild.createdTimestamp)}]\``,
-                            `🌎 Region: \`${message.guild.region}\``,
-                            `💸 Boost Tier: \`${message.guild.premiumTier ? `Tier : ${message.guild.premiumTier}` : 'None'}\``,
-                            `💰 Boost Count: \`${message.guild.premiumSubscriptionCount || '0'}\``,
-                            `🛏️ AFK Channel: \`${message.guild.afkChannel ? message.guild.afkChannel.name : 'None'}\``,
-                            `💤 AFK Timeout: \`${message.guild.afkTimeout / 60} minutes\``,
-                            `📱 Verification Level: \`${verificationLevels[message.guild.verificationLevel]}\``,
-                            `🔞 Explicit Content Filter: \`${message.guild.explicitContentFilter}\``,
-                            `🏓 Default Message Notification: \`${message.guild.defaultMessageNotifications}\``,
-                            `🔥 MFA Level: \`${message.guild.mfaLevel}\``,
+                            `- 🕐 Time Created: \`${serverDate(message.guild.createdTimestamp)} [${fromNow(message.guild.createdTimestamp)}]\``,
+                            `- 🌎 Region: \`${message.guild.region}\``,
+                            `- 💸 Boost Tier: \`${message.guild.premiumTier ? `Tier : ${message.guild.premiumTier}` : 'None'}\``,
+                            `- 💰 Boost Count: \`${message.guild.premiumSubscriptionCount || '0'}\``,
+                            `- 🛏️ AFK Channel: \`${message.guild.afkChannel ? message.guild.afkChannel.name : 'None'}\``,
+                            `- 💤 AFK Timeout: \`${message.guild.afkTimeout / 60} minutes\``,
+                            `- 📱 Verification Level: \`${verificationLevels[message.guild.verificationLevel]}\``,
+                            `- 🔞 Explicit Content Filter: \`${message.guild.explicitContentFilter}\``,
+                            `- 🏓 Default Message Notification: \`${message.guild.defaultMessageNotifications}\``,
+                            `- 🔥 MFA Level: \`${message.guild.mfaLevel}\``,
                         ].join('\n')
                     }
                 ])

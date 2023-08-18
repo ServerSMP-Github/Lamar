@@ -109,7 +109,7 @@ async function shorten(url) {
 
 function isValidHttpUrl(string) {
   let url;
-  
+
   try {
     url = new URL(string);
   } catch (_) {
