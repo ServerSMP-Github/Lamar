@@ -1,4 +1,5 @@
 const { EmbedBuilder, Message, Client, PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { chunkArray } = require("../../assets/api/array");
 
 module.exports = {
     name: 'button-roles',
@@ -65,33 +66,33 @@ module.exports = {
         });
 
         async function createBr() {
-            const row = new ActionRowBuilder();
-
             if (!roles.length) return message.channel.send("You need at least one role.");
 
-            for (let index = 0; index < roles.length; index++) {
-                const element = roles[index];
+            const roleChunks = chunkArray(roles, 5);
 
-                const {
-                    role,
-                    color,
-                    label,
-                    emoji
-                } = element;
+            for (const roleChunk of roleChunks) {
+                const row = new ActionRowBuilder();
 
-                let style;
-                if (color === 'Secondary') style = ButtonStyle.Secondary;
-                else if (color === 'Danger') style = ButtonStyle.Danger;
-                else if (color === 'Primary') style = ButtonStyle.Primary;
-                else if (color === 'Success') style = ButtonStyle.Success;
+                for (const element of roleChunk) {
+                    const { role, color, label, emoji } = element;
 
-                row.addComponents(
-                    new ButtonBuilder()
-                    .setCustomId(`roles-${role}`)
-                    .setLabel(label)
-                    .setStyle(style)
-                    .setEmoji(emoji)
-                );
+                    const styles = {
+                        'Secondary': ButtonStyle.Secondary,
+                        'Danger': ButtonStyle.Danger,
+                        'Primary': ButtonStyle.Primary,
+                        'Success': ButtonStyle.Success
+                    };
+
+                    const style = styles[color];
+
+                    row.addComponents(
+                        new ButtonBuilder()
+                        .setCustomId(`roles-${role}`)
+                        .setLabel(label)
+                        .setStyle(style)
+                        .setEmoji(emoji)
+                    );
+                }
             }
 
             return message.channel.send({
