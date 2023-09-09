@@ -69,6 +69,7 @@ module.exports = {
             if (!roles.length) return message.channel.send("You need at least one role.");
 
             const roleChunks = chunkArray(roles, 5);
+            const buttonGroups = [];
 
             for (const roleChunk of roleChunks) {
                 const row = new ActionRowBuilder();
@@ -93,6 +94,8 @@ module.exports = {
                         .setEmoji(emoji)
                     );
                 }
+
+                buttonGroups.push(row);
             }
 
             return message.channel.send({
@@ -103,7 +106,7 @@ module.exports = {
                     .setColor('Random')
                     .setTimestamp()
                 ],
-                components: [row]
+                components: buttonGroups
             })
 
         }
