@@ -47,7 +47,7 @@ module.exports = {
                     ])
                 ],
                 files: [
-                    new AttachmentBuilder(canvas.toBuffer(), { name: 'ship.png' })
+                    new AttachmentBuilder(canvas.toBuffer("image/png"), { name: 'ship.png' })
                 ]
             });
         } catch (error) {
