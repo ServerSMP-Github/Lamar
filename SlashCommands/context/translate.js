@@ -25,7 +25,7 @@ module.exports = {
         interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                .setFooter({ text: `${interaction.user.username} - ${translated.iso} to end` })
+                .setFooter({ text: `${interaction.user.username} - ${translated.iso} to en` })
                 .setTimestamp()
                 .addFields(
                     { name: "Text To Translate:", value: `\`\`\`${msg.content.slice(0, 950)}\`\`\`` },
