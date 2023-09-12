@@ -21,33 +21,33 @@ module.exports = {
         if (!member) return;
 
         if (query === "level") {
-            const your = mention ? "That user's" :"Your";
-            const you = mention ? "that user" : "you";
-            const You = mention ? "That user" : "You";
-            const youre = mention ? "that user is" : "you're"
-            const Youre = mention ? "That user is" : "You're";
+            const userPrefix = mention ? "That user's" : "Your";
+            const userPronoun = mention ? "that user" : "you";
+            const userCapitalized = mention ? "That user" : "You";
+            const userIs = mention ? "that user is" : "you're";
+            const userIsCapitalized = mention ? "That user is" : "You're";
 
             const number = getRandomInt(0, 1000) === 500 ? 9999 : getRandomInt(0, 100);
 
             const text = (number === 9999)
-                ? `${your} simp level is... 9999%!\nITS OVER 9 THOUSAND!`
+                ? `${userPrefix} simp level is... 9999%!\nITS OVER 9 THOUSAND!`
                 : (number >= 1 && number <= 15) 
-                ? `${your} simp level is... ${number}%!\nOnly a teensy bit of a simp, good for ${you}!`
+                ? `${userPrefix} simp level is... ${number}%!\nOnly a teensy bit of a simp, good for ${userPronoun}!`
                 : (number >= 16 && number <= 29)
-                ? `${your} simp level is... ${number}%!\n${Youre} a bit of a simp, but not enough for it to be an issue!`
+                ? `${userPrefix} simp level is... ${number}%!\n${userIsCapitalized} a bit of a simp, but not enough for it to be an issue!`
                 : (number >= 30 && number <= 49)
-                ? `${your} simp level is... ${number}%!\nHuh, I guess ${youre} below average in terms simp levels! Not bad, I guess!`
+                ? `${userPrefix} simp level is... ${number}%!\nHuh, I guess ${userIs} below average in terms simp levels! Not bad, I guess!`
                 : (number == 50)
-                ? `${your} simp level is... ${number}%!\n${Youre}.. equal levels of simp and non-simp? How does that even work?`
+                ? `${userPrefix} simp level is... ${number}%!\n${userIsCapitalized}.. equal levels of simp and non-simp? How does that even work?`
                 : (number >= 51 && number <= 68)
-                ? `${your} simp level is... ${number}%!\n${You} appear to be a very mild simp!`
+                ? `${userPrefix} simp level is... ${number}%!\n${userCapitalized} appear to be a very mild simp!`
                 : (number == 69)
-                ? `${your} simp level is... ${number}%!\nNice! Well, it would be nice if it didn't mean ${you} were a big ol' simp!`
+                ? `${userPrefix} simp level is... ${number}%!\nNice! Well, it would be nice if it didn't mean ${userPronoun} were a big ol' simp!`
                 : (number > 69)
-                ? `${your} simp level is... ${number}%!\nWow! That is a lot of simping.`
+                ? `${userPrefix} simp level is... ${number}%!\nWow! That is a lot of simping.`
                 : (number === 100)
-                ? `${your} simp level is... ${number}%!\nWow, a total simp! Go watch pokimane or something.`
-                : `${your} simp level is... ${number}%!\nNot a single drop of simpiness, impressive!`
+                ? `${userPrefix} simp level is... ${number}%!\nWow, a total simp! Go watch pokimane or something.`
+                : `${userPrefix} simp level is... ${number}%!\nNot a single drop of simpiness, impressive!`
 
             const simpData = await Schema.findOne({ User: member.user.id });
 
@@ -103,7 +103,6 @@ module.exports = {
             ctx.fillText(`${simpData.Highest}%`, 302, 703);
 
             message.channel.send({
-                content: "If your username contains any non-alphabetical characters, it won't show the username.",
                 files: [
                     new AttachmentBuilder(canvas.toBuffer("image/png"), { name: "simpcard.jpg" })
                 ]

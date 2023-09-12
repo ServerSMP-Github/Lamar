@@ -57,6 +57,15 @@ module.exports = async(message) => {
             text: translated.translatedText,
             iso: translated.detectedLanguage.translated
         };
+    } else if (client.config.translate.type === "easynmt") {
+        translated = await (await fetch(`${client.config.translate.url}/translate?target_lang=${translateData.Language}&text=${stringContent}`)).json();
+
+        if (!translated.translated[0]) return;
+
+        translated = {
+            text: translated.translated[0],
+            iso: translated.detected_langs[0]
+        };
     }
 
     if (translated.iso == "en" || translated.text.toLocaleLowerCase() == stringContent.toLocaleLowerCase()) return;

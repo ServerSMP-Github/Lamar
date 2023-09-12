@@ -16,17 +16,20 @@ module.exports = {
 
         const translated = await translate({
             client: client,
-            message: msg.content
+            message: msg.content,
+            language: "en"
         });
+
+        if (!translated) return interaction.followUp({ content: "There was an error while translating the text.", ephemeral: true });
 
         interaction.followUp({
             embeds: [
                 new EmbedBuilder()
-                .setFooter({ text: `${interaction.user.username}` })
+                .setFooter({ text: `${interaction.user.username} - ${translated.iso} to end` })
                 .setTimestamp()
                 .addFields(
                     { name: "Text To Translate:", value: `\`\`\`${msg.content.slice(0, 950)}\`\`\`` },
-                    { name: "Translateted Text:", value: `\`\`\`${translated.slice(0, 950)}\`\`\`` }
+                    { name: "Translateted Text:", value: `\`\`\`${translated.text.slice(0, 950)}\`\`\`` }
                 )
                 .setColor('Blue')
             ]
