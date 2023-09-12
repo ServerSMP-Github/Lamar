@@ -20,7 +20,7 @@ module.exports = {
             language: "en"
         });
 
-        if (!translated) return interaction.followUp({ content: "There was an error while translating the text.", ephemeral: true });
+        if (!translated || !translated.text) return interaction.followUp({ content: "There was an error while translating the text.", ephemeral: true });
 
         interaction.followUp({
             embeds: [
@@ -29,7 +29,7 @@ module.exports = {
                 .setTimestamp()
                 .addFields(
                     { name: "Text To Translate:", value: `\`\`\`${msg.content.slice(0, 950)}\`\`\`` },
-                    { name: "Translateted Text:", value: `\`\`\`${translated.text.slice(0, 950)}\`\`\`` }
+                    { name: "Translateted Text:", value: `\`\`\`${translated.text?.slice(0, 950)}\`\`\`` }
                 )
                 .setColor('Blue')
             ]
