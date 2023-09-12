@@ -20,8 +20,6 @@ module.exports = {
             language: "en"
         });
 
-        console.log(translated)
-
         if (!translated || !translated.text) return interaction.followUp({ content: "There was an error while translating the text.", ephemeral: true });
 
         interaction.followUp({
