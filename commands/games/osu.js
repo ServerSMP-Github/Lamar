@@ -29,7 +29,7 @@ module.exports = {
       ctx.drawImage(userdisplay, 15, 15, 128, 128)
 
       // Background
-      const background = await loadImage('./assets/image/osu.png')
+      const background = await loadImage('./assets/image/osu.webp')
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
       // Username and rank

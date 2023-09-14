@@ -19,13 +19,13 @@ module.exports = {
         new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle(data.tracks[random])
-        .setThumbnail(`attachment://${data.art}`)
-        .setFooter({ text: data.author.name, iconURL: `attachment://author.jpg` })
+        .setThumbnail(`attachment://art.webp`)
+        .setFooter({ text: data.author, iconURL: `attachment://author.webp` })
       ],
       files: [
         new AttachmentBuilder(`./assets/api/undertalemp3/${random}.mp3`, { name: `${data.tracks[random]}.mp3` }),
-        new AttachmentBuilder(`./assets/api/undertalemp3/${data.author.img}`, { name: `author.jpg` }),
-        new AttachmentBuilder(`./assets/api/undertalemp3/${data.art}`, { name: data.art })
+        new AttachmentBuilder(`./assets/api/undertalemp3/author.webp`, { name: "author.webp" }),
+        new AttachmentBuilder(`./assets/api/undertalemp3/art.webp`, { name: "art.webp" })
       ]
     });
   }

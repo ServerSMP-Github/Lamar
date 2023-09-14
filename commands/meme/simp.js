@@ -87,7 +87,7 @@ module.exports = {
             const canvas = createCanvas(1280, 720);
             const ctx = canvas.getContext(`2d`);
 
-            const background = await loadImage("./assets/image/simpcard.png");
+            const background = await loadImage("./assets/image/simpcard.webp");
             ctx.drawImage(background, 0, 0, 1280, 720);
 
             const avatar = await loadImage(member.user.displayAvatarURL({ format: "png", dynamic: false }));

@@ -21,10 +21,10 @@ module.exports = {
                 .setColor("Random")
                 .setTitle("Dice")
                 .setDescription(`It was ${dice} on the dice.`)
-                .setImage("attachment://dice.png")
+                .setImage("attachment://dice.webp")
             ],
             files: [
-                new AttachmentBuilder(`${__dirname}/../../assets/api/dice/${dice}.png`, { name: "dice.png" })
+                new AttachmentBuilder(`${__dirname}/../../assets/api/dice/${dice}.webp`, { name: "dice.webp" })
             ]
         });
 

@@ -18,7 +18,7 @@ module.exports = {
     const canvas = createCanvas(464, 463);
     const ctx = canvas.getContext('2d');
 
-    const background = await loadImage('./assets/image/are-ya-okay.png');
+    const background = await loadImage('./assets/image/are-ya-okay.webp');
     ctx.drawImage(background, 0, 0, 464, 463);
 
     ctx.font = '32px sans-serif';

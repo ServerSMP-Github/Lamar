@@ -19,7 +19,7 @@ module.exports = {
         const canvas = createCanvas(900, 497);
         const ctx = canvas.getContext('2d');
 
-        const background = await loadImage('./assets/image/roleplay/biden.png');
+        const background = await loadImage('./assets/image/roleplay/biden.webp');
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
         ctx.font = '30px Arial'

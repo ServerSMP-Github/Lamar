@@ -14,7 +14,7 @@ module.exports = {
         const canvas = createCanvas(748, 356);
         const ctx = canvas.getContext("2d");
 
-        const background = await loadImage("./assets/image/roleplay/delete.png");
+        const background = await loadImage("./assets/image/roleplay/delete.webp");
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
         const image = await loadImage(message.author.displayAvatarURL({ dynamic: false, format: 'png' }));

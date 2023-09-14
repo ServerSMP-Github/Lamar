@@ -3,11 +3,11 @@ const { circleImage, abbreviateNumber, shortenText } = require("./index");
 const { DMY } = require("../time");
 
 const status = {
-    online: "assets/image/profile/status/online.png",
-    idle: "assets/image/profile/status/idle.png",
-    dnd: "assets/image/profile/status/dnd.png",
-    streaming: "assets/image/profile/status/streaming.png",
-    offline: "assets/image/profile/status/offline.png",
+    online: "assets/image/profile/status/online.webp",
+    idle: "assets/image/profile/status/idle.webp",
+    dnd: "assets/image/profile/status/dnd.webp",
+    streaming: "assets/image/profile/status/streaming.webp",
+    offline: "assets/image/profile/status/offline.webp",
 };
 
 async function createProfile(user) {
@@ -17,12 +17,12 @@ async function createProfile(user) {
     ctx.fillStyle = '#2a2e35';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.drawImage(await loadImage("assets/image/profile/shadow/shadow.png"), 0, 0, 512, 512);
+    ctx.drawImage(await loadImage("assets/image/profile/shadow/shadow.webp"), 0, 0, 512, 512);
     ctx.drawImage(await circleImage(user.avatar), 13, 15, 150, 150);
     ctx.drawImage(await loadImage(status[user.status]), 13, 15, 150, 150);
 
     if (user.bot.owners.includes(user.id)) ctx.drawImage(await circleImage(user.bot.avatar), 120, 120, 40, 40);
-    if (user.guildOwner === user.id) ctx.drawImage(await loadImage("assets/image/profile/extra/crown.png"), 13, 120, 40, 40);
+    if (user.guildOwner === user.id) ctx.drawImage(await loadImage("assets/image/profile/extra/crown.webp"), 13, 120, 40, 40);
 
     ctx.font = '45px Arial';
     ctx.fillStyle = "#ffffff";

@@ -28,7 +28,7 @@ module.exports = {
         const avatar1 = await loadImage(user1.user.displayAvatarURL({ dynamic: false, format: "png" }));
         ctx.drawImage(avatar1, 0, 0, 128, 128);
 
-        const heart = await loadImage("./assets/image/roleplay/heart.png");
+        const heart = await loadImage("./assets/image/roleplay/heart.webp");
         ctx.drawImage(heart, 128, 0, 128, 128);
 
         const avatar2 = await loadImage(user2.user.displayAvatarURL({ dynamic: false, format: "png" }));

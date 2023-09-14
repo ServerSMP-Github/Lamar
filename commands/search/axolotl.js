@@ -24,7 +24,7 @@ module.exports = {
         .setColor("Random")
       ],
       files: [
-        new AttachmentBuilder(`./assets/api/axolotl/${api.images[getRandomInt(0, api.images.length)]}`, { name: 'image.jpg' })
+        new AttachmentBuilder(`./assets/api/axolotl/${getRandomInt(0, 115)}.webp`, { name: 'image.webp' })
       ]
     })
   }

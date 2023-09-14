@@ -1,4 +1,5 @@
-const { Client, Message, EmbedBuilder } = require("discord.js");
+const { Client, Message, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
     name: "duck",
@@ -11,15 +12,15 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const image = (await (await fetch("https://random-d.uk/api/v2/random")).json()).url;
-
         message.channel.send({
             embeds: [
                 new EmbedBuilder()
                 .setColor("Random")
                 .setTitle("Random duck")
-                .setDescription("A random duck from `https://random-d.uk/`.")
-                .setImage(image)
+                .setImage("attachment://duck.webp")
+            ],
+            files: [
+                new AttachmentBuilder(`./assets/api/duck/${getRandomInt(1, 244)}.webp`, { name: "duck.webp" })
             ]
         });
     },

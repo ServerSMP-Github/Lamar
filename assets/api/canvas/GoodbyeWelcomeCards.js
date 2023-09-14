@@ -23,9 +23,9 @@ async function discordWelcomeCard(options) {
 
     // Draw the image inside the clipping path
     const theme = {
-        "dark": "assets/image/welcome/discord-welcome-card/dark.png",
-        "code": "assets/image/welcome/discord-welcome-card/code.png",
-        "circuit": "assets/image/welcome/discord-welcome-card/circuit.png",
+        "dark": "assets/image/welcome/discord-welcome-card/dark.webp",
+        "code": "assets/image/welcome/discord-welcome-card/code.webp",
+        "circuit": "assets/image/welcome/discord-welcome-card/circuit.webp",
     }
 
     const background = await loadImage(theme[options.theme]);
@@ -94,7 +94,7 @@ async function discordWelcomeCard(options) {
 }
 
 async function discordWelcomer(options) {
-    const background = options.background ? options.background === "invisible" ? "assets/image/welcome/discord-welcomer/invisible.png" : options.background : "assets/image/welcome/discord-welcomer/default.png";
+    const background = options.background ? options.background === "invisible" ? "assets/image/welcome/discord-welcomer/invisible.webp" : options.background : "assets/image/welcome/discord-welcomer/default.webp";
 
     const canvas = createCanvas(800, 270);
     const ctx = canvas.getContext("2d");
@@ -181,7 +181,7 @@ async function popcat(options) {
     const canvas = createCanvas(1024, 500);
     const ctx = canvas.getContext('2d');
 
-    const background = await loadImage("assets/image/welcome/popcat/background.png");
+    const background = await loadImage("assets/image/welcome/popcat/background.webp");
     ctx.drawImage(background, 0, 0, 1024, 500);
 
     ctx.font = '65px Fredoka One';
@@ -227,12 +227,12 @@ async function popcat(options) {
 }
 
 async function swiftcord(options) {
-    const background = options.background ? options.background : "assets/image/welcome/popcat/background.png";
+    const background = options.background ? options.background : "assets/image/welcome/popcat/background.webp";
 
     const username = options.user.username;
     const server = options.server.name;
 
-    const base = await loadImage(options.type === "welcome" ? "assets/image/welcome/swiftcord/welcome.png" : "assets/image/welcome/swiftcord/goodbye.png");
+    const base = await loadImage(options.type === "welcome" ? "assets/image/welcome/swiftcord/welcome.webp" : "assets/image/welcome/swiftcord/goodbye.webp");
 
     const canvas = createCanvas(base.width, base.height);
     const ctx = canvas.getContext("2d");
@@ -300,7 +300,7 @@ async function ultrax(options) {
     const canvas = createCanvas(1024, 500);
     const ctx = canvas.getContext('2d');
 
-    const background = options.background ? options.background : "assets/image/welcome/popcat/background.png";
+    const background = options.background ? options.background : "assets/image/welcome/popcat/background.webp";
 
     const bg = await loadImage(background);
     ctx.drawImage(bg, 0, 0, 1024, 500);

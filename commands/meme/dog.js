@@ -1,4 +1,5 @@
-const { Client, Message, EmbedBuilder } = require("discord.js");
+const { Client, Message, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
     name: "dog",
@@ -11,16 +12,15 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        let dog = (await (await fetch("https://random.dog/woof.json")).json()).url;
-        while (dog.url.endsWith(".webm") || dog.url.endsWith(".mp4")) dog = (await (await fetch("https://random.dog/woof.json")).json()).url;
-
         message.channel.send({
             embeds: [
                 new EmbedBuilder()
                 .setColor("Random")
                 .setTitle("Dog :dog:")
-                .setFooter({ text: "A random dog from `https://random.dog/`" })
-                .setImage(dog)
+                .setImage("attachment://dog.webp")
+            ],
+            files: [
+                new AttachmentBuilder(`./assets/api/dog/${getRandomInt(1, 797)}.webp`, { name: "dog.webp" })
             ]
         });
     },

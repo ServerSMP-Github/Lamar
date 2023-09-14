@@ -1,4 +1,5 @@
-const { Client, Message, EmbedBuilder } = require("discord.js");
+const { Client, Message, EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
     name: "cat",
@@ -11,14 +12,15 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, message, args) => {
-        const cat = (await (await fetch("https://aws.random.cat/meow")).json()).file;
-
         message.channel.send({
             embeds: [
                 new EmbedBuilder()
                 .setColor("Random")
                 .setTitle("Cat")
-                .setImage(cat)
+                .setImage("attachment://cat.webp")
+            ],
+            files: [
+                new AttachmentBuilder(`./assets/api/cat/${getRandomInt(1, 1000)}.webp`, { name: "cat.webp" })
             ]
         });
     },

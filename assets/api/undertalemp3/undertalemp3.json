@@ -1,9 +1,5 @@
 {
-    "art": "art.jpg",
-    "author": {
-        "name": "Toby Fox",
-        "img": "author.jpg"
-    },
+    "author": "Toby Fox",
     "tracks": {
         "1": "Once Upon a Time",
         "2": "Start Menu",
