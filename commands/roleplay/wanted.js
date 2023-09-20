@@ -23,7 +23,7 @@ module.exports = {
         const ctx = canvas.getContext("2d");
 
         const avatar = await loadImage(user.user.displayAvatarURL({ dynamic: false, format: 'png' }));
-        const background = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'wanted.png'));
+        const background = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'wanted.webp'));
 
         ctx.drawImage(avatar, 25, 60, 210, 210);
         ctx.drawImage(background, 0, 0, 257, 383);

@@ -18,7 +18,7 @@ module.exports = {
         const canvas = createCanvas(720, 405);
         const ctx = canvas.getContext("2d");
 
-        const background = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'rip.png'));
+        const background = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'rip.webp'));
         const avatar = await loadImage(user.user.displayAvatarURL({ dynamic: false, format: 'png' }));
 
         ctx.drawImage(avatar, 110, 47, 85, 85);

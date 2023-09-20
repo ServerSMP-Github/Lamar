@@ -1,5 +1,5 @@
+const { Message, Client, EmbedBuilder, ChannelType } = require("discord.js");
 const { serverDate, fromNow } = require('../../assets/api/time/index');
-const { Message, Client, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "server",
@@ -47,7 +47,7 @@ module.exports = {
                         value: [
                             `- 👋 Members: \`${message.guild.memberCount}\` (🤖 Bots: \`${members.filter(member => member.user.bot).size}\` | 👨 Humans: \`${members.filter(member => !member.user.bot).size}\`)`,
                             `- ✨ Roles: \`${message.guild.roles.cache.size} roles\``,
-                            `- 📝 Channels: \`${message.guild.channels.cache.size} total\` (💬 Text: \`${message.guild.channels.cache.filter(ch => ch.type === 'GUILD_TEXT').size}\` | 🎤 Voice: \`${message.guild.channels.cache.filter(ch => ch.type === 'GUILD_VOICE').size}\`)`,
+                            `- 📝 Channels: \`${message.guild.channels.cache.size} total\` (💬 Text: \`${message.guild.channels.cache.filter(ch => ch.type === ChannelType.GuildText).size}\` | 🎤 Voice: \`${message.guild.channels.cache.filter(ch => ch.type === ChannelType.GuildVoice).size}\`)`,
                             `- 😑 Emojis: \`${message.guild.emojis.cache.size} total\` (😊 Standard: \`${message.guild.emojis.cache.filter(emoji => !emoji.animated).size}\` | 🥰 Animated: \`${message.guild.emojis.cache.filter(emoji => emoji.animated).size}\`)`,
                         ].join('\n')
                     },

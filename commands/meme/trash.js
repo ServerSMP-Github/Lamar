@@ -16,7 +16,7 @@ module.exports = {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         if (!user) user = message.member;
 
-        const bg = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'trash.png'));
+        const bg = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'trash.webp'));
 
         const img = await loadImage(user.user.displayAvatarURL({ dynamic: false, format: 'png' }));
 

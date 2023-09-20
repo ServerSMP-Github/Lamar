@@ -22,7 +22,7 @@ module.exports = {
         const avatar = await loadImage(user.user.displayAvatarURL({ dynamic: false, format: 'png' }));
         ctx.drawImage(avatar, 145, 575, 400, 400);
 
-        const background = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'tatoo.png'));
+        const background = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'tatoo.webp'));
         ctx.drawImage(background, 0, 0, 750, 1089);
 
         message.channel.send({

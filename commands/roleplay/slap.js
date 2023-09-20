@@ -15,7 +15,7 @@ module.exports = {
         let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         if (!user) return message.reply("You need to mention a user!");
 
-        const base = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'slap.png'));
+        const base = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'slap.webp'));
 
         const img1 = await loadImage(message.author.displayAvatarURL({ dynamic: false, format: 'png' }));
         const img2 = await loadImage(user.user.displayAvatarURL({ dynamic: false, format: 'png' }));

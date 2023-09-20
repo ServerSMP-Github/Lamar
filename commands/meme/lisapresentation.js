@@ -17,7 +17,7 @@ module.exports = {
         const text = args.slice(0).join(" ");
         if (!text || text.length > 300) return message.reply("You must provide a text of 300 characters or less.");
 
-        const base = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'lisapresentation.png'));
+        const base = await loadImage(path.join(__dirname, '..', '..', 'assets', 'image', 'roleplay', 'lisapresentation.webp'));
 
         const canvas = createCanvas(base.width, base.height);
         const ctx = canvas.getContext("2d");
