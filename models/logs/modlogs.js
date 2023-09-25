@@ -23,4 +23,5 @@ module.exports = model('modlogs', new Schema({
     ivd: Boolean,
     md: Boolean,
     mu: Boolean,
+    vsu: Boolean,
 }));

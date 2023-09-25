@@ -1,12 +1,9 @@
 const { Events } = require("discord.js");
 const client = require("../index");
 
-client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {
-    if (!client.config.music.enabled) return;
+const { getFileList } = require("../assets/api/file");
 
-    const player = client.poru.players.get(oldVoice.guild.id);
-    if (!player) return;
-
-    const channel = newVoice.guild.members.me.voice.channel;
-    if (!channel || channel.members.size === 1) player.destroy();
+client.on(Events.VoiceStateUpdate, async(oldVoice, newVoice) => {
+    const eventFiles = await getFileList(`${process.cwd()}/events/voiceStateUpdate`, { type: ".js", recursively: false });
+    eventFiles.map((value) => require(value)(oldVoice, newVoice));
 });
