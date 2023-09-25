@@ -112,9 +112,11 @@ client.on(Events.ChannelUpdate, async (oldChannel, newChannel) => {
       embeds: [
         new EmbedBuilder()
         .setTitle(`:white_circle: Channel Category Updated :white_circle:`)
-        .addField(`Channel`, `${oldChannel}`)
-        .addField(`Old Category`, `${oldChannel.parent}`)
-        .addField(`New Category`, `${newChannel.parent}`)
+        .addFields(
+          { name: "Channel", value: oldChannel },
+          { name: "Old Category", value: `${oldChannel.parent} seconds` },
+          { name: "New Category", value: `${newChannel.parent} seconds` }
+        )
         .setColor("Yellow")
         .setTimestamp()
         .setFooter({ text: "You cant hide anything from us :)" })
@@ -125,9 +127,11 @@ client.on(Events.ChannelUpdate, async (oldChannel, newChannel) => {
       embeds: [
         new EmbedBuilder()
         .setTitle(`:white_circle: Channel Slowmode Updated :white_circle:`)
-        .addField(`Channel`, `${oldChannel}`)
-        .addField(`Old Slowmode`, `${oldChannel.rateLimitPerUser} seconds`)
-        .addField(`New Slowmode`, `${newChannel.rateLimitPerUser} seconds`)
+        .addFields(
+          { name: "Channel", value: oldChannel },
+          { name: "Old Slowmode", value: `${oldChannel.rateLimitPerUser} seconds` },
+          { name: "New Slowmode", value: `${newChannel.rateLimitPerUser} seconds` }
+        )
         .setColor("Yellow")
         .setTimestamp()
         .setFooter({ text: "You cant hide anything from us :)" })
@@ -295,9 +299,11 @@ client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
     embeds: [
       new EmbedBuilder()
       .setTitle(`:new: Member Role Changed :new: `)
-      .addField(`**Member**`, `${oldMember}`)
-      .addField(`**Before**`, `${oldMember.roles.cache.map((role) => role.toString()).join(" , ")}`)
-      .addField(`**After**`, `${newMember.roles.cache.map((role) => role.toString()).join(" , ")}`)
+      .addFields(
+        { name: "**Member**", value: oldMember },
+        { name: "**Before**", value: oldMember.roles.cache.map((role) => role.toString()).join(" , ") },
+        { name: "**After**", value: newMember.roles.cache.map((role) => role.toString()).join(" , ") }
+      )
       .setFooter({ text: "new roles! yay" })
       .setColor("Yellow")
       .setTimestamp()
@@ -316,9 +322,11 @@ client.on(Events.GuildRoleCreate, async (role) => {
       new EmbedBuilder()
       .setTitle(`✔ Role Created ✔`)
       .setColor("Green")
-      .addField(`Role`, `${role}`)
-      .addField(`Position`, `${role.position}`)
-      .addField(`ID`, `${role.id}`)
+      .addFields(
+        { name: "Role", value: role },
+        { name: "Position", value: role.position },
+        { name: "ID", value: role.id }
+      )
       .setTimestamp()
     ]
   });
@@ -335,9 +343,11 @@ client.on(Events.GuildRoleDelete, async (role) => {
       new EmbedBuilder()
       .setTitle(`🗑️ Role Deleted 🗑️`)
       .setColor("Red")
-      .addField(`Role`, `${role.name}`)
-      .addField(`Position`, `${role.position}`)
-      .addField(`ID`, `${role.id}`)
+      .addFields(
+        { name: "Role", value: role.name },
+        { name: "Position", value: role.position },
+        { name: "ID", value: role.id }
+      )
       .setTimestamp()
     ]
   });
@@ -353,9 +363,11 @@ client.on(Events.GuildRoleUpdate, async (oldRole, newRole) => {
     embeds: [
       new EmbedBuilder()
       .setTitle(`:new: Role Name Updated :new:`)
-      .addField(`Role`, `${oldRole}`)
-      .addField(`Old Name`, `${oldRole.name}`)
-      .addField(`New Name`, `${newRole.name}`)
+      .addFields(
+        { name: "Role", value: oldRole },
+        { name: "Old Name", value: oldRole.name },
+        { name: "New Name", value: newRole.name }
+      )
       .setColor("Yellow")
       .setTimestamp()
     ]
@@ -373,7 +385,7 @@ client.on(Events.InviteCreate, async (invite) => {
       new EmbedBuilder()
       .setTitle(`✔ Invite Created ✔`)
       .setColor("Green")
-      .addField(`Invite`, `${invite}`)
+      .addFields({ name: "Invite", value: invite })
       .setTimestamp()
     ]
   });
@@ -390,7 +402,7 @@ client.on(Events.InviteDelete, async (invite) => {
       new EmbedBuilder()
       .setTitle(`🗑️ Invite Deleted 🗑️`)
       .setColor("Red")
-      .addField(`Invite`, `${invite}`)
+      .addFields({ name: "Invite", value: invite })
       .setTimestamp()
     ]
   });
@@ -447,10 +459,12 @@ client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
       .setTitle(" :new: Message Updated :new:")
       .setTimestamp()
       .setColor("Yellow")
-      .addField("Old Content", `${oldMessage.content ? oldMessage.content : "*Sorry, We cant fetch that message !*"}`)
-      .addField("New Content", `${newMessage.content ? newMessage.content : "*Sorry, We cant fetch that message !*"}`)
-      .addField("Author", `${oldMessage.author.username}`)
-      .addField("Channel", `<#${oldMessage.channel.id}>`)
+      .addFields(
+        { name: "Old Content", value: `${oldMessage.content ? oldMessage.content : "*Sorry, We cant fetch that message !*"}` },
+        { name: "New Content", value: `${newMessage.content ? newMessage.content : "*Sorry, We cant fetch that message !*"}` },
+        { name: "Author", value: `${oldMessage.author.username}` },
+        { name: "Channel", value: `<#${oldMessage.channel.id}>` }
+      )
     ]
   });
 });
