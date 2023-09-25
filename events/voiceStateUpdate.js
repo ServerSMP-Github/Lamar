@@ -7,5 +7,6 @@ client.on(Events.VoiceStateUpdate, (oldVoice, newVoice) => {
     const player = client.poru.players.get(oldVoice.guild.id);
     if (!player) return;
 
-    if (!newVoice.guild.members.me.voice.channel) player.destroy();
+    const channel = newVoice.guild.members.me.voice.channel;
+    if (!channel || channel.members.size === 1) player.destroy();
 });
