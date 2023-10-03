@@ -1,4 +1,4 @@
-<h1 align="center">ServerSMP - BOT</h1>
+<h1 align="center">Lamar</h1>
 
 <p align="center">A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!</p>
 
