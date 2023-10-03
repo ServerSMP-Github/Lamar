@@ -17,7 +17,7 @@ module.exports = {
             }
 
             if (captchaChange === "false") {
-                if (captchaSettings) await captchaSettings.delete();
+                if (captchaSettings) await captchaSettings.deleteOne();
 
                 captchaChange = "false";
             }
