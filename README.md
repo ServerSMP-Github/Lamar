@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-  <a href="https://github.com/ServerSMP-Github/BOT">
+  <a href="https://github.com/ServerSMP-Github/Lamar">
     <img src="https://raw.githubusercontent.com/ServerSMP-Github/BOT/web/img/icon.png" alt="BOT-logo" height="315px" width="252px">
   </a>
 </p>
