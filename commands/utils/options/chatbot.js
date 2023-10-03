@@ -24,7 +24,7 @@ module.exports = {
         if (options === "off") {
             if (!chatbotData) return message.reply("Chatbot is already off.");
 
-            await chatbotData.delete();
+            await chatbotData.deleteOne();
 
             return message.channel.send("Turned off chatbot.");
         }

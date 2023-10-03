@@ -11,7 +11,7 @@ module.exports = async(interaction) => {
     const rankData = await rankCardRequest.findOne({ Message: interaction.message.id });
     if (rankData) {
         await client.users.cache.get(rankData.User).send("Your RankCard image was denied!");
-        await rankData.delete();
+        await rankData.deleteOne();
     }
 
     const msg = await interaction.channel.messages.fetch(interaction.message.id);

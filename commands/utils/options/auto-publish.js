@@ -19,7 +19,7 @@ module.exports = {
         if (options === "off") {
             if (!crosspostData) return message.reply("Auto-publish is allready off!");
 
-            await crosspostData.delete();
+            await crosspostData.deleteOne();
 
             return message.channel.send("uto-publish is turned off!");
         }

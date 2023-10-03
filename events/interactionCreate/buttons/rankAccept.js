@@ -17,7 +17,7 @@ module.exports = async(interaction) => {
         await userData.save();
 
         client.users.cache.get(rankData.User).send("Your RankCard image was accepted!");
-        await rankData.delete();
+        await rankData.deleteOne();
     }
 
     const msg = await interaction.channel.messages.fetch(interaction.message.id);

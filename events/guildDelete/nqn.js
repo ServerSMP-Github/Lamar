@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const nqnData = await nqnSchema.findOne({ Guild: guild.id });
 
-    if (nqnData) await nqnData.delete();
+    if (nqnData) await nqnData.deleteOne();
 }

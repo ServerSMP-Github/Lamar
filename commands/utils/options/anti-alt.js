@@ -25,7 +25,7 @@ module.exports = {
         if (options === "off") {
             if (!altData) return message.reply("Anti-alt is already off!");
 
-            await altData.delete();
+            await altData.deleteOne();
 
             return message.channel.send("Anti-alt is turned off!");
         }

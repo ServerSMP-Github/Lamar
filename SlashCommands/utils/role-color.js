@@ -143,7 +143,7 @@ module.exports = {
                     await roleData.save();
                 }
 
-                if (colorName === "all") await roleData.delete();
+                if (colorName === "all") await roleData.deleteOne();
 
             }
 

@@ -13,17 +13,17 @@ function isValidHttpUrl(string) {
     return url.protocol === "http:" || url.protocol === "https:";
 }
 
-function isImageUrl(url) {
-    return new Promise((resolve, reject) => {
-        const client = url.startsWith('https') ? https : http;
+async function isImageUrl(url) {
+    try {
+        const response = await fetch(url, { method: 'HEAD', mode: 'cors', cache: 'no-store' });
+        const contentType = response.headers.get('content-type');
 
-        client
-            .get(url, (response) => {
-                if (response.headers['content-type'].startsWith('image/')) resolve(true);
-                else resolve(false);
-            })
-            .on('error', () => reject(false));
-    });
+        if (contentType && contentType.startsWith('image/')) return true;
+        else return false;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 }
 
 function getWebsite(client) {

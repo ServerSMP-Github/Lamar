@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const reactionRolesData = await reactionRolesSchema.findOne({ Guild: guild.id });
 
-    if (reactionRolesData) await reactionRolesData.delete();
+    if (reactionRolesData) await reactionRolesData.deleteOne();
 }

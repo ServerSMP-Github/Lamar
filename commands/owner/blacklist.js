@@ -25,7 +25,7 @@ module.exports = {
         if (blacklistData) return message.reply(query == "add" ? "This server has already been blacklisted before!" : "That guild id does not exist in the database!");
 
         if (query === "add") await Schema.create({ Server: id });
-        else await blacklistData.delete();
+        else await blacklistData.deleteOne();
 
         message.reply(query == "add" ? "Blacklisted a new server/guild!" : "Guild was unblacklisted successfully!");
     }

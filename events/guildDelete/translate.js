@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const translateData = await translateSchema.findOne({ Guild: guild.id });
 
-    if (translateData) await translateData.delete();
+    if (translateData) await translateData.deleteOne();
 }

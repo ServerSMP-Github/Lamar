@@ -107,7 +107,7 @@ module.exports = {
       } else {
         await channel.messages.fetch(rankCardData.Message).then((msg) => msg.delete());
 
-        await rankCardData.delete();
+        await rankCardData.deleteOne();
 
         const msg = await channel.send({ embeds: [embed], components: [row] });
 

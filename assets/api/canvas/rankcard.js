@@ -6,7 +6,12 @@ async function createRankCard(user) {
     const ctx = canvas.getContext("2d");
 
     // Load background image
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
     const background = user.background ? await loadImage(user.background) : null;
+
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
+
     if (background) ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     else {
         ctx.fillStyle = "#23272a";

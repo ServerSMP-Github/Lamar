@@ -143,7 +143,7 @@ module.exports = {
       const goodbyeData = await goodbyeSchema.findOne({ Guild: message.guild.id })
       if (!goodbyeData) return message.reply("There is no welcome card set up for this server.");
 
-      await goodbyeData.delete();
+      await goodbyeData.deleteOne();
 
       return message.reply("The welcome card has been removed.");
     }

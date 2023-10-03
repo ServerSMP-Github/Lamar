@@ -73,8 +73,8 @@ async function newGame(message, opponent) {
             }
 
             if (winner) {
-                await (await rpsSchema.findOne({ Guild: message.guild.id, User: userChallenger.id })).delete();
-                await (await rpsSchema.findOne({ Guild: message.guild.id, User: userOpponent.id })).delete();
+                await (await rpsSchema.findOne({ Guild: message.guild.id, User: userChallenger.id })).deleteOne();
+                await (await rpsSchema.findOne({ Guild: message.guild.id, User: userOpponent.id })).deleteOne();
 
                 const winText = winner == "draw" ? "It was a draw!" : `${winner} won the game!`;
 

@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const xpData = await xpSchema.findOne({ Guild: guild.id });
 
-    if (xpData) await xpData.delete();
+    if (xpData) await xpData.deleteOne();
 }

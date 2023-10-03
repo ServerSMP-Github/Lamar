@@ -16,8 +16,8 @@ module.exports = {
     const rankData = await rankSchema.findOne({ Guild: message.guild.id });
 
     if (options === "off") {
-      await xpData.delete();
-      if (rankData) await rankData.delete();
+      await xpData.deleteOne();
+      if (rankData) await rankData.deleteOne();
 
       return message.channel.send("Turned off xp commands/system.");
     }

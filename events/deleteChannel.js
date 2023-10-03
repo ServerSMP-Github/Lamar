@@ -11,7 +11,7 @@ client.on(Events.ChannelDelete, async(channel) => {
 
     // Goodbye
     SchemaGoodbye.findOne({ Guild: channel.guild.id, Channel: channel.id }, async(err, data) => {
-        if(data) data.delete();
+        if(data) data.deleteOne();
     })
 
     // Welcome
@@ -19,7 +19,7 @@ client.on(Events.ChannelDelete, async(channel) => {
         if(data) {
             // if(await client.mongo_quick.has(`welcome-type-${channel.guild.id}`) === true) await client.mongo_quick.remove(`welcome-type-${channel.guild.id}`)
             // if(await client.mongo_quick.has(`welcome-theme-${channel.guild.id}`) === true) await client.mongo_quick.remove(`welcome-theme-${channel.guild.id}`)
-            data.delete();
+            data.deleteOne();
         }
     })
 
@@ -32,22 +32,22 @@ client.on(Events.ChannelDelete, async(channel) => {
 
     // Chatbot
     SchemaChatBot.findOne({ Guild: channel.guild.id, Channel: channel.id }, async(err, data) => {
-        if(data) data.delete();
+        if(data) data.deleteOne();
     })
 
     // Modlogs
     SchemaModLogs.findOne({ Guild: channel.guild.id, Channel: channel.id }, async(err, data) => {
-        if(data) data.delete();
+        if(data) data.deleteOne();
     })
 
     // Global
     SchemaGlobal.findOne({ Guild: channel.guild.id, Channel: channel.id }, async(err, data) => {
-        if(data) data.delete();
+        if(data) data.deleteOne();
     })
 
     // Invite
     // Schema.findOne({ Guild: channel.guild.id, Channel: channel.id }, async(err, data) => {
-        // if(data) data.delete();
+        // if(data) data.deleteOne();
     // })
 
     // XP

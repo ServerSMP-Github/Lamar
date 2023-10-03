@@ -31,7 +31,7 @@ module.exports = {
         if (options === "reset") {
             if (!prefixData) return message.channel.send("You dont have a custom prefix!");
 
-            await prefixData.delete();
+            await prefixData.deleteOne();
 
             return message.channel.send(`The prefix has been reset to ${client.config.bot.info.prefix}`);
         }

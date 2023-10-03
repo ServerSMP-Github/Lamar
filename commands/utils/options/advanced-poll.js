@@ -39,7 +39,7 @@ module.exports = {
         if (options === "off") {
             if (pollData) return message.reply("Advanced Poll is already off!");
 
-            await pollData.delete();
+            await pollData.deleteOne();
 
             return message.channel.send("Advanced Poll has been turned off!");
         }

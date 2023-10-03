@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const chatbotData = await chatbotSchema.findOne({ Guild: guild.id });
 
-    if (chatbotData) await chatbotData.delete();
+    if (chatbotData) await chatbotData.deleteOne();
 }

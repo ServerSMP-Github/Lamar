@@ -19,7 +19,7 @@ module.exports = {
         if (options === "off") {
             if (!captchaData) return message.reply("Captcha is already off.");
 
-            await captchaData.delete();
+            await captchaData.deleteOne();
 
             return message.channel.send("Turned off captcha feature");
         }

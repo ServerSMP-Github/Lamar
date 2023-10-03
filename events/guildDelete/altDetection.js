@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const altDetectionData = await altDetectionSchema.findOne({ Guild: guild.id });
 
-    if (altDetectionData) await altDetectionData.delete();
+    if (altDetectionData) await altDetectionData.deleteOne();
 }

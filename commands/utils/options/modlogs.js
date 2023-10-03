@@ -48,7 +48,7 @@ module.exports = {
     if (options === "off") {
       if (!modlogData) return message.reply("This server has no modlogs channel!");
 
-      await modlogData.delete();
+      await modlogData.deleteOne();
 
       return message.channel.send("Deleted modlogs channel!");
     }

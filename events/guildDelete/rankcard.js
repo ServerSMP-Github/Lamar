@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const rankCardData = await rankCardSchema.findOne({ Guild: guild.id });
 
-    if (rankCardData) await rankCardData.delete();
+    if (rankCardData) await rankCardData.deleteOne();
 }

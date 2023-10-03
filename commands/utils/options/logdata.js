@@ -40,7 +40,7 @@ module.exports = {
         if (options === "off") {
             if (!logData) return message.reply("Logs is already off.");
 
-            await logData.delete();
+            await logData.deleteOne();
 
             return message.channel.send("Turned off Logs.");
         }

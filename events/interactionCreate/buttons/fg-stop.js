@@ -14,7 +14,7 @@ module.exports = async(interaction) => {
     const getInstance = await instance.findOne({ guild: interaction.guild.id, user: user.id });
     if (!getInstance) return interaction.reply({ content: "You have not challenged the bot!", ephemeral: true });
 
-    await getInstance.delete();
+    await getInstance.deleteOne();
 
     interaction.reply({
         embeds: [

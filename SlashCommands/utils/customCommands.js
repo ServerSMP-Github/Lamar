@@ -82,7 +82,7 @@ module.exports = {
       } else if(subCommand === "delete") {
         if(!customCommand) return interaction.followUp({ content: "that custom command does not exist" });
 
-        await customCommand.delete();
+        await customCommand.deleteOne();
         const command = await interaction.guild.commands.cache.find(cmd => cmd.name === commandName);
 
         await interaction.guild.commands.delete(command.id);

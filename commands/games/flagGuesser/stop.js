@@ -7,7 +7,7 @@ module.exports = {
         const getInstance = await instance.findOne({ guild: message.guild.id, user: message.author.id });
         if (!getInstance) return message.reply({ content: "You have not challenged the bot!" });
 
-        await getInstance.delete();
+        await getInstance.deleteOne();
 
         message.channel.send({
             embeds: [

@@ -87,7 +87,7 @@ async function newGame(message) {
 
     async function endGame() {
         const snakeData = await snakeSchema.findOne({ Guild: message.guild.id, User: message.author.id });
-        if (snakeData) await snakeData.delete();
+        if (snakeData) await snakeData.deleteOne();
 
         embed.setDescription(`**Game Over**\n**Score:** ${score}\n\n${makeGameBoard({ skull: true })}`);
 

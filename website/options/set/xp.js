@@ -88,7 +88,7 @@ module.exports = {
         xpSettings.card.status.style = statusStyle;
         xpSettings.card.background.option = backgroundValue;
         xpSettings.card.background.url = backgroundURL;
-      } else rankData ? await rankData.delete() : null;
+      } else rankData ? await rankData.deleteOne() : null;
     }
 
     return xpSettings;

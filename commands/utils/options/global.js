@@ -24,7 +24,7 @@ module.exports = {
         if (options === "off") {
             if (!globalData) return message.reply("Server does not have an international chat!");
 
-            await globalData.delete();
+            await globalData.deleteOne();
 
             return message.channel.send("Removed international chat!");
         }

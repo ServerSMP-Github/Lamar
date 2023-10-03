@@ -56,10 +56,10 @@ async function newGame(message, opponent) {
         msg.edit({ embeds: [embed], components: msg.components });
 
         const challengerData = await tttSchema.findOne({ Guild: message.guild.id, User: userChallenger.id });
-        if (challengerData) await challengerData.delete();
+        if (challengerData) await challengerData.deleteOne();
 
         const opponentData = await tttSchema.findOne({ Guild: message.guild.id, User: userOpponent.id })
-        if (opponentData) await opponentData.delete();
+        if (opponentData) await opponentData.deleteOne();
 
         turn = null;
     }

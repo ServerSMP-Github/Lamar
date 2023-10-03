@@ -19,7 +19,7 @@ module.exports = {
         const customData = await customSchema.findOne({ Guild: message.guild.id, Command: name }).exec();
         if (!customData) return message.channel.send('That custom command does not exist!');
 
-        await customData.delete();
+        await customData.deleteOne();
 
         message.channel.send(`Removed **${name}** from custom commands!`);
     }

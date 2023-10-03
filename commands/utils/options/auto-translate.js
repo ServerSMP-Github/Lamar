@@ -19,7 +19,7 @@ module.exports = {
         if (options === "off") {
             if (!translateData) return message.reply("Auto-translate is already off!");
 
-            await translateData.delete();
+            await translateData.deleteOne();
 
             return message.channel.send("Auto-translate is turned off!");
         }

@@ -24,7 +24,7 @@ module.exports = {
         if (options === "off") {
             if (!autoroleData) return message.reply("Autorole is already off.");
 
-            await autoroleData.delete();
+            await autoroleData.deleteOne();
 
             return message.channel.send("Removed autorole!");
         }

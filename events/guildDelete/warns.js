@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const warnData = await warnSchema.findOne({ guildid: guild.id });
 
-    if (warnData) await warnData.delete();
+    if (warnData) await warnData.deleteOne();
 }

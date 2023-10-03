@@ -19,7 +19,7 @@ module.exports = {
         if (options === "off") {
             if (!nsfwData) return message.reply("NSFW is turned off.");
 
-            await nsfwData.delete();
+            await nsfwData.deleteOne();
 
             return message.channel.send("Turned of NSFW.");
         }

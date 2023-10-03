@@ -4,5 +4,5 @@ const client = require("../../index");
 module.exports = async(guild) => {
     const captchaData = await captchaSchema.findOne({ Guild: guild.id });
 
-    if (captchaData) await captchaData.delete();
+    if (captchaData) await captchaData.deleteOne();
 }
