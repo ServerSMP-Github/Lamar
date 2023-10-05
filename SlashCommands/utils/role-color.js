@@ -93,7 +93,7 @@ module.exports = {
                 const role = await interaction.guild.roles.create({
                     name: colorName.toLowerCase(),
                     color: optionColor,
-                    reason: 'ServerSMP - BOT Color roles'
+                    reason: 'Lamar - Color roles'
                 });
 
                 roleData.Color.push({

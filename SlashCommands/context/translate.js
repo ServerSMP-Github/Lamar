@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType } = require("discord.js");
-const translate = require("../../assets/api/translate");
+const translate = require("../../assets/api/language/translate");
 
 module.exports = {
     name: "Translate",

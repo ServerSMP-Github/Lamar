@@ -1,74 +1,26 @@
-const translateSchema = require("../../models/server/translate.js");
-const translate = require("@iamtraction/google-translate");
-const { detectAll } = require("tinyld");
+const translateSchema = require("../../models/server/translate");
+const translate = require("../../assets/api/language/translate");
+const detect = require("../../assets/api/language/detect");
 const client = require("../../index");
 
 module.exports = async(message) => {
     if (!message.guild || message.author.bot) return;
 
     const msg = message.cleanContent;
-
-    if (msg.length < 6 || !msg.includes(' ')) return;
+    if (msg.length < client.config.language.length || !msg.includes(' ')) return;
 
     const translateData = await translateSchema.findOne({ Guild: message.guild.id });
-
     if (!translateData) return;
 
-    const result = detectAll(msg);
-
-    if (!result[0] || !result || result === undefined) return;
-    if (result[0].accuracy * 100 < translateData.Percent) return;
-    if (result[0].lang === translateData.Language) return;
+    const result = await detect({ client, message: msg });
+    if (!result || result === undefined) return;
+    if (result.accuracy * 100 < translateData.Percent) return;
+    if (result.language === translateData.Language) return;
 
     const stringContent = String(message.content);
 
-    let translated = null;
-
-    if (client.config.translate.type === "google") {
-        translated = await translate(stringContent, {
-            from: 'auto',
-            to: translateData.Language
-        });
-
-        if (!translated.text) return;
-
-        translated = {
-            text: translated.text,
-            iso: translated.from.language.iso
-        };
-    } else if (client.config.translate.type === "libre") {
-        translated = await (await fetch(`${client.config.translate.url}/translate`, {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                q: stringContent,
-                source: "auto",
-                target: translateData.Language,
-                api_key: client.config.translate.key
-            })
-        })).json();
-
-        if (!translated.translatedText) return;
-
-        translated = {
-            text: translated.translatedText,
-            iso: translated.detectedLanguage.translated
-        };
-    } else if (client.config.translate.type === "easynmt") {
-        translated = await (await fetch(`${client.config.translate.url}/translate?target_lang=${translateData.Language}&text=${stringContent}`)).json();
-
-        if (!translated.translated[0]) return;
-
-        translated = {
-            text: translated.translated[0],
-            iso: translated.detected_langs[0]
-        };
-    }
-
-    if (translated.iso == "en" || translated.text.toLocaleLowerCase() == stringContent.toLocaleLowerCase()) return;
+    const translated = await translate({ client, message: stringContent, language: translateData.Language });
+    if (!translated || !translated.text || translated.iso === translateData.Language || translated.text.toLocaleLowerCase() === stringContent.toLocaleLowerCase()) return;
 
     message.reply({
         content: translated.text,

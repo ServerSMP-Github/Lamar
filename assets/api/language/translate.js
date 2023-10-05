@@ -4,7 +4,7 @@ module.exports = async function({ client, message, language }) {
 
     let translated = null;
 
-    const server = client.config.translate;
+    const server = client.config.language.translate;
 
     if (server.type === "google") {
         translated = await translate(message, {
