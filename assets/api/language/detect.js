@@ -12,7 +12,7 @@ module.exports = async function({ client, message }) {
         if (!detected[0].lang) return;
 
         detected = {
-            accuracy: detected[0].accuracy,
+            accuracy: detected[0].accuracy * 100,
             language: detected[0].lang
         };
     } else if (server.type === "remote") {
@@ -30,10 +30,29 @@ module.exports = async function({ client, message }) {
         if (!detected.language) return;
 
         detected = {
-            accuracy: detected.language,
-            language: 1
+            accuracy: 100,
+            language: detected.language
         };
-    }
+    } else if (server.type === "libre") {
+        detected = await (await fetch(`${server.url}/detect`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                q: message,
+                api_key: server.key
+            })
+        })).json();
+
+        if (!detected[0].language) return;
+
+        detected = {
+            accuracy: detected[0].confidence,
+            language: detected[0].language
+        };
+    } 
 
     return detected;
 

@@ -14,7 +14,7 @@ module.exports = async(message) => {
 
     const result = await detect({ client, message: msg });
     if (!result || result === undefined) return;
-    if (result.accuracy * 100 < translateData.Percent) return;
+    if (result.accuracy < translateData.Percent) return;
     if (result.language === translateData.Language) return;
 
     const stringContent = String(message.content);
