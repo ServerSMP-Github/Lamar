@@ -55,6 +55,8 @@ module.exports = {
       )
     ]});
 
+    if (!color.startsWith('#')) color = `#${color}`;
+
     if (!isValidHexCode(color)) return message.reply("Not a valid color");
 
     if(!["true", "false"].includes(style)) return message.reply("You need a status style (true or false)!");
