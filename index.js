@@ -42,7 +42,7 @@ client.commands = new Collection();
 client.slashCommands = new Collection();
 client.config = config;
 
-if (!config.bot.info.debug) require("./client/anticrash")(client);
+if (!config.bot.logs.debug) require("./client/anticrash")(client);
 
 require("./client/lavalink")(client);
 
