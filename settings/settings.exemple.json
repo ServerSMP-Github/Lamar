@@ -1,10 +1,18 @@
 {
     "bot": {
+        "logs": {
+            "debug": false,
+            "anticrash": {
+                "file": true,
+                "console": true
+            }
+        },
         "info": {
             "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             "secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             "version": "5.0.0 alpha",
-            "prefix": "-"
+            "prefix": "-",
+            "invite": "https://discord.com/invite/xxxxxxxxxx"
         },
         "database": {
             "mongo_main": "mongodb://username:password@ip:port/BOT",
@@ -35,6 +43,7 @@
         "weatherapi": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "hypixel": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "virustotal": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "cloudflare": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "serversmp": "https://api.serversmp.xyz/"
     },
     "channel": {
@@ -52,6 +61,7 @@
     },
     "music": {
         "enabled": true,
+        "whitelist": ["xxxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxx"],
         "server": {
             "enabled": true,
             "debug": false
@@ -68,15 +78,23 @@
     },
     "dashboard": {
         "port": 3000,
-        "domain": "https://bot.serversmp.xyz",
-        "customDomain": true,
+        "domain": "http://localhost",
+        "customDomain": false,
         "invite": "https://discord.com/invite/xxxxxxxxxx",
         "secret": "xxxxxxxxxxxxxx"
     },
-    "translate": {
-        "type": "libre",
-        "url": "http://localhost:8080",
-        "key": null
+    "language": {
+        "length": 6,
+        "detect": {
+            "type": "libre",
+            "url": "http://localhost:8080",
+            "key": null
+        },
+        "translate": {
+            "type": "libre",
+            "url": "http://localhost:8080",
+            "key": null
+        }
     },
     "command": {
         "owner": {
@@ -116,7 +134,8 @@
             "verified_bot": "<:VERIFIED_BOT:xxxxxxxxxxxxxxxxxx>",
             "verified_developer": "<:VERIFIED_DEVELOPER:xxxxxxxxxxxxxxxxxx>",
             "certified_moderator": "<:CERTIFIED_MODERATOR:xxxxxxxxxxxxxxxxxx>",
-            "active_developer": "<:ACTIVE_DEVELOPER:xxxxxxxxxxxxxxxxxx>"
+            "active_developer": "<:ACTIVE_DEVELOPER:xxxxxxxxxxxxxxxxxx>",
+            "legacy_username": "<:LEGACY_USERNAME:xxxxxxxxxxxxxxxxxx>"
         },
         "boost_level": {
             "level_1": "<:level_1:xxxxxxxxxxxxxxxxxx>",

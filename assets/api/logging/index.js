@@ -3,8 +3,9 @@ const fs = require('fs');
 
 function createLogger({ filter, file }) {
     return {
-        log: function ({ level, message, meta, save }) {
-            save = save ? save : true; 
+        log: function ({ level, message, meta, save, terminal }) {
+            terminal = terminal === false ? terminal : true;
+            save = save === false ? save : true;            
 
             let color;
             switch (level) {
@@ -32,7 +33,7 @@ function createLogger({ filter, file }) {
 
             if (!filter.includes(level)) return;
 
-            console.log(`[${color(level)}] ${message}`, meta ? meta : "");
+            if (terminal) console.log(`[${color(level)}] ${message}`, meta ? meta : "");
 
             if (!save) return;
 

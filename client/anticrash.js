@@ -10,16 +10,22 @@ const logger = createLogger({
 module.exports = (client) => {
   const loggerHook = new WebhookClient({ url: client.config.channel.webhooks.error });
 
+  const logs = client.config.bot.logs.anticrash;
+
   process.on('unhandledRejection', (reason, p) => {
     logger.log({
       level: 'error',
       message: `${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Unhandled rejection/crash detected.')}`,
+      save: logs.file,
+      terminal: logs.console
     });
 
     logger.log({
       level: 'error',
       message: reason,
-      meta: p
+      meta: p,
+      save: logs.file,
+      terminal: logs.console
     });
 
     loggerHook.send({
@@ -43,13 +49,17 @@ module.exports = (client) => {
   process.on("uncaughtException", (err, origin) => {
     logger.log({
       level: 'error',
-      message: `${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Uncaught exception/catch detected.')}`
+      message: `${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Uncaught exception/catch detected.')}`,
+      save: logs.file,
+      terminal: logs.console
     });
 
     logger.log({
       level: 'error',
       message: err,
-      meta: origin
+      meta: origin,
+      save: logs.file,
+      terminal: logs.console
     });
 
     loggerHook.send({
@@ -73,13 +83,17 @@ module.exports = (client) => {
   process.on('uncaughtExceptionMonitor', (err, origin) => {
     logger.log({
       level: 'error',
-      message: `${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Uncaught exception/catch detected. (Monitor)')}`
+      message: `${colors.fgBlue('[antiCrash.js]')} ${colors.fgRed('Uncaught exception/catch detected. (Monitor)')}`,
+      save: logs.file,
+      terminal: logs.console
     });
 
     logger.log({
       level: 'error',
       message: err,
-      meta: origin
+      meta: origin,
+      save: logs.file,
+      terminal: logs.console
     });
 
     loggerHook.send({
