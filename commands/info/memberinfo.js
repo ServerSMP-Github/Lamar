@@ -58,7 +58,8 @@ module.exports = {
         const isLegacyUsername = new Date(member.user.createdAt).getTime() < 1677657600000;
         const legacyUsername = isLegacyUsername ? client.config.emoji.badges.legacy_username : "";
 
-        const roles = member.roles.cache.size > 50 ? "Too many roles" : member.roles.cache.size <= 1 ? "No roles." : `<@&${member._roles.join('> <@&')}>`;
+        let roles = member.roles.cache.size > 50 ? "Too many roles" : member.roles.cache.size <= 1 ? "No roles." : `<@&${member._roles.join('> <@&')}>`;
+        if (roles.length >= 1024) roles = "Too many roles";
 
         const embed = new EmbedBuilder()
             .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
