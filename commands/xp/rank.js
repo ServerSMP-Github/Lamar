@@ -23,7 +23,7 @@ module.exports = {
     const xpData = await xpSchema.findOne({ Guild: message.guild.id });
     if (!xpData) return message.reply("XP system is disabled on this server!");
 
-    const getUser = message.mentions.members.first() ? message.mentions.members.first() : message.member;
+    const getUser = message.mentions.members.last() ? message.mentions.members.last() : message.member;
     const checkUser = getUser.user.id == client.user.id ? message.member : getUser;
 
     const userXp = await fetchUser(checkUser.user.id, message.guild.id, true);

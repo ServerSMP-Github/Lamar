@@ -1,5 +1,5 @@
+const { hexToRGBA, generateShades, getLuminance, isTooBlackOrWhite } = require("../color");
 const { shortenText, abbreviateNumber, circleImage } = require("./index");
-const { hexToRGBA, generateShades, getLuminance } = require("../color");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 
 async function canvacordRank(user) {
@@ -127,7 +127,7 @@ async function discordRank(user) {
     const canvas = createCanvas(1000, 250);
     const ctx = canvas.getContext("2d");
 
-    const bubbles = user.color;
+    const bubbles = isTooBlackOrWhite(user.color).boolean ? "#0CA7FF" : user.color;
 
     const shades = generateShades(bubbles, 50, 5);
     const background = getLuminance(bubbles) > 0.6 ? shades.brighter[44] : shades.darker[44];

@@ -226,7 +226,25 @@ function getLuminance(hexColor) {
     return luminance;
 }
 
+function isTooBlackOrWhite(color) {
+    if (typeof color === 'string' && isValidHexCode(color)) {
+        const { r, g, b } = hexToRGB(color);
+
+        color = [r, g, b];
+    } else return { boolean: false, message: "Invalid color" };
+
+    const [red, green, blue] = color;
+
+    const blackThreshold = 30;
+    const whiteThreshold = 225;
+
+    if (red <= blackThreshold && green <= blackThreshold && blue <= blackThreshold) return { boolean: true, message: "Too black" };
+    else if (red >= whiteThreshold && green >= whiteThreshold && blue >= whiteThreshold) return { boolean: true, message: "Too white" };
+    else return { boolean: false, message: "Not too black or too white" };
+}
+
 module.exports = {
+    isTooBlackOrWhite,
     findClosestColor,
     generateShades,
     isValidHexCode,
