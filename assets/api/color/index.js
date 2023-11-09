@@ -15,6 +15,27 @@ function hexToRGB(hex) {
     };
 }
 
+function hexToRGBA(hex, alpha) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    const rgba = result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+        a: alpha ? alpha : 1
+    } : {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 1
+    };
+
+    rgba.toString = function () {
+        return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
+    };
+
+    return rgba;
+}
+
 function rgbToHsl(r, g, b) {
     r /= 255, g /= 255, b /= 255;
 
@@ -89,6 +110,16 @@ function rgbToCmyk(r, g, b, normalized) {
     }
 }
 
+function componentToHex(c) {
+    const hex = c.toString(16);
+
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
 function findClosestColor(color) {
     let closestColor = null;
 
@@ -153,13 +184,59 @@ function nearestColor(target, referenceColors) {
     return nearestColor;
 }
 
+function generateShades(color, steps, stepSize = 20) {
+    const rgb = hexToRGB(color);
+    const shades = {
+        brighter: [],
+        darker: []
+    };
+
+    for (let i = 1; i <= steps; i++) {
+        const newColor = {
+            r: Math.max(0, Math.min(255, rgb.r - (i * stepSize))),
+            g: Math.max(0, Math.min(255, rgb.g - (i * stepSize))),
+            b: Math.max(0, Math.min(255, rgb.b - (i * stepSize)))
+        };
+
+        shades.darker.push(rgbToHex(newColor.r, newColor.g, newColor.b));
+    }
+
+    for (let i = 1; i <= steps; i++) {
+        const newColor = {
+            r: Math.max(0, Math.min(255, rgb.r + (i * stepSize))),
+            g: Math.max(0, Math.min(255, rgb.g + (i * stepSize))),
+            b: Math.max(0, Math.min(255, rgb.b + (i * stepSize)))
+        };
+
+        shades.brighter.push(rgbToHex(newColor.r, newColor.g, newColor.b));
+    }
+
+    return shades;
+}
+
+function getLuminance(hexColor) {
+    const color = hexColor.replace('#', '');
+
+    const r = parseInt(color.substring(0, 2), 16);
+    const g = parseInt(color.substring(2, 4), 16);
+    const b = parseInt(color.substring(4, 6), 16);
+
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+    return luminance;
+}
+
 module.exports = {
     findClosestColor,
+    generateShades,
     isValidHexCode,
     randomHexColor,
     nearestColor,
+    getLuminance,
     rgbToCmyk,
+    hexToRGBA,
     hexToRGB,
     rgbToHsv,
-    rgbToHsl
+    rgbToHsl,
+    rgbToHex
 }

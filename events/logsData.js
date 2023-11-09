@@ -221,30 +221,6 @@ client.on(Events.GuildBanRemove, async (ban) => {
     }
 });
 
-client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
-    const data = await Schema.findOne({ Guild: oldMember.guild.id }).exec();
-    if (!data) return;
-
-    data.MemberUpdate.push(formatData);
-    await data.save();
-
-    let arrayData = [];
-
-    for (let index = 0; index < data.MemberUpdate.length; index++) {
-        const element = data.MemberUpdate[index];
-        
-        const parsedYear = element.split("-").slice(0, 1);
-
-        const format = String(YYYY(Date.now()));
-
-        if (parsedYear === format) arrayData.push(element);
-        else return;
-
-        data.MemberUpdate = arrayData;
-        await data.save();
-    }
-});
-
 client.on(Events.MessageDelete, async (message) => {
     if(!message.guild) return;
 

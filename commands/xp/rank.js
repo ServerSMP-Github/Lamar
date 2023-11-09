@@ -1,5 +1,5 @@
 const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js");
-const { createRankCard } = require("../../assets/api/canvas/rankcard");
+const { canvacordRank, discordRank } = require("../../assets/api/canvas/rankcard");
 const { createProfile } = require("../../assets/api/canvas/profile");
 const guildRankcard = require("../../models/server/guild-rankcard");
 const userRankcard = require("../../models/user/user-rankcard");
@@ -80,10 +80,29 @@ module.exports = {
         files: [
           new AttachmentBuilder(profile, { name: "profile.png" })
         ]
-      })
+      });
     }
 
-    const rankCard = await createRankCard({
+    if (args[0] === "card") {
+      const card = await discordRank({
+        avatar: checkUser.user.displayAvatarURL({ extension: 'png', size: 512 }),
+        username: username,
+        status: status,
+        level: levelXp,
+        rank: positionXp,
+        currentXP: currentXp,
+        requiredXP: totalXp,
+        color: progressColor ? progressColor : "#0CA7FF"
+      });
+
+      return message.channel.send({
+        files: [
+          new AttachmentBuilder(card, { name: "card.png" })
+        ]
+      });
+    }
+
+    const rankCard = await canvacordRank({
       background: backgroundUrl ? backgroundUrl : null,
       avatar: checkUser.user.displayAvatarURL({ extension: 'png', size: 512 }),
       username: username,

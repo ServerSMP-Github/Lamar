@@ -1,7 +1,8 @@
+const { shortenText, abbreviateNumber, circleImage } = require("./index");
+const { hexToRGBA, generateShades, getLuminance } = require("../color");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
-const { shortenText, abbreviateNumber } = require("./index");
 
-async function createRankCard(user) {
+async function canvacordRank(user) {
     const canvas = createCanvas(934, 282);
     const ctx = canvas.getContext("2d");
 
@@ -122,6 +123,183 @@ async function createRankCard(user) {
     return canvas.toBuffer("image/png");
 }
 
+async function discordRank(user) {
+    const canvas = createCanvas(1000, 250);
+    const ctx = canvas.getContext("2d");
+
+    const bubbles = user.color;
+
+    const shades = generateShades(bubbles, 50, 5);
+    const background = getLuminance(bubbles) > 0.6 ? shades.brighter[44] : shades.darker[44];
+
+    function roundRect(x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.arcTo(x + width, y, x + width, y + radius, radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+        ctx.lineTo(x + radius, y + height);
+        ctx.arcTo(x, y + height, x, y + height - radius, radius);
+        ctx.lineTo(x, y + radius);
+        ctx.arcTo(x, y, x + radius, y, radius);
+        ctx.closePath();
+    }
+
+    roundRect(0, 0, canvas.width, canvas.height, 35);
+
+    ctx.fillStyle = background;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(80, 110, 60, 0, Math.PI * 2, false);
+    ctx.fillStyle = bubbles;
+    ctx.fill();
+
+    ctx.drawImage(await circleImage(user.avatar), 30, 65, 128, 128);
+
+    ctx.beginPath();
+    ctx.arc(140, 175, 20, 0, Math.PI * 2, false);
+    ctx.fillStyle = background;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(136, 230, 10, 0, Math.PI * 2, false);
+    ctx.fillStyle = hexToRGBA(bubbles, 0.30).toString();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(190, 80, 10, 0, Math.PI * 2, false);
+    ctx.fillStyle = hexToRGBA(bubbles, 0.1).toString();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(220, 20, 11, 0, Math.PI * 2, false);
+    ctx.fillStyle = hexToRGBA(bubbles, 0.5).toString();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(400, 40, 9, 0, Math.PI * 2, false);
+    ctx.fillStyle = hexToRGBA(bubbles, 0.07).toString();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(500, 43, 12, 0, Math.PI * 2, false);
+    ctx.fillStyle = hexToRGBA(bubbles, 0.4).toString();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(465, 145, 35, 0, Math.PI * 2, false);
+    ctx.fillStyle = hexToRGBA(bubbles, 0.1).toString();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(560, 260, 30, 0, Math.PI * 2, false);
+    ctx.fillStyle = bubbles;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(775, 227, 10, 0, Math.PI * 2, false);
+    ctx.fillStyle = hexToRGBA(bubbles, 0.15).toString();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(1000, 100, 10, 0, Math.PI * 2, false);
+    ctx.fillStyle = hexToRGBA(bubbles, 0.45).toString();
+    ctx.fill();
+
+    const statusColors = {
+        "online": "#43B581",
+        "idle": "#FAA61A",
+        "dnd": "#F04747",
+        "offline": "#747F8E",
+        "streaming": "#593595",
+    };
+    const statusColor = statusColors[user.status] || "#747F8E";
+
+    ctx.beginPath();
+    ctx.arc(140, 175, 15, 0, Math.PI * 2, false);
+    ctx.fillStyle = statusColor;
+    ctx.fill();
+
+    const barX = 175;
+    const barY = 155;
+    const borderRadius = 18.75;
+    const barWidth = 800;
+    const barHeight = 37.5;
+
+    const progressWidth = (user.currentXP / user.requiredXP) * barWidth;
+
+    ctx.fillStyle = hexToRGBA(bubbles, 0.5).toString();
+    ctx.beginPath();
+    ctx.moveTo(barX + borderRadius, barY);
+    ctx.lineTo(barX + barWidth - borderRadius, barY);
+    ctx.arc(barX + barWidth - borderRadius, barY + borderRadius, borderRadius, -Math.PI / 2, 0);
+    ctx.lineTo(barX + barWidth, barY + barHeight - borderRadius);
+    ctx.arc(barX + barWidth - borderRadius, barY + barHeight - borderRadius, borderRadius, 0, Math.PI / 2);
+    ctx.lineTo(barX + borderRadius, barY + barHeight);
+    ctx.arc(barX + borderRadius, barY + barHeight - borderRadius, borderRadius, Math.PI / 2, Math.PI);
+    ctx.lineTo(barX, barY + borderRadius);
+    ctx.arc(barX + borderRadius, barY + borderRadius, borderRadius, Math.PI, -Math.PI / 2);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = user.progressBar || bubbles;
+    ctx.beginPath();
+    ctx.moveTo(barX + borderRadius, barY);
+    ctx.lineTo(barX + progressWidth - borderRadius, barY);
+    ctx.arc(barX + progressWidth - borderRadius, barY + borderRadius, borderRadius, -Math.PI / 2, 0);
+    ctx.lineTo(barX + progressWidth, barY + barHeight - borderRadius);
+    ctx.arc(barX + progressWidth - borderRadius, barY + barHeight - borderRadius, borderRadius, 0, Math.PI / 2);
+    ctx.lineTo(barX + borderRadius, barY + barHeight);
+    ctx.arc(barX + borderRadius, barY + barHeight - borderRadius, borderRadius, Math.PI / 2, Math.PI);
+    ctx.lineTo(barX, barY + borderRadius);
+    ctx.arc(barX + borderRadius, barY + borderRadius, borderRadius, Math.PI, -Math.PI / 2);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.font = '32px Nunito';
+    ctx.textAlign = 'right';
+
+    const requiredXPWidth = ctx.measureText(`/${user.requiredXP} xp`).width;
+
+    ctx.fillStyle = "#7F8384";
+    ctx.fillText(`/${user.requiredXP} xp`, 970, 140);
+
+    ctx.fillStyle = bubbles;
+    ctx.fillText(String(user.currentXP), 970 - requiredXPWidth, 140);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = bubbles;
+    ctx.fillText(String(user.username), 175, 140);
+
+    let xText = 970;
+
+    ctx.font = 'bold 50px Nunito';
+    ctx.textAlign = 'right';
+
+    ctx.fillStyle = bubbles;
+    ctx.fillText(String(user.rank), xText, 60);
+
+    xText = xText - ctx.measureText(String(user.rank)).width - 5;
+
+    ctx.font = '32px Nunito';
+    ctx.fillText("RANK", xText, 60);
+
+    xText = xText - ctx.measureText("RANK").width - 5;
+
+    ctx.font = 'bold 50px Nunito';
+    ctx.fillText(String(user.level), xText, 60);
+
+    xText = xText - ctx.measureText(String(user.level)).width - 5;
+
+    ctx.font = '32px Nunito';
+    ctx.fillText("LVL", xText, 60);
+
+    return canvas.toBuffer('image/png');
+}
+
 module.exports = {
-    createRankCard
+    canvacordRank,
+    discordRank
 }

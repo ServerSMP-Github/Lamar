@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, EmbedBuilder, AttachmentBuilder, ApplicationCommandType } = require("discord.js");
-const { createRankCard } = require("../../assets/api/canvas/rankcard");
+const { canvacordRank } = require("../../assets/api/canvas/rankcard");
 const progressbar = require('../../assets/api/progressbar');
 const { fetchUser, xpFor } = require("../../assets/api/xp");
 const xpSchema = require("../../models/server/xp");
@@ -47,7 +47,7 @@ module.exports = {
             status = "offline";
         }
 
-        const rankCard = await createRankCard({
+        const rankCard = await canvacordRank({
             avatar: user.displayAvatarURL({ extension: 'png', size: 512 }),
             username: user.username,
             status: {
