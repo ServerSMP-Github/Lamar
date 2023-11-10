@@ -226,7 +226,9 @@ function getLuminance(hexColor) {
     return luminance;
 }
 
-function isTooBlackOrWhite(color) {
+function isTooBlackOrWhite(color, standard) {
+    if (!color) color = standard;
+
     if (typeof color === 'string' && isValidHexCode(color)) {
         const { r, g, b } = hexToRGB(color);
 

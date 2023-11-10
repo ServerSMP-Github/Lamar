@@ -1,6 +1,7 @@
 const { hexToRGBA, generateShades, getLuminance, isTooBlackOrWhite } = require("../color");
-const { shortenText, abbreviateNumber, circleImage } = require("./index");
+const { shortenText, abbreviateNumber, circleImage, roundContext } = require("./index");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
+const { getRandomElement } = require("../array");
 
 async function canvacordRank(user) {
     const canvas = createCanvas(934, 282);
@@ -127,29 +128,23 @@ async function discordRank(user) {
     const canvas = createCanvas(1000, 250);
     const ctx = canvas.getContext("2d");
 
-    const bubbles = isTooBlackOrWhite(user.color).boolean ? "#0CA7FF" : user.color;
+    const bubbles = isTooBlackOrWhite(user.color, "#ffffff").boolean ? getRandomElement(["#0CA7FF", "#ffa500"]) : user.color;
 
     const shades = generateShades(bubbles, 50, 5);
     const background = getLuminance(bubbles) > 0.6 ? shades.brighter[44] : shades.darker[44];
 
-    function roundRect(x, y, width, height, radius) {
-        ctx.beginPath();
-        ctx.moveTo(x + radius, y);
-        ctx.lineTo(x + width - radius, y);
-        ctx.arcTo(x + width, y, x + width, y + radius, radius);
-        ctx.lineTo(x + width, y + height - radius);
-        ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
-        ctx.lineTo(x + radius, y + height);
-        ctx.arcTo(x, y + height, x, y + height - radius, radius);
-        ctx.lineTo(x, y + radius);
-        ctx.arcTo(x, y, x + radius, y, radius);
-        ctx.closePath();
+    roundContext(ctx, 0, 0, canvas.width, canvas.height, 35);
+
+    if (user.background) {
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+        ctx.drawImage(await loadImage(user.background), 0, 0, canvas.width, canvas.height)
+
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
+    } else {
+        ctx.fillStyle = background;
+        ctx.fill();
     }
-
-    roundRect(0, 0, canvas.width, canvas.height, 35);
-
-    ctx.fillStyle = background;
-    ctx.fill();
 
     ctx.beginPath();
     ctx.arc(80, 110, 60, 0, Math.PI * 2, false);

@@ -92,7 +92,8 @@ module.exports = {
         rank: positionXp,
         currentXP: currentXp,
         requiredXP: totalXp,
-        color: progressColor ? progressColor : "#0CA7FF"
+        color: progressColor ? progressColor : "#0CA7FF",
+        background: null
       });
 
       return message.channel.send({

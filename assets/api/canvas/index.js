@@ -70,6 +70,20 @@ async function circleImage(url) {
     return canvas;
 }
 
+function roundContext(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.arcTo(x + width, y, x + width, y + radius, radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+    ctx.lineTo(x + radius, y + height);
+    ctx.arcTo(x, y + height, x, y + height - radius, radius);
+    ctx.lineTo(x, y + radius);
+    ctx.arcTo(x, y, x + radius, y, radius);
+    ctx.closePath();
+}
+
 async function combineImages(imageBuffers, { width = 1000, columns = 4, padding = 10 }) {
     const imageWidth = (width - (padding * (columns + 1))) / columns;
     const imageHeight = imageWidth;
@@ -101,6 +115,7 @@ module.exports = {
     drawRoundedImage,
     abbreviateNumber,
     combineImages,
+    roundContext,
     circleImage,
     shortenText,
     applyText,

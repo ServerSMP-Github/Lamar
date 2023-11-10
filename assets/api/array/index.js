@@ -1,3 +1,5 @@
+const { getRandom } = require("../crypto");
+
 function chunkArray(array, chunkSize) {
     const chunks = [];
 
@@ -6,6 +8,15 @@ function chunkArray(array, chunkSize) {
     return chunks;
 }
 
+function getRandomElement(array) {
+    if (array.length === 0) return undefined;
+
+    const randomIndex = Math.floor(getRandom() * array.length);
+
+    return array[randomIndex];
+}
+
 module.exports = {
+    getRandomElement,
     chunkArray
 };
