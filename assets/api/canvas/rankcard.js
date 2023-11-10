@@ -128,10 +128,10 @@ async function discordRank(user) {
     const canvas = createCanvas(1000, 250);
     const ctx = canvas.getContext("2d");
 
-    const bubbles = isTooBlackOrWhite(user.color, "#ffffff").boolean ? getRandomElement(["#0CA7FF", "#ffa500"]) : user.color;
+    const bubbles = user.color;
 
     const shades = generateShades(bubbles, 50, 5);
-    const background = getLuminance(bubbles) > 0.6 ? shades.brighter[44] : shades.darker[44];
+    const background = getLuminance(bubbles) > 0.6 ? isTooBlackOrWhite(bubbles, "#ffffff").boolean ? shades.darker[44] : shades.brighter[44] : shades.darker[44];
 
     roundContext(ctx, 0, 0, canvas.width, canvas.height, 35);
 
