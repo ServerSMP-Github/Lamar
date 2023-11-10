@@ -1,7 +1,6 @@
 const { hexToRGBA, generateShades, getLuminance, isTooBlackOrWhite } = require("../color");
 const { shortenText, abbreviateNumber, circleImage, roundContext } = require("./index");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
-const { getRandomElement } = require("../array");
 
 async function canvacordRank(user) {
     const canvas = createCanvas(934, 282);
