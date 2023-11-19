@@ -26,20 +26,28 @@
     <div class="box">
         <div class="box bg-secondary">
             <h2 class="text-center">Queue</h2>
-            <h3 class="text-center" id="total"><%- music.queue.length %> songs in queue</h3>
+            <h3 class="text-center" id="total"><%- music.queue.length + 1 %> songs in queue</h3>
+        </div>
+
+        <div class="track first">
+            <img src="<%- music.current.info.image %>" alt="<%- music.current.info.identifier %>-thumbnail" class="thumbnail inline-bloc">
+            <div class="text">
+                <h3 class="inline-bloc"><%- music.current.info.title %> <span class="dot">•</span> <span class="text-secondary"><%- music.current.info.length %>s</span></h3>
+                <br>
+                <img src="<%- music.current.user.avatar %>" alt="<%- music.current.user.id %>-avatar" class="avatar inline-bloc">
+                <h3 class="inline-bloc text-secondary"><%- music.current.user.username %></h3>
+            </div>
         </div>
 
         <% for (let index = 0; index < music.queue.length; index++) { %>
             <% const track = music.queue[index]; %>
-            <div class="track <% if (index === 0) { %>
-                first
-            <% } %>">
+            <div class="track">
                 <img src="<%- track.info.image %>" alt="<%- track.info.identifier %>-thumbnail" class="thumbnail inline-bloc">
                 <div class="text">
                     <h3 class="inline-bloc"><%- track.info.title %> <span class="dot">•</span> <span class="text-secondary"><%- track.info.length %>s</span></h3>
                     <br>
                     <img src="<%- track.user.avatar %>" alt="<%- track.user.id %>-avatar" class="avatar inline-bloc">
-                    <h3 class="inline-bloc text-secondary"><%- track.user.username %>#<%- track.user.discriminator %></h3>
+                    <h3 class="inline-bloc text-secondary"><%- track.user.username %></h3>
                 </div>
             </div>
             <hr class="opacity">

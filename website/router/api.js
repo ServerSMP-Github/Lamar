@@ -145,12 +145,13 @@ router.get("/music/:guild", checkAuth, async (req, res) => {
             },
             user: {
                 avatar: track.info.requester.displayAvatarURL(),
-                discriminator: track.info.requester.user.discriminator,
                 username: track.info.requester.user.username,
                 id: track.info.requester.user.id,
             },
         };
     });
+
+    const current = player.currentTrack;
 
     res.render("api/music.ejs", {
         guild: {
@@ -160,7 +161,17 @@ router.get("/music/:guild", checkAuth, async (req, res) => {
         },
         music: {
             queue: queue,
-            current: player.currentTrack ? player.currentTrack.info : null
+            current: {
+                info: {
+                    ...current.info,
+                    length: msToS(current.info.length),
+                },
+                user: {
+                    avatar: current.info.requester.displayAvatarURL(),
+                    username: current.info.requester.user.username,
+                    id: current.info.requester.user.id,
+                }
+            }
         },
         member: member
     });
