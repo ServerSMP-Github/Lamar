@@ -19,24 +19,6 @@ client.on(Events.ChannelCreate, async (channel) => {
   });
 });
 
-client.on(Events.ChannelDelete, async (channel) => {
-  const data = await Schema.findOne({
-    Guild: channel.guild.id
-  }).exec();
-  if (!data) return;
-  if (data.chd === true) return;
-  client.channels.cache.get(data.Channel).send({
-    embeds: [
-      new EmbedBuilder()
-      .setTitle(":x: Channel Deleted :x:")
-      .setColor("Red")
-      .setDescription(`**Channel Name:** \`${channel.name}\`\n**Channel ID:** \`${channel.id}\`\n**Channel Type:** \`${channel.type}\``)
-      .setTimestamp()
-      .setFooter({ text: "You cant hide anything from us :)" })
-    ]
-  });
-});
-
 client.on(Events.ChannelPinsUpdate, async (channel, time) => {
   const data = await Schema.findOne({
     Guild: channel.guild.id

@@ -6,11 +6,11 @@ const client = require("../index");
 
 client.on(Events.InteractionCreate, async (interaction) => {
 
-  if (!interaction.guild) return interaction.followUp({ content: "You have to be in a guild to use slash commands!" });
+  if (!interaction.guild) return interaction.reply({ content: "You have to be in a guild to use slash commands!" });
 
   const userStats = await userSchema.findOne({ User: interaction.member.user.id });
   if (userStats) {
-    userStats.CmdUsed = `${Number(userStats.CmdUsed) + 1}`;
+    userStats.CmdUsed = userStats.CmdUsed + 1;
 
     await userStats.save();
   } else await userStats.create({ User: interaction.member.user.id, CmdUsed: "1" });
