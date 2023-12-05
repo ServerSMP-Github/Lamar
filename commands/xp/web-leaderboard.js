@@ -17,6 +17,6 @@ module.exports = {
 
     if (xpData.WebUI === false) return message.reply("Web UI is disabled on this server!");
 
-    return message.reply(`${getWebsite(client)}/api/lb/${message.guild.id}`);
+    return message.reply(`${getWebsite(client)}/app/lb/${message.guild.id}`);
   }
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/img/icon.png">
-    <link rel="stylesheet" href="/css/api/music.css">
+    <link rel="stylesheet" href="/css/app/music.css">
     <title>Music - <%- guild.name %></title>
 </head>
 <body>
@@ -90,7 +90,7 @@
                 return alert("Please specify a song");
             }
 
-            const res = await (await fetch("/api/music/<%- guild.id %>", {
+            const res = await (await fetch("/app/music/<%- guild.id %>", {
                 method: "POST",
                 headers: {
                     "content-type": "application/x-www-form-urlencoded"

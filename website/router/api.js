@@ -1,208 +1,66 @@
 const express = require("express");
 const router = express.Router();
 
-const { fetchLeaderboard, computeLeaderboard } = require("../../assets/api/xp");
-const logSchema = require("../../models/logs/logsData");
-const { PermissionsBitField } = require("discord.js");
-const xpSchema = require("../../models/server/xp");
-const { msToS } = require("../../assets/api/time");
 const client = require("../../index");
 
-const checkAuth = (req, res, next) => {
-    if (req.isAuthenticated()) return next();
-    req.session.backURL = req.url;
-    res.redirect("/login");
+const checkAPIAuth = (req, res, next) => {
+    if (!client.config.api.server.enabled) return res.json({ error: "API disabled" });
+
+    if (!client.config.api.server.keys.includes(req.headers.authorization)) return res.json({ error: "Missing API key" });
+
+    next();
 };
 
-router.get("/lb/:guild", async (req, res) => {
-    const guild = req.params.guild;
-    if (!guild) return res.render("404.ejs");
+// router.get("/", async (req, res) => {
+//     // TODO:
+//     // Create an admin panel of sorts for this
+//     // It would allow "owners" of the bot to create/delete API keys
+// });
 
-    const xpData = await xpSchema.findOne({ Guild: guild });
-    if (!xpData) return res.render("404.ejs");
+router.post("/music/play", checkAPIAuth, async (req, res) => {
+    const { query, guild, channel: { text, voice }, user } = req.body;
+    if (!query || !text || !voice || !user || !guild) return res.json({ error: "Missing arguments" });
 
-    if (xpData.WebUI === false) return res.render("404.ejs");
-
-    let lb = await fetchLeaderboard(guild);
-    if (lb.length < 1) return res.render("404.ejs");
-
-    lb = await computeLeaderboard(client, lb, true);
-
-    for (let index = 0; index < lb.length; index++) {
-        const user = lb[index];
-
-        user.avatar = client.users.cache.get(user.userID).avatarURL();
-    }
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
 
     const fetchGuild = client.guilds.cache.get(guild);
 
-    res.render("api/lb.ejs", {
-        guild: {
-            id: guild,
-            name: fetchGuild.name,
-            icon: fetchGuild.iconURL()
-        },
-        lb: lb
-    });
-
-});
-
-router.get("/logs/:guild", checkAuth, async (req, res) => {
-    const guild = req.params.guild;
-    if (!guild) return res.render("404.ejs");
-
-    const logData = await logSchema.findOne({ Guild: guild });
-    if (!logData) return res.render("404.ejs");
-
-    const fetchGuild = client.guilds.cache.get(guild);
-
-    const member = fetchGuild.members.cache.get(req.user.id);
-    if (!member) return res.render("404.ejs");
-
-    if (!member.permissions.has(PermissionsBitField.Flags.Administrator)) return res.render("404.ejs");
-
-    const months = {
-        "01": "january",
-        "02": "february",
-        "03": "march",
-        "04": "april",
-        "05": "may",
-        "06": "june",
-        "07": "july",
-        "08": "august",
-        "09": "september",
-        "10": "october",
-        "11": "november",
-        "12": "december"
-    };
-
-    const data = {
-        cc: logData.ChannelCreate,
-        cd: logData.ChannelDelete,
-        cpu: logData.ChannelPinUpdate,
-        cu: logData.ChannelUpdate,
-        ec: logData.EmojiCreate,
-        ed: logData.EmojiDelete,
-        eu: logData.EmojiUpdate,
-        ba: logData.BanAdd,
-        br: logData.BanRemove,
-        ma: logData.MemberAdd,
-        mr: logData.MemberRemove,
-        mu: logData.MemberUpdate,
-    };
-
-    const result = {};
-
-    for (const key in data) {
-        result[key] = [];
-        for (const month in months) {
-            result[key].push(0);
-        }
-        data[key].forEach(value => {
-            const match = value.match(/-(\d{1,2})$/);
-            if (match) {
-                const monthValue = match[1].padStart(2, "0");
-                const index = parseInt(monthValue) - 1;
-                result[key][index] += 1;
-            }
-        });
-    }
-
-    res.render("api/logs.ejs", {
-        guild: {
-            id: guild,
-            name: fetchGuild.name,
-            icon: fetchGuild.iconURL()
-        },
-        messages: {
-            total: logData.Messages,
-            edited: logData.MessagesEdit,
-            deleted: logData.MessagesDelete
-        },
-        logs: result
-    });
-
-});
-
-router.get("/music/:guild", checkAuth, async (req, res) => {
-    const guild = req.params.guild;
-    if (!guild) return res.render("404.ejs");
-
-    const fetchGuild = client.guilds.cache.get(guild);
-
-    const member = fetchGuild.members.cache.get(req.user.id);
-    if (!member) return res.render("404.ejs");
-
-    const player = client.poru.players.get(guild);
-    if (!player) return res.render("404.ejs");
-
-    const queue = player.queue.map(track => {
-        return {
-            ...track,
-            info: {
-                ...track.info,
-                length: msToS(track.info.length),
-            },
-            user: {
-                avatar: track.info.requester.displayAvatarURL(),
-                username: track.info.requester.user.username,
-                id: track.info.requester.user.id,
-            },
-        };
-    });
-
-    const current = player.currentTrack;
-
-    res.render("api/music.ejs", {
-        guild: {
-            id: guild,
-            name: fetchGuild.name,
-            icon: fetchGuild.iconURL()
-        },
-        music: {
-            queue: queue,
-            current: {
-                info: {
-                    ...current.info,
-                    length: msToS(current.info.length),
-                },
-                user: {
-                    avatar: current.info.requester.displayAvatarURL(),
-                    username: current.info.requester.user.username,
-                    id: current.info.requester.user.id,
-                }
-            }
-        },
-        member: member
-    });
-
-});
-
-router.post("/music/:guild", checkAuth, async (req, res) => {
-    const query = req.body.song;
-    const guild = req.params.guild;
-
-    if (!query || !guild) return res.json({ error: "No guild or query specified" });
-
-    const fetchGuild = client.guilds.cache.get(guild);
-
-    const member = fetchGuild.members.cache.get(req.user.id);
+    const member = fetchGuild.members.cache.get(user);
     if (!member) return res.json({ error: "Member or Guild does not exist" });
 
-    const player = client.poru.players.get(guild);
-    if (!player) return res.json({ error: "Server does not music player" });
+    let player = client.poru.players.get(guild);
 
-    const { loadType, tracks } = await client.poru.resolve({ query: query, source: "ytsearch" });
+    if (!player) player = client.poru.createConnection({
+        guildId: guild,
+        voiceChannel: voice,
+        textChannel: text,
+        deaf: true
+    });
+
+    const { loadType, tracks, playlistInfo } = await client.poru.resolve({ query: query, source: "ytsearch" });
+
+    const api = { type: loadType === "PLAYLIST_LOADED" ? "playlist" : "search" };
 
     if (loadType === "PLAYLIST_LOADED") {
         for (const track of resolve.tracks) {
             track.info.requester = member;
             player.queue.add(track);
         }
+
+        api.track = {
+            length: tracks.length,
+            title: playlistInfo.name
+        };
     } else if (loadType === "SEARCH_RESULT" || loadType === "TRACK_LOADED") {
         const track = tracks.shift();
         track.info.requester = member;
         player.queue.add(track);
+
+        api.track = {
+            title: track.info.title,
+            url: track.info.uri,
+            image: track.info.image
+        };
     } else return res.json({ error: "Failed to find your song" });
 
     if (!player.isPlaying && !player.isPaused) {
@@ -210,7 +68,224 @@ router.post("/music/:guild", checkAuth, async (req, res) => {
         player.play();
     }
 
-    return res.json({ success: "Added song" });
+    return res.json({ success: "Added song", response: api });
+
+});
+
+router.post("/music/stop", checkAPIAuth, async (req, res) => {
+    const { guild, user } = req.body;
+    if (!user || !guild) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(user);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.json({ error: "Server does not music player" });
+
+    player.destroy();
+
+    return res.json({ success: "Stop player" });
+
+});
+
+router.post("/music/skip", checkAPIAuth, async (req, res) => {
+    const { guild, user } = req.body;
+    if (!user || !guild) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(user);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.json({ error: "Server does not music player" });
+
+    player.stop();
+
+    return res.json({ success: "Skipped song" });
+
+});
+
+router.post("/music/pause", checkAPIAuth, async (req, res) => {
+    const { guild, user } = req.body;
+    if (!user || !guild) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(user);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.json({ error: "Server does not music player" });
+
+    let isAlready = true;
+
+    if (player.isPlaying) {
+        isAlready = false
+
+        player.pause(true);
+    }
+
+    return res.json({ success: isAlready ? "Player is already paused" : "Paused player" });
+
+});
+
+router.post("/music/resume", checkAPIAuth, async (req, res) => {
+    const { guild, user } = req.body;
+    if (!user || !guild) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(user);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.json({ error: "Server does not music player" });
+
+    let isAlready = true;
+
+    if (player.isPaused) {
+        isAlready = false
+
+        player.pause(false);
+    }
+
+    return res.json({ success: isAlready ? "Player is already resumed" : "Resumed player" });
+
+});
+
+router.post("/music/volume", checkAPIAuth, async (req, res) => {
+    const { guild, user, volume } = req.body;
+    if (!user || !guild) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(user);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.json({ error: "Server does not music player" });
+
+    if (!volume) return res.json({ success: "Fetched volume", volume: player.volume });
+
+    const number = Number(volume);
+    if (number < 0 || number > 100) return res.json({ error: "Volume level cant surpass 100 or be lower then 0" });
+
+    player.setVolume(number);
+
+    return res.json({ success: "Changed volume of player" });
+
+});
+
+router.post("/music/loop", checkAPIAuth, async (req, res) => {
+    const { guild, user, type } = req.body;
+    if (!user || !guild || !type) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    if (!["queue", "single", "off"].includes(type)) return res.json({ error: "Type must be either queue, track or off" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(user);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.json({ error: "Server does not music player" });
+
+    let message = "Changed loop mode";
+
+    if (type === "off") player.loop === "NONE" ? message = "Loop mode is already none" : player.setLoop("NONE");
+    else if (type === "single") player.loop === "TRACK" ? message = "Loop mode is already single" : player.setLoop("TRACK");
+    else if (type === "queue") player.loop === "QUEUE" ? message = "Loop mode is already queue" : player.setLoop("QUEUE");
+
+    return res.json({ success: message });
+
+});
+
+router.post("/music/playing", checkAPIAuth, async (req, res) => {
+    const { guild, user } = req.body;
+    if (!user || !guild) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(user);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player || !player.currentTrack) return res.json({ error: "Server does not music player" });
+
+    return res.json({
+        success: "Got current song",
+        response: {
+            track: {
+                title: player.currentTrack.info.title,
+                url: player.currentTrack.info.uri
+            },
+            user: {
+                username: player.currentTrack.info.requester.user.username,
+                avatar: player.currentTrack.info.requester.displayAvatarURL()
+            }
+        }
+    });
+
+});
+
+router.post("/music/queue", checkAPIAuth, async (req, res) => {
+    const { guild, user, page = 1 } = req.body;
+    if (!user || !guild) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+
+    const member = fetchGuild.members.cache.get(user);
+    if (!member) return res.json({ error: "Member or Guild does not exist" });
+
+    const player = client.poru.players.get(guild);
+    if (!player) return res.json({ error: "Server does not music player" });
+
+    const queue = player.queue;
+    if (!queue.length) return res.json({ error: "Queue is empty" });
+
+    const multiple = 10;
+
+    const end = page * multiple;
+    const start = end - multiple;
+
+    const tracks = queue.slice(start, end);
+
+    const api = { queue: [] };
+
+    if (player.currentTrack) api.current = { title: player.currentTrack.info.title, url: player.currentTrack.info.uri };
+
+    if (!tracks.length) return res.json({ success: "Nothing found" });
+
+    for (let index = 0; index < tracks.length; index++) {
+        const track = tracks[index];
+
+        api.queue.push({ title: track.info.title, url: track.info.uri });
+    }
+
+    const maxPages = Math.ceil(queue.length / multiple);
+
+    api.page = { current: page, max: maxPages, start: start, end: end }; 
+
+    return res.json({ success: "Successfully got queue", response: api });
 
 });
 

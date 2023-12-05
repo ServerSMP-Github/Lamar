@@ -53,7 +53,7 @@ module.exports = {
 
             const { port, domain, customDomain } = client.config.dashboard;
 
-            if (arguments === "web") return message.channel.send(`${customDomain ? domain : `${domain}:${port}`}/api/logs/${message.guild.id}`);
+            if (arguments === "web") return message.channel.send(`${customDomain ? domain : `${domain}:${port}`}/app/logs/${message.guild.id}`);
             else if (arguments === "msg") {
                 const months = {
                     "01": "january",
