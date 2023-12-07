@@ -29,13 +29,9 @@ module.exports = async(message) => {
     if (msg === message.content) return;
 
     let webhook = await message.channel.fetchWebhooks();
-    webhook = webhook.find(x => x.name === `${client.user.username}-NQN`);
+    webhook = webhook.find(wh => wh.token && wh.owner.id === client.user.id);
 
-    if (!webhook) {
-        webhook = await message.channel.createWebhook(`${client.user.username}-NQN`, {
-            avatar: client.user.displayAvatarURL({ dynamic: true })
-        }).catch(err => console.log(err));
-    };
+    if (!webhook) webhook = await message.channel.createWebhook({ name: `${client.user.username}'s Webhook` }).catch(err => console.log(err));
 
     await message.delete().catch(err => {});
 
