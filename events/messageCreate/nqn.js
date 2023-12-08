@@ -36,8 +36,8 @@ module.exports = async(message) => {
     await message.delete().catch(err => {});
 
     webhook.send({
+        username: message.member.nickname ? `${message.member.nickname} (${message.author.username})` : message.author.displayName ? `${message.author.displayName} (${message.author.username})` : message.author.username,
+        avatarURL: message.author.displayAvatarURL({ extension: 'png' }),
         content: msg,
-        username: message.member.nickname ? message.member.nickname : message.author.username,
-        avatarURL: message.author.displayAvatarURL(),
     }).catch(err => console.log(err));
 }
