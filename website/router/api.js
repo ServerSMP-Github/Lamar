@@ -65,6 +65,9 @@ router.post("/music/play", checkAPIAuth, async (req, res) => {
         };
     } else return res.json({ error: "Failed to find your song" });
 
+    const musicData = await musicSchema.findOne({ Guild: guild });
+    if (musicData && musicData.Shuffle === true) player.queue.shuffle();
+
     if (!player.isPlaying && !player.isPaused) {
         player.setVolume(50);
         player.play();

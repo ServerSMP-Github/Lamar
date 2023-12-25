@@ -42,14 +42,21 @@ module.exports = (client) => {
             .setColor("Blue")
         ]
     }))
-    .on("queueEnd", (player, track) => {
-        client.channels.cache.get(player.textChannel).send({
+    .on("queueEnd", async(player, track) => {
+        const musicData = await musicSchema.findOne({ Guild: player.guildId });
+        if (musicData && musicData.Shuffle === true) {
+            musicData.Shuffle = false;
+            await musicData.save();
+        }
+
+        await client.channels.cache.get(player.textChannel).send({
             embeds: [
                 new EmbedBuilder()
                 .setDescription(`⏹ **|** The music has ended, use **\`/play\`** to play some music`)
                 .setColor("Blue")
             ]
         });
+
         return player.disconnect();
     })
     .on("trackEnd", async(player, track) => {

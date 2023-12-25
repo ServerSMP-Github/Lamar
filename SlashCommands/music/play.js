@@ -96,10 +96,12 @@ module.exports = {
             ]
         });
 
+
+        const musicData = await musicSchema.findOne({ Guild: interaction.guild.id });
+        if (musicData && musicData.Shuffle === true) player.queue.shuffle();
+
         if (!player.isPlaying && !player.isPaused) {
             player.setVolume(50);
-
-            if (shuffle) player.queue.shuffle();
 
             return player.play();
         }
