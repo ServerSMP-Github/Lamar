@@ -98,6 +98,9 @@ module.exports = {
 
         if (!player.isPlaying && !player.isPaused) {
             player.setVolume(50);
+
+            if (shuffle) player.queue.shuffle();
+
             return player.play();
         }
 

@@ -3,6 +3,8 @@ const router = express.Router();
 
 const client = require("../../index");
 
+const musicSchema = require("../../models/server/music.js");
+
 const checkAPIAuth = (req, res, next) => {
     if (!client.config.api.server.enabled) return res.json({ error: "API disabled" });
 
@@ -286,6 +288,44 @@ router.post("/music/queue", checkAPIAuth, async (req, res) => {
     api.page = { current: page, max: maxPages, start: start, end: end }; 
 
     return res.json({ success: "Successfully got queue", response: api });
+
+});
+
+router.post("/music/shuffle", checkAPIAuth, async (req, res) => {
+    const { guild, user, type } = req.body;
+    if (!user || !guild || !type) return res.json({ error: "Missing arguments" });
+
+    if (client.config.music.whitelist && !client.config.music.whitelist.includes(guild)) return res.json({ error: "Music is disabled" });
+
+    if (!["off", "on"].includes(type)) return res.json({ error: "Type must be either queue, track or off" });
+
+    const fetchGuild = client.guilds.cache.get(guild);
+    if (!fetchGuild) return res.json({ error: "Server does not exist" });
+
+    let message = "Changed shuffle mode";
+
+    let musicData = await musicSchema.findOne({ Guild: guild });
+    if (!musicData) musicData = await musicSchema.create({ Guild: guild, Skip: false, Shuffle: false });
+
+    if (type === "off") {
+        if (musicData.Shuffle === false) message = "Shuffle mode is already off";
+        else {
+            musicData.Shuffle = false;
+            await musicData.save();
+
+            message = "Shuffle mode is now off";    
+        }
+    } else if (type === "on") {
+        if (musicData.Shuffle === true) message = "Shuffle mode is already on";
+        else {
+            musicData.Shuffle = true;
+            await musicData.save();
+
+            message = "Shuffle mode is now on";
+        }
+    }
+
+    return res.json({ success: message });
 
 });
 

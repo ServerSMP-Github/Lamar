@@ -12,6 +12,8 @@ module.exports = (client) => {
 
     const colors = require("../assets/api/console");
 
+    const musicSchema = require("../models/server/music.js");
+
     client.poru = new Poru(
         client,
         config.music.lavalink,
@@ -49,6 +51,10 @@ module.exports = (client) => {
             ]
         });
         return player.disconnect();
+    })
+    .on("trackEnd", async(player, track) => {
+        const musicData = await musicSchema.findOne({ Guild: player.guildId });
+        if (player.queue.length > 1 && musicData && musicData.Shuffle) player.queue.shuffle();
     });
 
 }
