@@ -44,7 +44,7 @@ router.post("/music/play", checkAPIAuth, async (req, res) => {
     const api = { type: loadType === "PLAYLIST_LOADED" ? "playlist" : "search" };
 
     if (loadType === "PLAYLIST_LOADED") {
-        for (const track of resolve.tracks) {
+        for (const track of tracks) {
             track.info.requester = member;
             player.queue.add(track);
         }
