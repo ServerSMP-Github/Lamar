@@ -31,7 +31,11 @@ function shortenText(text, len) {
 }
 
 function abbreviateNumber(num) {
-    return num >= 1000 ? Math.floor(num / 1000) + (num % 1000 >= 500 ? 1 : 0) + "k" : num.toString();
+    if (num >= 1e12) return Math.floor(num / 1e9) + 'B';
+    else if (num >= 1e9) return Math.floor(num / 1e9) + (num % 1e9 >= 500e6 ? 1 : 0) + 'B';
+    else if (num >= 1e6) return Math.floor(num / 1e6) + (num % 1e6 >= 500e3 ? 1 : 0) + 'M';
+    else if (num >= 1000) return Math.floor(num / 1000) + (num % 1000 >= 500 ? 1 : 0) + 'K';
+    else return num.toString();
 }
 
 async function drawRoundedImage(image, cornerRadius, rounded) {
@@ -84,9 +88,9 @@ function roundContext(ctx, x, y, width, height, radius) {
     ctx.closePath();
 }
 
-async function combineImages(imageBuffers, { width = 1000, columns = 4, padding = 10 }) {
+async function combineImages(imageBuffers, { width = 1000, height = null, columns = 4, padding = 10 }) {
     const imageWidth = (width - (padding * (columns + 1))) / columns;
-    const imageHeight = imageWidth;
+    const imageHeight = height || imageWidth;
 
     const canvasRows = Math.ceil(imageBuffers.length / columns);
     const canvasHeight = (imageHeight * canvasRows) + (padding * (canvasRows + 1));

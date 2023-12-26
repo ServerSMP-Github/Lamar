@@ -1,5 +1,8 @@
-const { fetchLeaderboard, computeLeaderboard } = require("../../assets/api/xp");
-const { Message, Client, EmbedBuilder } = require("discord.js");
+const { fetchLeaderboard, computeLeaderboard, xpFor } = require("../../assets/api/xp");
+const { generateLeaderboard } = require("../../assets/api/canvas/leaderboard");
+const { Message, Client, AttachmentBuilder } = require("discord.js");
+const guildRankcard = require("../../models/server/guild-rankcard");
+const userRankcard = require("../../models/user/user-rankcard");
 const xpSchema = require("../../models/server/xp");
 
 module.exports = {
@@ -19,15 +22,34 @@ module.exports = {
         let lb = await fetchLeaderboard(message.guild.id);
         if (lb.length < 1) return reply("Nobody's in leaderboard yet.");
 
-        lb = await computeLeaderboard(client, lb, true);
-        lb = lb.map(e => `**${e.position}**. *${e.username}*\nLevel: \`${e.level}\`\nXP: \`${e.xp.toLocaleString()}\``);
+        const guildCardData = await guildRankcard.findOne({ Guild: message.guild.id });
 
-        message.channel.send({
-            embeds: [
-                new EmbedBuilder()
-                .setTitle("**Leaderboard**:")
-                .setDescription(`${lb.join("\n\n")}`)
-                .setColor("Random")
+        lb = await computeLeaderboard(client, lb, true);
+        lb = await Promise.all(lb.map(async(user) => {
+            const userCardData = await userRankcard.findOne({ User: user.userID });
+
+            const progressColor = userCardData?.ProgressBar ? userCardData.ProgressBar : guildCardData?.ProgressBar ? guildCardData.ProgressBar : "#ffffff";
+            const avatar = client.users.cache.get(user.userID).displayAvatarURL({ extension: 'png' });
+            const requiredXP = xpFor(user.level + 1);
+
+            return {
+                guild: user.guildID,
+                user: user.userID,
+                currentXP: user.xp,
+                requiredXP: requiredXP,
+                level: user.level,
+                position: user.position,
+                username: user.username,
+                avatar: avatar,
+                progressBar: progressColor || "#ffffff"
+            }
+        }));
+
+        lb = await generateLeaderboard(lb);
+
+        return message.channel.send({
+            files: [
+                new AttachmentBuilder(lb, { name: "lb.png" })
             ]
         });
     }
