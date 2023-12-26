@@ -23,7 +23,7 @@ async function generateLeaderboard(users) {
         userCtx.fillText(`${shortenText(user.username, 11)}`, 80, 45);
 
         userCtx.textAlign = 'right';
-        userCtx.font = '24px Noto Sans Bold';
+        userCtx.font = 'bold 24px Noto Sans';
         i === 0 ? userCtx.fillStyle = '#e7ba16' : i === 1 ? userCtx.fillStyle = '#9e9e9e' : i === 2? userCtx.fillStyle = '#94610f' : null;
         userCtx.fillText(`#${user.position}`, 670, 45);
 
