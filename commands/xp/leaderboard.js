@@ -30,12 +30,14 @@ module.exports = {
 
             const progressColor = userCardData?.ProgressBar ? userCardData.ProgressBar : guildCardData?.ProgressBar ? guildCardData.ProgressBar : "#ffffff";
             const avatar = client.users.cache.get(user.userID).displayAvatarURL({ extension: 'png' });
-            const requiredXP = xpFor(user.level + 1);
+
+            const requiredXP = (xpFor(user.level + 1) - (user.level * user.level * 100));
+            const currentXP = (user.xp - (user.level * user.level * 100));
 
             return {
                 guild: user.guildID,
                 user: user.userID,
-                currentXP: user.xp,
+                currentXP: currentXP,
                 requiredXP: requiredXP,
                 level: user.level,
                 position: user.position,

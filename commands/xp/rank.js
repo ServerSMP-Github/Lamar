@@ -29,10 +29,11 @@ module.exports = {
     const userXp = await fetchUser(checkUser.user.id, message.guild.id, true);
     if (!userXp) return message.reply("You dont have xp. try to send some messages.");
 
-    const totalXp = xpFor(userXp.level + 1);
     const positionXp = userXp.position;
     const levelXp = userXp.level;
-    const currentXp = userXp.xp;
+
+    const totalXp = (xpFor(userXp.level + 1) - (levelXp * levelXp * 100));
+    const currentXp = (userXp.xp - (levelXp * levelXp * 100));
 
     if (getUser.user.id === client.user.id) return message.channel.send({
       embeds: [
