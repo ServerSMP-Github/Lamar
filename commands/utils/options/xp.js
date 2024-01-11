@@ -25,7 +25,7 @@ module.exports = {
     if (options === "on") {
       if (xpData) return message.reply("XP is enabled.");
 
-      await xpData.create({
+      await xpSchema.create({
         Guild: message.guild.id,
         Channel: "false",
         Ping: false,
