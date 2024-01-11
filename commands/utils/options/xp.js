@@ -11,7 +11,7 @@ module.exports = {
     const innerInnerOption = args[3]?.toLowerCase();
 
     const xpData = await xpSchema.findOne({ Guild: message.guild.id });
-    if (!xpData && ["off", "channel", "ping", "rate", "web", "message", "rankcard"].include(options)) return message.reply("XP is disabled.");
+    if (!xpData && ["off", "channel", "ping", "rate", "web", "message", "rankcard"].includes(options)) return message.reply("XP is disabled.");
 
     const rankData = await rankSchema.findOne({ Guild: message.guild.id });
 
