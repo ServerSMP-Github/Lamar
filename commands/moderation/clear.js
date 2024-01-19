@@ -3,8 +3,8 @@ const { Message, Client, PermissionsBitField } = require('discord.js');
 module.exports = {
     name: 'clear',
     aliases : ['purge'],
-    usage: '[ 1-99 ]',
-    description : "Remove messages.",
+    usage: '[1-99]',
+    description : "Remove a specified number of messages.",
     userPermission: [PermissionsBitField.Flags.ManageMessages],
     botPermission: [PermissionsBitField.Flags.ManageMessages],
     /**

@@ -3,7 +3,7 @@ const { doMath } = require("../../assets/api/number");
 
 module.exports = {
     name: 'calculator',
-    description: 'Use a calculator in discord',
+    description: 'Access a calculator right in Discord.',
 
     /**
      * @param {Client} client

@@ -4,7 +4,7 @@ const roleSchema = require("../../models/server/roles-colors");
 
 module.exports = {
     name: "role-color",
-    description: "Make cool role colors.",
+    description: "Create cool role colors.",
     type: ApplicationCommandType.ChatInput,
     options: [{
             name: "create",

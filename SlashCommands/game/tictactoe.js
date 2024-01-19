@@ -3,7 +3,7 @@ const { TicTacToe } = require('discord-gamecord');
 
 module.exports = {
     name: 'tictactoe',
-    description: 'A game of ttt',
+    description: 'Play a game of Tic Tac Toe.',
     type: ApplicationCommandType.ChatInput,
     options: [
         {

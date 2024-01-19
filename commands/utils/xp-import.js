@@ -5,8 +5,8 @@ const xpSchema = require("../../models/server/xp");
 
 module.exports = {
     name: 'xp-import',
-    description: "Import XP data from Mee6.",
-    usage: "[ guildId? ]",
+    usage: "[guild?]",
+    description: "Import XP data from Mee6 for the specified guild.",
     userPermission: [PermissionsBitField.Flags.ManageGuild],
 
     /**

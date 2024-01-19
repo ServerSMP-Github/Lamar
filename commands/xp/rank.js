@@ -10,9 +10,9 @@ const xpSchema = require("../../models/server/xp");
 
 module.exports = {
   name: "rank",
-  usage: "[ @user? ]",
+  usage: "[user?]",
   aliases: ['level'],
-  description: "Show's you're rank card (xp/level).",
+  description: "Display your rank card, showing XP and level.",
   /**
    *
    * @param {Client} client

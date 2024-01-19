@@ -2,8 +2,8 @@ const { EmbedBuilder, Message, Client } = require('discord.js');
 
 module.exports = {
     name: "steam",
-    description: "Searches Steam for games!",
-    usage: "[ game name ]",
+    usage: "[game]",
+    description: "Search for games on Steam.",
 
     /**
     * @param {Client} client

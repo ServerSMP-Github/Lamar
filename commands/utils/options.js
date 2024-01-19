@@ -9,8 +9,8 @@ const { getFileList } = require("../../assets/api/file");
 
 module.exports = {
   name: "options",
-  usage: "[ option 1 | ] [ option 2 ] [ option 3 ] [ option 4 ] { To get a list to the options do the command without options (aka: {prefix}options). }",
-  description: "Set up some options stuff.",
+  usage: "[options?]",
+  description: "Configure various options for your setup.",
   userPermission: [PermissionsBitField.Flags.Administrator],
   /**
   * @param {Client} client

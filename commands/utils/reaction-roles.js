@@ -4,9 +4,9 @@ const Schema = require("../../models/logs/reaction-roles");
 
 module.exports = {
     name: "reaction-roles",
-    usage: "[ description? ]",
+    usage: "[description?]",
     aliases : ["rr"],
-    description : "Creates reaction roles!",
+    description : "Create reaction roles effortlessly.",
     userPermission: [PermissionsBitField.Flags.ManageGuild],
     /**
      * @param {Client} client

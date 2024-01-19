@@ -3,8 +3,8 @@ const { parseDuration } = require("../../assets/api/time");
 
 module.exports = {
   name: 'timeout',
-  usage: '[@user] [time]',
-  description: "Tempmute players with discords new feature.",
+  usage: '[user] [time]',
+  description: "Temporarily mute players on Discord.",
   userPermission: [PermissionsBitField.Flags.ManageMessages],
 
   /**

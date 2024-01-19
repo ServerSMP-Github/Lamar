@@ -6,7 +6,7 @@ const path = require("path");
 module.exports = {
     name: 'lisapresentation',
     aliases : ['lp'],
-    description : "Lisa presentaition meme template.",
+    description : "Access the Lisa Presentation meme template.",
     /**
      *
      * @param {Client} client

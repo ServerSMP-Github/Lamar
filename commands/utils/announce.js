@@ -2,9 +2,9 @@ const { EmbedBuilder, Message, Client, PermissionsBitField } = require('discord.
 
 module.exports = {
     name: "announce",
-    usage: "[ #channel ] [ message ] [ -ping? ]",
+    usage: "[channel] [message] [-ping?]",
     aliases : ["an"],
-    description : "The bot can send your announcement!",
+    description : "Have the bot send your announcement to a specified channel, with an optional mention.",
     userPermission: [PermissionsBitField.Flags.ManageMessages],
     /**
      * @param {Client} client

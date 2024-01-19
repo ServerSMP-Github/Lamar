@@ -5,9 +5,9 @@ const emojiList = require('../../assets/api/member/emoji.json');
 
 module.exports = {
     name: "memberinfo",
-    usage: '[ @user? ]',
+    usage: '[user?]',
     aliases: ['userinfo', 'who'],
-    description: "Show's info of you or mention user.",
+    description: "Display information about yourself or a mentioned user.",
     /**
      *
      * @param {Client} client

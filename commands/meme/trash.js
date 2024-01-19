@@ -4,8 +4,8 @@ const path = require("path");
 
 module.exports = {
     name: 'trash',
-    usage: '[@user (or not)]',
-    description : "Spider man say's you/friend is trash.",
+    usage: '[user?]',
+    description : "Get Spider-Man's verdict: you or your friend is trash.",
     /**
      *
      * @param {Client} client

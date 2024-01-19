@@ -3,8 +3,8 @@ const { formatedDate } = require("../../assets/api/time/index");
 
 module.exports = {
   name: "github",
-  description: "Github User Account Information!",
-  usage: "[ github username ]",
+  usage: "[username]",
+  description: "Retrieve information about a GitHub user account.",
 
   /**
   * @param {Client} client

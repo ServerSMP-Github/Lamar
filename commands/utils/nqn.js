@@ -3,8 +3,8 @@ const Nqn = require("../../models/server/nqn");
 
 module.exports = {
     name: "nqn",
-    usage: "[ add or remove ]",
-    description : "Add or remove yourself from nqn!",
+    usage: "[add | remove]",
+    description : "Add or remove yourself from NQN.",
     /**
     * @param {Client} client
     * @param {Message} message

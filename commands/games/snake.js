@@ -4,7 +4,7 @@ const { newGame } = require('../../client/snake');
 module.exports = {
   name: 'snake',
   aliases : ['snakegame'],
-  description : "You can play snake on discord.",
+  description : "Enjoy a game of Snake right in Discord.",
   /** 
    * @param {Client} client 
    * @param {Message} message 

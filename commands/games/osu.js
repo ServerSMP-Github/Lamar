@@ -3,8 +3,8 @@ const { createCanvas, loadImage } = require('@napi-rs/canvas');
 
 module.exports = {
   name: 'osu',
-  description: "Get's info on a osu user!",
-  usage: "[ osu username ]",
+  usage: "[osu username]",
+  description: "Retrieve information on an osu! user.",
 
   /**
    *

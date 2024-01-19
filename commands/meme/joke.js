@@ -4,7 +4,7 @@ const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
     name: "joke",
-    description: "Get's a random joke.",
+    description: "Receive a random joke for a good laugh.",
     /**
      *
      * @param {Client} client

@@ -3,7 +3,7 @@ const customCommandModel = require("../../models/server/cc-slash");
 
 module.exports = {
     name: "custom",
-    description: "custom command configuration.",
+    description: "Configure custom commands.",
     type: ApplicationCommandType.ChatInput,
     userPermissions: [PermissionsBitField.Flags.ManageMessages],
     options: [

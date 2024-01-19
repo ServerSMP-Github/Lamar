@@ -2,8 +2,8 @@ const { ActionRowBuilder, ButtonBuilder, PermissionsBitField, ButtonStyle, Messa
 
 module.exports = {
     name: 'ban',
-    usage: "[ user ]",
-    description: "This command ban a member!",
+    usage: "[user]",
+    description: "Ban a member using this command.",
     userPermission: [PermissionsBitField.Flags.BanMembers],
     /** 
      * @param {Client} client 

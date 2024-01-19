@@ -4,7 +4,7 @@ const { afk } = require('../../client/collection');
 module.exports = {
   name: 'afk',
   usage: '[reason]',
-  description : "Make a afk message, so when a player mention you it will say you are afk and when you type a message your afk is done.",
+  description : "Set an AFK message for mentions and automatically clear it when you return.",
     /**
      *
      * @param {Client} client

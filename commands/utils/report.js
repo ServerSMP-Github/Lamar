@@ -2,8 +2,8 @@ const { EmbedBuilder, Message, Client, WebhookClient } = require("discord.js");
 
 module.exports = {
     name: "report",
-    usage: "[ bug ]",
-    description : "Report a bug to the owner of the bot.",
+    usage: "[bug]",
+    description : "Report a bug to the bot owner.",
     /**
     * @param {Client} client
     * @param {Message} message

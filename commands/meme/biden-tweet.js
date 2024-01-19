@@ -5,7 +5,7 @@ module.exports = {
     name: "biden-tweet",
     usage: '[text]',
     aliases: ['bt'],
-    description: "Yep, you are sending a biden tweet.",
+    description: "Craft and send a Biden-style tweet.",
     /**
      *
      * @param {Client} client

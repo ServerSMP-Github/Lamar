@@ -2,7 +2,7 @@ const { EmbedBuilder, ApplicationCommandType } = require("discord.js");
 
 module.exports = {
     name: "resume",
-    description: "Resume the current song",
+    description: "Resume the currently paused song.",
     type: ApplicationCommandType.ChatInput,
     run: async (client, interaction) => {
 

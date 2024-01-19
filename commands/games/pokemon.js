@@ -3,7 +3,7 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'pokemon',
-    description : "Show's a image of a pokemon and you guess what is it's name.",
+    description : "Display an image of a Pokémon for a guessing game.",
     /** 
      * @param {Client} client 
      * @param {Message} message 

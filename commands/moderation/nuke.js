@@ -3,7 +3,7 @@ const { PermissionsBitField, Message, Client } = require('discord.js');
 module.exports = {
     name: "nuke",
     aliases: ["nukechannel", "channelnuke", "channelclear", "clearchannel"],
-    description: "Clones a channel and deletes the old one.",
+    description: "Clone a channel and delete the old one.",
     userPermission: [PermissionsBitField.Flags.Administrator],
     /**
      * @param {Client} client

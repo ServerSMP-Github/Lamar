@@ -3,7 +3,7 @@ const customSchema = require('../../models/server/cc');
 
 module.exports = {
     name: 'cc-list',
-    description: "List the custom commands!",
+    description: "View a list of all custom commands.",
     /**
      * @param {Client} client
      * @param {Message} message

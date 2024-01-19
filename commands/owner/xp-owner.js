@@ -3,8 +3,8 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'xp-owner',
-    usage: '[ level | xp ] [ user ] [ guild ] [ amount ]',
-    description: "Change level and xp of users.",
+    usage: '[level | xp] [user] [guild] [amount]',
+    description: "Modify the level and XP of users in a guild.",
     owner: true,
     /**
      * @param {Client} client

@@ -5,8 +5,8 @@ const { getRandom } = require("../../assets/api/crypto");
 
 module.exports = {
     name: "ship",
-    description: "Find out how much 2 people love each other!",
-    usage: "[ @user ] [ @user ]",
+    usage: "[user] [user]",
+    description: "Determine the love compatibility between two people!",
 
     /**
      *

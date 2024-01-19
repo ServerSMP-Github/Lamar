@@ -3,8 +3,8 @@ const { DMY } = require("../../assets/api/time/index");
 
 module.exports = {
     name: "roleinfo",
-    description: "Get information of a role",
-    usage: "[ @role ]",
+    usage: "[role]",
+    description: "Retrieve information about a role.",
 
     /**
      *

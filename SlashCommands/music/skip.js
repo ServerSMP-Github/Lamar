@@ -4,7 +4,7 @@ const musicSchema = require("../../models/server/music.js");
 
 module.exports = {
     name: "skip",
-    description: "Skips a song",
+    description: "Skip the currently playing song.",
     type: ApplicationCommandType.ChatInput,
     run: async (client, interaction) => {
 

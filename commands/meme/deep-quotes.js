@@ -5,7 +5,7 @@ const { Message, Client } = require("discord.js");
 module.exports = {
     name: "deep-quotes",
     aliases : ['dq'],
-    description : "A kinda random deep quote.",
+    description : "Receive a somewhat random deep quote.",
     /**
      *
      * @param {Client} client

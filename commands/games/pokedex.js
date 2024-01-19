@@ -2,8 +2,8 @@ const { EmbedBuilder, Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'pokedex',
-  description: "Get information of a pokemon!",
-  usage: "[ pokemon name ]",
+  usage: "[pokemon name]",
+  description: "Retrieve information on a Pokémon.",
 
   /**
    *

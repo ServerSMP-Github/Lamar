@@ -3,7 +3,7 @@ const Schema = require('../../models/server/poll-cmd');
 
 module.exports = {
     name: 'poll',
-    description: 'Creates a poll with many options',
+    description: 'Create a poll with multiple options.',
     type: ApplicationCommandType.ChatInput,
     options: [
         {

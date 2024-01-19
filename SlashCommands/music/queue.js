@@ -2,7 +2,7 @@ const { EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = r
 
 module.exports = {
     name: "queue",
-    description: "Display the song queue",
+    description: "Display the current song queue.",
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "page",

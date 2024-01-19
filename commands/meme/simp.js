@@ -5,8 +5,8 @@ const Schema = require("../../models/user/simplevel");
 
 module.exports = {
     name: 'simp',
-    description: "Show's your simp level or your simp card.",
-    usage: "[ level or card ] [ @user or nothing ]",
+    usage: "[level | card] [user?]",
+    description: "Check and display your simp level or your simp card.",
     /**
      *
      * @param {Client} client
@@ -107,6 +107,6 @@ module.exports = {
                     new AttachmentBuilder(canvas.toBuffer("image/png"), { name: "simpcard.jpg" })
                 ]
             });
-        }
+        } else message.channel.send({ content: "Please put either `level` or `card`" })
     },
 };

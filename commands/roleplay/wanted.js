@@ -6,8 +6,8 @@ const path = require("path");
 
 module.exports = {
     name: 'wanted',
-    usage: '[@user (or not)]',
-    description : "Wanted dead or alive.",
+    usage: '[user?]',
+    description : "Declare someone wanted, dead or alive.",
     /**
      * @param {Client} client
      * @param {Message} message

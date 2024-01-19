@@ -2,7 +2,7 @@ const { EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = r
 
 module.exports = {
     name: "loop",
-    description: "Sets loop mode",
+    description: "Set loop mode for continuous playback.",
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "mode",

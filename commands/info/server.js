@@ -4,7 +4,7 @@ const { serverDate, fromNow } = require('../../assets/api/time/index');
 module.exports = {
     name: "server",
     aliases: ['serverinfo'],
-    description: "Give's info on the server that you are on.",
+    description: "Retrieve information about the server you are in.",
     /**
      *
      * @param {Client} client

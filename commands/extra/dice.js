@@ -3,7 +3,7 @@ const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
     name: 'dice',
-    description: "Roll a six-sided die.",
+    description: "Roll a six-sided die for a quick decision-maker.",
 
     /**
      *

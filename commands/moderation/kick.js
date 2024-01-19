@@ -2,8 +2,8 @@ const { Message, Client, ActionRowBuilder, ButtonBuilder, PermissionsBitField, B
 
 module.exports = {
     name: 'kick',
-    usage: '[@user]',
-    description : "Kick users.",
+    usage: '[user]',
+    description : "Kick a user from the server.",
     userPermission: [PermissionsBitField.Flags.KickMembers],
     botPermission: [PermissionsBitField.Flags.KickMembers],
     /**

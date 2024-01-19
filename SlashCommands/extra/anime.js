@@ -2,7 +2,7 @@ const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, Applic
 
 module.exports = {
     name: "anime",
-    description: "Get Anime Actions",
+    description: "Retrieve Anime Actions.",
     type: ApplicationCommandType.ChatInput,
     options: [
         {

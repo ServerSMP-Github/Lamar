@@ -2,9 +2,9 @@ const { Message, Client, EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'set-avatar',
-  usage: '[ url of image ]',
+  usage: '[image]',
   aliases: ['set-avatar-bot'],
-  description: "Set avatar bot.",
+  description: "Set the avatar for the bot.",
   owner: true,
 
   /**

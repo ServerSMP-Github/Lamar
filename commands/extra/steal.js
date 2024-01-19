@@ -3,7 +3,7 @@ const { Message, Client, Util, PermissionsBitField } = require('discord.js');
 module.exports = {
     name: 'steal',
     usage: '[emoji] [emoji] [emoji] [emoji] [emoji]',
-    description : "Take emojis from other servers and add them to your server.",
+    description : "Acquire emojis from other servers and add them to your own.",
     userPermission: [PermissionsBitField.Flags.ManageMessages],
     /** 
      * @param {Client} client 

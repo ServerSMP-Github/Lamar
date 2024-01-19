@@ -3,7 +3,7 @@ const { getRandom } = require("../../assets/api/crypto");
 
 module.exports = {
     name: 'minesweeper',
-    description: 'Play a game of minesweeper',
+    description: 'Enjoy a game of Minesweeper.',
     type: ApplicationCommandType.ChatInput,
     /**
      *

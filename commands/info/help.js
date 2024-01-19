@@ -5,7 +5,7 @@ const { readdirSync } = require("fs");
 
 module.exports = {
     name: "help",
-    description: "List all the commands.",
+    description: "List all available commands.",
     /**
      *
      * @param {Client} client

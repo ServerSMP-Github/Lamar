@@ -2,7 +2,7 @@ const { EmbedBuilder, ApplicationCommandType } = require("discord.js");
 
 module.exports = {
     name: "nowplaying",
-    description: "Shows information about the current song",
+    description: "Display information about the current playing song.",
     type: ApplicationCommandType.ChatInput,
     run: async (client, interaction) => {
 

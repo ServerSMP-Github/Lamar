@@ -3,8 +3,8 @@ const SchemaNSFW = require('../../models/server/nsfw');
 
 module.exports = {
     name: 'screenshot',
-    description: "Screenshot a website!",
-    usage: "[ url ]",
+    usage: "[url]",
+    description: "Capture a screenshot of a website.",
 
     /**
     *

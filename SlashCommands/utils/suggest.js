@@ -2,7 +2,7 @@ const { Client, CommandInteraction, EmbedBuilder, WebhookClient, ApplicationComm
 
 module.exports = {
     name: "suggest",
-    description: "Suggest ideas that should be added to the bot.",
+    description: "Submit ideas for features or improvements to the bot.",
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "idea",

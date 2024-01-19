@@ -4,8 +4,8 @@ const path = require("path");
 
 module.exports = {
     name: 'tatoo',
-    usage: '[ @user? ]',
-    description : "You/friend are the best tatoo.",
+    usage: '[user?]',
+    description : "Declare yourself or a friend as the best tattoo.",
     /**
      *
      * @param {Client} client

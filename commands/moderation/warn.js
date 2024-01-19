@@ -3,8 +3,8 @@ const Schema = require('../../models/moderator/warn');
 
 module.exports = {
     name: 'warn',
-    usage: '[@user] [reason]',
-    description : "Give a warn to a user.",
+    usage: '[user] [reason]',
+    description : "Issue a warning to a user.",
     userPermission: [PermissionsBitField.Flags.Administrator],
     /** 
      * @param {Client} client 

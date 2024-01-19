@@ -3,7 +3,7 @@ const { Message, Client, EmbedBuilder } = require("discord.js");
 module.exports = {
     name : 'meme',
     aliases : ['m'],
-    description : "Show's a random meme from r/memes",
+    description : "Display a random meme from r/memes.",
     /**
      *
      * @param {Client} client

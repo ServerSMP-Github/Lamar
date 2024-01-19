@@ -3,8 +3,8 @@ const customSchema = require('../../models/server/cc');
 
 module.exports = {
     name: 'cc-delete',
-    usage: '[name of command]',
-    description : "Delete custom commands!",
+    usage: '[command]',
+    description : "Delete custom commands with ease.",
     userPermission: [PermissionsBitField.Flags.Administrator],
     /**
      * @param {Client} client

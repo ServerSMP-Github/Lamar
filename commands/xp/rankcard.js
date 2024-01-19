@@ -7,8 +7,8 @@ const xpSchema = require("../../models/server/xp");
 
 module.exports = {
   name: 'rankcard',
-  usage: "[ list or #color ] [ true or false ] [ status or false ] [ image url or not ]",
-  description : "Options for user rankcards.",
+  usage: "[list | color] [true | false] [status | false] [image?]",
+  description : "Customize options for user rank cards.",
   /**
    * @param {Client} client
    * @param {Message} message

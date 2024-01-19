@@ -3,9 +3,9 @@ const { chunkArray } = require("../../assets/api/array");
 
 module.exports = {
     name: 'button-roles',
-    usage: '[ description (optional) ]',
+    usage: '[description?]',
     aliases : ['br'],
-    description : "Creates button roles!",
+    description : "Create button roles with ease.",
     userPermission: [PermissionsBitField.Flags.ManageGuild],
     /**
      * @param {Client} client

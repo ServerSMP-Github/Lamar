@@ -2,8 +2,8 @@ const { Message, Client, EmbedBuilder, PermissionsBitField } = require('discord.
 
 module.exports = {
     name: 'poll',
-    usage: '[#channel] [what is the poll]',
-    description : "Admins can make polls.",
+    usage: '[channel] [question]',
+    description : "Create polls for administrators in specified channels.",
     userPermission: [PermissionsBitField.Flags.ManageMessages],
     /** 
      * @param {Client} client 

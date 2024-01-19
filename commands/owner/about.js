@@ -5,7 +5,7 @@ const os = require('os');
 
 module.exports = {
   name: 'about',
-  description : "Send detailed info about the client",
+  description : "Send detailed information about the client.",
   owner: true,
 
   /**

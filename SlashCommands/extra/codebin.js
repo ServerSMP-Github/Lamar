@@ -3,7 +3,7 @@ const sourcebin = require("sourcebin_js");
 
 module.exports = {
   name: "codebin",
-  description: "Bin code or text.",
+  description: "Use the codebin to store and share code or text.",
   type: ApplicationCommandType.ChatInput,
   options: [{
       type: ApplicationCommandOptionType.String,

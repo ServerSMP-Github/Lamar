@@ -3,7 +3,7 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'blacklist',
-    usage: '[ add | remove ] [ server ]',
+    usage: '[add | remove] [server]',
     description : "Owners can blacklist a server from using the bot.",
     owner: true,
     /**

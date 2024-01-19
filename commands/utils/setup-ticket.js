@@ -2,8 +2,8 @@ const { Message, Client, PermissionsBitField, EmbedBuilder, ActionRowBuilder, Bu
 
 module.exports = {
   name: 'setup-ticket',
-  description: "Setup tickets.",
-  usage: "[ #channel or current ch ]",
+  usage: "[channel?]",
+  description: "Set up a ticketing system in the specified channel.",
   userPermission: [PermissionsBitField.Flags.ManageGuild],
   /**
   * @param {Client} client

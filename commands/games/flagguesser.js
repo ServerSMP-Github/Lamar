@@ -3,8 +3,8 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: 'flagguesser',
-    description: "Guess the flag and become #1.",
     aliases : ['fg'],
+    description: "Become the #1 flag guesser in this challenging game.",
     /** 
      * @param {Client} client 
      * @param {Message} message 

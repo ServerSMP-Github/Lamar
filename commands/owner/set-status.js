@@ -2,7 +2,7 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'set-status',
-  usage: '[ new status ]',
+  usage: '[status]',
   description: "Set the status of the bot.",
   owner: true,
 

@@ -4,7 +4,7 @@ const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
   name: "undertale",
-  description: "Random Undertale song",
+  description: "Play a random Undertale song.",
 
   /**
   * @param {Client} client

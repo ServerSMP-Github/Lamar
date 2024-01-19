@@ -3,9 +3,9 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'rockpaperscissors',
-  usage: '[@user]',
+  usage: '[user]',
   aliases : ['rpc'],
-  description : "Play rps in discord.",
+  description : "Play Rock, Paper, Scissors in Discord against another user.",
   /** 
    * @param {Client} client 
    * @param {Message} message 

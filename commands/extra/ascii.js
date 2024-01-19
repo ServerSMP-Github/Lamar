@@ -3,8 +3,8 @@ const figlet = require('figlet');
 
 module.exports = {
     name: 'ascii',
-    description: "Change your text to ascii art.",
-    usage: '[ text ]',
+    usage: '[text]',
+    description: "Transform text into ASCII art.",
 
     /**
      *

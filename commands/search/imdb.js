@@ -2,8 +2,8 @@ const { Message, Client, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   name: "imdb",
-  usage: "[ movie name ]",
-  description: "Search imdb on discord.",
+  usage: "[movie]",
+  description: "Search for IMDb information directly on Discord.",
 
   /**
   * @param {Client} client

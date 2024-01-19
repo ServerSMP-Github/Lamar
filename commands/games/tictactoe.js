@@ -3,9 +3,9 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'tictactoe',
-  usage: '[@user]',
+  usage: '[user]',
   aliases: ['ttt'],
-  description : "Play tictactoe against another user.",
+  description : "Challenge another user to a game of Tic Tac Toe.",
   /** 
    * @param {Client} client 
    * @param {Message} message 

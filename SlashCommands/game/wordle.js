@@ -2,7 +2,7 @@ const { CommandInteraction, Client, EmbedBuilder, ApplicationCommandType } = req
 
 module.exports = {
     name: 'wordle',
-    description: 'Play wordle in discord',
+    description: 'Play Wordle in Discord.',
     type: ApplicationCommandType.ChatInput,
     /**
      *

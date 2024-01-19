@@ -2,7 +2,7 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
     name: "create-server",
-    description: "Create a server with your bot!",
+    description: "Create a server using your bot.",
     owner: true,
 
     /**

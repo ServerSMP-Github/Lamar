@@ -2,7 +2,7 @@ const { Message, Client, EmbedBuilder, PermissionsBitField } = require('discord.
 
 module.exports = {
     name: "archive",
-    description: "Archive a Channel",
+    description: "Archive a channel.",
     userPermission: [PermissionsBitField.Flags.ManageChannels],
     botPermission: [PermissionsBitField.Flags.EmbedLinks, PermissionsBitField.Flags.ManageChannels],
     /** 

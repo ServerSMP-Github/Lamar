@@ -4,7 +4,7 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'web-leaderboard',
-  description: "Get the leaderboard but on your web browser.",
+  description: "Access the leaderboard in your web browser.",
 
   /**
    * @param {Client} client

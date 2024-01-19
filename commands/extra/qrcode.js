@@ -2,8 +2,8 @@ const { EmbedBuilder, Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'qrcode',
-  usage: '[ text ]',
-  description: "Turn text into qrcode.",
+  usage: '[text]',
+  description: "Transform text into a QR code.",
 
   /**
    * @param {Client} client

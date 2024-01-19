@@ -5,7 +5,7 @@ const isPlaying = new Set();
 module.exports = {
     name: "akinator",
     aliases: ["aki"],
-    description: "Starts a game of Akinator.",
+    description: "Initiate a game of Akinator, the guessing genie.",
     run: async (client, message, args) => {
         if (isPlaying.has(message.author.id)) return message.reply("You are already playing a game of Akinator. Please complete or cancel that game to start a new game.").catch(err => { });
 

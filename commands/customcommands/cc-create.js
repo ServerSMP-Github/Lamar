@@ -3,8 +3,8 @@ const customSchema = require('../../models/server/cc');
 
 module.exports = {
     name: 'cc-create',
-    usage: '[name] [what it do]',
-    description: "Create custom commands!",
+    usage: '[name] [response]',
+    description: "Create personalized commands for tailored responses.",
     userPermission: [PermissionsBitField.Flags.Administrator],
     /**
      * @param {Client} client

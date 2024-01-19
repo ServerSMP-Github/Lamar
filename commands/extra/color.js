@@ -4,8 +4,8 @@ const { createCanvas } = require('@napi-rs/canvas');
 
 module.exports = {
     name: 'color',
-    description: "Get info on colors!",
-    usage: "[ hex color or not ]",
+    usage: "[color?]",
+    description: "Retrieve information about colors using their hex values.",
     /** 
      * @param {Client} client 
      * @param {Message} message 

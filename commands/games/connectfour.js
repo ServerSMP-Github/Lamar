@@ -3,9 +3,9 @@ const { Connect4 } = require('discord-gamecord');
 
 module.exports = {
   name: 'connectfour',
-  usage: '[@user]',
+  usage: '[user]',
   aliases : ['cf'],
-  description : "Play connectfour in discord against another user.",
+  description : "Play Connect Four against another user in Discord.",
   /** 
    * @param {Client} client 
    * @param {Message} message 

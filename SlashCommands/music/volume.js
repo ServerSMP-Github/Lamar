@@ -3,7 +3,7 @@ const progressbar = require('../../assets/api/progressbar/index');
 
 module.exports = {
     name: "volume",
-    description: "change or check the volume of the current song",
+    description: "Change or check the volume of the current song.",
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "percentage",

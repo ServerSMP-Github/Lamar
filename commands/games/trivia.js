@@ -3,8 +3,7 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'trivia',
-  category : 'games',
-  description : "Play a trivia game in discord.",
+  description: "Engage in a trivia game right in Discord.",
   /** 
    * @param {Client} client 
    * @param {Message} message 

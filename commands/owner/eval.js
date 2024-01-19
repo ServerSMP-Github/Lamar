@@ -2,8 +2,8 @@ const { Message, Client, EmbedBuilder, PermissionsBitField } = require('discord.
 
 module.exports = {
     name: 'eval',
-    usage: '[ code ]',
-    description : "Evaluate a given code!",
+    usage: '[code]',
+    description : "Evaluate the provided code.",
     botPermission: [PermissionsBitField.Flags.EmbedLinks],
     owner: true,
     /**

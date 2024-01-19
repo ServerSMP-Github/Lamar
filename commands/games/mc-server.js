@@ -2,8 +2,8 @@ const { Message, Client, EmbedBuilder, AttachmentBuilder } = require("discord.js
 
 module.exports = {
   name: 'mc-server',
-  usage: '[ type ] [ ip ]',
-  description: 'Get info on a MC server!',
+  usage: '[type] [ip]',
+  description: 'Retrieve information on a Minecraft server.',
   /**
    *
    * @param {Client} client

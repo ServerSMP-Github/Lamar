@@ -3,7 +3,7 @@ const userStats = require("../../models/user/user-stats");
 
 module.exports = {
   name: 'cmd-stats',
-  description: "Global stats for cmds.",
+  description: "View global statistics for commands.",
   owner: true,
 
   /**

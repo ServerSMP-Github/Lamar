@@ -2,8 +2,8 @@ const { Client, Message, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "echo",
-    description: "Echos your text as an embed!",
-    usage: "[ message ]",
+    usage: "[message]",
+    description: "Echo your text in a stylish embed format.",
 
     /**
      *

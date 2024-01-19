@@ -2,8 +2,8 @@ const { Message, Client, AttachmentBuilder } = require("discord.js");
 
 module.exports = {
     name: "thicc",
-    usage: '[@user (or not)]',
-    description: "Thicc...",
+    usage: '[user?]',
+    description: "Embrace the thiccness, whether it's you or someone else.",
     /**
      *
      * @param {Client} client

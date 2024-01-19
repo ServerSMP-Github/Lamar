@@ -2,8 +2,8 @@ const { Message, Client, EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'update',
-  description: "The patch notes for this update.",
-  usage: "[ current | latest ]",
+  usage: "[current | latest]",
+  description: "View the patch notes for the current or latest update.",
   /**
    * @param {Client} client
    * @param {Message} message

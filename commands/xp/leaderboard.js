@@ -8,7 +8,7 @@ const xpSchema = require("../../models/server/xp");
 module.exports = {
     name: 'leaderboard',
     aliases: ['lb'],
-    description: "Show who has the most xp/level on you're server.",
+    description: "Display the XP/level leaderboard for your server.",
     /**
      *
      * @param {Client} client

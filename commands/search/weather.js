@@ -2,8 +2,8 @@ const { EmbedBuilder, Message, Client } = require('discord.js');
 
 module.exports = {
   name: "weather",
-  usage: "[ location ]",
-  description: "Get weather information.",
+  usage: "[location]",
+  description: "Retrieve current weather information for a specific location.",
 
   /**
   * @param {Client} client

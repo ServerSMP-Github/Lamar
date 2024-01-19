@@ -2,7 +2,7 @@ const { EmbedBuilder, ApplicationCommandType } = require("discord.js");
 
 module.exports = {
     name: "stop",
-    description: "Stop the player",
+    description: "Stop the music player.",
     type: ApplicationCommandType.ChatInput,
     run: async (client, interaction) => {
 

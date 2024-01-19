@@ -3,9 +3,9 @@ const Schema = require('../../models/moderator/warn');
 
 module.exports = {
     name: 'remove-warn',
-    usage: '[@user]',
+    usage: '[user]',
     aliases : ['r-warn'],
-    description : "Remove 1 warn from user.",
+    description : "Remove one warning from a user.",
     userPermission: [PermissionsBitField.Flags.Administrator],
     /** 
      * @param {Client} client 

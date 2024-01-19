@@ -4,7 +4,7 @@ module.exports = {
    name: "avatar",
    aliases: ['av'],
    usage: '[none | id | mention] ',
-   description: "Returns users avatar",
+   description: "Retrieve the avatar of a user.",
    /**
     *
     * @param {Client} client

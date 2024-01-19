@@ -2,8 +2,8 @@ const { EmbedBuilder, Message, Client } = require('discord.js');
 
 module.exports = {
   name: "stackoverflow",
-  usage: "[ query ]",
-  description: "Search in Stack Overflow",
+  usage: "[query]",
+  description: "Search for information on Stack Overflow.",
 
   /**
   * @param {Client} client

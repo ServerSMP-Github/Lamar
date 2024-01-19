@@ -2,7 +2,7 @@ const { Message, Client, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "ping",
-    description: "Returns latency and API ping",
+    description: "Check latency and API ping.",
     /**
      *
      * @param {Client} client

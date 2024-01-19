@@ -3,7 +3,7 @@ const { readdirSync } = require("fs");
 
 module.exports = {
   name: "help",
-  description: "Show All Commands",
+  description: "Display a list of all available commands.",
   type: ApplicationCommandType.ChatInput,
 
   /**

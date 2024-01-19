@@ -3,7 +3,7 @@ const musicSchema = require("../../models/server/music.js");
 
 module.exports = {
     name: "shuffle",
-    description: "Sets shuffle mode",
+    description: "Set shuffle mode for the song queue.",
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "mode",

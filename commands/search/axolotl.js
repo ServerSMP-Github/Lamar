@@ -4,8 +4,8 @@ const { getRandomInt } = require("../../assets/api/crypto");
 
 module.exports = {
   name: 'axolotl',
-  description: "Random image and fact about axolotl.",
   aliases: ["axoltl"],
+  description: "Display a random image and a fact about axolotls.",
 
   /**
   * @param {Client} client

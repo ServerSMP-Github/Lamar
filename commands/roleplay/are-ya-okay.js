@@ -3,8 +3,8 @@ const { createCanvas, loadImage } = require('@napi-rs/canvas');
 
 module.exports = {
   name: 'are-ya-okay',
-  usage: '[ text ]',
-  description: "Make an image with text on it, for the meme.",
+  usage: '[text]',
+  description: "Generate an image with text, perfect for a meme.",
 
   /**
    * @param {Client} client

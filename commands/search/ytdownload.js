@@ -7,7 +7,7 @@ const fs = require('fs');
 module.exports = {
     name: "ytdownload",
     usage: "[url] [name]",
-    description : "Downloads a video from youtube",
+    description : "Download a video from YouTube.",
 
     /** 
     * @param {Client} client 

@@ -3,7 +3,7 @@ const { createCanvas, loadImage } = require("@napi-rs/canvas");
 
 module.exports = {
     name: "delete",
-    description : "Give's a image of you getting deleted",
+    description : "Receive an image depicting your deletion.",
     /**
      *
      * @param {Client} client

@@ -3,8 +3,8 @@ const { Message, Client, EmbedBuilder } = require("discord.js");
 module.exports = {
     name: 'first-message',
     aliases: ['fmsg'],
-    usage: '[ #channel or not ]',
-    description: 'Get the first message in a channel',
+    usage: '[channel?]',
+    description: 'Retrieve the first message in a channel.',
     /**
      *
      * @param {Client} client

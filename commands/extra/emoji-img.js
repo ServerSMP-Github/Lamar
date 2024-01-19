@@ -6,8 +6,8 @@ const twemoji = require('twemoji');
 
 module.exports = {
     name: 'emoji-img',
-    usage: '[ emoji | img ]',
-    description: 'Turn emoji/images into emojis',
+    usage: '[emoji | img]',
+    description: 'Transform emojis/images into emoji format.',
     /**
      *
      * @param {Client} client

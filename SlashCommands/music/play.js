@@ -2,7 +2,7 @@ const { EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = r
 
 module.exports = {
     name: "play",
-    description: "Play a song",
+    description: "Play a song.",
     type: ApplicationCommandType.ChatInput,
     options: [
         {
