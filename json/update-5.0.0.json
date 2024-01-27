@@ -1,0 +1,17 @@
+{
+    "Title": "# Lamar v5.0.0",
+    "Description": [
+        "**Update Status: Under Development**\n",
+        "## Rebranding",
+        "The BOT has undergone a rebranding, transitioning from "ServerSMP - BOT" to "Lamar."\n",
+        "Welcome Lamar to your servers!\n",
+        "## Dashboard",
+        "Although the dashboard was removed in the last update, I've introduced a new *(BETA)* dashboard.\n",
+        "## Packages",
+        "Lamar now operates with just **19 packages**, having replaced the remainder with locally hosted ones.\n",
+        "## Website",
+        "Significant updates have been made to Lamar's website, featuring leaderboards and enhanced music bot functionalities.\n",
+        "Lamar's music capabilities have been revamped, now boasting an API integration. *(Please note: Music functionality is currently disabled in the production version of Lamar.)*"
+    ],
+    "Image": "https://raw.githubusercontent.com/ServerSMP-Github/BOT/updates/img/5.0.0.png"
+}
