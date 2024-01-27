@@ -7,7 +7,7 @@ module.exports = {
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "percentage",
-        description: "percentage to change the volume to",
+        description: "Specify the percentage to which you want to change the volume.",
         type: ApplicationCommandOptionType.Integer,
         required: false,
     }],

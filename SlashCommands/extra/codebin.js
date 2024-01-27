@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
-const sourcebin = require("sourcebin_js");
+const languages = require("../../assets/api/sourcebin/languages.json");
 
 module.exports = {
   name: "codebin",
@@ -8,56 +8,56 @@ module.exports = {
   options: [{
       type: ApplicationCommandOptionType.String,
       name: "title",
-      description: "What is the name of the source?",
+      description: "Enter the name of the source.",
       required: true
     },
     {
       type: ApplicationCommandOptionType.String,
       name: "language",
-      description: "What is the language in the source?",
+      description: "Specify the language used in the source.",
       required: true,
       choices: [{
           name: "None",
-          value: "NONE"
+          value: "text"
         },
         {
           name: "JavaScript",
-          value: "JavaScript"
+          value: "javascript"
         },
         {
           name: "HTML",
-          value: "HTML"
+          value: "html"
         },
         {
           name: "Python",
-          value: "Python"
+          value: "python"
         },
         {
           name: "Java",
-          value: "Java"
+          value: "java"
         },
         {
           name: "CSS",
-          value: "CSS"
+          value: "css"
         },
         {
           name: "SVG",
-          value: "SVG"
+          value: "svg"
         },
         {
           name: "C#",
-          value: "C#"
+          value: "c#"
         },
         {
           name: "XML",
-          value: "XML"
+          value: "xml"
         }
       ]
     },
     {
       type: ApplicationCommandOptionType.String,
       name: "code",
-      description: "What's the source?",
+      description: "Provide the source code or text to be stored and shared.",
       required: true
     }
   ],
@@ -73,33 +73,62 @@ module.exports = {
     const content = interaction.options.getString("code");
     const title = interaction.options.getString("title");
 
-    sourcebin
-      .create(
-        [{
-          name: `Made By ${interaction.user.username}`,
-          content: content,
-          languageId: language
-        }], {
-          title: title
-        }
-      )
-      .then((src) => {
-        interaction.followUp({
-          content: src.url,
-          embeds: [
-            new EmbedBuilder()
-            .setTitle("Sourcebin")
-            .setColor("Random")
-            .setDescription(`Code:\n\`\`\`js\n${Content}\n\`\`\``)
-          ],
-          ephemeral: true
-        });
-      })
-      .catch((e) => {
-        interaction.followUp({
-          content: "Error, try again later",
-          ephemeral: true
-        });
+    try {
+      const codebin = await (await fetch("https://sourceb.in/api/bins", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: `Made By ${interaction.user.username}`,
+          description: "",
+          files: [
+            {
+              languageId: languages[language],
+              name: title,
+              content,
+            }
+          ]
+        })
+      })).json();
+
+      interaction.followUp({
+        content: `https://sourceb.in/${codebin.key}`,
+        embeds: [
+          new EmbedBuilder()
+          .setTitle("Sourcebin")
+          .setColor("Random")
+          .setDescription(`Code:\n\`\`\`js\n${content}\n\`\`\``)
+        ],
+        ephemeral: true
       });
+    } catch(err) {
+      console.log(err)
+
+      interaction.followUp({
+        content: "Error, try again later",
+        ephemeral: true
+      });
+    }
+
+    // sourcebin
+    //   .create(
+    //     [{
+    //       name: `Made By ${interaction.user.username}`,
+    //       content: content,
+    //       languageId: language
+    //     }], {
+    //       title: title
+    //     }
+    //   )
+    //   .then((src) => {
+
+    //   })
+    //   .catch((e) => {
+    //     interaction.followUp({
+    //       content: "Error, try again later",
+    //       ephemeral: true
+    //     });
+    //   });
   },
 };

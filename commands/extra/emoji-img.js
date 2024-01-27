@@ -2,7 +2,7 @@ const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const { nearestColor } = require("../../assets/api/color");
 const { isImageUrl } = require("../../assets/api/url");
 const { Message, Client } = require("discord.js");
-const twemoji = require('twemoji');
+const twemoji = require('@twemoji/api');
 
 module.exports = {
     name: 'emoji-img',

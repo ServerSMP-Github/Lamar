@@ -7,7 +7,7 @@ module.exports = {
     options: [{
         name: "mode",
         type: ApplicationCommandOptionType.Integer,
-        description: "Loop type",
+        description: "Select the loop mode.",
         required: true,
         choices: [{
                 name: "Off",

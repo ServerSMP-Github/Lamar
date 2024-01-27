@@ -1,6 +1,8 @@
 module.exports = async(guild, limit = 1000, page = 0) => {
     const { players } = await (await fetch(`https://mee6.xyz/api/plugins/levels/leaderboard/${guild}?limit=${limit}&page=${page}`)).json();
 
+    if (!players) return;
+
     return players.map((user, index) => {
         const { id, level } = user;
         const [levelXp] = user.detailed_xp;

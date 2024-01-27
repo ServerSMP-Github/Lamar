@@ -31,7 +31,7 @@ client.on(Events.MessageCreate, async (message) => {
     const userData = await userSchema.findOne({ User: message.author.id }).exec();
     if (userData) {
       userData.CmdUsed = `${Number(userData.CmdUsed) + 1}`;
-  
+
       await userData.save();
     } else userSchema.create({
       User: message.author.id,

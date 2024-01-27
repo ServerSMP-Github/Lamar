@@ -8,7 +8,7 @@ module.exports = {
     options: [
         {
             name: 'opponent',
-            description: 'Who you want to play with',
+            description: 'Specify who you want to play with.',
             type: ApplicationCommandOptionType.User,
             required: true
         }

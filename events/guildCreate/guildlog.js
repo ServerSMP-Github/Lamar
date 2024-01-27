@@ -7,8 +7,8 @@ module.exports = async(guild) => {
     new WebhookClient({ url: client.config.channel.webhooks.guildlogs }).send({
         embeds: [
             new EmbedBuilder()
-            .setColor("#F72119")
-            .setTitle('Server Left')
+            .setColor("#39ff14")
+            .setTitle('New Server')
             .addFields(
                 { name: 'Name', value: guild.name, inline: true },
                 { name: 'Guild ID', value: guild.id, inline: true },

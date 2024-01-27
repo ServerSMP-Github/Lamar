@@ -7,7 +7,7 @@ module.exports = {
     options: [
         {
             name: 'category',
-            description: "which action do you want",
+            description: "Specify the action you want to perform.",
             required: true,
             type: ApplicationCommandOptionType.String,
             choices: [

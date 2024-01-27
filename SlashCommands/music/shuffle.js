@@ -7,7 +7,7 @@ module.exports = {
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "mode",
-        description: "Shuffle type",
+        description: "Specify the shuffle mode.",
         type: ApplicationCommandOptionType.Boolean,
         required: true
     }],

@@ -9,18 +9,18 @@ module.exports = {
     options: [
       {
         name: "create",
-        description: "create a custom command",
+        description: "Create a custom command.",
         type: ApplicationCommandOptionType.Subcommand,
         options: [
           {
             name: "command",
-            description: "name of the custom command",
+            description: "Specify the name of the custom command.",
             type: ApplicationCommandOptionType.String,
             required: true
           },
           {
             name: "response",
-            description: "response for this custom command",
+            description: "Provide the response for this custom command.",
             type: ApplicationCommandOptionType.String,
             required: true
           },
@@ -28,12 +28,12 @@ module.exports = {
       },
       {
         name: "delete",
-        description: "remove a custom command",
+        description: "Remove a custom command.",
         type: ApplicationCommandOptionType.Subcommand,
         options: [
           {
             name: "command",
-            description: "name of the custom command",
+            description: "Specify the name of the custom command to be removed.",
             type: ApplicationCommandOptionType.String,
             required: true
           },

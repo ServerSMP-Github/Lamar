@@ -4,59 +4,59 @@ const roleSchema = require("../../models/server/roles-colors");
 
 module.exports = {
     name: "role-color",
-    description: "Create cool role colors.",
+    description: "Create and manage custom role colors.",
     type: ApplicationCommandType.ChatInput,
     options: [{
             name: "create",
-            description: "create role color",
+            description: "Create a new custom role color.",
             type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "name",
-                description: "name of color",
+                description: "Name of the new custom role color.",
                 type: ApplicationCommandOptionType.String,
                 required: true
             },
             {
                 name: "color",
-                description: "color of role in hex",
+                description: "Hexadecimal color code for the new custom role color.",
                 type: ApplicationCommandOptionType.String,
                 required: true
             }],
         },
         {
             name: "delete",
-            description: "remove role color",
+            description: "Delete an existing custom role color.",
             type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "name",
-                description: "name of color",
+                description: "Name of the custom role color to delete.",
                 type: ApplicationCommandOptionType.String,
                 required: true
             }],
         },
         {
             name: "list",
-            description: "remove role color",
+            description: "List all available custom role colors.",
             type: ApplicationCommandOptionType.Subcommand,
         },
         {
             name: "add",
-            description: "add a role color",
+            description: "Add a role color to yourself.",
             type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "name",
-                description: "name of color",
+                description: "Name of the custom role color to add.",
                 type: ApplicationCommandOptionType.String,
                 required: true
             }],
         },
         {
             name: "remove",
-            description: "remove a role color",
+            description: "Remove a role color from yourself.",
             type: ApplicationCommandOptionType.Subcommand,
             options: [{
                 name: "name",
-                description: "name of color",
+                description: "Name of the custom role color to remove.",
                 type: ApplicationCommandOptionType.String,
                 required: true
             }],

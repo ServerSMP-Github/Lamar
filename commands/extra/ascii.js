@@ -1,5 +1,5 @@
+const { stringToAscii } = require('../../assets/api/ascii');
 const { Message, Client } = require('discord.js');
-const figlet = require('figlet');
 
 module.exports = {
     name: 'ascii',
@@ -16,7 +16,7 @@ module.exports = {
         if (!args.length) return message.reply("Please specify some text to ascii.")
 
         try {
-            const text = await figlet.text(args.join(" "), { font: "" });
+            const text = stringToAscii(args.join(" "));
 
             message.channel.send(`\`\`\`${text.slice(0, 1980)}\`\`\``);
         } catch (err) {

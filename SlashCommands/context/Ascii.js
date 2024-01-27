@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, ApplicationCommandType } = require("discord.js");
-const figlet = require("figlet");
+const { stringToAscii } = require("../../assets/api/ascii");
 
 module.exports = {
   name: "Ascii",
@@ -13,15 +13,8 @@ module.exports = {
   run: async (client, interaction, args) => {
     const msg = await interaction.channel.messages.fetch(interaction.targetId);
 
-    figlet.text(
-      `${msg.content}`,
-      {
-        font: "Standard"
-      },
-      async (err, data) => {
-        interaction.followUp({ content: `\`\`\`${data.slice(0, 1975)}\`\`\`` });
-      }
-    );
+    const ascii = stringToAscii(msg.content);
 
+    interaction.followUp({ content: `\`\`\`${ascii.slice(0, 1975)}\`\`\`` });
   },
 };

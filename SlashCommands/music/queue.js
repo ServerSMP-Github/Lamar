@@ -6,7 +6,7 @@ module.exports = {
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "page",
-        description: "the page of the queue to display",
+        description: "The page of the queue to display.",
         type: ApplicationCommandOptionType.Integer,
         required: false,
     }],

@@ -6,7 +6,7 @@ module.exports = {
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: "idea",
-        description: "What you want to suggest?",
+        description: "What do you want to suggest?",
         type: ApplicationCommandOptionType.String,
         required: true
     }],

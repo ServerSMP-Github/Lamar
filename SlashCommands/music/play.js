@@ -7,7 +7,7 @@ module.exports = {
     options: [
         {
             name: "songtitle",
-            description: "title of the song",
+            description: "Title of the song.",
             type: ApplicationCommandOptionType.String,
             required: true,
         }
