@@ -1,10 +1,12 @@
-const loading = document.getElementById("loading");
-const body = document.getElementById("body");
-const root = document.querySelector(":root");
+const classList = ['button-primary', 'button-secondary', 'button-accent', 'button-info', 'button-success', 'button-warning', 'button-error'];
+const targetElement = document.getElementById('invite');
 
-root.style.setProperty("--color", `#${(Math.random()*0xFFFFFF<<0).toString(16)}`);
+let currentIndex = 0;
 
-window.onload = () => setTimeout(() => {
-    loading.classList.add("disabled");
-    body.classList.remove("disabled")
-}, 1550);
+function cycleClasses() {
+    targetElement.classList.replace(classList[currentIndex], classList[(currentIndex + 1) % classList.length]);
+    currentIndex = (currentIndex + 1) % classList.length;
+}
+
+cycleClasses();
+setInterval(cycleClasses, 2000);
