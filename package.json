@@ -1,25 +1,25 @@
 {
-  "name": "serversmp-bot",
+  "name": "lamar",
   "version": "5.0.0",
   "description": "A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!",
   "main": "index.js",
   "type": "commonjs",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ServerSMP-Github/BOT.git"
+    "url": "git+https://github.com/ServerSMP-Github/Lamar.git"
   },
   "author": "Prince527",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/ServerSMP-Github/BOT/issues"
+    "url": "https://github.com/ServerSMP-Github/Lamar/issues"
   },
-  "homepage": "https://github.com/ServerSMP-Github/BOT#readme",
+  "homepage": "https://github.com/ServerSMP-Github/Lamar#readme",
   "dependencies": {
     "@iamtraction/google-translate": "2.0.1",
     "@napi-rs/canvas": "^0.1.44",

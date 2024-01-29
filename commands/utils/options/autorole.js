@@ -6,7 +6,7 @@ module.exports = {
         const options = args[1]?.toLowerCase();
         if (!["on", "off"].includes(options)) return message.reply("Invalid arguments");
 
-        const autoroleData = await chatbotSchema.findOne({ Guild: message.guild.id });
+        const autoroleData = await autoroleSchema.findOne({ Guild: message.guild.id });
 
         if (options === "on") {
             const role = message.mentions.roles.last();
