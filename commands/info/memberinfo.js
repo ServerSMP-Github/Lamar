@@ -52,7 +52,7 @@ module.exports = {
         }
 
         const nitroEmoji = client.config.emoji.badges.discord_nitro;
-        const isNitro = banner !== null || member.user.avatarURL({ dynamic: true }).includes('gif') || member.premiumSince;
+        const isNitro = banner !== null || member.user.avatarURL({ dynamic: true })?.includes('gif') || member.premiumSince;
         const nitro = isNitro ? nitroEmoji : "";
 
         const isLegacyUsername = new Date(member.user.createdAt).getTime() < 1677657600000;
