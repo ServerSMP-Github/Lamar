@@ -8,6 +8,7 @@
 **/node_modules
 **/**.disabled
 **/install.sh
+devbox.lock
 **/.vscode
 **/papers
 **/build

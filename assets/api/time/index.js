@@ -95,12 +95,46 @@ function msToS(ms) {
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
+function timeAgo(timestamp) {
+    let seconds = Math.floor((Date.now() - timestamp) / 1000);
+
+    const intervals = {
+        year: 31536000,
+        month: 2592000,
+        week: 604800,
+        day: 86400,
+        hour: 3600,
+        minute: 60,
+        second: 1
+    };
+
+    let output = "";
+
+    for (let key in intervals) {
+        const interval = Math.floor(seconds / intervals[key]);
+        if (interval >= 1) {
+            output += interval + " " + key + (interval === 1 ? ", " : "s, ");
+            seconds -= interval * intervals[key];
+        }
+    }
+
+    return output.slice(0, -2) + " ago";
+}
+
+function toTimestamp(date, type = "f") {
+    const timestamp = Math.floor(date.getTime() / 1000);
+
+    return `<t:${timestamp}:${type}>`;
+}
+
 module.exports = {
     msToDurationString,
     parseDuration,
     formatedDate,
+    toTimestamp,
     serverDate,
     fromNow,
+    timeAgo,
     YYYY_MM,
     msToS,
     month,

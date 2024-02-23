@@ -1,7 +1,7 @@
 const { capitalizeFirstLetter, boostLevel } = require('../../assets/api/member');
-const { formatedDate, HMS } = require('../../assets/api/time/index');
 const { Message, Client, EmbedBuilder } = require("discord.js");
 const emojiList = require('../../assets/api/member/emoji.json');
+const { toTimestamp } = require('../../assets/api/time/index');
 
 module.exports = {
     name: "memberinfo",
@@ -68,7 +68,7 @@ module.exports = {
             .addFields(
                 {
                     name: "User Identity: ",
-                    value: `- **⚙️ ID**: ${member.user.id}\n- **🕐 Created At**: ${formatedDate(member.user.createdAt)}\n- **📛 Badges**: ${badge.length ? badge.map(f => flagToEmoji[f]).join(" ") : ""}${nitro}${member.premiumSince ? (boostLevel(member.premiumSince, client)) : ""}${legacyUsername}\n- **🖼️ Avatar**: [link](${member.user.displayAvatarURL({ type: "png" })})`,
+                    value: `- **⚙️ ID**: ${member.user.id}\n- **🕐 Created At**: ${toTimestamp(member.user.createdAt)}\n- **📛 Badges**: ${badge.length ? badge.map(f => flagToEmoji[f]).join(" ") : ""}${nitro}${member.premiumSince ? (boostLevel(member.premiumSince, client)) : ""}${legacyUsername}\n- **🖼️ Avatar**: [link](${member.user.displayAvatarURL({ type: "png" })})`,
                     inline: false
                 },
                 {
@@ -78,7 +78,7 @@ module.exports = {
                 },
                 {
                     name: "Server Member Info: ",
-                    value: `- **💰 Booster**: ${member.premiumSince ? `${formatedDate(member.premiumSince)}` : "Not booster"}\n- **🙍‍♂️ Nickname**: ${member.nickname ? member.nickname : "No nickname set"}\n- **🤖 Bot**: ${member.user.bot ? `${member.user.bot}` : "Not bot account"}\n- **⌛ Joined At**: ${formatedDate(member.joinedAt)}, ${HMS(member.joinedAt)}\n> ${Math.floor(Number(Date.now() - message.guild.members.cache.get(member.id).joinedAt) / 86400000)} day(S) Ago`,
+                    value: `- **💰 Booster**: ${member.premiumSince ? `${toTimestamp(member.premiumSince)}` : "Not booster"}\n- **🙍‍♂️ Nickname**: ${member.nickname ? member.nickname : "No nickname set"}\n- **🤖 Bot**: ${member.user.bot ? `${member.user.bot}` : "Not bot account"}\n- **⌛ Joined At**: ${toTimestamp(member.joinedAt, 'F')}\n> ${toTimestamp(member.joinedAt, 'R')}`,
                     inline: false
                 },
                 {
