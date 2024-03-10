@@ -73,7 +73,7 @@ module.exports = {
                 ]
             });
 
-        } else if (loadType === "track") {
+        } else if (loadType === "search" || loadType === "track") {
 
             const track = tracks.shift();
             track.info.requester = interaction.member;
@@ -84,7 +84,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                     .setDescription(`✅ **|** **[${track.info.title}](${track.info.uri})** has been added to the queue`)
-                    .setThumbnail(`${track.info.image ? track.info.image : 'https://api.serversmp.xyz/upload/1/prince/hXLEkmnukU.png'}`)
+                    .setThumbnail(`${track.info.artworkUrl || 'https://api.serversmp.xyz/upload/1/prince/hXLEkmnukU.png'}`)
                     .setColor("Blue")
                 ]
             });

@@ -53,7 +53,7 @@ router.post("/music/play", checkAPIAuth, async (req, res) => {
             length: tracks.length,
             title: playlistInfo.name
         };
-    } else if (loadType === "track") {
+    } else if (loadType === "search" || loadType === "track") {
         const track = tracks.shift();
         track.info.requester = member;
         player.queue.add(track);
@@ -61,7 +61,7 @@ router.post("/music/play", checkAPIAuth, async (req, res) => {
         api.track = {
             title: track.info.title,
             url: track.info.uri,
-            image: track.info.image
+            image: track.info.artworkUrl
         };
     } else return res.json({ error: "Failed to find your song" });
 
