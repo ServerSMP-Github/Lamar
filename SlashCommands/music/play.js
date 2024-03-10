@@ -1,4 +1,5 @@
 const { EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require("discord.js");
+const musicSchema = require("../../models/server/music.js");
 
 module.exports = {
     name: "play",
@@ -56,7 +57,7 @@ module.exports = {
         const resolve = await client.poru.resolve({ query: songTitle, source: "ytsearch" });
         const { loadType, tracks, playlistInfo } = resolve;
 
-        if (loadType === "PLAYLIST_LOADED") {
+        if (loadType === "playlist") {
 
             for (const track of resolve.tracks) {
                 track.info.requester = interaction.member;
@@ -72,7 +73,7 @@ module.exports = {
                 ]
             });
 
-        } else if (loadType === "SEARCH_RESULT" || loadType === "TRACK_LOADED") {
+        } else if (loadType === "track") {
 
             const track = tracks.shift();
             track.info.requester = interaction.member;

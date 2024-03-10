@@ -41,9 +41,9 @@ router.post("/music/play", checkAPIAuth, async (req, res) => {
 
     const { loadType, tracks, playlistInfo } = await client.poru.resolve({ query: query, source: "ytsearch" });
 
-    const api = { type: loadType === "PLAYLIST_LOADED" ? "playlist" : "search" };
+    const api = { type: loadType === "playlist" ? "playlist" : "search" };
 
-    if (loadType === "PLAYLIST_LOADED") {
+    if (loadType === "playlist") {
         for (const track of tracks) {
             track.info.requester = member;
             player.queue.add(track);
@@ -53,7 +53,7 @@ router.post("/music/play", checkAPIAuth, async (req, res) => {
             length: tracks.length,
             title: playlistInfo.name
         };
-    } else if (loadType === "SEARCH_RESULT" || loadType === "TRACK_LOADED") {
+    } else if (loadType === "track") {
         const track = tracks.shift();
         track.info.requester = member;
         player.queue.add(track);
