@@ -1,5 +1,6 @@
 const { Message, Client, EmbedBuilder, ChannelType } = require("discord.js");
-const { serverDate, fromNow } = require('../../assets/api/time/index');
+const { toTimestamp } = require('../../assets/api/time/index');
+const { fromNow } = require('../../assets/api/time/index');
 
 module.exports = {
     name: "server",
@@ -54,7 +55,7 @@ module.exports = {
                     {
                         name: "Additional Info",
                         value: [
-                            `- 🕐 Time Created: \`${serverDate(message.guild.createdTimestamp)} [${fromNow(message.guild.createdTimestamp)}]\``,
+                            `- 🕐 Time Created: \`${toTimestamp(message.guild.createdTimestamp)} [${fromNow(message.guild.createdTimestamp)}]\``,
                             `- 🌎 Region: \`${message.guild.region}\``,
                             `- 💸 Boost Tier: \`${message.guild.premiumTier ? `Tier : ${message.guild.premiumTier}` : 'None'}\``,
                             `- 💰 Boost Count: \`${message.guild.premiumSubscriptionCount || '0'}\``,
