@@ -30,7 +30,7 @@ module.exports = async function({ client, message }) {
         if (!detected.language) return;
 
         detected = {
-            accuracy: 100,
+            accuracy: detected.reliable,
             language: detected.language
         };
     } else if (server.type === "libre") {

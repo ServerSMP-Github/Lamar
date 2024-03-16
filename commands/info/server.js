@@ -16,11 +16,11 @@ module.exports = {
         const roleColor = message.guild.members.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.members.me.displayHexColor;
 
         const verificationLevels = {
-            NONE: 'None',
-            LOW: 'Low',
-            MEDIUM: 'Medium',
-            HIGH: '💢',
-            VERY_HIGH: '💥'
+            0: 'None',
+            1: 'Low',
+            2: 'Medium',
+            3: '💢',
+            4: '💥'
         };
 
         const owner = await message.guild.fetchOwner();

@@ -122,6 +122,8 @@ function timeAgo(timestamp) {
 }
 
 function toTimestamp(date, type = "f") {
+    if (!(date instanceof Date)) date = new Date(date);
+
     const timestamp = Math.floor(date.getTime() / 1000);
 
     return `<t:${timestamp}:${type}>`;
