@@ -20,7 +20,7 @@ module.exports = {
       const element = stats[index];
 
       const userParsed = await client.users.fetch(element.User);
-      cmdStats.push(`**${index + 1}**. - *${userParsed.username}#${userParsed.discriminator}*\nCMDs: \`${element.CmdUsed}\``);
+      cmdStats.push(`**${index + 1}**. - *${userParsed?.username || "DELETED"}*\nCMDs: \`${element.CmdUsed}\``);
     }
 
     message.channel.send({
