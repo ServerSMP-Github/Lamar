@@ -239,6 +239,7 @@ router.post("/music/playing", checkAPIAuth, async (req, res) => {
         response: {
             track: {
                 title: player.currentTrack.info.title,
+                author: player.currentTrack.info.author,
                 url: player.currentTrack.info.uri
             },
             user: {
