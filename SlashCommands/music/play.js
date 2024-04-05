@@ -54,7 +54,7 @@ module.exports = {
 
         const songTitle = interaction.options.getString("songtitle");
 
-        const resolve = await client.poru.resolve({ query: songTitle, source: "ytsearch" });
+        const resolve = await client.poru.resolve({ query: songTitle, source: "scsearch" });
         const { loadType, tracks, playlistInfo } = resolve;
 
         if (loadType === "playlist") {

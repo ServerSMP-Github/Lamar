@@ -39,7 +39,7 @@ router.post("/music/play", checkAPIAuth, async (req, res) => {
         deaf: true
     });
 
-    const { loadType, tracks, playlistInfo } = await client.poru.resolve({ query: query, source: "ytsearch" });
+    const { loadType, tracks, playlistInfo } = await client.poru.resolve({ query: query, source: "scsearch" });
 
     const api = { type: loadType === "playlist" ? "playlist" : "search" };
 
