@@ -5,20 +5,16 @@ module.exports = async(message) => {
     if (message.author.bot || !message.guild) return;
 
     const nqnData = await nqnSchema.findOne({ Guild: message.guild.id });
-
-    if (!nqnData) return;
-
-    if (!nqnData.Users.includes(message.author.id)) return;
+    if (!nqnData || !nqnData.Users.includes(message.author.id)) return;
 
     let msg = message.content;
 
     let emojis = msg.match(/(?<=:)([^:\s]+)(?=:)/g);
-
     if (!emojis) return;
 
     emojis.forEach(m => {
         let emoji = client.emojis.cache.find(x => x.name === m);
-        if (!emoji) return;
+        if (!emoji || emoji.guild.id === message.guild.id) return;
 
         let temp = emoji.toString();
 
