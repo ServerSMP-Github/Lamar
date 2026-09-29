@@ -253,6 +253,11 @@ body {
     filter: drop-shadow(0px 16px 10px rgba(0, 0, 0, 0.4));
 }
 
+.box img.card-shadow {
+    box-shadow: none;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
 @media (max-width: 48rem) {
     .nav {
         flex-direction: column;
