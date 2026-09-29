@@ -228,7 +228,7 @@
 }
 
 .hover-brightness {
-    transition: filter 0.3s ease, transform 0.3s ease;
+    transition: filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hover-brightness:hover {
@@ -236,9 +236,14 @@
     transform: scale(1.02);
 }
 
-/* Invite button color cycle (replaces js/script.js) */
+/* Invite button: fades in with the card, then color cycles (replaces js/script.js) */
 .anim-color-cycle {
-    animation: color-cycle 14s ease-in-out infinite;
+    animation-name: fade-in, color-cycle;
+    animation-duration: var(--animation-speed-normal), 14s;
+    animation-timing-function: ease, ease-in-out;
+    animation-iteration-count: 1, infinite;
+    animation-fill-mode: forwards, none;
+    opacity: 0;
 }
 
 @keyframes color-cycle {
