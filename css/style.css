@@ -150,6 +150,7 @@ body {
 .card-title {
     transition: all 0.2s;
     margin-bottom: 0.3125rem;
+    margin-top: 0.3125rem;
     font-weight: bold;
     font-size: 1.25rem;
 }
