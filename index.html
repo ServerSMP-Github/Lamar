@@ -4,70 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/animation.css">
     <link rel="shortcut icon" href="./img/icon.png">
     <title>Lamar</title>
 </head>
 <body>
 
-    <div class="nav">
+    <div class="nav anim-fade-in anim-smooth">
         <a href="#" class="nav-header">
             <!-- <img src="./img/icon.png"> -->
             <h1>Lamar</h1>
         </a>
         <div class="nav-item right">
-            <a href="https://discord.com/api/oauth2/authorize?client_id=778409873573412874&permissions=1634234526934&scope=applications.commands%20bot" class="button button-primary" id="invite">Invite</a>
+            <a href="https://discord.com/api/oauth2/authorize?client_id=778409873573412874&permissions=1634234526934&scope=applications.commands%20bot" class="button button-primary hover-lift hover-brightness anim-color-cycle" id="invite">Invite</a>
         </div>
     </div>
 
-    <div class="grid">
-        <div class="box">
-            <div class="card card-background card-rounded">
-                <h1 class="card-title">Lamar</h1>
-                <p class="card-description">A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!</p>
+    <div class="grid anim-fade-in anim-smooth">
+        <div class="box anim-slide-in-up anim-delay-200">
+            <div class="card card-background card-rounded card-shadow hover-float">
+                <h1 class="card-title anim-fade-in anim-delay-400">Lamar</h1>
+                <p class="card-description anim-fade-in anim-delay-500">A bot for all your needs! May it be moderation, info on things from your server, or even random pictures of ducks. We have it all!</p>
             </div>
         </div>
-        <div class="box">
-            <img src="./img/icon.png" width="70%" height="70%">
-        </div>
-    </div>
-
-    <div class="grid">
-        <div class="box">
-            <img src="./img/duck.png" width="90%" height="90%">
-        </div>
-        <div class="box">
-            <div class="card card-background card-rounded">
-                <h1 class="card-title">Duck</h1>
-                <p class="card-description">We have a selections of ducks! May it be random images or secrets?</p>
+        <div class="box anim-float">
+            <div class="anim-flip-in-x anim-delay-300">
+                <div class="hover-scale-rotate">
+                    <img class="effect-bounce" src="./img/icon.png" width="70%" height="70%" alt="Lamar">
+                </div>
             </div>
         </div>
     </div>
 
     <div class="grid">
-        <div class="box">
-            <div class="card card-background card-rounded">
-                <h1 class="card-title">Search</h1>
-                <p class="card-description">We have a selections of commands to search websites!</p>
-            </div>
+        <div class="box anim-slide-in-left anim-delay-200">
+            <img class="card-rounded card-shadow" src="./img/duck.png" width="90%" height="90%" alt="Duck">
         </div>
-        <div class="box">
-            <img src="./img/search.png" width="90%" height="90%">
+        <div class="box anim-slide-in-right anim-delay-300">
+            <div class="card card-background card-rounded card-shadow hover-float">
+                <h1 class="card-title anim-fade-in anim-delay-400">Duck</h1>
+                <p class="card-description anim-fade-in anim-delay-500">We have a selections of ducks! May it be random images or secrets?</p>
+            </div>
         </div>
     </div>
 
     <div class="grid">
-        <div class="box">
-            <img src="./img/games.png" width="90%" height="90%">
-        </div>
-        <div class="box">
-            <div class="card card-background card-rounded">
-                <h1 class="card-title">Games</h1>
-                <p class="card-description">We have a selections of gamse to play! May it be gamse like wordle to snake!</p>
+        <div class="box anim-slide-in-left anim-delay-200">
+            <div class="card card-background card-rounded card-shadow hover-float">
+                <h1 class="card-title anim-fade-in anim-delay-400">Search</h1>
+                <p class="card-description anim-fade-in anim-delay-500">We have a selections of commands to search websites!</p>
             </div>
+        </div>
+        <div class="box anim-slide-in-right anim-delay-300">
+            <img class="card-rounded card-shadow" src="./img/search.png" width="90%" height="90%" alt="Search">
         </div>
     </div>
 
-    <script src="./js/script.js"></script>
+    <div class="grid">
+        <div class="box anim-slide-in-left anim-delay-200">
+            <img class="card-rounded card-shadow" src="./img/games.png" width="90%" height="90%" alt="Games">
+        </div>
+        <div class="box anim-slide-in-right anim-delay-300">
+            <div class="card card-background card-rounded card-shadow hover-float">
+                <h1 class="card-title anim-fade-in anim-delay-400">Games</h1>
+                <p class="card-description anim-fade-in anim-delay-500">We have a selections of gamse to play! May it be gamse like wordle to snake!</p>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

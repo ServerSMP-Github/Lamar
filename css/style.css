@@ -167,11 +167,21 @@ body {
 
 .card-background {
     background-color: var(--forground-color);
-    padding: 0.9375rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 0.3s ease;
+}
+
+.card-background:hover {
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .card-shadow {
-    box-shadow: 0 0 0.625rem var(--card-shadow);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.card-button {
+    width: 90%;
 }
 
 .image-pixel {
@@ -255,6 +265,10 @@ body {
 
     .nav-item {
         justify-content: center;
+    }
+
+    .nav-item.right {
+        margin-top: 0.625rem;
     }
 
     .box {

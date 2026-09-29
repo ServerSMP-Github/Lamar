@@ -1,0 +1,276 @@
+:root {
+    /* Durations */
+    --animation-speed-normal: 0.8s;
+
+    /* Easing */
+    --easing-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --easing-smooth: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Delays */
+.anim-delay-200 {
+    animation-delay: 0.2s !important;
+}
+
+.anim-delay-300 {
+    animation-delay: 0.3s !important;
+}
+
+.anim-delay-400 {
+    animation-delay: 0.4s !important;
+}
+
+.anim-delay-500 {
+    animation-delay: 0.5s !important;
+}
+
+.anim-delay-600 {
+    animation-delay: 0.6s !important;
+}
+
+.anim-delay-700 {
+    animation-delay: 0.7s !important;
+}
+
+/* Timing */
+.anim-bounce {
+    animation-timing-function: var(--easing-bounce) !important;
+}
+
+.anim-smooth {
+    animation-timing-function: var(--easing-smooth) !important;
+}
+
+/* Entrances */
+.anim-fade-in {
+    animation-name: fade-in;
+    animation-duration: var(--animation-speed-normal);
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.anim-slide-in-left {
+    animation-name: slide-in-left;
+    animation-duration: var(--animation-speed-normal);
+    animation-timing-function: var(--easing-smooth);
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes slide-in-left {
+    from {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.anim-slide-in-right {
+    animation-name: slide-in-right;
+    animation-duration: var(--animation-speed-normal);
+    animation-timing-function: var(--easing-smooth);
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes slide-in-right {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.anim-slide-in-up {
+    animation-name: slide-in-up;
+    animation-duration: var(--animation-speed-normal);
+    animation-timing-function: var(--easing-smooth);
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes slide-in-up {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.anim-scale-in {
+    animation-name: scale-in;
+    animation-duration: var(--animation-speed-normal);
+    animation-timing-function: var(--easing-bounce);
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes scale-in {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.anim-flip-in-x {
+    animation-name: flip-in-x;
+    animation-duration: var(--animation-speed-normal);
+    animation-timing-function: var(--easing-bounce);
+    animation-fill-mode: forwards;
+    opacity: 0;
+    backface-visibility: visible;
+}
+
+@keyframes flip-in-x {
+    from {
+        transform: perspective(400px) rotateX(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: perspective(400px) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+/* Loops */
+.anim-float {
+    animation-name: float;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Effects */
+.effect-bounce {
+    animation: bounce 1s var(--easing-bounce) forwards;
+    transform-origin: center;
+}
+
+@keyframes bounce {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-45deg);
+    }
+    70% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+/* Hovers */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hover-lift:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.hover-float {
+    transition: transform 0.3s var(--easing-smooth), box-shadow 0.3s var(--easing-smooth), border-color 0.3s var(--easing-smooth);
+}
+
+.hover-float:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+.hover-scale-rotate {
+    transition: transform 0.5s ease;
+}
+
+.hover-scale-rotate:hover {
+    transform: scale(1.05) rotate(3deg);
+}
+
+.hover-brightness {
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.hover-brightness:hover {
+    filter: brightness(1.1) contrast(1.1);
+    transform: scale(1.02);
+}
+
+/* Invite button color cycle (replaces js/script.js) */
+.anim-color-cycle {
+    animation: color-cycle 14s ease-in-out infinite;
+}
+
+@keyframes color-cycle {
+    0%,
+    12.8571% {
+        background-color: var(--primary);
+    }
+    14.2857%,
+    27.1429% {
+        background-color: var(--secondary);
+    }
+    28.5714%,
+    41.4286% {
+        background-color: var(--accent);
+    }
+    42.8571%,
+    55.7143% {
+        background-color: var(--info);
+    }
+    57.1429%,
+    70% {
+        background-color: var(--success);
+    }
+    71.4286%,
+    84.2857% {
+        background-color: var(--warning);
+    }
+    85.7143%,
+    98.5714% {
+        background-color: var(--error);
+    }
+    100% {
+        background-color: var(--primary);
+    }
+}
